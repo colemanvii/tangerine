@@ -336,7 +336,7 @@
             <br />
             A small light, kept warm.
             <br />
-            <em>ex</em> — from the source.
+            <em>ex</em> — e fonte.
           </p>
           <p class="whisper" style="color: rgba(233,230,223,.74); font-size: 15px;">
             Enter quietly. Look slowly. Leave with something true.
@@ -346,9 +346,9 @@
         <footer class="bottom">
           <div class="tiny">© <span id="y"></span> • a veiled room on the internet</div>
           <nav class="links" aria-label="links">
-            <a href="#" id="enter">enter</a>
-            <a href="#" id="note">leave a note</a>
-            <a href="#" id="return">return</a>
+            <a href="#" id="enter">step in</a>
+            <a href="#" id="note">leave a mark</a>
+            <a href="#" id="return">close</a>
           </nav>
         </footer>
       </div>
@@ -409,7 +409,7 @@
     document.getElementById('enter').addEventListener('click', (e) => {
       e.preventDefault();
       setWhisper(
-        'A door that doesn\'t announce itself.<br/>A room that holds its temperature.<br/><em>ex</em> — from the source.',
+        'A door that doesn't announce itself.<br/>A room that holds its temperature.<br/><em>ex</em> — e fonte.',
         'If you feel the quiet, you\'re already inside.'
       );
     });
@@ -425,7 +425,7 @@
     document.getElementById('return').addEventListener('click', (e) => {
       e.preventDefault();
       setWhisper(
-        'Not a brand. A provenance.<br/>A small light, kept warm.<br/><em>ex</em> — from the source.',
+        'Not a brand. A provenance.<br/>A small light, kept warm.<br/><em>ex</em> — e fonte.',
         'Enter quietly. Look slowly. Leave with something true.'
       );
     });
