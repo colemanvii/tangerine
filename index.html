@@ -1,4 +1,4 @@
-<!-- tangerine/index.html — updated, single file, NO “tap the veil” -->
+<!-- tangerine/index.html — rebuilt (bolder, cinematic, less empty, still minimal) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,20 +12,23 @@
       --bg:#070708;
       --fg:rgba(255,255,255,.88);
       --muted:rgba(255,255,255,.52);
-      --hair:rgba(255,255,255,.09);
-      --hair2:rgba(255,255,255,.05);
-      --pilot:#ff6a00;
+      --hair:rgba(255,255,255,.10);
+      --hair2:rgba(255,255,255,.06);
+
+      --orange:#ff6a00;
+      --orange2:#ff9a3d;
 
       --mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
       --sans: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       --serif: ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     }
+
     [data-theme="light"]{
       --bg:#f6f3ee;
       --fg:rgba(0,0,0,.82);
-      --muted:rgba(0,0,0,.5);
-      --hair:rgba(0,0,0,.1);
-      --hair2:rgba(0,0,0,.06);
+      --muted:rgba(0,0,0,.50);
+      --hair:rgba(0,0,0,.12);
+      --hair2:rgba(0,0,0,.07);
     }
 
     *{box-sizing:border-box}
@@ -37,15 +40,28 @@
       font-family:var(--sans);
       overflow-x:hidden;
     }
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline;text-underline-offset:3px}
 
     /* atmosphere */
+    .vignette{
+      position:fixed; inset:-20%;
+      pointer-events:none; z-index:0;
+      background:
+        radial-gradient(60vw 40vw at 18% 12%, rgba(255,106,0,.22), transparent 62%),
+        radial-gradient(70vw 55vw at 75% 20%, rgba(255,255,255,.05), transparent 70%),
+        radial-gradient(100vw 80vw at 60% 85%, rgba(0,0,0,.92), transparent 70%);
+      filter: blur(22px) saturate(115%);
+      opacity:.95;
+    }
+
     .grid{
       position:fixed; inset:0; pointer-events:none; z-index:0;
       background:
         linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
       background-size:160px 160px;
-      opacity:.10;
+      opacity:.08;
     }
     [data-theme="light"] .grid{
       background:
@@ -53,37 +69,31 @@
         linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);
       opacity:.10;
     }
+
     .grain{
       position:fixed; inset:0; pointer-events:none; z-index:0;
       opacity:.16; mix-blend-mode:overlay;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       background-size:220px 220px;
     }
-    .aura{
-      position:fixed; inset:-35vh -30vw; pointer-events:none; z-index:0;
-      background:
-        radial-gradient(62vw 48vw at 18% 18%, rgba(255,106,0,.14), transparent 62%),
-        radial-gradient(70vw 60vw at 70% 35%, rgba(255,255,255,.035), transparent 65%),
-        radial-gradient(80vw 70vw at 92% 90%, rgba(0,0,0,.92), transparent 72%);
-      filter: blur(18px) saturate(115%);
-      opacity:.95;
-    }
 
+    /* layout */
     .wrap{
       position:relative; z-index:1;
-      max-width:1180px;
+      max-width:1200px;
       margin:0 auto;
-      padding: 28px 22px 92px;
+      padding: 26px 22px 86px;
       min-height:100%;
+      display:flex;
+      flex-direction:column;
     }
 
     header{
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
-      gap:16px;
+      gap:14px;
       flex-wrap:wrap;
-      margin-bottom: 34px;
     }
 
     .brand{
@@ -93,10 +103,9 @@
       letter-spacing:-.6px;
       line-height:1;
     }
-
     .pilot{
-      width:9px; height:9px; border-radius:50%;
-      background:var(--pilot);
+      width:9px;height:9px;border-radius:50%;
+      background:var(--orange);
       box-shadow: 0 0 0 9px rgba(255,106,0,.12);
       transform: translateY(1px);
     }
@@ -115,66 +124,91 @@
       padding:7px 11px;
       background: color-mix(in srgb, rgba(255,255,255,.03) 70%, transparent);
       user-select:none;
+      cursor:pointer;
     }
-    .btn{cursor:pointer}
 
-    /* veil */
+    /* center stage */
+    .stage{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 26px 0;
+    }
+
     .veil{
-      max-width: 980px;
-      margin-top: 10px;
-      border-radius: 26px;
+      width:min(1040px, 100%);
+      border-radius: 30px;
       border: 1px solid color-mix(in srgb, var(--hair2) 70%, transparent);
       background:
-        linear-gradient(180deg, rgba(255,255,255,.03), transparent 60%),
-        radial-gradient(1200px 520px at 16% 8%, rgba(255,106,0,.08), transparent 62%),
-        radial-gradient(900px 520px at 86% 18%, rgba(255,255,255,.03), transparent 66%);
-      box-shadow: 0 26px 120px rgba(0,0,0,.55);
-      overflow:hidden;
+        linear-gradient(180deg, rgba(255,255,255,.035), transparent 62%),
+        radial-gradient(1200px 520px at 14% 10%, rgba(255,106,0,.12), transparent 62%),
+        radial-gradient(900px 520px at 86% 18%, rgba(255,255,255,.05), transparent 70%);
+      box-shadow:
+        0 26px 140px rgba(0,0,0,.62),
+        inset 0 1px 0 rgba(255,255,255,.06);
       position:relative;
-      padding: clamp(22px, 4vw, 46px);
-      backdrop-filter: blur(6px);
+      overflow:hidden;
+      padding: clamp(22px, 4.4vw, 56px);
+      backdrop-filter: blur(8px);
     }
 
+    /* slow moving light across veil */
     .veil:before{
       content:"";
-      position:absolute; inset:-40% -30%;
-      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.06) 50%, transparent 65%);
-      transform: rotate(10deg);
+      position:absolute; inset:-40% -35%;
+      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.08) 50%, transparent 65%);
+      transform: rotate(10deg) translateX(-8%);
       opacity:.10;
-      animation: sweep 14s ease-in-out infinite;
+      animation: sweep 16s ease-in-out infinite;
       pointer-events:none;
     }
     @keyframes sweep{
-      0%,100%{ transform: translateX(-10%) rotate(10deg); opacity:.07; }
-      50%{ transform: translateX(10%) rotate(10deg); opacity:.12; }
+      0%,100%{ transform: rotate(10deg) translateX(-10%); opacity:.07; }
+      50%{ transform: rotate(10deg) translateX(10%); opacity:.12; }
     }
     @media (prefers-reduced-motion: reduce){
       .veil:before{animation:none}
     }
 
+    .topline{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
     .title{
       font-family:var(--serif);
-      font-size: clamp(56px, 8vw, 96px);
+      font-size: clamp(62px, 7.6vw, 104px);
       letter-spacing:-1px;
       line-height:.92;
       margin:0;
     }
-    .sub{
+
+    .subtitle{
       font-family:var(--mono);
       font-size:11px;
-      letter-spacing:1.8px;
+      letter-spacing:1.9px;
       text-transform:uppercase;
       color:var(--muted);
       margin-top:10px;
+    }
+
+    .rule{
+      height:1px;
+      background: linear-gradient(to right, transparent, var(--hair), transparent);
+      opacity:.85;
+      margin: 22px 0 18px;
     }
 
     .sigils{
       display:grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
       gap:12px;
-      margin-top: 26px;
     }
-    @media (max-width: 900px){
+    @media (max-width: 920px){
       .sigils{grid-template-columns:1fr}
     }
 
@@ -182,12 +216,19 @@
       border-radius: 18px;
       border: 1px solid var(--hair2);
       background: rgba(255,255,255,.02);
-      padding: 14px 14px;
+      padding: 16px 16px;
       display:flex;
       justify-content:space-between;
       align-items:center;
       gap: 14px;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
     }
+    .sig:hover{
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--orange) 22%, var(--hair2));
+      background: color-mix(in srgb, rgba(255,255,255,.03) 70%, transparent);
+    }
+
     .meta{
       font-family:var(--mono);
       font-size:11px;
@@ -200,10 +241,10 @@
       white-space:nowrap;
     }
     .dot{
-      width:7px; height:7px; border-radius:50%;
-      background:var(--pilot);
+      width:7px;height:7px;border-radius:50%;
+      background:var(--orange);
       box-shadow: 0 0 0 8px rgba(255,106,0,.10);
-      flex: 0 0 auto;
+      flex:0 0 auto;
     }
     .name{
       font-family:var(--mono);
@@ -214,62 +255,75 @@
       opacity:.92;
     }
 
-    /* asymmetry (quietly) */
-    .sig:nth-child(2){ transform: translateY(10px); opacity:.88; }
-    .sig:nth-child(3){ transform: translateX(-8px); opacity:.80; }
+    /* a touch of asymmetry, but controlled */
+    .sig:nth-child(2){ transform: translateY(10px); opacity:.90; }
+    .sig:nth-child(3){ transform: translateX(-8px); opacity:.82; }
+    .sig:nth-child(2):hover{ transform: translateY(8px); }
+    .sig:nth-child(3):hover{ transform: translateX(-8px) translateY(-2px); opacity:.92; }
 
     footer{
-      position:absolute;
-      left:22px; right:22px; bottom:30px;
-      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
       font-family:var(--mono);
       font-size:11px;
       letter-spacing:1.3px;
       text-transform:uppercase;
       color:var(--muted);
       opacity:.85;
+      padding-top: 18px;
+    }
+
+    @media (max-width:520px){
+      .brand{font-size:32px}
     }
   </style>
 </head>
 
 <body>
-  <div class="aura"></div>
+  <div class="vignette"></div>
   <div class="grid"></div>
   <div class="grain"></div>
 
   <div class="wrap">
     <header>
-      <div class="brand">
-        <span class="pilot" aria-hidden="true"></span>
-        Tangerine
-      </div>
-
+      <div class="brand"><span class="pilot" aria-hidden="true"></span>Tangerine</div>
       <div class="ui">
-        <span class="chip btn" id="toggle">Light</span>
+        <span class="chip" id="toggle">Light</span>
       </div>
     </header>
 
-    <main class="veil" role="group" aria-label="Tangerine">
-      <h1 class="title">Tangerine</h1>
-      <div class="sub">Motion, slowly</div>
-
-      <section class="sigils" aria-label="Sigils">
-        <div class="sig">
-          <div class="meta"><span class="dot" aria-hidden="true"></span> now</div>
-          <div class="name">GIRL</div>
+    <div class="stage">
+      <main class="veil" aria-label="Tangerine">
+        <div class="topline">
+          <div>
+            <h1 class="title">Tangerine</h1>
+            <div class="subtitle">Motion, slowly</div>
+          </div>
         </div>
 
-        <div class="sig">
-          <div class="meta"><span class="dot" aria-hidden="true"></span> next</div>
-          <div class="name">MONK</div>
-        </div>
+        <div class="rule" aria-hidden="true"></div>
 
-        <div class="sig">
-          <div class="meta"><span class="dot" aria-hidden="true"></span> always</div>
-          <div class="name">CONTINUUM</div>
-        </div>
-      </section>
-    </main>
+        <section class="sigils" aria-label="Chapters">
+          <!-- set hrefs when ready -->
+          <a class="sig" href="#" aria-label="Now — Girl">
+            <div class="meta"><span class="dot" aria-hidden="true"></span> now</div>
+            <div class="name">GIRL</div>
+          </a>
+
+          <a class="sig" href="#" aria-label="Next — Monk">
+            <div class="meta"><span class="dot" aria-hidden="true"></span> next</div>
+            <div class="name">MONK</div>
+          </a>
+
+          <a class="sig" href="#" aria-label="Always — Continuum">
+            <div class="meta"><span class="dot" aria-hidden="true"></span> always</div>
+            <div class="name">CONTINUUM</div>
+          </a>
+        </section>
+      </main>
+    </div>
 
     <footer>
       <span>© <span id="y"></span> tangerine</span>
