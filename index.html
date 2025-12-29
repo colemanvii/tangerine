@@ -3,399 +3,412 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Tangerine — a small light, kept warm." />
-  <meta name="theme-color" content="#0b0b0c" />
-
+  <meta name="description" content="Tangerine" />
+  <meta name="theme-color" content="#070708" />
   <title>Tangerine</title>
 
-  <!-- Type: elegant serif + clean UI sans (system-friendly, no external deps) -->
   <style>
     :root{
-      --bg: #0b0b0c;
-      --panel: rgba(255,255,255,0.03);
-      --text: rgba(255,255,255,0.86);
-      --muted: rgba(255,255,255,0.58);
-      --hair: rgba(255,255,255,0.10);
-      --hair2: rgba(255,255,255,0.06);
-      --accent: #ff6a00; /* tangerine pilot light */
-      --shadow: 0 18px 60px rgba(0,0,0,0.55);
-      --radius: 22px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-      --max: 980px;
+      --bg:#070708;
+      --fg:rgba(255,255,255,.86);
+      --muted:rgba(255,255,255,.56);
+      --hair:rgba(255,255,255,.10);
+      --hair2:rgba(255,255,255,.06);
+      --panel:rgba(255,255,255,.035);
+      --panel2:rgba(255,255,255,.02);
+      --accent:#ff6a00; /* pilot light */
+      --shadow: 0 30px 120px rgba(0,0,0,.55);
+      --r:26px;
+      --max:980px;
+
+      --mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      --sans: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      --serif: ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     }
 
     [data-theme="light"]{
-      --bg: #f7f4ef;
-      --panel: rgba(0,0,0,0.03);
-      --text: rgba(0,0,0,0.82);
-      --muted: rgba(0,0,0,0.55);
-      --hair: rgba(0,0,0,0.12);
-      --hair2: rgba(0,0,0,0.06);
-      --shadow: 0 18px 60px rgba(0,0,0,0.10);
-      --accent: #ff6a00;
+      --bg:#f7f4ef;
+      --fg:rgba(0,0,0,.82);
+      --muted:rgba(0,0,0,.54);
+      --hair:rgba(0,0,0,.12);
+      --hair2:rgba(0,0,0,.07);
+      --panel:rgba(0,0,0,.035);
+      --panel2:rgba(0,0,0,.02);
+      --shadow: 0 30px 120px rgba(0,0,0,.12);
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      letter-spacing: 0.2px;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:var(--sans);
       overflow-x:hidden;
     }
 
-    /* Subtle “Haven” textures */
-    .grain, .scanlines{
-      position: fixed;
-      inset: 0;
-      pointer-events:none;
-      z-index: 0;
-      opacity: 0.35;
-      mix-blend-mode: overlay;
+    /* ---- Mystical atmosphere: aura + star-grain + slow shimmer ---- */
+    .aura{
+      position:fixed; inset:-30vh -20vw;
+      pointer-events:none; z-index:0;
+      background:
+        radial-gradient(60vw 40vw at 20% 20%, rgba(255,106,0,.09), transparent 60%),
+        radial-gradient(55vw 45vw at 80% 30%, rgba(255,255,255,.05), transparent 62%),
+        radial-gradient(70vw 55vw at 40% 85%, rgba(255,106,0,.06), transparent 65%);
+      filter: blur(18px) saturate(115%);
+      opacity:.95;
+      animation: drift 18s ease-in-out infinite;
     }
-    .grain{
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      background-size: 220px 220px;
-      filter: contrast(120%) brightness(105%);
+    [data-theme="light"] .aura{
+      background:
+        radial-gradient(60vw 40vw at 20% 20%, rgba(255,106,0,.10), transparent 60%),
+        radial-gradient(55vw 45vw at 80% 30%, rgba(0,0,0,.05), transparent 62%),
+        radial-gradient(70vw 55vw at 40% 85%, rgba(255,106,0,.07), transparent 65%);
+      opacity:.70;
     }
-    .scanlines{
-      opacity: 0.12;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.10) 0px,
-        rgba(255,255,255,0.10) 1px,
-        rgba(0,0,0,0) 3px,
-        rgba(0,0,0,0) 6px
-      );
-    }
-    [data-theme="light"] .scanlines{
-      opacity: 0.08;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.10) 0px,
-        rgba(0,0,0,0.10) 1px,
-        rgba(0,0,0,0) 3px,
-        rgba(0,0,0,0) 6px
-      );
+    @keyframes drift{
+      0%,100%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(2.5vw,-1.5vh,0) scale(1.03); }
     }
 
-    /* Layout */
+    .stars{
+      position:fixed; inset:0;
+      pointer-events:none; z-index:0;
+      opacity:.35;
+      mix-blend-mode: screen;
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,.16) 0 1px, transparent 2px),
+        radial-gradient(circle at 72% 22%, rgba(255,255,255,.12) 0 1px, transparent 2px),
+        radial-gradient(circle at 28% 64%, rgba(255,255,255,.10) 0 1px, transparent 2px),
+        radial-gradient(circle at 84% 78%, rgba(255,255,255,.10) 0 1px, transparent 2px),
+        radial-gradient(circle at 55% 52%, rgba(255,255,255,.08) 0 1px, transparent 2px);
+      background-size: 420px 420px;
+      animation: twinkle 10s ease-in-out infinite;
+      filter: blur(.2px);
+    }
+    @keyframes twinkle{
+      0%,100%{ opacity:.26; transform: translateY(0); }
+      50%{ opacity:.40; transform: translateY(-3px); }
+    }
+    [data-theme="light"] .stars{
+      mix-blend-mode: multiply;
+      opacity:.18;
+    }
+
+    .grain{
+      position:fixed; inset:0;
+      pointer-events:none; z-index:0;
+      opacity:.22;
+      mix-blend-mode: overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-size:220px 220px;
+      filter: contrast(115%) brightness(105%);
+    }
+
     .wrap{
-      position: relative;
-      z-index: 1;
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 28px 18px 80px;
-      min-height: 100%;
+      position:relative; z-index:1;
+      max-width:var(--max);
+      margin:0 auto;
+      padding: 28px 18px 84px;
+      min-height:100%;
       display:flex;
       flex-direction:column;
-      gap: 18px;
+      gap:18px;
     }
 
     header{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 12px;
       padding: 10px 6px;
     }
-
-    .sig{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-    }
+    .sig{display:flex; align-items:center; gap:10px;}
     .pilot{
-      width: 9px; height: 9px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(255,106,0,0.08), 0 0 18px rgba(255,106,0,0.30);
+      width:9px; height:9px; border-radius:999px; background:var(--accent);
+      box-shadow: 0 0 0 7px rgba(255,106,0,.07), 0 0 26px rgba(255,106,0,.24);
       transform: translateY(1px);
     }
     .domain{
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.6px;
-      text-transform: lowercase;
-    }
-
-    .controls{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.7px;
+      text-transform:lowercase;
     }
 
     .toggle{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 8px 12px;
-      border: 1px solid var(--hair);
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--panel) 90%, transparent);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-      cursor:pointer;
-      user-select:none;
-      transition: transform .2s ease, border-color .2s ease;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border:1px solid var(--hair);
+      border-radius:999px;
+      background: color-mix(in srgb, var(--panel) 88%, transparent);
+      box-shadow: 0 14px 48px rgba(0,0,0,.16);
+      cursor:pointer; user-select:none;
+      font-family:var(--mono); font-size:12px; color:var(--muted);
+      transition: transform .18s ease, border-color .18s ease;
     }
-    .toggle:hover{ transform: translateY(-1px); border-color: var(--hair); }
-    .switch{
-      width: 36px; height: 20px;
-      border-radius: 999px;
-      border: 1px solid var(--hair);
-      background: rgba(255,255,255,0.04);
-      position: relative;
-      overflow:hidden;
+    .toggle:hover{ transform: translateY(-1px); border-color: color-mix(in srgb, var(--accent) 18%, var(--hair)); }
+    .switch{ width:36px; height:20px; border-radius:999px; border:1px solid var(--hair); position:relative; overflow:hidden;
+      background: rgba(255,255,255,.04);
     }
-    [data-theme="light"] .switch{ background: rgba(0,0,0,0.04); }
-    .knob{
-      width: 16px; height: 16px;
-      border-radius: 999px;
-      background: var(--text);
-      position:absolute;
-      top: 1px; left: 1px;
-      transition: left .2s ease;
-      opacity: 0.9;
+    [data-theme="light"] .switch{ background: rgba(0,0,0,.04); }
+    .knob{ width:16px; height:16px; border-radius:999px; background:var(--fg);
+      position:absolute; top:1px; left:1px; transition:left .2s ease; opacity:.9;
     }
-    [data-theme="light"] .knob{ background: rgba(0,0,0,0.75); }
-    [data-theme="light"] .knob{ left: 19px; }
+    [data-theme="light"] .knob{ background: rgba(0,0,0,.75); left:19px; }
 
-    /* Main card */
-    .card{
+    /* Main “veil” */
+    .veil{
       margin-top: 10px;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--panel), transparent);
+      border-radius: var(--r);
       border: 1px solid var(--hair2);
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--panel) 95%, transparent), transparent 58%),
+        radial-gradient(1200px 420px at 15% 10%, rgba(255,106,0,.06), transparent 60%),
+        radial-gradient(900px 420px at 85% 15%, rgba(255,255,255,.04), transparent 62%);
       box-shadow: var(--shadow);
       overflow:hidden;
+      position:relative;
     }
+    .veil:before{
+      /* faint shimmer line */
+      content:"";
+      position:absolute; inset:-40% -30%;
+      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.06) 50%, transparent 65%);
+      transform: rotate(8deg);
+      opacity:.22;
+      animation: sweep 12s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes sweep{
+      0%,100%{ transform: translateX(-8%) rotate(8deg); opacity:.10; }
+      50%{ transform: translateX(8%) rotate(8deg); opacity:.22; }
+    }
+    [data-theme="light"] .veil:before{ opacity:.14; }
 
-    .card-inner{
-      padding: clamp(22px, 4vw, 44px);
+    .in{
+      padding: clamp(26px, 4.5vw, 52px);
       display:grid;
-      grid-template-columns: 1fr;
-      gap: 22px;
+      gap: 18px;
     }
 
-    .label-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
+    .topline{
+      display:flex; align-items:center; gap:12px;
       padding-bottom: 14px;
       border-bottom: 1px solid var(--hair2);
     }
-
-    .label{
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      display:flex;
-      align-items:center;
-      gap: 10px;
+    .lbl{
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      color:var(--muted);
+      white-space:nowrap;
     }
     .rule{
-      flex:1;
-      height:1px;
+      flex:1; height:1px;
       background: linear-gradient(to right, transparent, var(--hair), transparent);
-      opacity: .55;
+      opacity:.55;
     }
 
     h1{
-      font-family: var(--serif);
-      font-size: clamp(42px, 6vw, 72px);
+      margin:0;
+      font-family:var(--serif);
+      font-size: clamp(52px, 8vw, 92px);
       font-weight: 560;
-      margin: 0;
-      line-height: 0.98;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.8px;
+      line-height: .92;
     }
-
     .sub{
-      font-family: var(--sans);
-      font-size: 14px;
+      font-family: var(--mono);
+      font-size:12px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
       color: var(--muted);
-      letter-spacing: 0.4px;
       margin-top: 6px;
-      text-transform: lowercase;
     }
 
-    .copy{
-      font-family: var(--serif);
-      font-size: clamp(18px, 2.3vw, 22px);
-      line-height: 1.55;
-      letter-spacing: 0.1px;
-      max-width: 56ch;
-      margin: 0;
-    }
-    .copy .muted{ color: var(--muted); font-family: var(--sans); font-size: 14px; }
-
-    .poem{
-      margin: 0;
-      padding: 0;
-      list-style:none;
+    /* Mystical “signal system” modules */
+    .grid{
       display:grid;
-      gap: 10px;
-      max-width: 60ch;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 10px;
     }
-    .poem li{
-      padding-left: 14px;
-      position: relative;
+    @media (max-width: 780px){ .grid{ grid-template-columns: 1fr; } }
+
+    .module{
+      border-radius: 18px;
+      border: 1px solid var(--hair2);
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      padding: 14px 14px 12px;
+      transition: transform .18s ease, border-color .18s ease;
     }
-    .poem li:before{
-      content:"";
-      width: 6px; height: 6px;
+    .module:hover{
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--accent) 18%, var(--hair2));
+    }
+    .k{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom: 10px;
+    }
+    .kL{
+      display:flex; align-items:center; gap:10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .dot{
+      width:7px; height:7px; border-radius:999px;
+      background: color-mix(in srgb, var(--accent) 68%, transparent);
+      box-shadow: 0 0 0 7px rgba(255,106,0,.06);
+      opacity:.95;
+    }
+    .badge{
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      border: 1px solid var(--hair2);
+      padding: 6px 10px;
       border-radius: 999px;
-      background: color-mix(in srgb, var(--accent) 50%, transparent);
-      position:absolute;
-      left: 0;
-      top: 0.62em;
-      opacity: 0.9;
+      background: color-mix(in srgb, var(--panel) 85%, transparent);
+    }
+    .title{
+      margin:0;
+      font-family: var(--serif);
+      font-size: 20px;
+      letter-spacing: -0.2px;
+      line-height: 1.12;
     }
 
-    .actions{
+    /* Zero-fluff “door” */
+    .door{
+      margin-top: 10px;
       display:flex;
+      gap:10px;
       flex-wrap:wrap;
-      gap: 10px;
-      padding-top: 10px;
     }
     a.btn{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
+      display:inline-flex; align-items:center; gap:10px;
       padding: 11px 14px;
       border-radius: 999px;
       border: 1px solid var(--hair);
-      background: color-mix(in srgb, var(--panel) 92%, transparent);
-      color: var(--text);
+      background: color-mix(in srgb, var(--panel) 90%, transparent);
+      color: var(--fg);
       text-decoration:none;
       font-family: var(--mono);
       font-size: 12px;
-      letter-spacing: 0.8px;
+      letter-spacing: .9px;
       text-transform: uppercase;
       transition: transform .18s ease, border-color .18s ease;
     }
-    a.btn:hover{ transform: translateY(-1px); border-color: color-mix(in srgb, var(--accent) 35%, var(--hair)); }
+    a.btn:hover{
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--accent) 28%, var(--hair));
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
     a.btn.primary{
       border-color: color-mix(in srgb, var(--accent) 35%, var(--hair));
-      box-shadow: 0 18px 50px rgba(255,106,0,0.10);
+      box-shadow: 0 18px 60px rgba(255,106,0,.10);
     }
 
     footer{
-      margin-top: auto;
+      margin-top:auto;
       padding: 22px 6px 0;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
       color: var(--muted);
       font-family: var(--mono);
       font-size: 12px;
-      display:flex;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap:wrap;
-    }
-    .fine{
-      opacity: 0.85;
+      opacity: .85;
     }
 
-    /* Gentle entrance (Haven cadence) */
-    .fade-in{
-      opacity: 0;
-      transform: translateY(8px);
+    /* Gentle entrance (slow) */
+    .fade{
+      opacity:0;
+      transform: translateY(10px);
       animation: in .9s ease forwards;
     }
-    .d2{ animation-delay: .08s }
-    .d3{ animation-delay: .16s }
-    .d4{ animation-delay: .24s }
-    @keyframes in{
-      to{ opacity: 1; transform: translateY(0); }
-    }
+    .d2{ animation-delay: .10s }
+    .d3{ animation-delay: .20s }
+    .d4{ animation-delay: .30s }
+    @keyframes in{ to{ opacity:1; transform: translateY(0); } }
   </style>
 </head>
 
 <body>
+  <div class="aura"></div>
+  <div class="stars"></div>
   <div class="grain"></div>
-  <div class="scanlines"></div>
 
   <div class="wrap">
     <header>
       <div class="sig">
         <span class="pilot" aria-hidden="true"></span>
-        <div class="domain">ex.tangerina</div>
+        <div class="domain">tangerine</div>
       </div>
 
-      <div class="controls">
-        <div class="toggle" id="themeToggle" role="button" aria-label="Toggle theme">
-          <span id="themeLabel">Dark</span>
-          <span class="switch" aria-hidden="true"><span class="knob"></span></span>
-        </div>
+      <div class="toggle" id="themeToggle" role="button" aria-label="Toggle theme">
+        <span id="themeLabel">Dark</span>
+        <span class="switch" aria-hidden="true"><span class="knob"></span></span>
       </div>
     </header>
 
-    <main class="card fade-in">
-      <div class="card-inner">
-        <div class="label-row fade-in d2">
-          <div class="label">mobile card</div>
+    <main class="veil fade">
+      <div class="in">
+        <div class="topline fade d2">
+          <div class="lbl">veil</div>
           <div class="rule" aria-hidden="true"></div>
-          <div class="label">issued from within</div>
+          <div class="lbl">warm</div>
         </div>
 
-        <section class="fade-in d3">
+        <section class="fade d3">
           <h1>Tangerine</h1>
-          <div class="sub">art, in progress</div>
+          <div class="sub">motion, slowly</div>
         </section>
 
-        <!-- Your exact copy, preserved -->
-        <section class="fade-in d4">
-          <p class="copy">Not a brand.<br/>A provenance.</p>
+        <section class="grid fade d4" aria-label="Now Next Always">
+          <div class="module">
+            <div class="k">
+              <div class="kL"><span class="dot"></span> now</div>
+              <span class="badge">prod</span>
+            </div>
+            <p class="title">The Girl + the Machine</p>
+          </div>
 
-          <ul class="poem" aria-label="Tangerine statement">
-            <li>A small light,</li>
-            <li>kept warm.</li>
-          </ul>
+          <div class="module">
+            <div class="k">
+              <div class="kL"><span class="dot"></span> next</div>
+              <span class="badge">forming</span>
+            </div>
+            <p class="title">Monk</p>
+          </div>
 
-          <ul class="poem" aria-label="Instructions">
-            <li>Enter quietly.</li>
-            <li>Look slowly.</li>
-            <li>Leave with something true.</li>
-          </ul>
-
-          <p class="copy"><span class="muted">— a veiled room on the internet</span></p>
-
-          <!-- Optional: Keep CTAs minimal. Replace hrefs when ready. -->
-          <div class="actions">
-            <a class="btn primary" href="#enter" onclick="softScroll(event,'enter')">Enter</a>
-            <a class="btn" href="#" onclick="return false;" aria-disabled="true">Watch (soon)</a>
+          <div class="module">
+            <div class="k">
+              <div class="kL"><span class="dot"></span> always</div>
+              <span class="badge">archive</span>
+            </div>
+            <p class="title">The Continuum</p>
           </div>
         </section>
 
-        <!-- A quiet “room behind the door” -->
-        <section id="enter" style="padding-top:6px">
-          <div class="label" style="margin-bottom:10px">room notes</div>
-          <p class="copy" style="max-width:64ch">
-            Motion pictures, slowly made.<br/>
-            Signal over spectacle. Radiant heat over noise.
-          </p>
-        </section>
+        <nav class="door">
+          <a class="btn primary" href="#" onclick="return false;">Enter</a>
+          <a class="btn" href="#" onclick="return false;">Watch</a>
+        </nav>
       </div>
     </main>
 
     <footer>
-      <div class="fine">© <span id="y"></span> Tangerine</div>
-      <div class="fine">signal-not-spectacle</div>
+      <div>© <span id="y"></span> tangerine</div>
+      <div>signal</div>
     </footer>
   </div>
 
   <script>
-    // Theme: persist preference
     const root = document.documentElement;
     const key = "tangerine-theme";
     const saved = localStorage.getItem(key);
@@ -405,7 +418,7 @@
       root.setAttribute("data-theme", mode);
       localStorage.setItem(key, mode);
       document.getElementById("themeLabel").textContent = (mode === "light") ? "Light" : "Dark";
-      document.querySelector('meta[name="theme-color"]').setAttribute("content", (mode==="light") ? "#f7f4ef" : "#0b0b0c");
+      document.querySelector('meta[name="theme-color"]').setAttribute("content", (mode==="light") ? "#f7f4ef" : "#070708");
     }
 
     setTheme(saved || (prefersLight ? "light" : "dark"));
@@ -416,14 +429,6 @@
     });
 
     document.getElementById("y").textContent = new Date().getFullYear();
-
-    function softScroll(e, id){
-      e.preventDefault();
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-    window.softScroll = softScroll;
   </script>
 </body>
 </html>
