@@ -1,4 +1,4 @@
-<!-- tangerine/index.html — single file, no external CSS -->
+<!-- tangerine/index.html — updated, single file, NO “tap the veil” -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -218,16 +218,6 @@
     .sig:nth-child(2){ transform: translateY(10px); opacity:.88; }
     .sig:nth-child(3){ transform: translateX(-8px); opacity:.80; }
 
-    .hint{
-      margin-top: 16px;
-      font-family:var(--mono);
-      font-size:10px;
-      letter-spacing:2.2px;
-      text-transform:uppercase;
-      color:var(--muted);
-      opacity:.28;
-    }
-
     footer{
       position:absolute;
       left:22px; right:22px; bottom:30px;
@@ -265,22 +255,20 @@
 
       <section class="sigils" aria-label="Sigils">
         <div class="sig">
-          <div class="meta"><span class="dot"></span> now</div>
+          <div class="meta"><span class="dot" aria-hidden="true"></span> now</div>
           <div class="name">GIRL</div>
         </div>
 
         <div class="sig">
-          <div class="meta"><span class="dot"></span> next</div>
+          <div class="meta"><span class="dot" aria-hidden="true"></span> next</div>
           <div class="name">MONK</div>
         </div>
 
         <div class="sig">
-          <div class="meta"><span class="dot"></span> always</div>
+          <div class="meta"><span class="dot" aria-hidden="true"></span> always</div>
           <div class="name">CONTINUUM</div>
         </div>
       </section>
-
-      <div class="hint">tap the veil</div>
     </main>
 
     <footer>
