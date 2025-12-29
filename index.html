@@ -1,93 +1,315 @@
-<!-- tangerine/index.html — FINAL PASS -->
+<!-- tangerine/index.html — single file, no external CSS -->
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="theme-color" content="#070708" />
+  <meta name="theme-color" content="#070708"/>
   <title>Tangerine</title>
 
-  <!-- paste tokens.css into /tokens.css or inline it here -->
-  <link rel="stylesheet" href="./tokens.css"/>
-
   <style>
-    a{color:inherit}
-    .dot{color:var(--pilot-orange)}
-    @media (max-width:900px){
-      .tri{grid-template-columns:1fr !important}
+    :root{
+      --bg:#070708;
+      --fg:rgba(255,255,255,.88);
+      --muted:rgba(255,255,255,.52);
+      --hair:rgba(255,255,255,.09);
+      --hair2:rgba(255,255,255,.05);
+      --pilot:#ff6a00;
+
+      --mono: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      --sans: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      --serif: ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    }
+    [data-theme="light"]{
+      --bg:#f6f3ee;
+      --fg:rgba(0,0,0,.82);
+      --muted:rgba(0,0,0,.5);
+      --hair:rgba(0,0,0,.1);
+      --hair2:rgba(0,0,0,.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:var(--sans);
+      overflow-x:hidden;
+    }
+
+    /* atmosphere */
+    .grid{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size:160px 160px;
+      opacity:.10;
+    }
+    [data-theme="light"] .grid{
+      background:
+        linear-gradient(to right, rgba(0,0,0,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);
+      opacity:.10;
+    }
+    .grain{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      opacity:.16; mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-size:220px 220px;
+    }
+    .aura{
+      position:fixed; inset:-35vh -30vw; pointer-events:none; z-index:0;
+      background:
+        radial-gradient(62vw 48vw at 18% 18%, rgba(255,106,0,.14), transparent 62%),
+        radial-gradient(70vw 60vw at 70% 35%, rgba(255,255,255,.035), transparent 65%),
+        radial-gradient(80vw 70vw at 92% 90%, rgba(0,0,0,.92), transparent 72%);
+      filter: blur(18px) saturate(115%);
+      opacity:.95;
+    }
+
+    .wrap{
+      position:relative; z-index:1;
+      max-width:1180px;
+      margin:0 auto;
+      padding: 28px 22px 92px;
+      min-height:100%;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom: 34px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-family:var(--serif);
+      font-size:36px;
+      letter-spacing:-.6px;
+      line-height:1;
+    }
+
+    .pilot{
+      width:9px; height:9px; border-radius:50%;
+      background:var(--pilot);
+      box-shadow: 0 0 0 9px rgba(255,106,0,.12);
+      transform: translateY(1px);
+    }
+
+    .ui{
+      display:flex; gap:12px; align-items:center;
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:1.3px;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .chip{
+      border:1px solid var(--hair);
+      border-radius:999px;
+      padding:7px 11px;
+      background: color-mix(in srgb, rgba(255,255,255,.03) 70%, transparent);
+      user-select:none;
+    }
+    .btn{cursor:pointer}
+
+    /* veil */
+    .veil{
+      max-width: 980px;
+      margin-top: 10px;
+      border-radius: 26px;
+      border: 1px solid color-mix(in srgb, var(--hair2) 70%, transparent);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), transparent 60%),
+        radial-gradient(1200px 520px at 16% 8%, rgba(255,106,0,.08), transparent 62%),
+        radial-gradient(900px 520px at 86% 18%, rgba(255,255,255,.03), transparent 66%);
+      box-shadow: 0 26px 120px rgba(0,0,0,.55);
+      overflow:hidden;
+      position:relative;
+      padding: clamp(22px, 4vw, 46px);
+      backdrop-filter: blur(6px);
+    }
+
+    .veil:before{
+      content:"";
+      position:absolute; inset:-40% -30%;
+      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.06) 50%, transparent 65%);
+      transform: rotate(10deg);
+      opacity:.10;
+      animation: sweep 14s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes sweep{
+      0%,100%{ transform: translateX(-10%) rotate(10deg); opacity:.07; }
+      50%{ transform: translateX(10%) rotate(10deg); opacity:.12; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .veil:before{animation:none}
+    }
+
+    .title{
+      font-family:var(--serif);
+      font-size: clamp(56px, 8vw, 96px);
+      letter-spacing:-1px;
+      line-height:.92;
+      margin:0;
+    }
+    .sub{
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:1.8px;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    .sigils{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:12px;
+      margin-top: 26px;
+    }
+    @media (max-width: 900px){
+      .sigils{grid-template-columns:1fr}
+    }
+
+    .sig{
+      border-radius: 18px;
+      border: 1px solid var(--hair2);
+      background: rgba(255,255,255,.02);
+      padding: 14px 14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 14px;
+    }
+    .meta{
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:1.6px;
+      text-transform:uppercase;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      white-space:nowrap;
+    }
+    .dot{
+      width:7px; height:7px; border-radius:50%;
+      background:var(--pilot);
+      box-shadow: 0 0 0 8px rgba(255,106,0,.10);
+      flex: 0 0 auto;
+    }
+    .name{
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:var(--fg);
+      opacity:.92;
+    }
+
+    /* asymmetry (quietly) */
+    .sig:nth-child(2){ transform: translateY(10px); opacity:.88; }
+    .sig:nth-child(3){ transform: translateX(-8px); opacity:.80; }
+
+    .hint{
+      margin-top: 16px;
+      font-family:var(--mono);
+      font-size:10px;
+      letter-spacing:2.2px;
+      text-transform:uppercase;
+      color:var(--muted);
+      opacity:.28;
+    }
+
+    footer{
+      position:absolute;
+      left:22px; right:22px; bottom:30px;
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      font-family:var(--mono);
+      font-size:11px;
+      letter-spacing:1.3px;
+      text-transform:uppercase;
+      color:var(--muted);
+      opacity:.85;
     }
   </style>
 </head>
+
 <body>
-<div class="grid-bg"></div><div class="grain"></div>
+  <div class="aura"></div>
+  <div class="grid"></div>
+  <div class="grain"></div>
 
-<!-- darker quadrant + warm aura -->
-<div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:
-  radial-gradient(70% 60% at 18% 22%, rgba(255,106,0,.14), transparent 60%),
-  radial-gradient(70% 70% at 86% 64%, rgba(0,0,0,.92), transparent 66%),
-  radial-gradient(80% 80% at 90% 92%, rgba(0,0,0,.92), transparent 70%);
-"></div>
-
-<div class="wrap">
-  <header>
-    <div class="brand" style="display:flex;gap:10px;align-items:center;">
-      <span style="width:8px;height:8px;border-radius:50%;background:var(--pilot-orange);display:inline-block;"></span>
-      Tangerine
-    </div>
-    <div class="ui">
-      <span class="toggle" id="toggle">Light</span>
-    </div>
-  </header>
-
-  <main style="max-width:860px;margin-top:44px;">
-    <h1 style="font-family:var(--serif);font-size:82px;letter-spacing:-1px;line-height:.92;margin:0 0 8px;">
-      Tangerine
-    </h1>
-    <div style="font-family:var(--mono);font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);">
-      Motion, slowly
-    </div>
-
-    <!-- asymmetry + hush -->
-    <div class="tri" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px;
-      font-family:var(--mono);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--fg);">
-      <div style="opacity:.92;">
-        <span class="dot">●</span> Now — GIRL
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <span class="pilot" aria-hidden="true"></span>
+        Tangerine
       </div>
-      <div style="opacity:.72;transform:translateY(12px);">
-        <span class="dot">●</span> Next — MONK
+
+      <div class="ui">
+        <span class="chip btn" id="toggle">Light</span>
       </div>
-      <div style="opacity:.62;transform:translateX(-8px);">
-        <span class="dot">●</span> Always — CONTINUUM
-      </div>
-    </div>
+    </header>
 
-    <div style="margin-top:44px;font-family:var(--mono);font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted);opacity:.32;">
-      tap the veil
-    </div>
-  </main>
+    <main class="veil" role="group" aria-label="Tangerine">
+      <h1 class="title">Tangerine</h1>
+      <div class="sub">Motion, slowly</div>
 
-  <footer>
-    <span>© <span id="y"></span> tangerine</span>
-    <span>a small light</span>
-  </footer>
-</div>
+      <section class="sigils" aria-label="Sigils">
+        <div class="sig">
+          <div class="meta"><span class="dot"></span> now</div>
+          <div class="name">GIRL</div>
+        </div>
 
-<script>
-const root=document.documentElement;
-const key="tangerine-theme";
-const saved=localStorage.getItem(key);
+        <div class="sig">
+          <div class="meta"><span class="dot"></span> next</div>
+          <div class="name">MONK</div>
+        </div>
 
-function setTheme(m){
-  root.setAttribute("data-theme",m);
-  localStorage.setItem(key,m);
-  document.querySelector('meta[name="theme-color"]').setAttribute("content", m==="light" ? "#f6f3ee" : "#070708");
-  document.getElementById("toggle").textContent = m==="light" ? "Dark" : "Light";
-}
+        <div class="sig">
+          <div class="meta"><span class="dot"></span> always</div>
+          <div class="name">CONTINUUM</div>
+        </div>
+      </section>
 
-setTheme(saved || "dark");
-document.getElementById("toggle").onclick=()=>setTheme(root.getAttribute("data-theme")==="dark"?"light":"dark");
+      <div class="hint">tap the veil</div>
+    </main>
 
-document.getElementById("y").textContent = new Date().getFullYear();
-</script>
+    <footer>
+      <span>© <span id="y"></span> tangerine</span>
+      <span>a small light</span>
+    </footer>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const key  = "tangerine-theme";
+    const saved = localStorage.getItem(key);
+
+    function setTheme(m){
+      root.setAttribute("data-theme", m);
+      localStorage.setItem(key, m);
+      document.querySelector('meta[name="theme-color"]').setAttribute(
+        "content", m === "light" ? "#f6f3ee" : "#070708"
+      );
+      document.getElementById("toggle").textContent = (m === "light") ? "Dark" : "Light";
+    }
+
+    setTheme(saved || "dark");
+    document.getElementById("toggle").addEventListener("click", () => {
+      const cur = root.getAttribute("data-theme") || "dark";
+      setTheme(cur === "dark" ? "light" : "dark");
+    });
+
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
