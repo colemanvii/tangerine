@@ -36,6 +36,10 @@ A builder can begin the record during construction: drawings, field photos, sele
 
 **The builder creates the house. Haven remembers it.**
 
+## Field notes
+
+- [Freeman — Give the house a memory](field-notes/freeman/) — builder handoff concept and proposed one-house pilot.
+
 ## Status
 
 Concept prototype. The interface uses representative data only. No security, device-control, payment, or emergency functionality should be assumed from the prototype.
