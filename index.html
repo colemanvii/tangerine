@@ -1,159 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HAVEN</title>
-  <style>
-    :root {
-      --bg: #f5f4ef;
-      --card: #ece9e1;
-      --text: #24231f;
-      --muted: #8f887d;
-      --line: rgba(36, 35, 31, 0.08);
-      --accent: #c89b67;
-      --radius: 28px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 56px 16px 72px;
-    }
-
-    .card {
-      width: min(520px, 100%);
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 22px 22px 26px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.025);
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 18px;
-    }
-
-    .label,
-    .status {
-      font-size: 10px;
-      line-height: 1;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .status-dot {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      margin-right: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    h1 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      line-height: 1.1;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .subhead {
-      margin: 0 0 20px;
-      font-size: 10px;
-      line-height: 1.4;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    p {
-      margin: 0 0 14px;
-      font-size: 14px;
-      line-height: 1.75;
-      letter-spacing: 0.01em;
-      text-transform: none;
-      font-weight: 400;
-      color: var(--text);
-    }
-
-    .question {
-      margin-top: 20px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: none;
-    }
-
-    @media (max-width: 640px) {
-      body {
-        padding: 28px 14px 40px;
-      }
-
-      .card {
-        padding: 18px 18px 20px;
-        border-radius: 24px;
-        box-shadow: none;
-      }
-
-      p {
-        font-size: 13px;
-        line-height: 1.7;
-      }
-    }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Haven — Home System</title><meta name="description" content="A calm operating system for the home.">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="card">
-    <header class="topbar">
-      <div class="label">HAVEN</div>
-      <div class="status"><span class="status-dot"></span>STATIC</div>
-    </header>
-
-    <h1>FOUNDING DRAFT</h1>
-    <div class="subhead">IN CYBERSPACE AS IT IS IN HEAVEN</div>
-
-    <p>Haven did not begin as a company or a platform. It began as a thought that would not leave.</p>
-
-    <p>For most of human history, the places where people sought truth were built of stone and timber. Cathedrals. Temples. Monasteries. Quiet rooms where a person could sit with their thoughts long enough for something real to appear.</p>
-
-    <p>But the center of life has drifted elsewhere now. Much of it unfolds inside a new territory that has no soil and no sky. We call it cyberspace. It moves quickly, speaks loudly, and rewards whatever captures attention the fastest.</p>
-
-    <p>Meaning rarely survives long in such a place.</p>
-
-    <p>Haven is an attempt to build something different there.</p>
-
-    <p>Not a network for noise. Not another system designed to capture and hold attention. Haven is an attempt to build a quiet structure in the digital world—a place where signal can remain intact, where thought can slow down, and where human presence is not reduced to an algorithm.</p>
-
-    <p>In older centuries people built cathedrals to hold light and silence. Haven asks a simpler question for our own time.</p>
-
-    <p class="question">What would a cathedral of thought look like in cyberspace?</p>
-  </main>
-</body>
-</html>
+<main class="shell">
+  <header class="mast">
+    <div><span class="wordmark">HAVEN</span><span class="micro">SYSTEMS OF AMERICA / HOME 01</span></div>
+    <div class="micro"><span class="dot green"></span> HOME / ALIGNED</div>
+  </header>
+  <section class="console">
+    <aside class="signal">
+      <div class="micro green-text">SIGNAL</div>
+      <div class="rule"></div>
+      <div class="micro">HOME</div>
+      <h1>Everything is<br>as it should be.</h1>
+      <div class="home-meta">Nashville, Tennessee<br>Sunday / 1:35 PM</div>
+      <div class="rule"></div>
+      <div class="micro">STATUS</div>
+      <div class="status"><span class="dot green"></span> SECURE</div>
+      <div class="rule"></div>
+      <div class="micro">SYSTEMS</div>
+      <div class="telemetry">POWER&nbsp;&nbsp;NORMAL<br>CLIMATE&nbsp;72°<br>WATER&nbsp;&nbsp;&nbsp;NORMAL<br>NETWORK&nbsp;ONLINE</div>
+      <div class="signal-foot micro"><span class="dot green"></span> HAVEN CONNECTED</div>
+    </aside>
+    <section class="attention">
+      <div class="eyebrow"><span class="orange">DAILY BRIEF</span><span>SEP 27 · HOME</span></div>
+      <div class="rule"></div>
+      <h2>Good afternoon.</h2>
+      <p class="lead">The house is secure. Nothing urgent needs you.</p>
+      <div class="rule"></div>
+      <div class="attention-head"><span class="orange micro">YOUR ATTENTION</span><span class="micro">ONE ITEM</span></div>
+      <h3>Upstairs sensor battery</h3>
+      <p><strong>Replace when convenient.</strong> The hallway leak sensor is at 18%. Everything else is operating normally.</p>
+      <button>VIEW HOME</button>
+      <div class="timeline">
+        <div><small>NEXT</small></div><div><small>3:00</small><br>Storm window</div>
+        <div><small>5:30</small><br>Guest arriving</div><div><small>TONIGHT</small><br>Doors secure</div>
+      </div>
+    </section>
+    <aside class="now">
+      <div class="tabs"><b>NOW</b><span>THIS WEEK</span></div>
+      <div class="event"><span class="dot green"></span><div><small>SECURE</small><br>Perimeter normal</div></div>
+      <div class="event"><span class="dot orange-dot"></span><div><small>WEATHER</small><br>Rain approaching</div></div>
+      <div class="event"><span class="dot gray"></span><div><small>HOUSEHOLD</small><br>Guest · 5:30 PM</div></div>
+      <div class="system-note"><div class="micro">SYSTEM NOTE</div><p>No action required beyond the battery shown here.</p></div>
+    </aside>
+  </section>
+  <nav>
+    <a class="active" href="#">HOME</a><a href="#">SYSTEMS</a><a href="#">SECURITY</a><a href="#">HOUSEHOLD</a><a href="#">RECORD</a>
+    <span class="nav-note">HAVEN HOME // ACTIVE</span>
+  </nav>
+  <footer>QUIET INFRASTRUCTURE FOR DAILY LIFE</footer>
+</main>
+</body></html>
