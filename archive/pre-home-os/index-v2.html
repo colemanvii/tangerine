@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAVEN</title>
+  <style>
+    :root {
+      --bg: #f5f4ef;
+      --card: #ece9e1;
+      --text: #24231f;
+      --muted: #8f887d;
+      --line: rgba(36, 35, 31, 0.08);
+      --accent: #c89b67;
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 56px 16px 72px;
+    }
+
+    .card {
+      width: min(520px, 100%);
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px 22px 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.025);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+
+    .label, .status {
+      font-size: 10px;
+      line-height: 1;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .subhead {
+      margin: 0 0 20px;
+      font-size: 10px;
+      line-height: 1.4;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    p {
+      margin: 0 0 14px;
+      font-size: 14px;
+      line-height: 1.75;
+      letter-spacing: 0.01em;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .question {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 28px 14px 40px; }
+      .card {
+        padding: 18px 18px 20px;
+        border-radius: 24px;
+        box-shadow: none;
+      }
+      p { font-size: 13px; line-height: 1.7; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <header class="topbar">
+      <div class="label">HAVEN</div>
+      <div class="status"><span class="status-dot"></span>STATIC</div>
+    </header>
+
+    <h1>FOUNDING DRAFT</h1>
+    <div class="subhead">IN CYBERSPACE AS IT IS IN HEAVEN</div>
+
+    <p>Haven did not begin as a company or a platform. It began as a thought that would not leave.</p>
+
+    <p>For most of human history, the places where people sought truth were built of stone and timber. Cathedrals. Temples. Monasteries. Quiet rooms where a person could sit with their thoughts long enough for something real to appear.</p>
+
+    <p>But beneath the nave, deeper in, there was always something else—a vault. Smaller. Cooler. The place where what could not be lost was kept. The cathedral was for the public. The vault was for what the cathedral was actually for.</p>
+
+    <p>The center of life has drifted elsewhere now. Much of it unfolds inside a new territory that has no soil and no sky. We call it cyberspace. It moves quickly, speaks loudly, and rewards whatever captures attention the fastest.</p>
+
+    <p>Meaning rarely survives long in such a place.</p>
+
+    <p>Haven is an attempt to build something different there. Not a network for noise. Not another system designed to hold attention. A vault—a quiet, custodial structure in the digital world where signal remains intact, where thought is given room, and where presence is treated as something worth protecting.</p>
+
+    <p class="question">What would a monastery vault look like in cyberspace?</p>
+  </main>
+</body>
+</html>
