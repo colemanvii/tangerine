@@ -47,3 +47,38 @@ Concept prototype. The interface uses representative data only. No security, dev
 ## Archive
 
 Earlier Haven explorations are preserved in this repository as part of the design record.
+
+## Run the prototype
+
+Open `index.html` directly in a modern browser, or serve this directory:
+
+```sh
+python3 -m http.server 4173 --bind 127.0.0.1
+```
+
+Then open `http://127.0.0.1:4173`. No build step, package installation, external fonts, or network service is required. Navigation uses shareable hash routes, including `#home`, `#systems`, `#security`, `#household`, and `#record`.
+
+## Explore Cedar House
+
+The demonstration takes place at 1:35 PM on September 27, 2026, in a fictional Nashville home completed in 2024.
+
+- Open the sensor attention item. Plan a replacement for tomorrow, or record its replacement. Completion clears the attention item and adds a service entry to Record.
+- Inspect a system to follow its equipment and maintenance history.
+- Filter Record and open entries to inspect selections, field observations, a measured diagram, service visits, and builder handoff provenance.
+- Open **Demo home** to compare a low battery, a quiet day, and a lost connection. Unknown state replaces reassuring language when the connection is lost.
+- Open **Quiet display** for the wall-mounted idle experience. Touch anywhere, press Enter, Space, or Escape to return. Home rests after two inactive minutes by default; other views and open details never time out.
+- In Household, **Display privacy** hides names from shared plans and notes. Original record authorship is retained. Quiet display never shows names.
+
+All actions and display preferences are session-only and reset on reload. Changing demonstration scenarios resets the simulated maintenance action. The clock and forecast are a fixed narrative snapshot, not live information. There are no device commands, real access codes, external messages, tracking, or account services.
+
+## Source map
+
+- `index.html` — semantic instrument shell, primary navigation, native detail dialog.
+- `styles.css` — material palette, typography, layout, responsive and reduced-motion rules.
+- `home-data.js` — one representative home; stable equipment and record identifiers, provenance, and related records.
+- `app.js` — view rendering, route handling, detail inspection, local demonstration actions, privacy, and idle behavior.
+- `DESIGN.md` — audit, design decisions, scope, and validation notes.
+
+The archive is unchanged. The three legacy root URLs redirect to their corresponding historical pages under `archive/pre-home-os/`.
+
+The sample record includes authored text extracts and an illustrative field diagram. Source photographs, original construction drawings, manufacturer manuals, and warranty documents are not included; the interface says so explicitly. Model/serial identifiers are fictional and warranty summaries are not verified coverage.
