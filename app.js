@@ -16,7 +16,12 @@
     private: false,
     autoIdle: true,
   };
-  const views = ["home", "systems", "security", "household", "record"];
+  const views = ["home", "systems", "security", "household", "record", "personal"];
+  const address = document.querySelector(".home-address");
+  const footer = document.querySelector(".instrument-footer");
+  const demoButton = document.querySelector('[data-detail="demo"]');
+  const homeAddress = address.innerHTML;
+  const homeFooter = footer.innerHTML;
   let idleTimer;
   let opener;
   const arrow = '<span class="chevron" aria-hidden="true">↗</span>';
@@ -123,6 +128,37 @@
     );
     return `<section class="page">${heading("Record", "A house with a memory.", "What went into it. What has changed. What the next person will need.", `${allRecords().length} preserved entries`)}<section class="record-intro"><div><span class="label">From the first day</span><h2>Built once. Remembered always.</h2><p>The builder’s field notes live alongside today’s service records. The house keeps both.</p></div><div class="record-history" aria-label="Construction 2024 to handoff August 2024 to in residence 2026"><div class="history-point">Construction<time>2024</time></div><span class="history-line" aria-hidden="true"></span><div class="history-point">Handoff<time>AUG 2024</time></div><span class="history-line" aria-hidden="true"></span><div class="history-point">Home<time>2026</time></div></div></section><div class="filters" aria-label="Filter home records">${["All", "Plans", "Finishes", "Equipment", "Field", "Service"].map((category) => `<button class="filter" data-filter="${category}" aria-pressed="${category === state.filter}">${category}</button>`).join("")}</div><div class="ledger">${records.map((record) => `<button class="ledger-row record-row" data-detail="record:${record.id}"><span class="record-category">${record.category}</span><div><span class="ledger-name">${record.title}</span><span class="ledger-description">${record.subtitle}</span></div><span class="record-date">${record.date}<br>${record.phase}</span>${arrow}</button>`).join("")}</div><p class="page-note">Illustrative records and extracts. Original manuals, construction photographs and warranty documents are not attached.</p></section>`;
   }
+  // Fictional content only. A hash route is a context switch, not access control.
+  function personalView() {
+    const threads = [
+      ["Studio project", "Prepare a first draft for review", "MAKE"],
+      ["Reading practice", "Keep a little time each morning", "KEEP"],
+      ["Weekend walk", "Choose a route and check the forecast", "PLAN"],
+      ["Home workspace", "Try the simplest arrangement first", "TEST"],
+    ];
+    return `<section class="personal-surface" aria-label="Personal working surface">
+      <div class="personal-main">
+        <p class="kicker">Personal / representative working view</p>
+        <h1>What is<br>in motion?</h1>
+        <p class="state-line">The work, thoughts, and decisions worth carrying forward.</p>
+        <div class="personal-grid">
+          <section><span class="label">Current question</span><h2>What deserves my attention?</h2><p>Make room for one meaningful piece of work today.</p></section>
+          <section><span class="label">Ideas</span><ul><li>A small weekly sketchbook</li><li>A quieter place to work</li><li>Notes that retain the why</li></ul></section>
+          <section><span class="label">Questions</span><h3>What can wait?</h3><p>Keep new possibilities separate from current commitments.</p><h3>What is the next step?</h3><p>Finish the first draft before widening the project.</p></section>
+          <section><span class="label">People / outreach</span><h3>A collaborator</h3><p>Share the draft for a first reaction.</p><h3>A friend</h3><p>Find a time for the weekend walk.</p></section>
+        </div>
+      </div>
+      <div class="personal-side">
+        <span class="label">Active threads</span><h2>In motion.</h2>
+        <ol class="personal-threads">${threads.map(([title, note, status]) => `<li><div><strong>${title}</strong><p>${note}</p></div><span class="label">${status}</span></li>`).join("")}</ol>
+        <div class="personal-grid personal-notes">
+          <section><span class="label">Decisions</span><p>One active draft at a time.<br>Protect the morning work block.</p></section>
+          <section><span class="label">Parked / keep</span><p>A longer reading list.<br>A future workspace refresh.</p></section>
+        </div>
+        <p class="page-note personal-disclosure">Public demo · fictional content only. This surface is not private storage.</p>
+      </div>
+    </section>`;
+  }
   function render(focus = false) {
     const renderers = {
       home: homeView,
@@ -130,7 +166,21 @@
       security: securityView,
       household: householdView,
       record: recordView,
+      personal: personalView,
     };
+    const personal = state.view === "personal";
+    document.querySelector(".dialog-top .label").textContent = personal
+      ? "HAVEN / PERSONAL DEMO"
+      : "CEDAR HOUSE / DEMO RECORD";
+    address.innerHTML = personal
+      ? "Personal <span>Representative working surface</span>"
+      : homeAddress;
+    footer.innerHTML = personal
+      ? "<span>HAVEN / PERSONAL</span><span>Public demo · fictional content · no private storage</span>"
+      : homeFooter;
+    demoButton.textContent = personal ? "About this demo" : "Demo home";
+    demoButton.dataset.detail = personal ? "personal-demo" : "demo";
+    document.querySelector("#rest").hidden = personal;
     content.innerHTML = renderers[state.view]();
     document.querySelectorAll("[data-view]").forEach((link) => {
       if (link.dataset.view === state.view)
@@ -182,6 +232,8 @@
       )}<p class="detail-note">Read-only representative data. No lock or garage controls are connected.</p>`;
     }
     const details = {
+      "personal-demo": () =>
+        `<span class="label">Personal / representative surface</span><h2 id="detail-title">One Haven.<br>A personal context.</h2><p>A working surface for thoughts, projects, people and decisions, within the same Haven instrument.</p><p class="detail-note">This is a public, static demonstration with fictional content. There is no sign-in or access control. Do not put private information in this codebase or deployment; a hidden link or display preference cannot protect it.</p><a class="secondary" href="#home">Return to Home</a>`,
       battery: () =>
         `<span class="label">Attention / upstairs hall</span><h2 id="detail-title">A small replacement.<br>At your convenience.</h2><p>The hallway leak sensor has 18% battery remaining. It is still reporting, but replacing the battery will help keep it available.</p>${facts(
           [
@@ -239,7 +291,7 @@
       privacy: () =>
         `<span class="label">Household / display privacy</span><h2 id="detail-title">Shared by choice.</h2><p>Haven shows household plans, not anyone’s movements. Names can be hidden on this display.</p><label class="preference"><input type="checkbox" id="private-names" ${state.private ? "checked" : ""}><span>Hide household and guest names<small>Applies to daily plans and household notes. Original record authorship is retained.</small></span></label><p class="detail-note">This display preference lasts for this session. The quiet display never shows names.</p>`,
       demo: () =>
-        `<span class="label">About this prototype</span><h2 id="detail-title">One house.<br>Three kinds of day.</h2><p>Cedar House is a fictional home in Nashville. All reports, people, appointments and records are representative.</p><label class="scenario-label" for="scenario">Demonstration state</label><select id="scenario"><option value="attention" ${state.scenario === "attention" ? "selected" : ""}>One small item · low sensor battery</option><option value="quiet" ${state.scenario === "quiet" ? "selected" : ""}>Quiet day · nothing needs attention</option><option value="offline" ${state.scenario === "offline" ? "selected" : ""}>Connection lost · current state unknown</option></select><label class="preference"><input type="checkbox" id="auto-idle" ${state.autoIdle ? "checked" : ""}><span>Rest the Home screen after two minutes<small>Touch or press Enter to return. Reading other pages will not be interrupted.</small></span></label><p class="detail-note">The demo is fixed at Sunday, September 27, 2026, 1:35 PM. Actions last for this session and reset on reload. No monitoring, messages or device commands are sent.</p><div class="dialog-actions"><button class="secondary" data-action="reset">Reset demonstration</button></div>`,
+        `<span class="label">About this prototype</span><h2 id="detail-title">One house.<br>Three kinds of day.</h2><p>Cedar House is a fictional home in Nashville. All reports, people, appointments and records are representative.</p><label class="scenario-label" for="scenario">Demonstration state</label><select id="scenario"><option value="attention" ${state.scenario === "attention" ? "selected" : ""}>One small item · low sensor battery</option><option value="quiet" ${state.scenario === "quiet" ? "selected" : ""}>Quiet day · nothing needs attention</option><option value="offline" ${state.scenario === "offline" ? "selected" : ""}>Connection lost · current state unknown</option></select><label class="preference"><input type="checkbox" id="auto-idle" ${state.autoIdle ? "checked" : ""}><span>Rest the Home screen after two minutes<small>Touch or press Enter to return. Reading other pages will not be interrupted.</small></span></label><p class="detail-note">The demo is fixed at Sunday, September 27, 2026, 1:35 PM. Actions last for this session and reset on reload. No monitoring, messages or device commands are sent.</p><div class="dialog-actions"><button class="secondary" data-action="reset">Reset demonstration</button><a class="secondary" href="#personal">Explore Personal demo</a></div>`,
     };
     return details[id]?.() || null;
   }

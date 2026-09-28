@@ -82,3 +82,28 @@ All actions and display preferences are session-only and reset on reload. Changi
 The archive is unchanged. The three legacy root URLs redirect to their corresponding historical pages under `archive/pre-home-os/`.
 
 The sample record includes authored text extracts and an illustrative field diagram. Source photographs, original construction drawings, manufacturer manuals, and warranty documents are not included; the interface says so explicitly. Model/serial identifiers are fictional and warranty summaries are not verified coverage.
+
+## Personal context (public demo)
+
+Open `index.html#personal`, or choose **Demo home → Explore Personal demo**.
+The existing Home navigation returns to the home context. Direct links and browser
+Back/Forward use the same hash router as the rest of Haven.
+
+The Personal surface adapts the local v5 prototype's two-column working view:
+current question, ideas, questions, people, active threads, decisions and parked
+items. It reuses the instrument shell, palette, typefaces, navigation, dialog,
+focus handling and route lifecycle. Only a renderer in `app.js` and scoped layout
+rules in `styles.css` are added; Home data and existing views are unchanged.
+The source prototype is not copied into the repository. All Personal content here
+is newly written fictional demonstration data.
+
+**Privacy limitation:** this repository and static deployment are public. The
+Personal route is a context, not access control. It must not contain real private
+content. No sign-in, personal data input, local persistence, backend, or sync is
+provided. Actual private use requires an authenticated hosting/data boundary
+before any personal content is introduced. Display privacy in Household only
+hides demo names visually and does not secure source data.
+
+No new build dependencies are required. The Personal view uses the existing
+responsive shell and permits vertical reading on narrow screens rather than
+clipping content. A fixed-screen redesign is outside this integration pass.

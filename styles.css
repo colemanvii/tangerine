@@ -1238,3 +1238,56 @@ select {
     font-size: 14px;
   }
 }
+
+/* Personal is a context within the shared instrument, never a privacy boundary. */
+.personal-surface {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  padding: 32px 0;
+}
+.personal-main { padding-right: 36px; }
+.personal-side { border-left: 1px solid var(--line); padding-left: 36px; }
+.personal-surface h1 { font-size: clamp(40px, 4vw, 56px); }
+.personal-surface h2 { font-size: 27px; margin: 8px 0 14px; }
+.personal-surface h3 { font: 500 15px/1.4 var(--sans); margin: 14px 0 5px; }
+.personal-surface p, .personal-surface li { font-size: 14px; }
+.personal-surface p { color: var(--muted); margin-bottom: 14px; }
+.personal-surface .state-line { color: var(--green); }
+.personal-surface .label { font-size: 10px; }
+.personal-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin-top: 24px;
+}
+.personal-grid ul { padding-left: 18px; }
+.personal-grid li { margin-bottom: 10px; }
+.personal-threads { list-style: none; padding: 0; margin: 24px 0 0; counter-reset: thread; }
+.personal-threads li {
+  counter-increment: thread;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding: 16px 0;
+}
+.personal-threads li::before { content: counter(thread, decimal-leading-zero); font: 11px/1.8 var(--mono); color: var(--muted); }
+.personal-threads strong { font-weight: 500; }
+.personal-threads p { margin: 4px 0 0; }
+.personal-threads .label { color: var(--green); padding-top: 3px; }
+.personal-notes { margin-top: 0; }
+.personal-notes p { margin-top: 10px; }
+.personal-disclosure { border-top: 1px solid var(--line); padding-top: 16px; }
+@media (max-width: 800px) {
+  .personal-main { padding-right: 24px; }
+  .personal-side { padding-left: 24px; }
+  .personal-grid { grid-template-columns: 1fr; gap: 12px; }
+}
+@media (max-width: 580px) {
+  .personal-surface { grid-template-columns: 1fr; gap: 24px; padding-top: 24px; }
+  .personal-main { padding-right: 0; }
+  .personal-side { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+  .personal-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
