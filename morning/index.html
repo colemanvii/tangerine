@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ece8e1" />
+  <meta name="description" content="Haven Morning — a private orientation surface." />
+  <title>Haven — Morning</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./content.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <main class="surface" aria-labelledby="haven-title">
+    <header class="masthead">
+      <h1 id="haven-title">HAVEN</h1>
+      <time id="today" class="date"></time>
+    </header>
+
+    <section class="orientation" aria-labelledby="orientation-label">
+      <h2 id="orientation-label">ORIENTATION</h2>
+      <p id="orientation-copy"></p>
+    </section>
+
+    <section class="stack" id="morning-sections" aria-label="Morning orientation"></section>
+
+    <aside class="year" aria-label="Annual compass">
+      <div class="year-ring" id="year-ring" aria-hidden="true"></div>
+      <span class="sr-only" id="year-description"></span>
+    </aside>
+  </main>
+</body>
+</html>
