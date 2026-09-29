@@ -1,6 +1,14 @@
 # Haven
 
-**A calm operating system for the home.**
+**A private Human OS, beginning with Morning.**
+
+Morning is now the default entry. Wake with a click, touch, or keypress; read the
+orientation; open the existing Freeman field note. `#personal` opens this same
+surface. This is a manually selected, dated brief, not
+an authenticated private account or an automatically generated daily brief.
+
+The existing home prototype and its explicit hash routes remain available below.
+Its documentation describes the earlier home context, not the Morning product direction.
 
 Haven is quiet infrastructure for daily life: one place to understand the state of a home, know what needs attention, and preserve the knowledge that normally disappears across apps, binders, contractors, devices, and time.
 
@@ -56,7 +64,7 @@ Open `index.html` directly in a modern browser, or serve this directory:
 python3 -m http.server 4173 --bind 127.0.0.1
 ```
 
-Then open `http://127.0.0.1:4173`. No build step, package installation, external fonts, or network service is required. Navigation uses shareable hash routes, including `#home`, `#systems`, `#security`, `#household`, and `#record`.
+Then open `http://127.0.0.1:4173` for Morning or append `#home` for the existing home demo. No build step, package installation, external fonts, or network service is required. Navigation uses shareable hash routes, including `#home`, `#systems`, `#security`, `#household`, and `#record`.
 
 ## Explore Cedar House
 
@@ -83,27 +91,43 @@ The archive is unchanged. The three legacy root URLs redirect to their correspon
 
 The sample record includes authored text extracts and an illustrative field diagram. Source photographs, original construction drawings, manufacturer manuals, and warranty documents are not included; the interface says so explicitly. Model/serial identifiers are fictional and warranty summaries are not verified coverage.
 
-## Personal context (public demo)
+## Seven-morning trial — manual editing
 
-Open `index.html#personal`, or choose **Demo home → Explore Personal demo**.
-The existing Home navigation returns to the home context. Direct links and browser
-Back/Forward use the same hash router as the rest of Haven.
+Visual system and typography are frozen. Edit only `morning-data.js` for the trial.
+It holds seven independent entries dated September 29–October 5, 2026. The first
+is a starting brief based on the current direction; the other six are blank
+writing templates, not predicted events. Change the dates if the trial starts later.
 
-The Personal surface adapts the local v5 prototype's two-column working view:
-current question, ideas, questions, people, active threads, decisions and parked
-items. It reuses the instrument shell, palette, typefaces, navigation, dialog,
-focus handling and route lifecycle. Only a renderer in `app.js` and scoped layout
-rules in `styles.css` are added; Home data and existing views are unchanged.
-The source prototype is not copied into the repository. All Personal content here
-is newly written fictional demonstration data.
+Each morning:
 
-**Privacy limitation:** this repository and static deployment are public. The
-Personal route is a context, not access control. It must not contain real private
-content. No sign-in, personal data input, local persistence, backend, or sync is
-provided. Actual private use requires an authenticated hosting/data boundary
-before any personal content is introduced. Display privacy in Household only
-hides demo names visually and does not secure source data.
+1. Fill the entry for that date. Copy/remove array items to include 1–2 priorities,
+   3–5 threads, and 1–3 changes. Write one question, action, and grace line.
+2. Set `activeDate` at the top to that entry's date and reload the page.
+3. Keep completed days intact. Carry forward only what still matters.
 
-No new build dependencies are required. The Personal view uses the existing
-responsive shell and permits vertical reading on narrow screens rather than
-clipping content. A fixed-screen redesign is outside this integration pass.
+Write short priority titles (about 30 characters) and single-sentence summaries
+(about 70). Keep changes around 65 characters each and the question/action around
+100. These are editorial budgets for the fixed screen, not enforced truncation.
+Longer writing will reflow; no content is silently cut off or hidden.
+
+`begin.text` is the concrete action. `begin.href` and `begin.label` are optional:
+leave both blank for an action away from the computer. The existing field note
+is a reading destination; Haven does not edit or complete it for you.
+
+Dates in the heading, yesterday label, footer, and rest state all derive from the
+selected entry. Selection is manual and never follows the clock automatically.
+There is no new navigation, storage service, editor, or automation. The source
+file itself holds these manually authored records; reload does not change them.
+
+After each morning, note outside the app what helped, what was stale, and whether
+the next action was clear. After seven days, use those observations to decide
+which information earns a place. Do not change the layout during the trial.
+
+The fullest starting brief (2 priorities, 5 threads, 3 changes, one question,
+one action, one grace line) was checked at desktop and tablet dimensions,
+including 1024×768, with no scrolling. Phone layouts reflow vertically.
+No CSS or typography changes were made for this trial structure.
+
+Existing home routes remain available by their explicit hashes. No authentication
+or private storage is provided; local content must not be treated as protected if
+this static repository is published. Nothing from this edit has been pushed.

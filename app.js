@@ -128,35 +128,57 @@
     );
     return `<section class="page">${heading("Record", "A house with a memory.", "What went into it. What has changed. What the next person will need.", `${allRecords().length} preserved entries`)}<section class="record-intro"><div><span class="label">From the first day</span><h2>Built once. Remembered always.</h2><p>The builder’s field notes live alongside today’s service records. The house keeps both.</p></div><div class="record-history" aria-label="Construction 2024 to handoff August 2024 to in residence 2026"><div class="history-point">Construction<time>2024</time></div><span class="history-line" aria-hidden="true"></span><div class="history-point">Handoff<time>AUG 2024</time></div><span class="history-line" aria-hidden="true"></span><div class="history-point">Home<time>2026</time></div></div></section><div class="filters" aria-label="Filter home records">${["All", "Plans", "Finishes", "Equipment", "Field", "Service"].map((category) => `<button class="filter" data-filter="${category}" aria-pressed="${category === state.filter}">${category}</button>`).join("")}</div><div class="ledger">${records.map((record) => `<button class="ledger-row record-row" data-detail="record:${record.id}"><span class="record-category">${record.category}</span><div><span class="ledger-name">${record.title}</span><span class="ledger-description">${record.subtitle}</span></div><span class="record-date">${record.date}<br>${record.phase}</span>${arrow}</button>`).join("")}</div><p class="page-note">Illustrative records and extracts. Original manuals, construction photographs and warranty documents are not attached.</p></section>`;
   }
-  // Fictional content only. A hash route is a context switch, not access control.
+  // Keep selection separate from presentation; escape data before inserting markup.
+  const escapeText = (value = "") => String(value).replace(/[&<>"']/g,
+    (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
+  function morningBrief() {
+    return window.HAVEN_MORNING.briefs.find(
+      (brief) => brief.date === window.HAVEN_MORNING.activeDate,
+    );
+  }
+  function morningDates() {
+    const date = morningBrief().date;
+    const today = new Date(`${date}T12:00:00Z`);
+    const yesterday = new Date(today);
+    yesterday.setUTCDate(yesterday.getUTCDate() - 1);
+    const format = (value, options) => new Intl.DateTimeFormat("en-US", {
+      ...options, timeZone: "UTC",
+    }).format(value);
+    return {
+      date,
+      dateLabel: format(today, { weekday: "long", month: "long", day: "numeric" }),
+      fullDate: format(today, { month: "short", day: "numeric", year: "numeric" }),
+      previousDate: yesterday.toISOString().slice(0, 10),
+      previousDateLabel: format(yesterday, { month: "short", day: "numeric" }),
+    };
+  }
   function personalView() {
-    const threads = [
-      ["Studio project", "Prepare a first draft for review", "MAKE"],
-      ["Reading practice", "Keep a little time each morning", "KEEP"],
-      ["Weekend walk", "Choose a route and check the forecast", "PLAN"],
-      ["Home workspace", "Try the simplest arrangement first", "TEST"],
-    ];
-    return `<section class="personal-surface" aria-label="Personal working surface">
-      <div class="personal-main">
-        <p class="kicker">Personal / representative working view</p>
-        <h1>What is<br>in motion?</h1>
-        <p class="state-line">The work, thoughts, and decisions worth carrying forward.</p>
-        <div class="personal-grid">
-          <section><span class="label">Current question</span><h2>What deserves my attention?</h2><p>Make room for one meaningful piece of work today.</p></section>
-          <section><span class="label">Ideas</span><ul><li>A small weekly sketchbook</li><li>A quieter place to work</li><li>Notes that retain the why</li></ul></section>
-          <section><span class="label">Questions</span><h3>What can wait?</h3><p>Keep new possibilities separate from current commitments.</p><h3>What is the next step?</h3><p>Finish the first draft before widening the project.</p></section>
-          <section><span class="label">People / outreach</span><h3>A collaborator</h3><p>Share the draft for a first reaction.</p><h3>A friend</h3><p>Find a time for the weekend walk.</p></section>
+    const brief = morningBrief();
+    const { date, dateLabel, previousDate, previousDateLabel } = morningDates();
+    const { question, begin: next, grace } = brief;
+    // A physical next action needs no link. Only local or HTTP(S) links are allowed.
+    let actionLink = "";
+    if (next.href && next.label) {
+      try {
+        const destination = new URL(next.href, location.href);
+        if (["http:", "https:", "file:"].includes(destination.protocol)) {
+          actionLink = `<a href="${escapeText(destination.href)}">${escapeText(next.label)}</a>`;
+        }
+      } catch { /* Keep the action readable when a manually entered URL is invalid. */ }
+    }
+    return `<section class="morning" aria-labelledby="morning-title">
+      <header class="morning-heading"><h1 id="morning-title">Morning</h1><time datetime="${escapeText(date)}">${escapeText(dateLabel)}</time></header>
+      <div class="morning-composition">
+        <div class="morning-main">
+          <section class="morning-today" aria-labelledby="today-title"><h2 id="today-title" class="morning-label">Today</h2>
+            ${brief.priorities.map((item, index) => { return `<div class="morning-priority"><span class="morning-number" aria-hidden="true">0${index + 1}</span><div><h3>${escapeText(item.title)}</h3><p>${escapeText(item.summary)}</p></div></div>`; }).join("")}
+          </section>
+          <section class="morning-changes" aria-labelledby="changes-title"><h2 id="changes-title" class="morning-label">Since yesterday <time datetime="${escapeText(previousDate)}">/ ${escapeText(previousDateLabel)}</time></h2><ul>${brief.changes.map((change) => `<li>${escapeText(change)}</li>`).join("")}</ul></section>
+          ${question ? `<section class="morning-question" aria-labelledby="question-title"><h2 id="question-title" class="morning-label">Held open</h2><p>${escapeText(question)}</p><small>No answer needed this morning.</small></section>` : ""}
         </div>
+        <aside class="morning-context" aria-labelledby="threads-title"><h2 id="threads-title" class="morning-label">The longer view</h2><dl>${brief.threads.map((thread) => { return `<div><dt>${escapeText(thread.title)}</dt><dd>${escapeText(thread.summary)}</dd></div>`; }).join("")}</dl></aside>
       </div>
-      <div class="personal-side">
-        <span class="label">Active threads</span><h2>In motion.</h2>
-        <ol class="personal-threads">${threads.map(([title, note, status]) => `<li><div><strong>${title}</strong><p>${note}</p></div><span class="label">${status}</span></li>`).join("")}</ol>
-        <div class="personal-grid personal-notes">
-          <section><span class="label">Decisions</span><p>One active draft at a time.<br>Protect the morning work block.</p></section>
-          <section><span class="label">Parked / keep</span><p>A longer reading list.<br>A future workspace refresh.</p></section>
-        </div>
-        <p class="page-note personal-disclosure">Public demo · fictional content only. This surface is not private storage.</p>
-      </div>
+      <footer class="morning-close"><div class="morning-next"><h2 class="morning-label">Begin here</h2><p>${escapeText(next.text)}</p>${actionLink}</div><div class="morning-grace"><p>${escapeText(grace.text)}</p><small>${escapeText(grace.source)}</small></div></footer>
     </section>`;
   }
   function render(focus = false) {
@@ -169,25 +191,32 @@
       personal: personalView,
     };
     const personal = state.view === "personal";
+    document.body.classList.toggle("morning-mode", personal);
+    document.querySelector(".navigation").hidden = personal;
+    document.querySelector(".wordmark").href = personal ? "#personal" : "#home";
+    document.querySelector(".wordmark").setAttribute("aria-label", personal ? "Haven morning" : "Haven home");
     document.querySelector(".dialog-top .label").textContent = personal
       ? "HAVEN / PERSONAL DEMO"
       : "CEDAR HOUSE / DEMO RECORD";
     address.innerHTML = personal
-      ? "Personal <span>Representative working surface</span>"
+      ? "Personal / Morning"
       : homeAddress;
     footer.innerHTML = personal
-      ? "<span>HAVEN / PERSONAL</span><span>Public demo · fictional content · no private storage</span>"
+      ? `<span>HAVEN / MORNING</span><span>Morning brief · ${escapeText(morningDates().fullDate)}</span>`
       : homeFooter;
     demoButton.textContent = personal ? "About this demo" : "Demo home";
     demoButton.dataset.detail = personal ? "personal-demo" : "demo";
-    document.querySelector("#rest").hidden = personal;
+    demoButton.hidden = personal;
+    document.querySelector("#rest").hidden = false;
+    document.querySelector("#rest").textContent = personal ? "Rest" : "Quiet display";
+    document.querySelector("#rest").setAttribute("aria-label", personal ? "Rest morning display" : "Enter quiet display");
     content.innerHTML = renderers[state.view]();
     document.querySelectorAll("[data-view]").forEach((link) => {
       if (link.dataset.view === state.view)
         link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
     });
-    document.title = `Haven — ${state.view[0].toUpperCase() + state.view.slice(1)}`;
+    document.title = personal ? "Haven — Morning" : `Haven — ${state.view[0].toUpperCase() + state.view.slice(1)}`;
     if (focus) content.focus({ preventScroll: true });
     resetIdleTimer();
   }
@@ -403,6 +432,15 @@
   });
   function showIdle() {
     if (dialog.open) return;
+    if (state.view === "personal") {
+      idle.innerHTML = `<div class="morning-rest"><span class="wordmark">HAVEN</span><div><p>Morning is here.</p><button class="wake" id="wake">Touch or press a key to begin</button></div><small>Morning brief · ${escapeText(morningDates().fullDate)}</small></div>`;
+      idle.hidden = false;
+      instrument.hidden = true;
+      document.querySelector(".skip").hidden = true;
+      document.querySelector("#wake").focus({ preventScroll: true });
+      clearTimeout(idleTimer);
+      return;
+    }
     const status = disconnected() ? "Unknown." : "Secure.";
     const note = disconnected()
       ? "Connection unavailable. Last report at 1:12 PM."
@@ -423,7 +461,7 @@
     idle.hidden = true;
     instrument.hidden = false;
     document.querySelector(".skip").hidden = false;
-    document.querySelector("#rest").focus({ preventScroll: true });
+    (state.view === "personal" ? content : document.querySelector("#rest")).focus({ preventScroll: true });
     resetIdleTimer();
   }
   function resetIdleTimer() {
@@ -440,7 +478,7 @@
   document.querySelector("#rest").addEventListener("click", showIdle);
   idle.addEventListener("click", wake);
   idle.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " " || event.key === "Escape") {
+    if ((state.view === "personal" && !event.metaKey && !event.ctrlKey && !event.altKey && !["Shift", "Control", "Alt", "Meta"].includes(event.key)) || event.key === "Enter" || event.key === " " || event.key === "Escape") {
       event.preventDefault();
       wake();
     }
@@ -451,7 +489,7 @@
   document.addEventListener("visibilitychange", resetIdleTimer);
   function route(focus = false) {
     const requested = location.hash.slice(1);
-    state.view = views.includes(requested) ? requested : "home";
+    state.view = views.includes(requested) ? requested : "personal";
     if (dialog.open) dialog.close();
     wake();
     render(focus);
@@ -459,4 +497,5 @@
   }
   window.addEventListener("hashchange", () => route(true));
   route();
+  if (state.view === "personal") showIdle();
 })();

@@ -1,3 +1,55 @@
+## Frozen visual system — seven-morning content trial
+
+The Morning CSS and typography are frozen. Dated briefs now live together in
+`morning-data.js`, selected through an explicit `activeDate`. The renderer reads
+the brief directly; it no longer requires editing entity IDs in several places.
+All visible dates come from the selected date, with yesterday computed in UTC
+to avoid local timezone drift. No clock-driven selection is introduced.
+
+The seven entries begin September 29, 2026. Day one is a concise starting brief;
+future days are blank for manual authorship. Three changes render in full.
+The action's text, optional link, and link label are editable with the brief.
+No styling, routes, persistence service, automation, or editor was added.
+
+The existing visual audit below remains historical. Its fixed-snapshot and
+entity-selection descriptions are superseded by the manual brief structure.
+
+# Morning V1 — current surface
+
+Morning supersedes the earlier Personal grid and is the default entry. The
+historical home design notes below describe the preserved home routes.
+
+The composition retains the existing warm paper. Morning typography uses Iowan
+Old Style, then Baskerville, Century Schoolbook, and Georgia; reading text is
+serif throughout, with substantial headings and restrained monospace notation.
+IBM Plex Mono and Courier Prime precede the system monospace fallbacks.
+Fonts are resolved locally, with no downloads. Iowan and Baskerville were
+compared in-browser; Century Schoolbook was unavailable on the test machine. Today has primary weight; life threads read as a quiet
+margin. Two dated changes supply continuity, and the unresolved question is
+explicitly allowed to remain unanswered. The final action releases the user
+into the existing Freeman field note. Scripture shares that closing space.
+
+Removed from Morning: the framed instrument, shadows, rounded corners, giant
+headline, navigation rail, demo controls, ideas/people/decisions grids, repeated
+status labels, and decorative transitions. No additional pages, editors,
+checkboxes, AI controls, live indicators, or administration surfaces were added.
+
+Verification: browser checks confirmed click/key wake, explicit rest, next-action
+navigation, and all six existing hash routes. No JavaScript runtime errors.
+Morning fits without scrolling at 1440×900, 1280×800, 1024×768, 768×1024,
+820×1180, and 1194×834. Narrow layouts at 390, 320, and 640 pixels reflow without
+horizontal overflow. Visual captures were inspected at desktop and tablet sizes.
+The existing Freeman destination requests a missing favicon; its page content
+loads correctly. Browser automation used bundled Playwright because the
+agent-browser command is not installed. Syntax and whitespace checks passed.
+
+Structural limits: the brief is a fixed snapshot; changes are curated, not
+computed from history. No authenticated persistence exists. The existing field
+note is a reading destination, not an editor. The older home documentation and
+routes remain a separate historical product context.
+
+---
+
 # Haven — the home instrument
 
 ## Audit
