@@ -549,7 +549,6 @@
   }
   window.addEventListener("hashchange", () => route(true));
   route();
-  if (state.view === "personal") showIdle();
   content.addEventListener("change", (event) => {
     const checkbox = event.target.closest?.("[data-outreach-id]");
     if (!checkbox) return;
