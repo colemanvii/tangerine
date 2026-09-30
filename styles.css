@@ -1333,3 +1333,37 @@ body.morning-mode {
   .morning-mode .instrument-footer { flex-wrap: wrap; gap: 5px; }
   .morning-grace { padding-bottom: 12px; }
 }
+
+
+/* Installed iPhone / mobile app treatment. */
+@supports (padding: max(0px)) {
+  .morning-mode .instrument {
+    padding-left: max(22px, env(safe-area-inset-left));
+    padding-right: max(22px, env(safe-area-inset-right));
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+@media (max-width: 700px) {
+  .morning-mode .instrument { min-height: 100dvh; }
+  .morning-mode .masthead { min-height: 62px; }
+  .morning-mode .wordmark { font-size: 15px; }
+  .morning-mode .idle-button { font-size: 11px; }
+  .morning { padding-top: 20px; }
+  .morning-heading { margin-bottom: 24px; }
+  .morning-heading h1 { font-size: 30px; }
+  .morning-heading time { font-size: 11px; }
+  .morning-priority { grid-template-columns: 20px minmax(0,1fr); gap: 10px; margin-bottom: 20px; }
+  .morning-priority h3 { font-size: 22px; }
+  .morning-priority p,
+  .morning-changes li,
+  .morning-context dd { font-size: 15px; }
+  .morning-changes ul,
+  .morning-question { padding-left: 30px; }
+  .morning-context dl { grid-template-columns: 1fr; gap: 14px; }
+  .morning-close { gap: 20px; }
+  .morning-mode .instrument-footer { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+}
+@media (display-mode: standalone) {
+  body.morning-mode { overscroll-behavior-y: none; }
+  .morning-mode .masthead { padding-top: env(safe-area-inset-top); }
+}
