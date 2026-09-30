@@ -103,6 +103,10 @@ window.HAVEN_MORNING = {
         {
           "title": "319 S Bartow St",
           "detail": ""
+        },
+        {
+          "title": "38 Porter Street",
+          "detail": "$1,400/mo · All County Property Management North Metro"
         }
       ],
       "threads": [
