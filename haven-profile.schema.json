@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Haven Profile",
+  "type": "object",
+  "required": ["person", "orientation", "projects", "people", "commitments", "open_questions", "threads"],
+  "properties": {
+    "person": {"type":"object"},
+    "orientation": {"type":"object"},
+    "today": {"type":"object"},
+    "projects": {"type":"array"},
+    "people": {"type":"array"},
+    "commitments": {"type":"array"},
+    "open_questions": {"type":"array"},
+    "threads": {"type":"array"},
+    "review": {"type":"object"}
+  },
+  "additionalProperties": true
+}
