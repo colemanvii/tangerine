@@ -138,3 +138,5 @@ this static repository is published. Nothing from this edit has been pushed.
 The repository may contain archives, prototypes, design documents, and project records that are not part of the hosted Morning surface. The deployment excludes those files via `.vercelignore`. The hosted Morning page also declares `noindex, nofollow, noarchive`, and `robots.txt` disallows crawling.
 
 This does **not** make the repository or deployment private by itself. Repository visibility and Vercel Deployment Protection must be configured separately.
+
+Git-connected production deployment is tracked from `codex/personal-context-demo`.
