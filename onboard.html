@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f2f1ed">
+<title>Haven — Bring your context</title>
+<style>
+:root{--paper:#f2f1ed;--ink:#171816;--muted:#777971;--line:#d9d8d1;--soft:#e9e8e2;--ok:#304b3c;--mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--serif:Iowan Old Style,Palatino Linotype,Palatino,Book Antiqua,Georgia,serif}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink)}body{font-family:var(--serif)}
+.shell{width:min(980px,calc(100% - 28px));margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+header{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.brand{font-weight:700;letter-spacing:.16em}.privacy{color:var(--muted)}
+main{flex:1;padding:8vh 0 9vh}.step{display:none}.step.active{display:block}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 22px}
+h1{font-size:clamp(42px,7vw,82px);line-height:.94;letter-spacing:-.045em;font-weight:400;max-width:800px;margin:0 0 28px}
+.lede{font-size:19px;line-height:1.5;max-width:620px;color:#3f413c;margin:0 0 38px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}.button,button{appearance:none;border:1px solid var(--ink);background:transparent;color:var(--ink);font:12px var(--mono);letter-spacing:.03em;padding:13px 17px;cursor:pointer}.primary{background:var(--ink);color:var(--paper)}button:disabled{opacity:.4;cursor:not-allowed}
+.note{max-width:650px;margin-top:26px;padding-top:18px;border-top:1px solid var(--line);font:12px/1.6 var(--mono);color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:36px}.panel{border-top:1px solid var(--ink);padding-top:14px}.panel h2{font-size:28px;font-weight:400;margin:0 0 10px}.panel p{color:#4e504a;line-height:1.5}
+.prompt{width:100%;height:270px;resize:vertical;border:1px solid var(--line);background:#ebeae5;padding:16px;font:11px/1.55 var(--mono);color:#333}
+textarea.import{width:100%;min-height:300px;border:1px solid var(--line);background:#ebeae5;padding:16px;font:12px/1.55 var(--mono);color:#242522;margin:12px 0 14px}
+.status{font:11px/1.5 var(--mono);min-height:18px;color:var(--muted)}.status.error{color:#8a302b}
+.haven{border:1px solid var(--line);background:#f6f5f1;min-height:610px;display:flex;flex-direction:column}
+.haven-head{display:flex;justify-content:space-between;gap:18px;padding:18px 20px;border-bottom:1px solid var(--line);font:10px var(--mono);letter-spacing:.07em;text-transform:uppercase}.haven-head span:last-child{color:var(--muted)}
+.haven-body{display:grid;grid-template-columns:1.35fr .8fr;gap:0;flex:1}.brief{padding:42px 38px;border-right:1px solid var(--line)}.brief .date{font:10px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.brief h2{font-size:48px;line-height:1;letter-spacing:-.035em;font-weight:400;margin:13px 0 24px}.brief p{font-size:17px;line-height:1.45;max-width:520px}
+.side{padding:30px 26px}.section{padding:18px 0;border-top:1px solid var(--line)}.section:first-child{border-top:0;padding-top:0}.label{font:10px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:10px}.rows{display:grid;gap:0}.row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}.row:first-child{border-top:0}.row small{font:10px var(--mono);color:var(--muted)}.empty{font-size:14px;color:var(--muted);font-style:italic}
+.review{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}.pill{display:inline-block;font:10px var(--mono);text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--line);padding:5px 7px;margin:3px 4px 3px 0}
+footer{border-top:1px solid var(--line);padding:16px 0 22px;display:flex;justify-content:space-between;gap:20px;font:10px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+@media(max-width:720px){header{height:60px}.grid{grid-template-columns:1fr}.haven-body{grid-template-columns:1fr}.brief{border-right:0;border-bottom:1px solid var(--line);padding:32px 24px}.brief h2{font-size:40px}.side{padding:24px}main{padding-top:7vh}footer{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><span class="brand">HAVEN</span><span class="privacy">Private context import · local preview</span></header>
+<main>
+<section class="step active" id="welcome">
+<p class="kicker">Private beta / context import</p>
+<h1>Bring your context with you.</h1>
+<p class="lede">Haven does not need your entire conversation history. It needs a careful, reviewable model of what matters now: projects, people, commitments, questions, values and active threads.</p>
+<div class="actions"><button class="primary" data-next="prompt-step">Begin</button></div>
+<p class="note">This pilot does not connect directly to ChatGPT. Your profile stays in this browser unless you choose to copy it somewhere else. The goal is to test whether your existing ChatGPT context can become a useful Haven.</p>
+</section>
+
+<section class="step" id="prompt-step">
+<p class="kicker">01 / Ask your ChatGPT</p>
+<h1>Let the account that knows you make the first draft.</h1>
+<div class="grid">
+<div class="panel"><h2>Copy this prompt.</h2><p>Open the ChatGPT account you use most. Paste this as a new message. Read what it produces before bringing anything back.</p><div class="actions"><button class="primary" id="copyPrompt">Copy prompt</button><button data-next="import-step">I have my JSON</button></div><p class="status" id="copyStatus"></p></div>
+<div><textarea class="prompt" id="promptText" readonly></textarea></div>
+</div>
+<p class="note">The prompt deliberately asks ChatGPT not to guess, not to psychoanalyze you, and not to include highly sensitive information. You remain the editor.</p>
+</section>
+
+<section class="step" id="import-step">
+<p class="kicker">02 / Review + import</p>
+<h1>Paste the profile. Nothing is accepted silently.</h1>
+<p class="lede">Haven will validate the JSON and turn it into a local preview. You can delete it from this browser at any time.</p>
+<textarea class="import" id="jsonInput" spellcheck="false" placeholder='Paste the JSON from ChatGPT here…'></textarea>
+<div class="actions"><button class="primary" id="build">Build my Haven</button><button id="loadDemo">Load demo</button><button data-next="prompt-step">Back</button></div>
+<p class="status" id="importStatus"></p>
+</section>
+
+<section class="step" id="preview-step">
+<p class="kicker">03 / Your Haven</p>
+<div class="haven" id="havenPreview"></div>
+<div class="review">
+<div class="actions"><button class="primary" data-next="import-step">Edit import</button><button id="clearProfile">Forget local profile</button></div>
+<p class="note">For this pilot, Haven is proving the reduction layer: can a messy history resolve into a calm, recognizable state? Calendar, email and live sync come after that is worth trusting.</p>
+</div>
+</section>
+</main>
+<footer><span>Haven / private beta</span><span>No analytics · no upload endpoint · browser-local profile</span></footer>
+</div>
+<script>
+const importPrompt = "# Haven Context Import Prompt\n\nPaste the prompt below into the ChatGPT account you use most often. Review the JSON it produces before bringing it into Haven.\n\n---\n\nYou are preparing a private context profile for my personal Haven.\n\nUse only information from my conversations and memory that you can legitimately access in this ChatGPT account. Do not invent facts. Do not infer sensitive attributes I have not explicitly stated. Treat uncertain items as uncertain.\n\nReturn ONLY valid JSON matching this shape:\n\n{\n  \"person\": {\n    \"name\": \"\",\n    \"preferred_name\": \"\",\n    \"location\": \"\",\n    \"season\": \"\"\n  },\n  \"orientation\": {\n    \"statement\": \"\",\n    \"values\": [\n      { \"name\": \"\", \"evidence\": \"\", \"confidence\": \"high|medium|low\" }\n    ],\n    \"principles\": []\n  },\n  \"today\": {\n    \"attention\": [],\n    \"calendar_context\": [],\n    \"next\": []\n  },\n  \"projects\": [\n    {\n      \"name\": \"\",\n      \"status\": \"active|dormant|unresolved|completed|historical\",\n      \"why_it_matters\": \"\",\n      \"next_step\": \"\",\n      \"last_touched\": \"\",\n      \"confidence\": \"high|medium|low\"\n    }\n  ],\n  \"people\": [\n    {\n      \"name\": \"\",\n      \"relationship_context\": \"\",\n      \"open_loop\": \"\",\n      \"confidence\": \"high|medium|low\"\n    }\n  ],\n  \"commitments\": [\n    {\n      \"text\": \"\",\n      \"due\": \"\",\n      \"status\": \"open|planned|done|unknown\",\n      \"confidence\": \"high|medium|low\"\n    }\n  ],\n  \"open_questions\": [\n    {\n      \"text\": \"\",\n      \"context\": \"\",\n      \"confidence\": \"high|medium|low\"\n    }\n  ],\n  \"threads\": [\n    {\n      \"name\": \"\",\n      \"state\": \"\",\n      \"what_changed\": \"\",\n      \"next_step\": \"\"\n    }\n  ],\n  \"review\": {\n    \"things_you_may_have_wrong\": [],\n    \"things_i_should_confirm\": []\n  }\n}\n\nRules:\n- Prefer the last 90 days when deciding what is active now, but preserve older material if it clearly remains important.\n- Distinguish a passing idea from an actual project or commitment.\n- Keep no more than 8 active projects, 12 people, 12 commitments, 8 open questions, and 8 threads.\n- Values must be grounded in repeated explicit statements or behavior described in my conversations. Do not psychoanalyze me.\n- If a name or detail is uncertain, omit it rather than guessing.\n- Make \"statement\" a plain one- or two-sentence description of what I appear to be trying to do with my life right now, not inspirational copy.\n- \"today\" should be empty unless current-day context is actually available.\n- Preserve useful specificity.\n- Do not include medical, sexual, financial-account, password, precise-address, or other highly sensitive information unless I explicitly ask for it in a follow-up.\n- Before returning the JSON, internally check that every populated item is supported by something I actually said or provided.\n- Return JSON only, with no markdown fences.\n";
+const demo = {
+ person:{name:"August Reed",preferred_name:"August",location:"",season:"Building a new chapter while keeping the important work moving."},
+ orientation:{statement:"Build a steadier life around meaningful work, close relationships and things worth making.",values:[{name:"Craft",confidence:"high"},{name:"Loyalty",confidence:"high"},{name:"Independence",confidence:"medium"}],principles:["Do the next concrete thing.","Keep good people close."]},
+ today:{attention:["Send revised proposal"],calendar_context:["Dinner at 7:00"],next:["Block two hours for the project"]},
+ projects:[{name:"Studio launch",status:"active",why_it_matters:"A real body of work",next_step:"Finish first case study",confidence:"high"},{name:"House search",status:"active",why_it_matters:"A better base",next_step:"Review two listings",confidence:"medium"}],
+ people:[{name:"Ben",relationship_context:"Friend and collaborator",open_loop:"Follow up on proposal",confidence:"high"},{name:"Mara",relationship_context:"Family",open_loop:"Call this week",confidence:"high"}],
+ commitments:[{text:"Send revised proposal",due:"Friday",status:"open",confidence:"high"}],
+ open_questions:[{text:"Where should the studio live?",context:"Cost vs community",confidence:"medium"}],
+ threads:[{name:"Work",state:"Moving",what_changed:"First client conversation landed",next_step:"Ship case study"}],
+ review:{things_you_may_have_wrong:["House search may be exploratory, not active."],things_i_should_confirm:["Whether the studio launch is the main priority."]}
+};
+const $=s=>document.querySelector(s);
+function show(id){document.querySelectorAll(".step").forEach(x=>x.classList.toggle("active",x.id===id));scrollTo({top:0,behavior:"instant"})}
+document.querySelectorAll("[data-next]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.next)));
+$("#promptText").value=importPrompt;
+$("#copyPrompt").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(importPrompt);$("#copyStatus").textContent="Copied. Open ChatGPT and paste it into a new conversation."}catch(e){$("#promptText").select();$("#copyStatus").textContent="Select the prompt and copy it manually."}});
+$("#loadDemo").addEventListener("click",()=>{$("#jsonInput").value=JSON.stringify(demo,null,2);$("#importStatus").textContent="Demo loaded. Replace it with your own profile when ready."});
+function validate(p){if(!p||typeof p!=="object")throw new Error("Profile must be a JSON object.");for(const k of ["person","orientation","projects","people","commitments","open_questions","threads"])if(!(k in p))throw new Error("Missing required section: "+k);for(const k of ["projects","people","commitments","open_questions","threads"])if(!Array.isArray(p[k]))throw new Error(k+" must be an array.");return p}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function rows(items,main,meta){if(!items||!items.length)return '<div class="empty">Nothing surfaced.</div>';return '<div class="rows">'+items.slice(0,7).map(x=>'<div class="row"><span>'+esc(main(x))+'</span><small>'+esc(meta(x)||"")+'</small></div>').join("")+'</div>'}
+function render(p){
+ const name=p.person?.preferred_name||p.person?.name||"You";
+ const vals=(p.orientation?.values||[]).slice(0,6).map(v=>'<span class="pill">'+esc(typeof v==="string"?v:v.name)+'</span>').join("");
+ const attention=p.today?.attention||p.commitments?.filter(x=>x.status!=="done").slice(0,4).map(x=>x.text)||[];
+ const questions=p.open_questions||[];
+ $("#havenPreview").innerHTML=
+ '<div class="haven-head"><span>HAVEN / '+esc(name)+'</span><span>'+esc(p.person?.season||"Current state")+'</span></div>'+
+ '<div class="haven-body"><section class="brief"><span class="date">Today / orientation</span><h2>'+esc(name)+'.</h2><p>'+esc(p.orientation?.statement||"Your context has been brought into focus.")+'</p>'+
+ '<div class="section"><span class="label">What needs you</span>'+rows(attention,x=>typeof x==="string"?x:x.text,()=>"" )+'</div>'+
+ '<div class="section"><span class="label">Active work</span>'+rows((p.projects||[]).filter(x=>x.status==="active"||!x.status),x=>x.name,x=>x.next_step||x.status)+'</div></section>'+
+ '<aside class="side"><div class="section"><span class="label">People</span>'+rows(p.people,x=>x.name,x=>x.open_loop||x.relationship_context)+'</div>'+
+ '<div class="section"><span class="label">Open questions</span>'+rows(questions,x=>x.text,x=>x.context)+'</div>'+
+ '<div class="section"><span class="label">Values / principles</span><div>'+vals+'</div></div>'+
+ '<div class="section"><span class="label">Threads</span>'+rows(p.threads,x=>x.name,x=>x.next_step||x.state)+'</div></aside></div>';
+}
+$("#build").addEventListener("click",()=>{try{const p=validate(JSON.parse($("#jsonInput").value));localStorage.setItem("haven-profile",JSON.stringify(p));render(p);$("#importStatus").textContent="";show("preview-step")}catch(e){$("#importStatus").textContent=e.message;$("#importStatus").classList.add("error")}});
+$("#clearProfile").addEventListener("click",()=>{localStorage.removeItem("haven-profile");$("#jsonInput").value="";show("welcome")});
+try{const saved=localStorage.getItem("haven-profile");if(saved){const p=validate(JSON.parse(saved));render(p)}}catch(e){}
+</script>
+</body>
+</html>
