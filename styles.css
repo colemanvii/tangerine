@@ -1219,7 +1219,7 @@ select {
 .morning-check input { appearance: none; -webkit-appearance: none; width: 11px; height: 11px; margin: 0; border: 1px solid var(--muted); border-radius: 0; background: transparent; transform: translateY(1px); }
 .morning-check input:checked { background: var(--ink); box-shadow: inset 0 0 0 2px var(--paper); }
 .morning-check span { font: 400 14px/1.4 var(--serif); }
-.morning-check input:checked + span { color: var(--muted); opacity: .72; }
+.morning-check input:checked + span { color: var(--muted); opacity: .72; text-decoration-line: line-through; text-decoration-color: #9e1f1a; text-decoration-thickness: 1px; }
 .morning-viewings { margin-top: 24px; padding-left: 38px; }
 .morning-viewings h2.morning-label { margin-bottom: 8px; }
 .morning-viewing-list { display: grid; gap: 6px; }
@@ -1230,6 +1230,7 @@ select {
 .morning-viewing strong { font: 400 14px/1.4 var(--serif); }
 .morning-viewing small { font: 400 13px/1.4 var(--serif); color: var(--muted); }
 .morning-viewing input:checked + span { color: var(--muted); opacity: .72; }
+.morning-viewing input:checked + span strong { text-decoration-line: line-through; text-decoration-color: #9e1f1a; text-decoration-thickness: 1px; }
 
 @media (min-width: 701px) and (max-height: 900px) {
   .morning-outreach,
