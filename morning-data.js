@@ -3,7 +3,7 @@
  * The date never advances by itself. Future entries are blank, not forecasts.
  * Keep finished entries intact so you can compare the seven mornings.
  *
- * Per day: 1–2 priorities, 3–5 threads, 1–3 changes, one question,
+ * Per day: 1–2 priorities, 2–4 outreach items, 3–5 threads, 1–3 changes, one question,
  * one begin action, one short grace line. Copy/remove array entries as needed.
  * For the fixed screen: short titles (about 30 characters), one-sentence
  * summaries (about 70), changes (about 65), question/action (about 100).
@@ -13,7 +13,7 @@
  * Dates use YYYY-MM-DD. All displayed dates derive from the selected entry.
  */
 window.HAVEN_MORNING = {
-  "activeDate": "2026-09-29",
+  "activeDate": "2026-09-30",
   "briefs": [
     {
       "date": "2026-09-29",
@@ -69,36 +69,64 @@ window.HAVEN_MORNING = {
       "date": "2026-09-30",
       "priorities": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Put past work online",
+          "summary": "Make the simple personal site real. Show the work plainly."
+        },
+        {
+          "title": "Move Freeman forward",
+          "summary": "Turn field evidence and point of view into one useful artifact."
+        }
+      ],
+      "outreach": [
+        {
+          "id": "connor-blakley",
+          "text": "Contact Connor Blakley"
+        },
+        {
+          "id": "kevin-caywood",
+          "text": "Talk with Kevin Caywood"
+        },
+        {
+          "id": "megan-hinde",
+          "text": "Email Megan Hinde"
         }
       ],
       "threads": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Freeman",
+          "summary": "Six months of fieldwork, judgment, and a real body of evidence."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Haven",
+          "summary": "Live and private. Prove the morning ritual before automating it."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Art",
+          "summary": "Less performative, more observant. Keep making from lived experience."
+        },
+        {
+          "title": "Body",
+          "summary": "Keep the reset steady: sleep, sobriety, movement, rhythm."
+        },
+        {
+          "title": "Faith",
+          "summary": "Trust God and take the next faithful step without perfect certainty."
         }
       ],
       "changes": [
-        ""
+        "Haven Morning moved from local prototype to a protected live surface.",
+        "The personal work site became a concrete priority for today.",
+        "Freeman is sharpening into fieldwork, point of view, and evidence."
       ],
-      "question": "",
+      "question": "Can these six months become a real body of work without becoming my whole identity?",
       "begin": {
-        "text": "",
+        "text": "Open the personal site. Put the first real work online.",
         "label": "",
         "href": ""
       },
       "grace": {
-        "text": "",
-        "source": ""
+        "text": "Commit thy works unto the Lord, and thy thoughts shall be established.",
+        "source": "Proverbs 16:3 · KJV"
       }
     },
     {
