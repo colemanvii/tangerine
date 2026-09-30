@@ -32,15 +32,15 @@ footer{border-top:1px solid var(--line);padding:15px 0 20px;display:flex;justify
 <section id="s1" class="step active">
 <p class="kicker">Start</p>
 <h1>See what matters now.</h1>
-<p class="lede">Use the AI that already knows you to make a small snapshot of your current state. Haven turns it into a quiet page you can return to.</p>
+<p class="lede">Use the ChatGPT that already knows you to make a clear view of what matters right now. Haven turns it into a quiet page you can return to.</p>
 <div class="actions"><button class="primary" data-next="s2">Begin</button></div>
-<p class="note">Stored only in this browser. Haven does not receive your imported state. Anyone with access to this browser profile or certain browser extensions may be able to read local browser storage.</p>
+<p class="note">Haven never connects to your ChatGPT. You run the prompt yourself and choose what to bring back.</p>
 </section>
 
 <section id="s2" class="step">
 <p class="kicker">01 / Ask your ChatGPT</p>
 <h1>Copy one prompt.</h1>
-<p class="lede">Paste this into the ChatGPT account you use most. It asks for a compressed current-state snapshot, not a biography.</p>
+<p class="lede">Paste this into the ChatGPT account you use most. Read it first if you want. Haven never accesses your account.</p>
 <textarea id="promptText" class="prompt" readonly></textarea>
 <div class="actions"><button class="primary" id="copyPrompt">Copy prompt</button><button data-next="s3">I have the result</button></div>
 <p id="copyStatus" class="status"></p>
@@ -49,23 +49,23 @@ footer{border-top:1px solid var(--line);padding:15px 0 20px;display:flex;justify
 <section id="s3" class="step">
 <p class="kicker">02 / Paste the result</p>
 <h1>Build your Haven.</h1>
-<p class="lede">Paste ChatGPT’s result below. Haven will reduce it to Orientation, Now, Commitments, and Questions.</p>
+<p class="lede">Copy the entire response from ChatGPT and paste it below. You do not need to edit it.</p>
 <textarea id="jsonInput" class="import" spellcheck="false" placeholder="Paste the result here…"></textarea>
 <div class="actions"><button class="primary" id="build">Build my Haven</button><button data-next="s2">Back</button></div>
-<p id="importStatus" class="status"></p>
+<p class="note">This stays only in this browser. Nothing you paste here is sent to Haven or stored on a server. You can erase it anytime.</p><p id="importStatus" class="status"></p>
 </section>
 
 <section id="s4" class="step">
 <p class="kicker">03 / Your Haven</p>
 <div class="preview" id="preview"></div>
 <div class="actions" style="margin-top:30px"><button data-next="s3">Replace snapshot</button><button id="clear">Reset Haven</button></div>
-<p class="note">This is a mirror, not an oracle. If it feels wrong, reset it. Haven stores this snapshot in local browser storage until you remove it or clear that site data.</p>
+<p class="note">Bookmark this page. It stays right here in this browser. If the reflection feels wrong, reset it and start again.</p>
 </section>
 </main>
 <footer><span>Haven</span><span>Browser-local · no account · no sync</span></footer>
 </div>
 <script>
-const prompt = `I’m setting up Haven, a personal orientation layer.
+const prompt = `I’m setting up Haven, a clear view of what matters in my life right now.
 
 Use only context you can legitimately access from my conversations and memory to create a very small snapshot of what is active in my life right now.
 
