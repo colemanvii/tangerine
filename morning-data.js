@@ -91,6 +91,20 @@ window.HAVEN_MORNING = {
           "text": "Email Megan Hinde"
         }
       ],
+      "viewings": [
+        {
+          "title": "14 Lila Way",
+          "detail": "$1,600/mo · 2 bed · 2 bath · 1,628 sq ft"
+        },
+        {
+          "title": "Downtown duplex",
+          "detail": ""
+        },
+        {
+          "title": "319 S Bartow St",
+          "detail": ""
+        }
+      ],
       "threads": [
         {
           "title": "Freeman",
