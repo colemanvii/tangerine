@@ -131,9 +131,30 @@
   // Keep selection separate from presentation; escape data before inserting markup.
   const escapeText = (value = "") => String(value).replace(/[&<>"']/g,
     (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
+  function localDateKey() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
   function morningBrief() {
-    return window.HAVEN_MORNING.briefs.find(
-      (brief) => brief.date === window.HAVEN_MORNING.activeDate,
+    const requested =
+      window.HAVEN_MORNING.activeDate &&
+      window.HAVEN_MORNING.activeDate !== "auto"
+        ? window.HAVEN_MORNING.activeDate
+        : localDateKey();
+    return (
+      window.HAVEN_MORNING.briefs.find((brief) => brief.date === requested) || {
+        date: requested,
+        priorities: [],
+        outreach: [],
+        threads: [],
+        changes: [],
+        question: "",
+        begin: { text: "", label: "", href: "" },
+        grace: { text: "", source: "" },
+      }
     );
   }
   function morningDates() {
@@ -173,6 +194,18 @@
   function personalView() {
     const brief = morningBrief();
     const { date, dateLabel, previousDate, previousDateLabel } = morningDates();
+    const ready =
+      brief.priorities?.some((item) => item.title?.trim()) ||
+      brief.threads?.some((item) => item.title?.trim()) ||
+      brief.changes?.some((item) => String(item).trim()) ||
+      brief.begin?.text?.trim() ||
+      brief.grace?.text?.trim();
+    if (!ready) {
+      return `<section class="morning" aria-labelledby="morning-title">
+        <header class="morning-heading"><h1 id="morning-title">Morning</h1><time datetime="${escapeText(date)}">${escapeText(dateLabel)}</time></header>
+        <p>Today’s brief is not ready yet.</p>
+      </section>`;
+    }
     const { question, begin: next, grace } = brief;
     // A physical next action needs no link. Only local or HTTP(S) links are allowed.
     let actionLink = "";
