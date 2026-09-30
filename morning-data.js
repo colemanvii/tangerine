@@ -1,6 +1,6 @@
 /* MANUAL SEVEN-MORNING TRIAL
- * Edit one dated brief below, then set activeDate to that date and reload.
- * The date never advances by itself. Future entries are blank, not forecasts.
+ * Edit one dated brief below and reload. activeDate is normally "auto", so Haven follows the browser's local calendar date.
+ * Set activeDate to a YYYY-MM-DD value only for deliberate testing. Future entries are blank, not forecasts.
  * Keep finished entries intact so you can compare the seven mornings.
  *
  * Per day: 1–2 priorities, 2–4 outreach items, 3–5 threads, 1–3 changes, one question,
@@ -13,7 +13,7 @@
  * Dates use YYYY-MM-DD. All displayed dates derive from the selected entry.
  */
 window.HAVEN_MORNING = {
-  "activeDate": "2026-09-30",
+  "activeDate": "auto",
   "briefs": [
     {
       "date": "2026-09-29",
