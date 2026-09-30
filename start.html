@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f3f2ee">
+<title>Haven — Start</title>
+<style>
+:root{--paper:#f3f2ee;--ink:#171816;--muted:#74766f;--line:#d8d7d0;--soft:#ebeae5;--mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--serif:Iowan Old Style,Palatino Linotype,Palatino,Book Antiqua,Georgia,serif}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink)}body{font-family:var(--serif)}
+.shell{width:min(920px,calc(100% - 28px));margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+header{height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.brand{font-weight:700;letter-spacing:.16em}.quiet{color:var(--muted)}
+main{flex:1;padding:8vh 0 8vh}.step{display:none}.step.active{display:block}
+.kicker{font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 20px}
+h1{font-weight:400;font-size:clamp(44px,7vw,78px);line-height:.96;letter-spacing:-.045em;max-width:780px;margin:0 0 24px}
+.lede{font-size:18px;line-height:1.5;max-width:590px;color:#454740;margin:0 0 34px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}button{appearance:none;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:13px 16px;font:11px var(--mono);cursor:pointer}.primary{background:var(--ink);color:var(--paper)}
+.note{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);max-width:620px;font:11px/1.6 var(--mono);color:var(--muted)}
+textarea{width:100%;border:1px solid var(--line);background:var(--soft);padding:15px;color:var(--ink);font:11px/1.55 var(--mono);resize:vertical}
+.prompt{height:260px}.import{min-height:290px;margin:10px 0 12px}.status{min-height:18px;font:11px/1.5 var(--mono);color:var(--muted)}.status.error{color:#8f352f}
+.preview{border-top:1px solid var(--ink);padding-top:18px}.horizon{font-size:28px;line-height:1.25;max-width:760px;margin:0 0 32px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}.section{border-top:1px solid var(--line);padding:12px 0 2px}.label{display:block;font:10px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}.rows{display:grid}.row{padding:9px 0;border-top:1px solid var(--line)}.row:first-child{border-top:0}.row strong{display:block;font-weight:400;font-size:16px}.row small{display:block;margin-top:2px;color:var(--muted);font:10px/1.45 var(--mono)}.empty{font-style:italic;color:var(--muted);font-size:14px}
+footer{border-top:1px solid var(--line);padding:15px 0 20px;display:flex;justify-content:space-between;gap:18px;font:10px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+@media(max-width:700px){main{padding-top:6vh}.grid{grid-template-columns:1fr}footer{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><span class="brand">HAVEN</span><span class="quiet">Private beta</span></header>
+<main>
+<section id="s1" class="step active">
+<p class="kicker">Start</p>
+<h1>Bring your context with you.</h1>
+<p class="lede">Use the AI that already knows you to make a tiny snapshot of what matters right now. Haven turns that into a quiet front page.</p>
+<div class="actions"><button class="primary" data-next="s2">Begin</button></div>
+<p class="note">This beta does not connect directly to ChatGPT. Your Haven stays in this browser.</p>
+</section>
+
+<section id="s2" class="step">
+<p class="kicker">01 / Ask your ChatGPT</p>
+<h1>Copy one prompt.</h1>
+<p class="lede">Paste this into the ChatGPT account you use most. It should return a small JSON snapshot, not a biography.</p>
+<textarea id="promptText" class="prompt" readonly></textarea>
+<div class="actions"><button class="primary" id="copyPrompt">Copy prompt</button><button data-next="s3">I have the JSON</button></div>
+<p id="copyStatus" class="status"></p>
+</section>
+
+<section id="s3" class="step">
+<p class="kicker">02 / Paste the result</p>
+<h1>Build your Haven.</h1>
+<p class="lede">Paste the JSON ChatGPT returned. Haven will keep only five things: horizon, now, people, commitments, questions.</p>
+<textarea id="jsonInput" class="import" spellcheck="false" placeholder="Paste JSON here…"></textarea>
+<div class="actions"><button class="primary" id="build">Build my Haven</button><button data-next="s2">Back</button></div>
+<p id="importStatus" class="status"></p>
+</section>
+
+<section id="s4" class="step">
+<p class="kicker">03 / Your Haven</p>
+<div class="preview" id="preview"></div>
+<div class="actions" style="margin-top:28px"><button data-next="s3">Edit import</button><button id="clear">Forget this Haven</button></div>
+<p class="note">This is a read-only mirror, not a task manager. The point is whether it feels like an accurate reduction of your life right now.</p>
+</section>
+</main>
+<footer><span>Haven / private beta</span><span>Browser-local · no account · no sync</span></footer>
+</div>
+<script>
+const prompt = `I’m setting up a private personal operating system called Haven.
+
+Use the context you already have from my conversations with you to create a very small snapshot of my life right now.
+
+Do not give me a biography.
+Do not summarize my whole history.
+Do not include sensitive personal details unless they are directly necessary.
+Do not psychoanalyze me.
+Do not include confidence scores, metadata, timestamps, or explanations.
+
+Focus on what is actually active now.
+
+Return ONLY valid JSON in exactly this shape:
+
+{
+  "horizon": "",
+  "now": [
+    {
+      "name": "",
+      "status": ""
+    }
+  ],
+  "people": [
+    {
+      "name": "",
+      "context": ""
+    }
+  ],
+  "commitments": [
+    {
+      "text": ""
+    }
+  ],
+  "questions": [
+    {
+      "text": ""
+    }
+  ]
+}
+
+Rules:
+- "horizon" should be 1–2 plain sentences describing what I appear to be navigating or building right now.
+- "now" should contain no more than 3 active projects, efforts, or areas currently receiving real energy.
+- "people" should contain no more than 3 people who matter in my current context, with one short line explaining why they are in view.
+- "commitments" should contain no more than 5 real promises, obligations, or concrete things that require resolution.
+- "questions" should contain no more than 3 unresolved decisions or dilemmas that are genuinely active in the background.
+- Prefer recent context over old context.
+- Ignore abandoned ideas, repetitive brainstorming, completed projects, and low-level noise.
+- Do not include micro-tasks unless they materially shape my day or current direction.
+- If you are uncertain whether something is still active, leave it out.
+- The goal is compression, not completeness.
+- Before returning the JSON, silently check: Does this feel like an accurate front page of this person’s life right now?
+- Return JSON only.`;
+
+const $ = s => document.querySelector(s);
+const show = id => { document.querySelectorAll('.step').forEach(el => el.classList.toggle('active', el.id === id)); window.scrollTo({top:0,behavior:'instant'}); };
+document.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', () => show(b.dataset.next)));
+$('#promptText').value = prompt;
+
+$('#copyPrompt').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(prompt);
+    $('#copyStatus').textContent = 'Copied. Paste it into ChatGPT.';
+  } catch {
+    $('#promptText').select();
+    $('#copyStatus').textContent = 'Select the prompt and copy it manually.';
+  }
+});
+
+function validate(p){
+  if(!p || typeof p !== 'object') throw new Error('Paste a valid JSON object.');
+  if(typeof p.horizon !== 'string') throw new Error('Missing horizon.');
+  for(const key of ['now','people','commitments','questions']) if(!Array.isArray(p[key])) throw new Error('Missing '+key+'.');
+  if(p.now.length > 3 || p.people.length > 3 || p.commitments.length > 5 || p.questions.length > 3) throw new Error('This profile is too large. Ask ChatGPT to respect the limits.');
+  return p;
+}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+function rows(items, main, sub){
+  if(!items.length) return '<div class="empty">Nothing surfaced.</div>';
+  return '<div class="rows">'+items.map(x=>'<div class="row"><strong>'+esc(main(x))+'</strong>'+(sub(x)?'<small>'+esc(sub(x))+'</small>':'')+'</div>').join('')+'</div>';
+}
+function render(p){
+  $('#preview').innerHTML =
+    '<span class="label">Horizon</span><p class="horizon">'+esc(p.horizon)+'</p>'+
+    '<div class="grid">'+
+      '<div><section class="section"><span class="label">Now</span>'+rows(p.now,x=>x.name,x=>x.status)+'</section>'+
+      '<section class="section"><span class="label">Commitments</span>'+rows(p.commitments,x=>x.text,()=> '')+'</section></div>'+
+      '<div><section class="section"><span class="label">People</span>'+rows(p.people,x=>x.name,x=>x.context)+'</section>'+
+      '<section class="section"><span class="label">Questions</span>'+rows(p.questions,x=>x.text,()=> '')+'</section></div>'+
+    '</div>';
+}
+$('#build').addEventListener('click', () => {
+  const status = $('#importStatus');
+  status.classList.remove('error');
+  try{
+    const profile = validate(JSON.parse($('#jsonInput').value));
+    localStorage.setItem('haven-v1-profile', JSON.stringify(profile));
+    render(profile);
+    status.textContent='';
+    show('s4');
+  }catch(e){
+    status.textContent=e.message;
+    status.classList.add('error');
+  }
+});
+$('#clear').addEventListener('click',()=>{
+  localStorage.removeItem('haven-v1-profile');
+  $('#jsonInput').value='';
+  show('s1');
+});
+try{
+  const saved = localStorage.getItem('haven-v1-profile');
+  if(saved) render(validate(JSON.parse(saved)));
+}catch{}
+</script>
+</body>
+</html>
