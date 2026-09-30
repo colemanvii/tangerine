@@ -149,6 +149,7 @@
         date: requested,
         priorities: [],
         outreach: [],
+        viewings: [],
         threads: [],
         changes: [],
         question: "",
@@ -225,6 +226,7 @@
             ${brief.priorities.map((item, index) => { return `<div class="morning-priority"><span class="morning-number" aria-hidden="true">0${index + 1}</span><div><h3>${escapeText(item.title)}</h3><p>${escapeText(item.summary)}</p></div></div>`; }).join("")}
           </section>
           ${Array.isArray(brief.outreach) && brief.outreach.length ? `<section class="morning-outreach" aria-labelledby="outreach-title"><h2 id="outreach-title" class="morning-label">Outreach</h2><div class="morning-checklist">${brief.outreach.map((item) => { const completed = completedOutreach(date); const rawId = item.id || item.text; const checked = completed.has(rawId); return `<label class="morning-check"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span>${escapeText(item.text)}</span></label>`; }).join("")}</div></section>` : ""}
+          ${Array.isArray(brief.viewings) && brief.viewings.length ? `<section class="morning-outreach" aria-labelledby="viewings-title"><h2 id="viewings-title" class="morning-label">Property viewings</h2><div class="morning-checklist">${brief.viewings.map((item) => `<div class="morning-check"><span><strong>${escapeText(item.title)}</strong>${item.detail ? `<small> · ${escapeText(item.detail)}</small>` : ""}</span></div>`).join("")}</div></section>` : ""}
           <section class="morning-changes" aria-labelledby="changes-title"><h2 id="changes-title" class="morning-label">Since yesterday <time datetime="${escapeText(previousDate)}">/ ${escapeText(previousDateLabel)}</time></h2><ul>${brief.changes.map((change) => `<li>${escapeText(change)}</li>`).join("")}</ul></section>
           ${question ? `<section class="morning-question" aria-labelledby="question-title"><h2 id="question-title" class="morning-label">Held open</h2><p>${escapeText(question)}</p><small>No answer needed this morning.</small></section>` : ""}
         </div>
