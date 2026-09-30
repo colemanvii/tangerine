@@ -86,8 +86,9 @@ All actions and display preferences are session-only and reset on reload. Changi
 - `home-data.js` — one representative home; stable equipment and record identifiers, provenance, and related records.
 - `app.js` — view rendering, route handling, detail inspection, local demonstration actions, privacy, and idle behavior.
 - `DESIGN.md` — audit, design decisions, scope, and validation notes.
+- `field-notes/freeman/BARNSLEY-HOUSE-001.md` — Barnsley Gardens pilot concept; retained in the repository but excluded from the hosted Morning build.
 
-The archive is unchanged. The three legacy root URLs redirect to their corresponding historical pages under `archive/pre-home-os/`.
+Historical explorations live only under `archive/`; legacy root redirect stubs were removed during repository cleanup.
 
 The sample record includes authored text extracts and an illustrative field diagram. Source photographs, original construction drawings, manufacturer manuals, and warranty documents are not included; the interface says so explicitly. Model/serial identifiers are fictional and warranty summaries are not verified coverage.
 
@@ -131,3 +132,9 @@ No CSS or typography changes were made for this trial structure.
 Existing home routes remain available by their explicit hashes. No authentication
 or private storage is provided; local content must not be treated as protected if
 this static repository is published. Nothing from this edit has been pushed.
+
+## Hosted deployment boundary
+
+The repository may contain archives, prototypes, design documents, and project records that are not part of the hosted Morning surface. The deployment excludes those files via `.vercelignore`. The hosted Morning page also declares `noindex, nofollow, noarchive`, and `robots.txt` disallows crawling.
+
+This does **not** make the repository or deployment private by itself. Repository visibility and Vercel Deployment Protection must be configured separately.
