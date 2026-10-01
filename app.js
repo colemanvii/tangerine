@@ -194,45 +194,30 @@
   }
   function personalView() {
     const brief = morningBrief();
-    const { date, dateLabel, previousDate, previousDateLabel } = morningDates();
-    const ready =
-      brief.priorities?.some((item) => item.title?.trim()) ||
-      brief.threads?.some((item) => item.title?.trim()) ||
-      brief.changes?.some((item) => String(item).trim()) ||
-      brief.begin?.text?.trim() ||
-      brief.grace?.text?.trim();
-    if (!ready) {
-      return `<section class="morning" aria-labelledby="morning-title">
+    const { date, dateLabel } = morningDates();
+    const priorities = (brief.priorities || []).filter((item) => item.title?.trim());
+    const outreach = (brief.outreach || []).filter((item) => item.text?.trim());
+    const direction = (brief.direction || "").trim();
+
+    if (!priorities.length && !outreach.length && !direction) {
+      return `<section class="morning morning-snapshot" aria-labelledby="morning-title">
         <header class="morning-heading"><h1 id="morning-title">Morning</h1><time datetime="${escapeText(date)}">${escapeText(dateLabel)}</time></header>
         <p>Today’s brief is not ready yet.</p>
       </section>`;
     }
-    const { question, begin: next, grace } = brief;
-    // A physical next action needs no link. Only local or HTTP(S) links are allowed.
-    let actionLink = "";
-    if (next.href && next.label) {
-      try {
-        const destination = new URL(next.href, location.href);
-        if (["http:", "https:", "file:"].includes(destination.protocol)) {
-          actionLink = `<a href="${escapeText(destination.href)}">${escapeText(next.label)}</a>`;
-        }
-      } catch { /* Keep the action readable when a manually entered URL is invalid. */ }
-    }
-    return `<section class="morning" aria-labelledby="morning-title">
+
+    const completed = completedOutreach(date);
+    return `<section class="morning morning-snapshot" aria-labelledby="morning-title">
       <header class="morning-heading"><h1 id="morning-title">Morning</h1><time datetime="${escapeText(date)}">${escapeText(dateLabel)}</time></header>
-      <div class="morning-composition">
-        <div class="morning-main">
-          <section class="morning-today" aria-labelledby="today-title"><h2 id="today-title" class="morning-label">Today</h2>
-            ${brief.priorities.map((item, index) => { return `<div class="morning-priority"><span class="morning-number" aria-hidden="true">0${index + 1}</span><div><h3>${escapeText(item.title)}</h3><p>${escapeText(item.summary)}</p></div></div>`; }).join("")}
-          </section>
-          ${Array.isArray(brief.outreach) && brief.outreach.length ? `<section class="morning-outreach" aria-labelledby="outreach-title"><h2 id="outreach-title" class="morning-label">Outreach</h2><div class="morning-checklist">${brief.outreach.map((item) => { const completed = completedOutreach(date); const rawId = item.id || item.text; const checked = completed.has(rawId); return `<label class="morning-check"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span>${escapeText(item.text)}</span></label>`; }).join("")}</div></section>` : ""}
-          ${Array.isArray(brief.viewings) && brief.viewings.length ? `<section class="morning-viewings" aria-labelledby="viewings-title"><h2 id="viewings-title" class="morning-label">Property viewings</h2><div class="morning-viewing-list">${brief.viewings.map((item) => { const completed = completedOutreach(date); const rawId = `viewing:${item.title}`; const checked = completed.has(rawId); return `<label class="morning-viewing"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span><strong>${escapeText(item.title)}</strong>${item.detail ? `<small>${escapeText(item.detail)}</small>` : ""}</span></label>`; }).join("")}</div></section>` : ""}
-          <section class="morning-changes" aria-labelledby="changes-title"><h2 id="changes-title" class="morning-label">Since yesterday <time datetime="${escapeText(previousDate)}">/ ${escapeText(previousDateLabel)}</time></h2><ul>${brief.changes.map((change) => `<li>${escapeText(change)}</li>`).join("")}</ul></section>
-          ${question ? `<section class="morning-question" aria-labelledby="question-title"><h2 id="question-title" class="morning-label">Held open</h2><p>${escapeText(question)}</p><small>No answer needed this morning.</small></section>` : ""}
-        </div>
-        <aside class="morning-context" aria-labelledby="threads-title"><h2 id="threads-title" class="morning-label">The longer view</h2><dl>${brief.threads.map((thread) => { return `<div><dt>${escapeText(thread.title)}</dt><dd>${escapeText(thread.summary)}</dd></div>`; }).join("")}</dl></aside>
-      </div>
-      <footer class="morning-close"><div class="morning-next"><h2 class="morning-label">Begin here</h2><p>${escapeText(next.text)}</p>${actionLink}</div><div class="morning-grace"><p>${escapeText(grace.text)}</p><small>${escapeText(grace.source)}</small></div></footer>
+
+      <section class="morning-today" aria-labelledby="today-title">
+        <h2 id="today-title" class="morning-label">Now</h2>
+        ${priorities.map((item, index) => `<div class="morning-priority"><span class="morning-number" aria-hidden="true">0${index + 1}</span><div><h3>${escapeText(item.title)}</h3><p>${escapeText(item.summary || "")}</p></div></div>`).join("")}
+      </section>
+
+      ${outreach.length ? `<section class="morning-outreach" aria-labelledby="outreach-title"><h2 id="outreach-title" class="morning-label">Next</h2><div class="morning-checklist">${outreach.map((item) => { const rawId = item.id || item.text; const checked = completed.has(rawId); return `<label class="morning-check"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span>${escapeText(item.text)}</span></label>`; }).join("")}</div></section>` : ""}
+
+      ${direction ? `<section class="morning-direction" aria-labelledby="direction-title"><h2 id="direction-title" class="morning-label">Direction</h2><p>${escapeText(direction)}</p></section>` : ""}
     </section>`;
   }
   function render(focus = false) {
