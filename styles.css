@@ -1238,3 +1238,156 @@ select {
     font-size: 14px;
   }
 }
+
+
+/* HAVEN TIME MACHINE — visual eras */
+.era-switch{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:7px 10px 7px 14px;
+  border:1px solid var(--line);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+}
+.era-label{
+  font:10px/1 var(--mono);
+  letter-spacing:.12em;
+  color:var(--muted);
+}
+.era-options{display:flex;gap:3px}
+.era-options button{
+  border:0;
+  background:transparent;
+  min-height:34px;
+  padding:6px 9px;
+  font:11px/1 var(--mono);
+  color:var(--muted);
+}
+.era-options button.active{
+  color:var(--paper);
+  background:var(--ink);
+}
+.header-actions{margin-left:0}
+
+html[data-era="1994"]{
+  --paper:#eee8dc;
+  --canvas:#b8b2a8;
+  --ink:#252628;
+  --muted:#66686b;
+  --line:#b9b2a4;
+  --green:#086f66;
+  --orange:#d94c27;
+  --wash:#ddd7cb;
+}
+html[data-era="1994"] body{
+  background:
+    radial-gradient(circle at 18% 12%,#2ee6ce22,transparent 28%),
+    radial-gradient(circle at 84% 18%,#8a5cff20,transparent 26%),
+    linear-gradient(135deg,#c8c2b8,#a9a49b);
+}
+html[data-era="1994"] .instrument{
+  border:1px solid #8f8d87;
+  border-radius:28px;
+  box-shadow:
+    inset 0 1px 1px #fff,
+    inset 0 -2px 5px #6e756f33,
+    0 22px 50px #31333133;
+  background:
+    linear-gradient(#f5f0e7dd,#e7e1d5e8);
+  backdrop-filter:blur(10px);
+}
+html[data-era="1994"] .masthead{
+  border-bottom:2px groove #f7f2e8;
+}
+html[data-era="1994"] .wordmark{
+  letter-spacing:.18em;
+}
+html[data-era="1994"] .era-switch{
+  border-radius:18px;
+  box-shadow:inset 0 1px 0 #fff,0 1px 2px #7775;
+  background:#dcd7ce;
+}
+html[data-era="1994"] .era-options button{
+  border-radius:12px;
+}
+html[data-era="1994"] .era-options button.active{
+  background:linear-gradient(#19b8a7,#077d74);
+  box-shadow:inset 0 1px 0 #aaffee88,0 1px 2px #0003;
+}
+html[data-era="1994"] .navigation{
+  background:#e8e2d7e8;
+  backdrop-filter:blur(10px);
+}
+html[data-era="1994"] .primary{
+  border-radius:18px;
+  background:linear-gradient(#168e82,#08685f);
+}
+html[data-era="1994"] .round-arrow,
+html[data-era="1994"] .idle-button,
+html[data-era="1994"] .close-button{
+  border-radius:16px;
+}
+
+html[data-era="1971"]{
+  --paper:#e6ddc9;
+  --canvas:#5e5c4a;
+  --ink:#282b1e;
+  --muted:#706b54;
+  --line:#b5aa8c;
+  --green:#415a35;
+  --orange:#b85a2d;
+  --wash:#d7c7a6;
+  --serif:"Times New Roman",Times,serif;
+  --sans:"Helvetica Neue",Arial,sans-serif;
+}
+html[data-era="1971"] body{
+  background:
+    repeating-linear-gradient(0deg,#00000008 0 1px,transparent 1px 4px),
+    #66634f;
+}
+html[data-era="1971"] .instrument{
+  border-radius:2px;
+  border:2px solid #3b3d30;
+  background:#e7ddc7;
+  box-shadow:0 20px 45px #1d211b55,inset 0 0 0 6px #d2c4a6;
+}
+html[data-era="1971"] .masthead,
+html[data-era="1971"] .navigation,
+html[data-era="1971"] .instrument-footer{
+  border-color:#91866e;
+}
+html[data-era="1971"] .wordmark{
+  font-family:var(--serif);
+  font-weight:700;
+  letter-spacing:.11em;
+}
+html[data-era="1971"] .era-switch{
+  border-radius:0;
+  border:1px solid #79745f;
+  background:#d2c6aa;
+  box-shadow:inset 1px 1px #f7eed8,inset -1px -1px #8d846d;
+}
+html[data-era="1971"] .era-options button{
+  border-radius:0;
+}
+html[data-era="1971"] .era-options button.active{
+  color:#efe7d3;
+  background:#b2522c;
+}
+html[data-era="1971"] .navigation{
+  background:#ded3bc;
+}
+html[data-era="1971"] .primary{
+  border-radius:0;
+  background:#415a35;
+}
+html[data-era="1971"] button{
+  border-radius:0;
+}
+
+@media (max-width: 920px){
+  .masthead{flex-wrap:wrap;padding:18px 0;gap:14px}
+  .era-switch{order:3;width:100%;justify-content:space-between}
+  .header-actions{margin-left:auto}
+}
