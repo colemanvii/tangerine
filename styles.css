@@ -2135,3 +2135,161 @@ html[data-era="1971"] .idle{
   html[data-era="1994"] .brief-main,
   html[data-era="1994"] .brief-side{padding:22px}
 }
+
+
+/* HAVEN 2026 LIGHT / DARK */
+.theme-switch{
+  margin-left:auto;
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+  padding:3px;
+  border:1px solid var(--line);
+  background:transparent;
+}
+.theme-switch button{
+  min-height:34px;
+  padding:0 10px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:var(--muted);
+  font:10px/1 var(--mono);
+  letter-spacing:.1em;
+}
+.theme-switch button.active{
+  background:var(--ink);
+  color:var(--paper);
+}
+.header-actions{margin-left:0}
+
+html[data-theme="dark"]{
+  --paper:#191c1a;
+  --canvas:#101210;
+  --ink:#ece8df;
+  --muted:#aaa79f;
+  --line:#373b37;
+  --green:#9eb7a3;
+  --orange:#d27a4a;
+  --wash:#262b27;
+}
+html[data-theme="dark"]{
+  background:var(--canvas);
+  color:var(--ink);
+}
+html[data-theme="dark"] body{
+  background:var(--canvas);
+}
+html[data-theme="dark"] .instrument{
+  background:#191c1a;
+  border-color:#30342f;
+  box-shadow:
+    0 1px 0 #ffffff0d inset,
+    0 24px 58px #00000055;
+}
+html[data-theme="dark"] .masthead,
+html[data-theme="dark"] .navigation,
+html[data-theme="dark"] .instrument-footer,
+html[data-theme="dark"] .brief-side,
+html[data-theme="dark"] .attention,
+html[data-theme="dark"] .weather,
+html[data-theme="dark"] .agenda button,
+html[data-theme="dark"] .system-strip,
+html[data-theme="dark"] .system-strip button,
+html[data-theme="dark"] .ledger,
+html[data-theme="dark"] .ledger-row,
+html[data-theme="dark"] .record-intro,
+html[data-theme="dark"] .facts > div,
+html[data-theme="dark"] .related,
+html[data-theme="dark"] .preference{
+  border-color:var(--line);
+}
+html[data-theme="dark"] .navigation{
+  background:var(--paper);
+}
+html[data-theme="dark"] .navigation a:hover,
+html[data-theme="dark"] .ledger-row:hover,
+html[data-theme="dark"] .idle-button:hover,
+html[data-theme="dark"] .secondary:hover,
+html[data-theme="dark"] .filter:hover{
+  background:#222622;
+}
+html[data-theme="dark"] .exception-bar,
+html[data-theme="dark"] .note-paper,
+html[data-theme="dark"] .detail-note{
+  background:#242824;
+}
+html[data-theme="dark"] .note-paper{
+  border-top-color:#605844;
+}
+html[data-theme="dark"] .round-arrow{
+  border-color:#565d57;
+}
+html[data-theme="dark"] .secondary,
+html[data-theme="dark"] select,
+html[data-theme="dark"] .close-button,
+html[data-theme="dark"] .idle-button{
+  border-color:#464b46;
+  color:var(--ink);
+  background:transparent;
+}
+html[data-theme="dark"] select{
+  background:#1f231f;
+}
+html[data-theme="dark"] .filter[aria-pressed="true"]{
+  border-color:#666b65;
+  background:#242824;
+}
+html[data-theme="dark"] dialog{
+  color:var(--ink);
+  background:#191c1a;
+  border-color:#40453f;
+  box-shadow:0 35px 100px #00000088;
+}
+html[data-theme="dark"] dialog::backdrop{
+  background:#050605aa;
+}
+html[data-theme="dark"] .field-diagram{
+  background:#242824;
+}
+html[data-theme="dark"] .field-diagram text{
+  fill:#c9c4ba;
+}
+html[data-theme="dark"] .field-diagram path{
+  stroke:#817b70;
+}
+html[data-theme="dark"] .primary{
+  background:#718a76;
+  border-color:#718a76;
+  color:#111411;
+}
+html[data-theme="dark"] .primary:hover{
+  background:#839b88;
+}
+html[data-theme="dark"] .state-line{
+  color:#a7bba9;
+}
+html[data-theme="dark"] .attention .label{
+  color:#e08b59;
+}
+html[data-theme="dark"] .weather-icon{
+  color:#aaa79f;
+}
+html[data-theme="dark"] .theme-switch{
+  border-color:#414640;
+}
+html[data-theme="dark"] .theme-switch button.active{
+  background:#ece8df;
+  color:#171a17;
+}
+html[data-theme="dark"] .skip{
+  background:#191c1a;
+}
+html[data-theme="dark"] .idle{
+  background:#0d100e;
+  color:#efebe2;
+}
+@media(max-width:920px){
+  .theme-switch{order:3;width:auto;margin-left:0}
+  .header-actions{margin-left:auto}
+}
