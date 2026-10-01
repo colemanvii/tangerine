@@ -151,12 +151,16 @@ window.HAVEN_MORNING = {
       "date": "2026-10-01",
       "priorities": [
         {
-          "title": "Finish Freeman Study 001",
-          "summary": "Complete the three iPad studies for Gabe’s cabin and note what needs a reaction."
+          "title": "Rebuild portfolio website",
+          "summary": "Photography, design, artwork. Get the simple personal site live."
         },
         {
-          "title": "Test Haven with another person",
-          "summary": "Move the onboarding test from Cole’s profile to Gabe without adding product noise."
+          "title": "Move Freeman forward",
+          "summary": "Finish one meaningful piece of work and make it visible."
+        },
+        {
+          "title": "Train and stay clear",
+          "summary": "Move your body. Protect the momentum you are rebuilding."
         }
       ],
       "outreach": [
@@ -167,44 +171,24 @@ window.HAVEN_MORNING = {
         {
           "id": "14-lila-confirm",
           "text": "Confirm the Oct 3 tour at 14 Lila Way"
+        },
+        {
+          "id": "connor-after-site",
+          "text": "Connor Blakley after the site is live"
         }
       ],
-      "threads": [
-        {
-          "title": "Freeman",
-          "summary": "Field evidence, sketches, and judgment are the work. Build the body of evidence."
-        },
-        {
-          "title": "Haven",
-          "summary": "The private Morning system works for one person; now test whether it travels."
-        },
-        {
-          "title": "Housing",
-          "summary": "Cartersville options are active. Keep the search concrete and move viable places forward."
-        },
-        {
-          "title": "Art",
-          "summary": "Stay involved: observe first, then draw what is actually in front of you."
-        },
-        {
-          "title": "Faith",
-          "summary": "Do the small work in front of you with love instead of demanding certainty."
-        }
-      ],
-      "changes": [
-        "Haven is now a private, Git-connected Morning app on the iPhone.",
-        "The multi-person Haven onboarding test has started with Gabe, Ben Butler, and Augustus.",
-        "The 38 Porter Street rental inquiry advanced to scheduling a viewing."
-      ],
-      "question": "Can Haven feel genuinely personal for someone else without turning into a generic AI dashboard?",
+      "direction": "Work. Save money. Learn to fly.",
+      "threads": [],
+      "changes": [],
+      "question": "",
       "begin": {
-        "text": "Open Freeman Study 001. Finish the three iPad sketches before planning anything else.",
+        "text": "",
         "label": "",
         "href": ""
       },
       "grace": {
-        "text": "And whatsoever ye do, do it heartily, as to the Lord.",
-        "source": "Colossians 3:23 · KJV"
+        "text": "",
+        "source": ""
       }
     },
     {
