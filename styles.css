@@ -2293,3 +2293,46 @@ html[data-theme="dark"] .idle{
   .theme-switch{order:3;width:auto;margin-left:0}
   .header-actions{margin-left:auto}
 }
+
+
+/* MORNING SNAPSHOT — one viewport, no feed */
+.morning-snapshot { justify-content: flex-start; max-width: 760px; }
+.morning-snapshot .morning-today { margin: 0; }
+.morning-direction { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+.morning-direction h2.morning-label { margin-bottom: 7px; }
+.morning-direction p { font: 600 20px/1.35 var(--serif); letter-spacing: 0; }
+body.morning-mode { overflow: hidden; }
+.morning-mode .instrument-footer { display: none; }
+
+@media (max-width: 700px) {
+  body.morning-mode { height: 100dvh; overflow: hidden; }
+  .morning-mode .instrument { height: 100dvh; min-height: 100dvh; overflow: hidden; }
+  .morning-mode #content { overflow: hidden; }
+  .morning-snapshot { height: 100%; padding: 16px 0 10px; overflow: hidden; }
+  .morning-snapshot .morning-heading { margin-bottom: 18px; flex-wrap: nowrap; justify-content: space-between; gap: 12px; }
+  .morning-snapshot .morning-heading h1 { font-size: 29px; }
+  .morning-snapshot .morning-heading time { font-size: 10px; text-align: right; }
+  .morning-snapshot h2.morning-label { margin-bottom: 10px; font-size: 10px; }
+  .morning-snapshot .morning-priority { grid-template-columns: 18px minmax(0, 1fr); gap: 9px; margin-bottom: 13px; }
+  .morning-snapshot .morning-number { padding-top: 3px; font-size: 10px; }
+  .morning-snapshot .morning-priority h3 { font-size: 19px; line-height: 1.2; margin-bottom: 3px; }
+  .morning-snapshot .morning-priority p { font-size: 13px; line-height: 1.35; }
+  .morning-snapshot .morning-outreach { margin-top: 16px; padding-left: 27px; }
+  .morning-snapshot .morning-checklist { gap: 5px; }
+  .morning-snapshot .morning-check span { font-size: 13px; line-height: 1.3; }
+  .morning-snapshot .morning-direction { margin-top: 16px; padding: 12px 0 0 27px; }
+  .morning-snapshot .morning-direction p { font-size: 17px; line-height: 1.25; }
+}
+
+@media (max-width: 390px), (max-height: 760px) {
+  .morning-mode .masthead { min-height: 54px; }
+  .morning-snapshot { padding-top: 10px; }
+  .morning-snapshot .morning-heading { margin-bottom: 12px; }
+  .morning-snapshot .morning-heading h1 { font-size: 25px; }
+  .morning-snapshot .morning-priority { margin-bottom: 9px; }
+  .morning-snapshot .morning-priority h3 { font-size: 17px; }
+  .morning-snapshot .morning-priority p { font-size: 12px; }
+  .morning-snapshot .morning-outreach { margin-top: 10px; }
+  .morning-snapshot .morning-direction { margin-top: 10px; padding-top: 9px; }
+  .morning-snapshot .morning-direction p { font-size: 15px; }
+}
