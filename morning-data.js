@@ -151,36 +151,60 @@ window.HAVEN_MORNING = {
       "date": "2026-10-01",
       "priorities": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Finish Freeman Study 001",
+          "summary": "Complete the three iPad studies for Gabe’s cabin and note what needs a reaction."
+        },
+        {
+          "title": "Test Haven with another person",
+          "summary": "Move the onboarding test from Cole’s profile to Gabe without adding product noise."
+        }
+      ],
+      "outreach": [
+        {
+          "id": "38-porter-viewing",
+          "text": "Schedule the 38 Porter Street viewing"
+        },
+        {
+          "id": "14-lila-confirm",
+          "text": "Confirm the Oct 3 tour at 14 Lila Way"
         }
       ],
       "threads": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Freeman",
+          "summary": "Field evidence, sketches, and judgment are the work. Build the body of evidence."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Haven",
+          "summary": "The private Morning system works for one person; now test whether it travels."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Housing",
+          "summary": "Cartersville options are active. Keep the search concrete and move viable places forward."
+        },
+        {
+          "title": "Art",
+          "summary": "Stay involved: observe first, then draw what is actually in front of you."
+        },
+        {
+          "title": "Faith",
+          "summary": "Do the small work in front of you with love instead of demanding certainty."
         }
       ],
       "changes": [
-        ""
+        "Haven is now a private, Git-connected Morning app on the iPhone.",
+        "The multi-person Haven onboarding test has started with Gabe, Ben Butler, and Augustus.",
+        "The 38 Porter Street rental inquiry advanced to scheduling a viewing."
       ],
-      "question": "",
+      "question": "Can Haven feel genuinely personal for someone else without turning into a generic AI dashboard?",
       "begin": {
-        "text": "",
+        "text": "Open Freeman Study 001. Finish the three iPad sketches before planning anything else.",
         "label": "",
         "href": ""
       },
       "grace": {
-        "text": "",
-        "source": ""
+        "text": "And whatsoever ye do, do it heartily, as to the Lord.",
+        "source": "Colossians 3:23 · KJV"
       }
     },
     {
