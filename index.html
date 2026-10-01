@@ -35,13 +35,9 @@
         <div class="home-address">
           Cedar House <span>Nashville, Tennessee</span>
         </div>
-        <div class="era-switch" aria-label="Choose design year">
-          <span class="era-label">YEAR</span>
-          <div class="era-options">
-            <button type="button" data-era="1971">1971</button>
-            <button type="button" data-era="1994">1994</button>
-            <button type="button" data-era="2026" class="active">2026</button>
-          </div>
+        <div class="theme-switch" aria-label="Choose appearance">
+          <button type="button" data-theme="light" class="active" aria-label="Use light appearance">LIGHT</button>
+          <button type="button" data-theme="dark" aria-label="Use dark appearance">DARK</button>
         </div>
         <div class="header-actions">
           <button class="demo-button" data-detail="demo">Demo home</button
@@ -93,15 +89,23 @@
     ></div>
     <script>
       (() => {
-        const key = "haven-design-year";
-        const buttons = [...document.querySelectorAll("[data-era]")];
-        const apply = (year) => {
-          document.documentElement.dataset.era = year;
-          buttons.forEach((b) => b.classList.toggle("active", b.dataset.era === year));
-          localStorage.setItem(key, year);
+        const key = "haven-theme";
+        const buttons = [...document.querySelectorAll("[data-theme]")];
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        const apply = (theme) => {
+          const value = theme === "dark" ? "dark" : "light";
+          document.documentElement.dataset.theme = value;
+          document.documentElement.dataset.era = "2026";
+          buttons.forEach((b) => {
+            const active = b.dataset.theme === value;
+            b.classList.toggle("active", active);
+            b.setAttribute("aria-pressed", active ? "true" : "false");
+          });
+          if (themeColor) themeColor.setAttribute("content", value === "dark" ? "#151816" : "#ede8dd");
+          localStorage.setItem(key, value);
         };
-        buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.era)));
-        apply(localStorage.getItem(key) || "2026");
+        buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.theme)));
+        apply(localStorage.getItem(key) || "light");
       })();
     </script>
     <noscript
