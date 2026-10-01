@@ -8,6 +8,16 @@ The interface is not the product. The product is **orientation**.
 
 > What is happening? Are we okay? What needs me? What happens next?
 
+## Repository branches
+
+This repository is private. Keep personal context and daily records private.
+
+- `main` — home-system concept prototype documented below.
+- `morning-system` — personal Haven app under `morning/`; see that branch's `morning/README.md`.
+- Other branches — experiments or preserved checkpoints; review differences before removing them.
+
+The default branch is `main`. Switching it does not by itself change a deployment's configured production branch. Keep home-prototype and personal-app changes separate until deliberately integrated.
+
 ## Home System
 
 The current prototype treats the home as a durable system rather than a collection of smart devices.
