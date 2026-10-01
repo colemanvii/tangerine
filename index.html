@@ -35,6 +35,14 @@
         <div class="home-address">
           Cedar House <span>Nashville, Tennessee</span>
         </div>
+        <div class="era-switch" aria-label="Choose design year">
+          <span class="era-label">YEAR</span>
+          <div class="era-options">
+            <button type="button" data-era="1971">1971</button>
+            <button type="button" data-era="1994">1994</button>
+            <button type="button" data-era="2026" class="active">2026</button>
+          </div>
+        </div>
         <div class="header-actions">
           <button class="demo-button" data-detail="demo">Demo home</button
           ><button
@@ -83,6 +91,19 @@
       role="status"
       aria-live="polite"
     ></div>
+    <script>
+      (() => {
+        const key = "haven-design-year";
+        const buttons = [...document.querySelectorAll("[data-era]")];
+        const apply = (year) => {
+          document.documentElement.dataset.era = year;
+          buttons.forEach((b) => b.classList.toggle("active", b.dataset.era === year));
+          localStorage.setItem(key, year);
+        };
+        buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.era)));
+        apply(localStorage.getItem(key) || "2026");
+      })();
+    </script>
     <noscript
       ><p class="noscript">
         Haven’s interactive demonstration needs JavaScript. This prototype uses
