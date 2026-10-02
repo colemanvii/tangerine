@@ -195,36 +195,60 @@ window.HAVEN_MORNING = {
       "date": "2026-10-02",
       "priorities": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Put real work on the site",
+          "summary": "Choose one piece each: art, design, photos. Get them online."
+        },
+        {
+          "title": "Make one Freeman field note",
+          "summary": "Start with one strong image and one useful observation."
         }
       ],
+      "outreach": [
+        {
+          "id": "connor-after-site",
+          "text": "Connor Blakley once the work is live"
+        },
+        {
+          "id": "rental-tour-oct-03-confirm",
+          "text": "Confirm tomorrow’s rental tour"
+        }
+      ],
+      "direction": "You do not need to feel excited to take the next faithful step.",
       "threads": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Portfolio",
+          "summary": "Simple, static, personable. Let the work explain you."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Freeman",
+          "summary": "Build the brand through fieldwork, publishing, and repetition."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Home base",
+          "summary": "Keep the Cartersville rental search within your budget."
+        },
+        {
+          "title": "Body",
+          "summary": "Move today. Return to the sober baseline you wanted."
+        },
+        {
+          "title": "Faith",
+          "summary": "Bring the struggle to God without demanding certainty."
         }
       ],
       "changes": [
-        ""
+        "Emberwing’s desert prototype is playable; paused for now.",
+        "The next chapter still feels hard to be excited about."
       ],
-      "question": "",
+      "question": "What small action can I take before I feel ready?",
       "begin": {
-        "text": "",
+        "text": "Choose three real portfolio assets: one artwork, one design, one photograph.",
         "label": "",
         "href": ""
       },
       "grace": {
-        "text": "",
-        "source": ""
+        "text": "We walk by faith, not by sight.",
+        "source": "2 Corinthians 5:7 · KJV"
       }
     },
     {
