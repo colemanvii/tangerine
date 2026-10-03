@@ -9,6 +9,9 @@
  * summaries (about 70), changes (about 65), question/action (about 100).
  * These are writing budgets, not truncation: every entered item is rendered.
  * begin.href and begin.label are optional; leave both blank for an offline action.
+ * IMPORTANT: threads are Haven's link tree back into the actual ChatGPT conversations where the work lives.
+ * Give each thread an href containing the canonical ChatGPT conversation/share URL. Haven is an orientation surface,
+ * not a second task manager or duplicate knowledge base. Keep the label/summary terse; the conversation holds the depth.
  * Entries after day one are templates; fill them before selecting their date.
  * Dates use YYYY-MM-DD. All displayed dates derive from the selected entry.
  */
@@ -280,16 +283,24 @@ window.HAVEN_MORNING = {
       "direction": "When on the computer, be fully locked in. When off it, be fully in your life.",
       "threads": [
         {
+          "title": "House Stationery / Eric",
+          "summary": "Revive Coleman & Friend house stationery; build one Augusta-grade specimen.",
+          "href": ""
+        },
+        {
           "title": "Music",
-          "summary": "Keep the music. Lose the dependency. Let it reconnect you to life."
+          "summary": "Keep the music. Lose the dependency. Let it reconnect you to life.",
+          "href": ""
         },
         {
           "title": "Attention",
-          "summary": "One focused screen block, then return to the physical world."
+          "summary": "One focused screen block, then return to the physical world.",
+          "href": ""
         },
         {
           "title": "Life",
-          "summary": "Build toward independence, creativity, friendship, place, and aliveness."
+          "summary": "Build toward independence, creativity, friendship, place, and aliveness.",
+          "href": ""
         }
       ],
       "changes": [
