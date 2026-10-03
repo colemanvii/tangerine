@@ -248,7 +248,7 @@
       </section>
 
       <section class="os-section">
-        <div class="os-section-title">[ACTIVE THREADS]</div>
+        <div class="os-section-title">[ALL THREADS / OPEN]</div>
         <div class="os-list">${threadRows}</div>
       </section>
 
