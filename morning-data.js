@@ -317,10 +317,12 @@ window.HAVEN_MORNING = {
         "Denis Johnson — Train Dreams"
       ],
       "money": [
-        "INCOME / MAKE FREEMAN COUNT",
-        "HOUSING / KEEP RENT AT OR BELOW $1,500",
-        "CASH / BUILD THE BUFFER",
-        "ADMIN / RESOLVE OVERDUE APPLE CARD PAYMENT"
+        "TAKE-HOME / $5,400 WORKING MONTHLY",
+        "RENT CEILING / $1,500",
+        "SAVE / $1,390 PER MONTH",
+        "CASH FLOOR / $10,000",
+        "SIX-MONTH AIM / +$8K–$12K",
+        "RULE / GET PAID → COVER HOUSING → MOVE SAVINGS → LIVE"
       ],
 
       "direction": "Work on the screen. Live off the screen. Build competence, independence, and a life that feels real.",
