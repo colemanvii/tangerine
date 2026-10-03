@@ -2525,13 +2525,16 @@ body.morning-mode .instrument-footer {
   display: none !important;
 }
 body.morning-mode #content {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 100dvh;
   padding: 0;
 }
 .os-terminal {
   width: min(1100px, calc(100vw - 36px));
-  height: 100dvh;
+  height: auto;
+  max-height: calc(100dvh - 36px);
   max-width: none !important;
   margin: 0 auto;
   padding: 22px 0 18px !important;
