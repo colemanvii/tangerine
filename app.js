@@ -194,37 +194,74 @@
   }
   function personalView() {
     const brief = morningBrief();
-    const { date, dateLabel } = morningDates();
+    const { date } = morningDates();
     const priorities = (brief.priorities || []).filter((item) => item.title?.trim());
     const outreach = (brief.outreach || []).filter((item) => item.text?.trim());
     const direction = (brief.direction || "").trim();
     const soundtrack = (brief.soundtrack || "").trim();
     const threads = (brief.threads || []).filter((item) => item.title?.trim());
-
-    if (!priorities.length && !outreach.length && !threads.length && !direction) {
-      return `<section class="morning morning-snapshot" aria-labelledby="morning-title">
-        <header class="morning-heading"><div><span class="terminal-kicker">HAVEN.OS / PERSONAL</span><h1 id="morning-title">LOCK IN</h1></div><time datetime="${escapeText(date)}">${escapeText(dateLabel)}</time></header>
-      ${soundtrack ? `<div class="terminal-now"><span>NOW PLAYING</span><strong>${escapeText(soundtrack)}</strong><i aria-hidden="true"></i></div>` : ""}
-        <p>Today’s brief is not ready yet.</p>
-      </section>`;
-    }
-
     const completed = completedOutreach(date);
-    return `<section class="morning morning-snapshot" aria-labelledby="morning-title">
-      <header class="morning-heading"><h1 id="morning-title">Morning</h1><time datetime="${escapeText(date)}">${escapeText(dateLabel)}</time></header>
+    const terminalDate = date.replaceAll("-", ".");
 
-      <section class="morning-today" aria-labelledby="today-title">
-        <h2 id="today-title" class="morning-label">Now</h2>
-        ${priorities.map((item, index) => `<div class="morning-priority"><span class="morning-number" aria-hidden="true">0${index + 1}</span><div><h3>${escapeText(item.title)}</h3><p>${escapeText(item.summary || "")}</p></div></div>`).join("")}
+    const priorityRows = priorities.length
+      ? priorities.map((item, index) => `<div class="os-row"><span class="os-box">${index === 0 ? "X" : " "}</span><span>${escapeText(item.title).toUpperCase()}</span></div>`).join("")
+      : '<div class="os-row os-muted">[ ] NO PRIORITIES LOADED</div>';
+
+    const outreachRows = outreach.length
+      ? outreach.map((item) => {
+          const rawId = item.id || item.text;
+          const checked = completed.has(rawId);
+          return `<label class="os-row os-check"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span class="os-box" aria-hidden="true">${checked ? "X" : " "}</span><span>${escapeText(item.text).toUpperCase()}</span></label>`;
+        }).join("")
+      : '<div class="os-row os-muted">[ ] NO OUTREACH QUEUED</div>';
+
+    const threadRows = threads.length
+      ? threads.map((item) => `<div class="os-thread"><span>•</span><span><strong>${escapeText(item.title).toUpperCase()}</strong>${item.summary ? ` <em>(${escapeText(item.summary).toUpperCase()})</em>` : ""}</span></div>`).join("")
+      : '<div class="os-thread os-muted">• NO ACTIVE THREADS</div>';
+
+    return `<section class="morning morning-snapshot os-terminal" aria-labelledby="morning-title">
+      <div class="os-rule heavy"></div>
+      <header class="os-head">
+        <div>
+          <span class="terminal-kicker">HAVEN.OS / PERSONAL</span>
+          <h1 id="morning-title">LOCK IN</h1>
+        </div>
+        <div class="os-status">
+          <span>DATE: ${escapeText(terminalDate)}</span>
+          <span>STATUS: ARMED</span>
+        </div>
+      </header>
+
+      <section class="os-section os-now" aria-label="Now playing">
+        <div class="os-section-title">[NOW PLAYING]</div>
+        <div class="os-now-line">&gt; ${soundtrack ? escapeText(soundtrack) : "GUNNA / ONE OF WUN"} <span>[► AUDIO STREAM ACTIVE]</span></div>
       </section>
 
-      ${outreach.length ? `<section class="morning-outreach" aria-labelledby="outreach-title"><h2 id="outreach-title" class="morning-label">Next</h2><div class="morning-checklist">${outreach.map((item) => { const rawId = item.id || item.text; const checked = completed.has(rawId); return `<label class="morning-check"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span>${escapeText(item.text)}</span></label>`; }).join("")}</div></section>` : ""}
+      <section class="os-section">
+        <div class="os-section-title">[CURRENT PRIORITIES]</div>
+        <div class="os-list">${priorityRows}</div>
+      </section>
 
-      ${threads.length ? `<section class="morning-threads" aria-labelledby="threads-title"><h2 id="threads-title" class="morning-label">Threads</h2><div class="morning-thread-list">${threads.map((item) => { const href = (item.href || "").trim(); const body = `<span><strong>${escapeText(item.title)}</strong>${item.summary ? `<small>${escapeText(item.summary)}</small>` : ""}</span><span class="morning-thread-arrow" aria-hidden="true">↗</span>`; return href ? `<a class="morning-thread" href="${escapeText(href)}" target="_blank" rel="noopener noreferrer">${body}</a>` : `<div class="morning-thread is-unlinked" title="Add the ChatGPT conversation URL in morning-data.js">${body}</div>`; }).join("")}</div></section>` : ""}
+      <section class="os-section">
+        <div class="os-section-title">[OUTREACH CHECKLIST]</div>
+        <div class="os-list">${outreachRows}</div>
+      </section>
 
-      ${direction ? `<section class="morning-direction" aria-labelledby="direction-title"><h2 id="direction-title" class="morning-label">Direction</h2><p>${escapeText(direction)}</p></section>` : ""}
+      <section class="os-section">
+        <div class="os-section-title">[ACTIVE THREADS]</div>
+        <div class="os-list">${threadRows}</div>
+      </section>
+
+      <section class="os-section os-direction">
+        <div class="os-section-title">[DIRECTION]</div>
+        <p>${escapeText(direction || "WHEN ON THE COMPUTER, BE FULLY LOCKED IN. WHEN OFF IT, BE FULLY IN YOUR LIFE.").toUpperCase()}</p>
+      </section>
+
+      <footer class="os-ready"><span>[SYSTEM READY_]</span><i aria-hidden="true"></i></footer>
+      <div class="os-rule heavy"></div>
     </section>`;
   }
+
   function render(focus = false) {
     const renderers = {
       home: homeView,
