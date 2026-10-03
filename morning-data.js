@@ -258,12 +258,16 @@ window.HAVEN_MORNING = {
       "date": "2026-10-03",
       "priorities": [
         {
-          "title": "Live in the real world",
-          "summary": "Use screens deliberately. Then get outside, listen, make, and be present."
+          "title": "Freeman",
+          "summary": "Turn outside reading and field evidence into 3–5 truths and one concrete move."
         },
         {
-          "title": "Bring music back",
-          "summary": "Country and rap can stay. Relearn how to feel them without needing substances."
+          "title": "Re-launch personal site",
+          "summary": "Get the work live plainly: photography, design, artwork."
+        },
+        {
+          "title": "Live in the real world",
+          "summary": "Use the screen deliberately, then return to music, people, place, and making."
         }
       ],
       "outreach": [
@@ -282,6 +286,10 @@ window.HAVEN_MORNING = {
         {
           "id": "jack-butcher",
           "text": "Connect with Jack Butcher"
+        },
+        {
+          "id": "connor-blakley",
+          "text": "Contact Connor Blakley after the site is live"
         }
       ],
       "todos": [
@@ -292,20 +300,30 @@ window.HAVEN_MORNING = {
         {
           "id": "send-gabe-prompt",
           "text": "Send Gabe the prompt"
+        },
+        {
+          "id": "freeman-reading-truths",
+          "text": "Extract 3–5 Freeman truths from outside reading"
+        },
+        {
+          "id": "ipad-studies-gabe-cabin",
+          "text": "Finish the three iPad studies for Gabe’s cabin"
         }
       ],
       "reading": [
         "Wendell Berry — The Art of the Commonplace",
         "Thomas Merton — New Seeds of Contemplation",
-        "Robert Henri — The Art Spirit"
+        "Robert Henri — The Art Spirit",
+        "Denis Johnson — Train Dreams"
       ],
       "money": [
-        "HOUSING / KEEP RENT ≤ $1,500",
-        "WORK / BUILD STABLE INCOME",
-        "CASH / BUILD THE BUFFER"
+        "INCOME / MAKE FREEMAN COUNT",
+        "HOUSING / KEEP RENT AT OR BELOW $1,500",
+        "CASH / BUILD THE BUFFER",
+        "ADMIN / RESOLVE OVERDUE APPLE CARD PAYMENT"
       ],
 
-      "direction": "One flow. No compartments. ChatGPT is the front door; Haven only surfaces what matters now.",
+      "direction": "Work on the screen. Live off the screen. Build competence, independence, and a life that feels real.",
       "soundtrack": "GUNNA / ONE OF WUN",
       "threads": [
         {
@@ -330,12 +348,12 @@ window.HAVEN_MORNING = {
         },
         {
           "title": "Housing",
-          "summary": "Cartersville home base, independence, rent within budget.",
+          "summary": "Build a Cartersville home base and independence within budget.",
           "href": ""
         },
         {
           "title": "Haven",
-          "summary": "One flow. ChatGPT is the front door; this screen is the index.",
+          "summary": "Quiet single-screen instrument; ChatGPT is the front door.",
           "href": ""
         },
         {
@@ -355,22 +373,22 @@ window.HAVEN_MORNING = {
         },
         {
           "title": "Body",
-          "summary": "Sleep, movement, strength, clearheaded baseline.",
+          "summary": "Sleep, movement, strength, physical baseline.",
           "href": ""
         },
         {
           "title": "People",
-          "summary": "Gabe, Clint, McKay, Kash, Nathan, Jack, Connor, Eric.",
+          "summary": "Gabe, Eric, Clint, McKay, Kash, Nathan, Jack, Connor.",
           "href": ""
         },
         {
           "title": "Attention",
-          "summary": "Use screens intensely on purpose, then return fully to the physical world.",
+          "summary": "One focused screen block, then return to the physical world.",
           "href": ""
         },
         {
           "title": "Life",
-          "summary": "Independence, creativity, friendship, American West, aliveness.",
+          "summary": "Independence, creativity, friendship, place, American West, aliveness.",
           "href": ""
         }
       ],
