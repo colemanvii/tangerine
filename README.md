@@ -140,3 +140,8 @@ The repository may contain archives, prototypes, design documents, and project r
 This does **not** make the repository or deployment private by itself. Repository visibility and Vercel Deployment Protection must be configured separately.
 
 Git-connected production deployment is tracked from `codex/personal-context-demo`.
+
+
+## Astra collaboration
+
+- [Astra x Haven — first collaboration, October 3, 2026](docs/ASTRA-2026-10-03.md) — design brief, first built screen, product direction, deployment split, and next-step rationale.
