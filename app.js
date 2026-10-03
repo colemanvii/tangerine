@@ -223,8 +223,8 @@
       <div class="os-rule heavy"></div>
       <header class="os-head">
         <div>
-          <span class="terminal-kicker">HAVEN.OS / PERSONAL</span>
-          <h1 id="morning-title">HAVEN</h1>
+          <span class="terminal-kicker">PERSONAL / 1994</span>
+          <h1 id="morning-title"></h1>
         </div>
         <div class="os-status">
           <span>DATE: ${escapeText(terminalDate)}</span>
