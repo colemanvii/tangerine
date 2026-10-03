@@ -278,9 +278,13 @@ window.HAVEN_MORNING = {
         {
           "id": "kash-music",
           "text": "Talk with Kash about getting music back in my life"
+        },
+        {
+          "id": "jack-butcher",
+          "text": "Connect with Jack Butcher"
         }
       ],
-      "direction": "LOCK IN: one target, no drift. Gunna on. When the work block ends, leave cyberspace and go live.",
+      "direction": "One flow. No compartments. ChatGPT is the front door; Haven only surfaces what matters now.",
       "soundtrack": "GUNNA / ONE OF WUN",
       "threads": [
         {
