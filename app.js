@@ -198,8 +198,9 @@
     const priorities = (brief.priorities || []).filter((item) => item.title?.trim());
     const outreach = (brief.outreach || []).filter((item) => item.text?.trim());
     const direction = (brief.direction || "").trim();
+    const threads = (brief.threads || []).filter((item) => item.title?.trim());
 
-    if (!priorities.length && !outreach.length && !direction) {
+    if (!priorities.length && !outreach.length && !threads.length && !direction) {
       return `<section class="morning morning-snapshot" aria-labelledby="morning-title">
         <header class="morning-heading"><h1 id="morning-title">Morning</h1><time datetime="${escapeText(date)}">${escapeText(dateLabel)}</time></header>
         <p>Today’s brief is not ready yet.</p>
@@ -216,6 +217,8 @@
       </section>
 
       ${outreach.length ? `<section class="morning-outreach" aria-labelledby="outreach-title"><h2 id="outreach-title" class="morning-label">Next</h2><div class="morning-checklist">${outreach.map((item) => { const rawId = item.id || item.text; const checked = completed.has(rawId); return `<label class="morning-check"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span>${escapeText(item.text)}</span></label>`; }).join("")}</div></section>` : ""}
+
+      ${threads.length ? `<section class="morning-threads" aria-labelledby="threads-title"><h2 id="threads-title" class="morning-label">Threads</h2><div class="morning-thread-list">${threads.map((item) => { const href = (item.href || "").trim(); const body = `<span><strong>${escapeText(item.title)}</strong>${item.summary ? `<small>${escapeText(item.summary)}</small>` : ""}</span><span class="morning-thread-arrow" aria-hidden="true">↗</span>`; return href ? `<a class="morning-thread" href="${escapeText(href)}" target="_blank" rel="noopener noreferrer">${body}</a>` : `<div class="morning-thread is-unlinked" title="Add the ChatGPT conversation URL in morning-data.js">${body}</div>`; }).join("")}</div></section>` : ""}
 
       ${direction ? `<section class="morning-direction" aria-labelledby="direction-title"><h2 id="direction-title" class="morning-label">Direction</h2><p>${escapeText(direction)}</p></section>` : ""}
     </section>`;
