@@ -288,23 +288,68 @@ window.HAVEN_MORNING = {
       "soundtrack": "GUNNA / ONE OF WUN",
       "threads": [
         {
+          "title": "Freeman",
+          "summary": "Brand, field evidence, publishing, business development, six-month proof.",
+          "href": ""
+        },
+        {
+          "title": "Portfolio",
+          "summary": "Photography, design, artwork. Get the personal site live.",
+          "href": ""
+        },
+        {
           "title": "House Stationery / Eric",
-          "summary": "Revive Coleman & Friend house stationery; build one Augusta-grade specimen.",
+          "summary": "Coleman & Friend, custom paper goods, Augusta-grade specimen.",
           "href": ""
         },
         {
           "title": "Music",
-          "summary": "Gunna is the soundtrack for now. Music belongs in the work block and in the life beyond it.",
+          "summary": "Gunna now. Country and rap stay. Music back in ordinary life.",
+          "href": ""
+        },
+        {
+          "title": "Housing",
+          "summary": "Cartersville home base, independence, rent within budget.",
+          "href": ""
+        },
+        {
+          "title": "Haven",
+          "summary": "One flow. ChatGPT is the front door; this screen is the index.",
+          "href": ""
+        },
+        {
+          "title": "Emberwing",
+          "summary": "Playable desert prototype. Paused until it deserves another push.",
+          "href": ""
+        },
+        {
+          "title": "Art",
+          "summary": "Draw, photograph, paint, notice. Keep making from lived experience.",
+          "href": ""
+        },
+        {
+          "title": "Faith",
+          "summary": "Morning Grace, surrender, Scripture, next faithful step.",
+          "href": ""
+        },
+        {
+          "title": "Body",
+          "summary": "Sleep, movement, strength, clearheaded baseline.",
+          "href": ""
+        },
+        {
+          "title": "People",
+          "summary": "Gabe, Clint, McKay, Kash, Nathan, Jack, Connor, Eric.",
           "href": ""
         },
         {
           "title": "Attention",
-          "summary": "One focused screen block, then return to the physical world.",
+          "summary": "Use screens intensely on purpose, then return fully to the physical world.",
           "href": ""
         },
         {
           "title": "Life",
-          "summary": "Build toward independence, creativity, friendship, place, and aliveness.",
+          "summary": "Independence, creativity, friendship, American West, aliveness.",
           "href": ""
         }
       ],
