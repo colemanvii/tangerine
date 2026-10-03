@@ -282,17 +282,29 @@ window.HAVEN_MORNING = {
         {
           "id": "jack-butcher",
           "text": "Connect with Jack Butcher"
+        }
+      ],
+      "todos": [
+        {
+          "id": "relaunch-personal-site",
+          "text": "Re-launch personal site"
         },
         {
           "id": "send-gabe-prompt",
           "text": "Send Gabe the prompt"
         }
-      ,
-        {
-          "id": "relaunch-personal-site",
-          "text": "Re-launch personal site"
-        }
       ],
+      "reading": [
+        "Wendell Berry — The Art of the Commonplace",
+        "Thomas Merton — New Seeds of Contemplation",
+        "Robert Henri — The Art Spirit"
+      ],
+      "money": [
+        "HOUSING / KEEP RENT ≤ $1,500",
+        "WORK / BUILD STABLE INCOME",
+        "CASH / BUILD THE BUFFER"
+      ],
+
       "direction": "One flow. No compartments. ChatGPT is the front door; Haven only surfaces what matters now.",
       "soundtrack": "GUNNA / ONE OF WUN",
       "threads": [
