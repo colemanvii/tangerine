@@ -193,157 +193,72 @@
     }
   }
   function personalView() {
-    const now = new Date();
-    const time = new Intl.DateTimeFormat("en-US", {
-      hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false,
-      timeZoneName: "short"
-    }).format(now).replace(",", "");
+    const brief = morningBrief();
+    const { date } = morningDates();
+    const priorities = (brief.priorities || []).filter((item) => item.title?.trim());
+    const outreach = (brief.outreach || []).filter((item) => item.text?.trim());
+    const direction = (brief.direction || "").trim();
+    const soundtrack = (brief.soundtrack || "").trim();
+    const threads = (brief.threads || []).filter((item) => item.title?.trim());
+    const completed = completedOutreach(date);
+    const terminalDate = date.replaceAll("-", ".");
 
-    const defaults = [
-      ["Freeman","HOT","Brand, field evidence, publishing, business development.","Ship one useful artifact from the field."],
-      ["Portfolio","LIVE","",""],
-      ["House Stationery","WAIT","",""],
-      ["Music","LIVE","",""],
-      ["Housing","IDLE","",""],
-      ["Haven","HOT","Single-surface terminal layout.","Keep one flow; no folders or nested modes."],
-      ["Emberwing","IDLE","Playable desert prototype.","Leave paused until it deserves another push."],
-      ["Art","LIVE","",""],
-      ["Faith","IDLE","",""],
-      ["Body","LIVE","",""],
-      ["People","WAIT","",""],
-      ["Attention","HOT","",""],
-      ["Life","LIVE","",""]
-    ];
+    const priorityRows = priorities.length
+      ? priorities.map((item, index) => `<div class="os-row"><span class="os-box">${index === 0 ? "X" : " "}</span><span>${escapeText(item.title).toUpperCase()}</span></div>`).join("")
+      : '<div class="os-row os-muted">[ ] NO PRIORITIES LOADED</div>';
 
-    const stateOrder = ["HOT","LIVE","WAIT","IDLE"];
-    const heat = { HOT:"████", LIVE:"███░", WAIT:"██░░", IDLE:"█░░░" };
-    const key = "haven:process-monitor:v1";
-    let saved = {};
-    try { saved = JSON.parse(localStorage.getItem(key) || "{}"); } catch {}
+    const outreachRows = outreach.length
+      ? outreach.map((item) => {
+          const rawId = item.id || item.text;
+          const checked = completed.has(rawId);
+          return `<label class="os-row os-check"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span class="os-box" aria-hidden="true">${checked ? "X" : " "}</span><span>${escapeText(item.text).toUpperCase()}</span></label>`;
+        }).join("")
+      : '<div class="os-row os-muted">[ ] NO OUTREACH QUEUED</div>';
 
-    const rows = defaults.map((item, index) => {
-      const id = String(index + 1).padStart(2, "0");
-      const stored = saved[id] || {};
-      return {
-        id,
-        thread: item[0],
-        state: stored.state || item[1],
-        now: stored.now ?? item[2],
-        next: stored.next ?? item[3],
-        link: stored.link || "",
-        touched: stored.touched || Date.now()
-      };
-    });
+    const threadRows = threads.length
+      ? threads.map((item) => `<div class="os-thread"><span>•</span><span><strong>${escapeText(item.title).toUpperCase()}</strong>${item.summary ? ` <em>(${escapeText(item.summary).toUpperCase()})</em>` : ""}</span></div>`).join("")
+      : '<div class="os-thread os-muted">• NO ACTIVE THREADS</div>';
 
-    const persist = () => {
-      const payload = {};
-      rows.forEach((row) => {
-        payload[row.id] = {
-          state: row.state,
-          now: row.now,
-          next: row.next,
-          link: row.link,
-          touched: row.touched
-        };
-      });
-      localStorage.setItem(key, JSON.stringify(payload));
-    };
-
-    queueMicrotask(() => {
-      const table = document.querySelector(".process-table");
-      if (!table) return;
-
-      table.addEventListener("click", (event) => {
-        const stateCell = event.target.closest("[data-process-state]");
-        if (stateCell) {
-          const row = rows.find((r) => r.id === stateCell.dataset.processState);
-          if (!row) return;
-          row.state = stateOrder[(stateOrder.indexOf(row.state) + 1) % stateOrder.length];
-          row.touched = Date.now();
-          persist();
-          render();
-          return;
-        }
-
-        const link = event.target.closest("[data-process-link]");
-        if (link) {
-          const row = rows.find((r) => r.id === link.dataset.processLink);
-          if (!row) return;
-          if (row.link && !event.shiftKey) {
-            window.open(row.link, "_blank", "noopener,noreferrer");
-            return;
-          }
-          const value = window.prompt("Paste ChatGPT conversation URL", row.link || "");
-          if (value !== null) {
-            row.link = value.trim();
-            row.touched = Date.now();
-            persist();
-            render();
-          }
-        }
-      });
-
-      table.addEventListener("blur", (event) => {
-        const editable = event.target.closest("[data-process-edit]");
-        if (!editable) return;
-        const row = rows.find((r) => r.id === editable.dataset.pid);
-        if (!row) return;
-        row[editable.dataset.processEdit] = editable.textContent.trim();
-        row.touched = Date.now();
-        persist();
-      }, true);
-
-      table.addEventListener("keydown", (event) => {
-        const editable = event.target.closest("[data-process-edit]");
-        if (editable && event.key === "Enter") {
-          event.preventDefault();
-          editable.blur();
-        }
-      });
-    });
-
-    const counts = stateOrder.reduce((acc, state) => {
-      acc[state] = rows.filter((row) => row.state === state).length;
-      return acc;
-    }, {});
-
-    const age = (ts) => {
-      const mins = Math.max(0, Math.floor((Date.now() - ts) / 60000));
-      if (mins < 60) return mins + "m";
-      const hrs = Math.floor(mins / 60);
-      if (hrs < 24) return hrs + "h";
-      return Math.floor(hrs / 24) + "d";
-    };
-
-    const rowMarkup = rows.map((row) => `<div class="process-row">
-      <div class="process-pid">${row.id}</div>
-      <div class="process-thread">${escapeText(row.thread)}</div>
-      <button class="process-state" data-process-state="${row.id}" title="Click to cycle state">${row.state} <span>${heat[row.state]}</span></button>
-      <div class="process-age">${age(row.touched)}</div>
-      <div class="process-context">
-        <div contenteditable="true" spellcheck="false" data-process-edit="now" data-pid="${row.id}" data-placeholder="NOW">${escapeText(row.now)}</div>
-        <div contenteditable="true" spellcheck="false" data-process-edit="next" data-pid="${row.id}" data-placeholder="OPEN / NEXT">${escapeText(row.next)}</div>
-      </div>
-      <button class="process-link" data-process-link="${row.id}">${row.link ? "OPEN ↗" : "BIND"}</button>
-    </div>`).join("");
-
-    return `<section class="process-monitor" aria-label="Haven active process monitor">
-      <header class="process-titlebar">
-        <span>HAVEN OS // ACTIVE PROCESS MONITOR</span>
-        <time>${escapeText(time)}</time>
+    return `<section class="morning morning-snapshot os-terminal" aria-labelledby="morning-title">
+      <div class="os-rule heavy"></div>
+      <header class="os-head">
+        <div>
+          <span class="terminal-kicker">PERSONAL / 1994</span>
+          <h1 id="morning-title"></h1>
+        </div>
+        <div class="os-status">
+          <span>DATE: ${escapeText(terminalDate)}</span>
+          <span>STATUS: ARMED</span>
+        </div>
       </header>
-      <div class="process-rule"></div>
-      <div class="process-columns">
-        <span>PID</span><span>THREAD</span><span>STATE</span><span>SEEN</span><span>NOW / OPEN-NEXT</span><span>CHATGPT</span>
-      </div>
-      <div class="process-table">${rowMarkup}</div>
-      <footer class="process-status">
-        <span>[HOT] ${counts.HOT}</span>
-        <span>[LIVE] ${counts.LIVE}</span>
-        <span>[WAIT] ${counts.WAIT}</span>
-        <span>[IDLE] ${counts.IDLE}</span>
-        <span class="process-cursor" aria-hidden="true">█</span>
-      </footer>
+
+      <section class="os-section os-now" aria-label="Now playing">
+        <div class="os-section-title">[NOW PLAYING]</div>
+        <div class="os-now-line">&gt; ${soundtrack ? escapeText(soundtrack) : "GUNNA / ONE OF WUN"} <span>[► AUDIO STREAM ACTIVE]</span></div>
+      </section>
+
+      <section class="os-section">
+        <div class="os-section-title">[CURRENT PRIORITIES]</div>
+        <div class="os-list">${priorityRows}</div>
+      </section>
+
+      <section class="os-section">
+        <div class="os-section-title">[OUTREACH CHECKLIST]</div>
+        <div class="os-list">${outreachRows}</div>
+      </section>
+
+      <section class="os-section">
+        <div class="os-section-title">[ACTIVE THREADS]</div>
+        <div class="os-list">${threadRows}</div>
+      </section>
+
+      <section class="os-section os-direction">
+        <div class="os-section-title">[DIRECTION]</div>
+        <p>${escapeText(direction || "WHEN ON THE COMPUTER, BE FULLY LOCKED IN. WHEN OFF IT, BE FULLY IN YOUR LIFE.").toUpperCase()}</p>
+      </section>
+
+      <footer class="os-ready"><span>[SYSTEM READY_]</span><i aria-hidden="true"></i></footer>
+      <div class="os-rule heavy"></div>
     </section>`;
   }
 
