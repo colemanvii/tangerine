@@ -280,7 +280,8 @@ window.HAVEN_MORNING = {
           "text": "Talk with Kash about getting music back in my life"
         }
       ],
-      "direction": "When on the computer, be fully locked in. When off it, be fully in your life.",
+      "direction": "LOCK IN: one target, no drift. Gunna on. When the work block ends, leave cyberspace and go live.",
+      "soundtrack": "GUNNA / ONE OF WUN",
       "threads": [
         {
           "title": "House Stationery / Eric",
@@ -289,7 +290,7 @@ window.HAVEN_MORNING = {
         },
         {
           "title": "Music",
-          "summary": "Keep the music. Lose the dependency. Let it reconnect you to life.",
+          "summary": "Gunna is the soundtrack for now. Music belongs in the work block and in the life beyond it.",
           "href": ""
         },
         {
