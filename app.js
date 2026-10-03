@@ -224,7 +224,7 @@
       <header class="os-head">
         <div>
           <span class="terminal-kicker">HAVEN.OS / PERSONAL</span>
-          <h1 id="morning-title">LOCK IN</h1>
+          <h1 id="morning-title">HAVEN</h1>
         </div>
         <div class="os-status">
           <span>DATE: ${escapeText(terminalDate)}</span>
