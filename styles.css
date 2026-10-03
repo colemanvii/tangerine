@@ -1211,6 +1211,17 @@ select {
     width: 100%;
   }
 }
+/* Haven threads are a link tree into the ChatGPT conversations where the work actually lives. */
+.morning-threads { margin-top: 24px; padding-left: 38px; }
+.morning-threads h2.morning-label { margin-bottom: 8px; }
+.morning-thread-list { display: grid; gap: 1px; max-width: 58ch; border-top: 1px solid var(--line); }
+.morning-thread { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 18px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.morning-thread strong { display: block; font: 500 14px/1.35 var(--serif); }
+.morning-thread small { display: block; margin-top: 2px; font: 400 12px/1.35 var(--serif); color: var(--muted); }
+.morning-thread-arrow { font: 11px/1 var(--mono); color: var(--muted); }
+.morning-thread.is-unlinked { opacity: .55; cursor: default; }
+.morning-thread:not(.is-unlinked):hover strong { text-decoration: underline; text-underline-offset: 3px; }
+
 /* Morning outreach: a small dated checklist, not a task-management layer. */
 .morning-outreach { margin-top: 24px; padding-left: 38px; }
 .morning-outreach h2.morning-label { margin-bottom: 8px; }
@@ -1239,7 +1250,8 @@ select {
 }
 @media (max-width: 700px) {
   .morning-outreach,
-  .morning-viewings { padding-left: 0; }
+  .morning-viewings,
+  .morning-threads { padding-left: 0; }
   .morning-viewing { grid-template-columns: 14px minmax(0, 1fr); }
   .morning-viewing span { display: block; }
   .morning-viewing small { display: block; margin-top: 2px; }
