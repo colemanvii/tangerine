@@ -196,7 +196,10 @@
     const brief = morningBrief();
     const { date } = morningDates();
     const priorities = (brief.priorities || []).filter((item) => item.title?.trim());
+    const todos = (brief.todos || []).filter((item) => item.text?.trim());
     const outreach = (brief.outreach || []).filter((item) => item.text?.trim());
+    const reading = (brief.reading || []).filter((item) => String(item).trim());
+    const money = (brief.money || []).filter((item) => String(item).trim());
     const direction = (brief.direction || "").trim();
     const soundtrack = (brief.soundtrack || "").trim();
     const threads = (brief.threads || []).filter((item) => item.title?.trim());
@@ -207,6 +210,14 @@
       ? priorities.map((item, index) => `<div class="os-row"><span class="os-box">${index === 0 ? "X" : " "}</span><span>${escapeText(item.title).toUpperCase()}</span></div>`).join("")
       : '<div class="os-row os-muted">[ ] NO PRIORITIES LOADED</div>';
 
+    const todoRows = todos.length
+      ? todos.map((item) => {
+          const rawId = item.id || item.text;
+          const checked = completed.has(rawId);
+          return `<label class="os-row os-check"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span class="os-box" aria-hidden="true">${checked ? "X" : " "}</span><span>${escapeText(item.text).toUpperCase()}</span></label>`;
+        }).join("")
+      : '<div class="os-row os-muted">[ ] NOTHING QUEUED</div>';
+
     const outreachRows = outreach.length
       ? outreach.map((item) => {
           const rawId = item.id || item.text;
@@ -214,6 +225,14 @@
           return `<label class="os-row os-check"><input type="checkbox" data-outreach-id="${escapeText(rawId)}" ${checked ? "checked" : ""}><span class="os-box" aria-hidden="true">${checked ? "X" : " "}</span><span>${escapeText(item.text).toUpperCase()}</span></label>`;
         }).join("")
       : '<div class="os-row os-muted">[ ] NO OUTREACH QUEUED</div>';
+
+    const readingRows = reading.length
+      ? reading.map((item) => `<div class="os-row"><span class="os-box">•</span><span>${escapeText(String(item)).toUpperCase()}</span></div>`).join("")
+      : '<div class="os-row os-muted">• NO READING QUEUED</div>';
+
+    const moneyRows = money.length
+      ? money.map((item) => `<div class="os-row"><span class="os-box">›</span><span>${escapeText(String(item)).toUpperCase()}</span></div>`).join("")
+      : '<div class="os-row os-muted">› NO MONEY SIGNALS</div>';
 
     const threadRows = threads.length
       ? threads.map((item) => `<div class="os-thread"><span>•</span><span><strong>${escapeText(item.title).toUpperCase()}</strong>${item.summary ? ` <em>(${escapeText(item.summary).toUpperCase()})</em>` : ""}</span></div>`).join("")
@@ -238,13 +257,28 @@
       </section>
 
       <section class="os-section">
-        <div class="os-section-title">[CURRENT PRIORITIES]</div>
+        <div class="os-section-title">[PRIORITIES]</div>
         <div class="os-list">${priorityRows}</div>
       </section>
 
       <section class="os-section">
-        <div class="os-section-title">[OUTREACH CHECKLIST]</div>
+        <div class="os-section-title">[TO DO]</div>
+        <div class="os-list">${todoRows}</div>
+      </section>
+
+      <section class="os-section">
+        <div class="os-section-title">[OUTREACH]</div>
         <div class="os-list">${outreachRows}</div>
+      </section>
+
+      <section class="os-section">
+        <div class="os-section-title">[READING]</div>
+        <div class="os-list">${readingRows}</div>
+      </section>
+
+      <section class="os-section">
+        <div class="os-section-title">[MONEY]</div>
+        <div class="os-list">${moneyRows}</div>
       </section>
 
       <section class="os-section">
