@@ -2504,3 +2504,201 @@ body.morning-mode .morning-direction p {
   body.morning-mode .morning-heading { padding: 12px; }
   body.morning-mode .morning-heading h1 { font-size: 36px; }
 }
+
+
+/* COLE CALFEE / HAVEN.OS — 1994 monochrome workstation */
+body.morning-mode {
+  background: #b7b7af !important;
+  color: #111 !important;
+  overflow: hidden;
+}
+body.morning-mode .instrument {
+  background: #d7d7cf !important;
+  padding: 0 18px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  max-width: none !important;
+}
+body.morning-mode .masthead,
+body.morning-mode .instrument-footer {
+  display: none !important;
+}
+body.morning-mode #content {
+  display: block;
+  min-height: 100dvh;
+  padding: 0;
+}
+.os-terminal {
+  width: min(1100px, calc(100vw - 36px));
+  height: 100dvh;
+  max-width: none !important;
+  margin: 0 auto;
+  padding: 22px 0 18px !important;
+  overflow: hidden;
+  background: #d7d7cf !important;
+  font-family: Monaco, "Courier New", monospace !important;
+  color: #101010;
+  letter-spacing: -.015em;
+}
+.os-rule {
+  height: 1px;
+  background: #111;
+  width: 100%;
+}
+.os-rule.heavy {
+  height: 2px;
+}
+.os-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  padding: 14px 0 12px;
+  border-bottom: 1px solid #111;
+}
+.os-head h1 {
+  margin: 2px 0 0;
+  font: 700 clamp(34px, 5vw, 62px)/.9 Monaco, "Courier New", monospace !important;
+  letter-spacing: -.075em;
+}
+.os-head .terminal-kicker {
+  display: block;
+  font: 700 11px/1 Monaco, "Courier New", monospace;
+  letter-spacing: .08em;
+}
+.os-status {
+  min-width: 235px;
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+  font: 700 11px/1.2 Monaco, "Courier New", monospace;
+}
+.os-section {
+  padding: 10px 0 11px;
+  border-bottom: 1px solid #111;
+}
+.os-section-title {
+  margin-bottom: 8px;
+  font: 700 11px/1 Monaco, "Courier New", monospace;
+  letter-spacing: .06em;
+}
+.os-now-line {
+  font: 700 14px/1.35 Monaco, "Courier New", monospace;
+}
+.os-now-line span {
+  font-weight: 400;
+  opacity: .72;
+}
+.os-list {
+  display: grid;
+  gap: 5px;
+}
+.os-row,
+.os-thread {
+  min-height: 23px;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  font: 700 12px/1.25 Monaco, "Courier New", monospace;
+}
+.os-thread strong {
+  font: inherit;
+}
+.os-thread em {
+  font-style: normal;
+  font-weight: 400;
+  opacity: .62;
+}
+.os-box {
+  flex: 0 0 auto;
+  width: 17px;
+  text-align: center;
+  font-weight: 700;
+}
+.os-check {
+  cursor: pointer;
+}
+.os-check input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.os-check:focus-within {
+  outline: 1px dotted #111;
+  outline-offset: 2px;
+}
+.os-muted {
+  opacity: .55;
+  font-weight: 400;
+}
+.os-direction p {
+  margin: 0;
+  max-width: 92ch;
+  font: 700 13px/1.4 Monaco, "Courier New", monospace !important;
+}
+.os-ready {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 11px 0 10px;
+  font: 700 12px/1 Monaco, "Courier New", monospace;
+}
+.os-ready i {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: #111;
+  animation: havenBlink 1s steps(1,end) infinite;
+}
+@keyframes havenBlink { 50% { opacity: 0; } }
+
+@media (max-width: 700px) {
+  body.morning-mode .instrument {
+    padding-left: max(10px, env(safe-area-inset-left)) !important;
+    padding-right: max(10px, env(safe-area-inset-right)) !important;
+  }
+  .os-terminal {
+    width: 100%;
+    padding-top: max(12px, env(safe-area-inset-top)) !important;
+    padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+  }
+  .os-head {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px 0 9px;
+  }
+  .os-head h1 {
+    font-size: 38px !important;
+  }
+  .os-status {
+    min-width: 0;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    justify-items: start;
+    font-size: 9px;
+  }
+  .os-section {
+    padding: 7px 0 8px;
+  }
+  .os-section-title {
+    margin-bottom: 6px;
+    font-size: 9px;
+  }
+  .os-now-line,
+  .os-row,
+  .os-thread,
+  .os-direction p {
+    font-size: 10px !important;
+    line-height: 1.25;
+  }
+  .os-row,
+  .os-thread {
+    min-height: 18px;
+    gap: 6px;
+  }
+  .os-ready {
+    padding: 8px 0 7px;
+    font-size: 10px;
+  }
+}
