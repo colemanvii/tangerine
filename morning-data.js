@@ -282,6 +282,10 @@ window.HAVEN_MORNING = {
         {
           "id": "jack-butcher",
           "text": "Connect with Jack Butcher"
+        },
+        {
+          "id": "send-gabe-prompt",
+          "text": "Send Gabe the prompt"
         }
       ],
       "direction": "One flow. No compartments. ChatGPT is the front door; Haven only surfaces what matters now.",
