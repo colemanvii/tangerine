@@ -287,6 +287,11 @@ window.HAVEN_MORNING = {
           "id": "send-gabe-prompt",
           "text": "Send Gabe the prompt"
         }
+      ,
+        {
+          "id": "relaunch-personal-site",
+          "text": "Re-launch personal site"
+        }
       ],
       "direction": "One flow. No compartments. ChatGPT is the front door; Haven only surfaces what matters now.",
       "soundtrack": "GUNNA / ONE OF WUN",
