@@ -255,36 +255,56 @@ window.HAVEN_MORNING = {
       "date": "2026-10-03",
       "priorities": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Live in the real world",
+          "summary": "Use screens deliberately. Then get outside, listen, make, and be present."
+        },
+        {
+          "title": "Bring music back",
+          "summary": "Country and rap can stay. Relearn how to feel them without needing substances."
         }
       ],
+      "outreach": [
+        {
+          "id": "nathan-lents",
+          "text": "Reach out to Nathan Lents"
+        },
+        {
+          "id": "clint-mckay-music",
+          "text": "Talk with Clint + McKay about music, memory, and AI"
+        },
+        {
+          "id": "kash-music",
+          "text": "Talk with Kash about getting music back in my life"
+        }
+      ],
+      "direction": "When on the computer, be fully locked in. When off it, be fully in your life.",
       "threads": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Music",
+          "summary": "Keep the music. Lose the dependency. Let it reconnect you to life."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Attention",
+          "summary": "One focused screen block, then return to the physical world."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Life",
+          "summary": "Build toward independence, creativity, friendship, place, and aliveness."
         }
       ],
       "changes": [
-        ""
+        "ChatGPT is capped at one hour a day.",
+        "Music is not something to cut out of the life you want."
       ],
-      "question": "",
+      "question": "What does a life look like when technology serves it instead of replacing it?",
       "begin": {
-        "text": "",
+        "text": "Send one honest message to someone who knew you when music was central.",
         "label": "",
         "href": ""
       },
       "grace": {
-        "text": "",
-        "source": ""
+        "text": "Teach us to number our days, that we may apply our hearts unto wisdom.",
+        "source": "Psalm 90:12 · KJV"
       }
     },
     {
