@@ -198,11 +198,13 @@
     const priorities = (brief.priorities || []).filter((item) => item.title?.trim());
     const outreach = (brief.outreach || []).filter((item) => item.text?.trim());
     const direction = (brief.direction || "").trim();
+    const soundtrack = (brief.soundtrack || "").trim();
     const threads = (brief.threads || []).filter((item) => item.title?.trim());
 
     if (!priorities.length && !outreach.length && !threads.length && !direction) {
       return `<section class="morning morning-snapshot" aria-labelledby="morning-title">
-        <header class="morning-heading"><h1 id="morning-title">Morning</h1><time datetime="${escapeText(date)}">${escapeText(dateLabel)}</time></header>
+        <header class="morning-heading"><div><span class="terminal-kicker">HAVEN.OS / PERSONAL</span><h1 id="morning-title">LOCK IN</h1></div><time datetime="${escapeText(date)}">${escapeText(dateLabel)}</time></header>
+      ${soundtrack ? `<div class="terminal-now"><span>NOW PLAYING</span><strong>${escapeText(soundtrack)}</strong><i aria-hidden="true"></i></div>` : ""}
         <p>Today’s brief is not ready yet.</p>
       </section>`;
     }
