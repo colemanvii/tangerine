@@ -2348,3 +2348,159 @@ body.morning-mode { overflow: hidden; }
   .morning-snapshot .morning-direction { margin-top: 10px; padding-top: 9px; }
   .morning-snapshot .morning-direction p { font-size: 15px; }
 }
+
+
+/* HAVEN // LOCK-IN — 1994 Apple workstation / terminal dashboard */
+body.morning-mode {
+  background: #c9c9c2;
+  color: #111;
+  font-family: Monaco, "Courier New", monospace;
+}
+body.morning-mode .instrument {
+  background:
+    linear-gradient(rgba(255,255,255,.05) 50%, rgba(0,0,0,.025) 50%) 0 0 / 100% 4px,
+    #d8d8d0;
+}
+body.morning-mode .masthead,
+body.morning-mode .instrument-footer {
+  background: #111;
+  color: #d8d8d0;
+  border-color: #111;
+  font-family: Monaco, "Courier New", monospace;
+}
+body.morning-mode .wordmark,
+body.morning-mode .home-address,
+body.morning-mode .theme-switch button,
+body.morning-mode .idle-button {
+  color: #d8d8d0;
+  font-family: inherit;
+  letter-spacing: .02em;
+}
+body.morning-mode .morning-snapshot {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 30px 26px;
+  background: #d8d8d0;
+  font-family: Monaco, "Courier New", monospace;
+}
+body.morning-mode .morning-heading {
+  border: 2px solid #111;
+  background: #111;
+  color: #d8d8d0;
+  padding: 14px 16px 12px;
+  align-items: end;
+}
+body.morning-mode .morning-heading h1 {
+  margin: 2px 0 0;
+  font: 700 clamp(34px, 5vw, 66px)/.95 Monaco, "Courier New", monospace;
+  letter-spacing: -.06em;
+}
+body.morning-mode .morning-heading time {
+  color: #d8d8d0;
+  font: 12px/1.2 Monaco, "Courier New", monospace;
+  text-transform: uppercase;
+}
+body.morning-mode .terminal-kicker {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .12em;
+}
+body.morning-mode .terminal-now {
+  display: grid;
+  grid-template-columns: auto 1fr 10px;
+  gap: 12px;
+  align-items: center;
+  border: 2px solid #111;
+  border-top: 0;
+  padding: 9px 12px;
+  background: #efefe9;
+  font-size: 11px;
+}
+body.morning-mode .terminal-now span { opacity: .6; }
+body.morning-mode .terminal-now strong { font-weight: 700; }
+body.morning-mode .terminal-now i {
+  width: 8px;
+  height: 8px;
+  background: #111;
+  display: block;
+  animation: havenBlink 1s steps(1,end) infinite;
+}
+@keyframes havenBlink { 50% { opacity: 0; } }
+
+body.morning-mode .morning-label {
+  font: 700 11px/1 Monaco, "Courier New", monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+body.morning-mode .morning-today,
+body.morning-mode .morning-outreach,
+body.morning-mode .morning-threads,
+body.morning-mode .morning-direction {
+  border: 2px solid #111;
+  border-top: 0;
+  padding: 13px 14px;
+  background: #d8d8d0;
+}
+body.morning-mode .morning-priority {
+  border-top: 1px dashed #666;
+  padding: 10px 0;
+}
+body.morning-mode .morning-priority:first-of-type { border-top: 0; }
+body.morning-mode .morning-number {
+  font: 700 11px/1 Monaco, "Courier New", monospace;
+  border: 1px solid #111;
+  min-width: 28px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+}
+body.morning-mode .morning-priority h3,
+body.morning-mode .morning-thread strong {
+  font-family: Monaco, "Courier New", monospace;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+body.morning-mode .morning-priority p,
+body.morning-mode .morning-thread small,
+body.morning-mode .morning-direction p,
+body.morning-mode .morning-check span {
+  font-family: Monaco, "Courier New", monospace;
+}
+body.morning-mode .morning-check {
+  border-top: 1px dashed #666;
+  padding: 9px 0;
+}
+body.morning-mode .morning-check:first-child { border-top: 0; }
+body.morning-mode .morning-check input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #111;
+  border-radius: 0;
+  background: transparent;
+  margin-right: 9px;
+}
+body.morning-mode .morning-check input:checked {
+  background: #111;
+  box-shadow: inset 0 0 0 2px #d8d8d0;
+}
+body.morning-mode .morning-thread {
+  border-top: 1px dashed #666;
+  border-radius: 0;
+}
+body.morning-mode .morning-thread-arrow { font-family: Monaco, monospace; }
+body.morning-mode .morning-direction {
+  background: #111;
+  color: #d8d8d0;
+}
+body.morning-mode .morning-direction .morning-label { color: #d8d8d0; }
+body.morning-mode .morning-direction p {
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+@media (max-width: 700px) {
+  body.morning-mode .morning-snapshot { padding: 10px; }
+  body.morning-mode .morning-heading { padding: 12px; }
+  body.morning-mode .morning-heading h1 { font-size: 36px; }
+}
