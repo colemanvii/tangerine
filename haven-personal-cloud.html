@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f2e5dc">
+<meta name="description" content="Haven. A living surface for what matters now.">
+<title>Haven — Personal / Cloud Palette</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23f2e5dc' d='M0 0h32v32H0z'/%3E%3Cpath fill='none' stroke='%232f4f9b' stroke-width='3' d='M7 6v20M25 6v20M7 16h18'/%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#f2e5dc;
+  --cream:#f7efe8;
+  --ink:#283750;
+  --blue:#2f4f9b;
+  --blue-deep:#24408a;
+  --sky:#bfd3e2;
+  --sky-soft:#d8e4ec;
+  --blush:#efc8bd;
+  --blush-soft:#f3d9cf;
+  --muted:#6f7680;
+  --rule:#53627a;
+  --white:#f8f4ef;
+  --serif:Georgia,'Times New Roman',serif;
+  --mono:Monaco,'Lucida Console','Courier New',monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--paper);color:var(--ink)}
+body{font-family:var(--mono);-webkit-font-smoothing:antialiased;display:grid;place-items:center;padding:22px}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.surface{
+  width:min(1180px,calc(100vw - 44px));
+  height:min(760px,calc(100svh - 44px));
+  min-height:620px;
+  margin:0 auto;
+  border:1.5px solid var(--rule);
+  display:grid;
+  grid-template-columns:1.05fr .82fr 1.18fr .95fr;
+  grid-template-rows:66px 118px 1fr 1fr 78px;
+  grid-template-areas:
+   "head head head head"
+   "music music faith faith"
+   "work work art art"
+   "work work people now"
+   "footer footer footer footer";
+  overflow:hidden;
+  background:var(--paper)
+}
+.cell{position:relative;min-width:0;overflow:hidden;padding:17px 19px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-deep);margin-bottom:10px}
+.head{grid-area:head;display:flex;align-items:center;gap:18px;padding:0 18px;border-bottom:1.5px solid var(--rule);background:var(--cream)}
+.identity{font-weight:bold;letter-spacing:.08em;font-size:13px;color:var(--blue-deep)}
+.date{margin-left:auto;font-size:11px;color:var(--muted);text-transform:uppercase}
+.status{width:7px;height:7px;background:var(--blue);display:inline-block;margin-right:9px}
+.music{grid-area:music;background:var(--sky);border-right:1px solid var(--rule)}
+.music .tracks{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px;font-size:13px;line-height:1.45}
+.music .track{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music .track:before{content:'▶';font-size:8px;margin-right:9px;color:var(--blue-deep)}
+.faith{grid-area:faith;background:var(--blush);border-right:0}
+.faith blockquote{font:20px/1.28 var(--serif);margin:2px 0 0;max-width:510px;letter-spacing:-.015em;color:var(--blue-deep)}
+.faith small{display:block;margin-top:8px;color:var(--muted);font-size:10px}
+.work{grid-area:work;padding:0;border-right:1px solid var(--rule);display:grid;grid-template-columns:1.22fr .78fr;grid-template-rows:auto 1fr;background:var(--cream)}
+.work-title{grid-column:1/-1;padding:17px 19px 11px;border-bottom:1px solid var(--rule);background:var(--sky-soft)}
+.work-main,.work-side{padding:16px 19px}
+.work-main{border-right:1px solid var(--rule)}
+.bigline{font:28px/1.05 var(--serif);letter-spacing:-.03em;margin:2px 0 15px;color:var(--blue-deep)}
+.list{display:grid;gap:7px;font-size:13px;line-height:1.38}
+.check{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.check input{appearance:none;-webkit-appearance:none;width:13px;height:13px;border:1.5px solid currentColor;border-radius:0;background:transparent;margin:2px 0 0;flex:none}
+.check input:checked{background:var(--blue);border-color:var(--blue)}
+.check input:checked + span{text-decoration:line-through;color:var(--muted)}
+.work-side .name{font:17px/1.1 var(--serif);margin:0 0 4px;color:var(--blue-deep)}
+.work-side .note{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:14px}
+.art{grid-area:art;padding:0;border-right:0;display:grid;grid-template-columns:1fr 1fr;background:var(--paper)}
+.art-main,.art-side{padding:17px 19px}
+.art-main{border-right:1px solid var(--rule);background:var(--blush-soft)}
+.art .statement{font:31px/1.02 var(--serif);letter-spacing:-.035em;max-width:330px;margin:8px 0 16px;color:var(--blue-deep)}
+.commission{font-size:12px;line-height:1.55;margin:8px 0}
+.art-side{display:flex;flex-direction:column;justify-content:space-between;background:var(--sky-soft)}
+.art-mark{font:76px/.82 var(--serif);color:var(--blue-deep);letter-spacing:-.08em;opacity:.96}
+.art-side p{font-size:11px;line-height:1.5;margin:0;color:var(--muted)}
+.people{grid-area:people;background:var(--blush);padding:16px 19px;border-right:1px solid var(--rule)}
+.people .name{font:22px/1.1 var(--serif);margin-bottom:5px;color:var(--blue-deep)}
+.people p{font-size:11px;line-height:1.45;margin:0 0 10px}
+.now{grid-area:now;background:var(--sky);border-right:0;padding:16px 19px}
+.now .focus{font:27px/1.05 var(--serif);letter-spacing:-.03em;margin:6px 0 10px;color:var(--blue-deep)}
+.now p{font-size:11px;line-height:1.45;margin:0;color:var(--muted)}
+.footer{grid-area:footer;border-bottom:0;border-right:0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 18px;background:var(--cream)}
+.footer .center{font:17px/1 var(--serif);color:var(--blue-deep)}
+.footer .right{text-align:right;font-size:10px;color:var(--muted)}
+.blink{animation:blink 2.8s steps(1,end) infinite}
+@keyframes blink{0%,88%,100%{opacity:1}89%,94%{opacity:.15}}
+@media(max-width:900px){
+  body{padding:12px}
+  .surface{width:calc(100vw - 24px);height:calc(100svh - 24px);min-height:0;transform-origin:center}
+  .music .tracks{font-size:11px}
+  .list{font-size:11px}
+  .art .statement{font-size:25px}
+  .art-mark{font-size:58px}
+}
+</style>
+</head>
+<body>
+<main class="surface" aria-label="Haven personal lattice">
+  <header class="head">
+    <span class="status blink" aria-hidden="true"></span>
+    <span class="identity">HAVEN / PERSONAL</span>
+    <span style="font-size:10px;color:var(--muted)">A LIVING FIELD, NOT A LIST.</span>
+    <time class="date" id="date">SUN 04 OCT 2026</time>
+  </header>
+
+  <section class="cell music">
+    <div class="kicker">Listening / current atmosphere</div>
+    <div class="tracks">
+      <span class="track">Hermanos Gutiérrez</span>
+      <span class="track">The Fall Off Is Inevitable</span>
+      <span class="track">Hazlett</span>
+      <span class="track">Joshua Sloane</span>
+      <span class="track">J. Cole — Bombs in the Ville/Hit the Gas</span>
+    </div>
+  </section>
+
+  <section class="cell faith">
+    <div class="kicker">Held thought / Merton</div>
+    <blockquote>Bring your gifts fully. Listen before proposing. Receive correction. Keep one promise today.</blockquote>
+    <small>Your worth survives unfinished work and rest.</small>
+  </section>
+
+  <section class="cell work">
+    <div class="work-title">
+      <div class="kicker">Work / reputation / livelihood</div>
+      <div class="bigline">Make the work legible.</div>
+    </div>
+    <div class="work-main">
+      <div class="kicker">Now</div>
+      <div class="list">
+        <label class="check"><input type="checkbox"><span>Freeman — learn the business before decorating it.</span></label>
+        <label class="check"><input type="checkbox"><span>Build field evidence + project record.</span></label>
+        <label class="check"><input type="checkbox"><span>Put past work online.</span></label>
+        <label class="check"><input type="checkbox"><span>Reset Procreate so it feels fun to use again.</span></label>
+        <label class="check"><input type="checkbox"><span>Talk with Kevin Caywood.</span></label>
+      </div>
+    </div>
+    <div class="work-side">
+      <div class="kicker">Outreach</div>
+      <div class="name">Kashus</div><div class="note">Earn back an ongoing creative role. Low monthly retainer. Grow through useful work.</div>
+      <div class="name">Connor Blakley</div><div class="note">Reach out after the personal site is live.</div>
+      <div class="name">Sean / Reed</div><div class="note">Natural-fit relationships, not generic BD.</div>
+    </div>
+  </section>
+
+  <section class="cell art">
+    <div class="art-main">
+      <div class="kicker">Art / serious practice</div>
+      <div class="statement">Make a painting I am excited about.</div>
+      <div class="commission">○ Brian Harris — commission</div>
+      <div class="commission">○ Logan Solomsen — commission</div>
+    </div>
+    <div class="art-side">
+      <div class="art-mark">VII</div>
+      <p>Painting is not a detour if the work gets made. Stop making identity carry what practice should carry.</p>
+    </div>
+  </section>
+
+  <section class="cell people">
+    <div class="kicker">People / vocation</div>
+    <div class="name">Gabe + Kashus</div>
+    <p>Two real relationships. Two places to become useful again through discipline, attention, and service.</p>
+    <p><strong>Prayer:</strong> open the right doors; close the wrong ones.</p>
+  </section>
+
+  <section class="cell now">
+    <div class="kicker">Right now</div>
+    <div class="focus">Do one thing well.</div>
+    <p>Not everything needs to become a system today. Finish something visible, then move back into life.</p>
+  </section>
+
+  <footer class="cell footer">
+    <span style="font-size:10px">SYSTEM READY_</span>
+    <span class="center">build the garden</span>
+    <span class="right">the birds & butterflies come later</span>
+  </footer>
+</main>
+<script>
+const now=new Date();
+const d=document.querySelector('#date');
+d.textContent=new Intl.DateTimeFormat('en-US',{weekday:'short',day:'2-digit',month:'short',year:'numeric',timeZone:'America/New_York'}).format(now).replaceAll(',','').toUpperCase();
+d.dateTime=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York'}).format(now);
+</script>
+</body>
+</html>
