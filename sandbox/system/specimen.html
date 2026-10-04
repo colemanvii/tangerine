@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>System Specimen / Air 02</title>
+<style>
+:root{
+  --white:#fcfcfb;
+  --ink:#202124;
+  --mid:#8d9298;
+  --pale:#cfd3d7;
+  --ghost:#eceeef;
+  --signal:#5f646a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--white);color:var(--ink)}
+body{
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  cursor:crosshair;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+
+.frame{
+  position:relative;
+  width:100vw;
+  height:100svh;
+  min-height:620px;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.012) 1px,transparent 1px) 0 0 / 25vw 100%,
+    var(--white);
+}
+
+/* one structural axis + one horizon */
+.axis-v,.axis-h{position:absolute;background:var(--ghost);pointer-events:none}
+.axis-v{top:0;bottom:0;left:73.5%;width:1px}
+.axis-h{left:0;right:0;top:74%;height:1px}
+
+.origin{
+  position:absolute;
+  left:calc(73.5% - 3px);
+  top:calc(74% - 3px);
+  width:6px;height:6px;
+  border:1px solid var(--pale);
+  background:var(--white);
+}
+
+.mast{
+  position:absolute;
+  top:26px;
+  left:30px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-size:9px;
+  line-height:1;
+  letter-spacing:.18em;
+  color:var(--mid);
+  text-transform:uppercase;
+}
+.mast::before{content:"";width:28px;height:1px;background:var(--pale)}
+
+.anchor{
+  position:absolute;
+  left:5.2vw;
+  top:17.5vh;
+  margin:0;
+  width:68vw;
+  font-size:clamp(56px,10.6vw,172px);
+  line-height:.88;
+  letter-spacing:-.068em;
+  font-weight:400;
+  text-transform:uppercase;
+}
+.anchor span{font-weight:400;color:#5c6065}
+
+.subanchor{
+  position:absolute;
+  left:5.55vw;
+  top:42.8vh;
+  width:26vw;
+  max-width:340px;
+  font-size:12px;
+  line-height:1.45;
+  font-weight:400;
+  color:#4d5155;
+}
+.subanchor strong{font-weight:400;color:var(--ink)}
+
+.index{
+  position:absolute;
+  right:3.1vw;
+  top:23.5vh;
+  width:15vw;
+  min-width:150px;
+  font-size:9px;
+  line-height:1.75;
+  letter-spacing:.1em;
+  color:var(--mid);
+  text-transform:uppercase;
+}
+.index strong{font-weight:400;color:var(--ink)}
+
+.signal-wrap{
+  position:absolute;
+  right:3.1vw;
+  top:51vh;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:9px;
+  letter-spacing:.17em;
+  color:var(--mid);
+  text-transform:uppercase;
+}
+.signal{
+  width:5px;height:5px;border-radius:50%;background:var(--signal);
+  animation:blink 1.5s steps(1,end) infinite;
+}
+@keyframes blink{0%,72%{opacity:1}73%,100%{opacity:.12}}
+
+.quiet-field{
+  position:absolute;
+  right:26.5%;
+  bottom:0;
+  width:20.5%;
+  height:26%;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.1),rgba(0,0,0,.025)),
+    radial-gradient(circle at 50% 40%,rgba(0,0,0,.022),transparent 48%);
+  border-left:1px solid var(--ghost);
+  border-right:1px solid var(--ghost);
+}
+.quiet-field::after{
+  content:"FIELD 01";
+  position:absolute;
+  left:10px;
+  bottom:9px;
+  font-size:8px;
+  letter-spacing:.16em;
+  color:#a3a7ab;
+}
+
+.vertical-note{
+  position:absolute;
+  left:calc(73.5% + 10px);
+  top:78%;
+  font-size:8px;
+  letter-spacing:.18em;
+  color:#a0a4a8;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+}
+
+.nav{
+  position:absolute;
+  left:30px;
+  bottom:27px;
+  display:flex;
+  gap:26px;
+  font-size:9px;
+  line-height:1;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.nav a{opacity:.68;transition:opacity .12s linear}
+.nav a:hover{opacity:1}
+
+.caption{
+  position:absolute;
+  left:27.2%;
+  bottom:25px;
+  width:300px;
+  font-size:9px;
+  line-height:1.55;
+  color:var(--mid);
+}
+.caption strong{color:var(--ink);font-weight:400}
+
+.clock{
+  position:absolute;
+  right:3.1vw;
+  bottom:25px;
+  text-align:right;
+  font-size:8px;
+  line-height:1.5;
+  letter-spacing:.14em;
+  color:#9ca0a4;
+  text-transform:uppercase;
+}
+
+.corner{
+  position:absolute;
+  right:3.1vw;
+  top:28px;
+  font-size:8px;
+  letter-spacing:.16em;
+  color:#a2a6aa;
+  text-transform:uppercase;
+}
+
+@media (max-width:900px){
+  .frame{background:var(--white)}
+  .axis-v{left:78%}
+  .origin{left:calc(78% - 3px)}
+  .anchor{left:7vw;top:20vh;width:76vw;font-size:15vw}
+  .subanchor{left:7.4vw;top:43vh;width:46vw}
+  .index{right:20px;top:58vh;width:120px}
+  .signal-wrap{right:20px;top:50vh}
+  .quiet-field{right:22%;width:28%}
+  .vertical-note{left:calc(78% + 8px)}
+}
+</style>
+</head>
+<body>
+<main class="frame" aria-label="Airy futuristic system specimen">
+  <div class="axis-v"></div>
+  <div class="axis-h"></div>
+  <div class="origin"></div>
+
+  <div class="mast">SYSTEM / AIR 02</div>
+  <div class="corner">STATIC FIELD / 01</div>
+
+  <h1 class="anchor">STILL<br><span>ALIVE</span></h1>
+
+  <div class="subanchor">
+    A screen should feel <strong>composed</strong>, not populated. Silence carries structure. Motion appears only when something is truly alive.
+  </div>
+
+  <div class="index">
+    <strong>ONE VOICE</strong><br>
+    FIXED ADDRESS<br>
+    OPEN FIELD<br>
+    COLD WHITE<br>
+    SILVER GREY<br>
+    ONE SIGNAL
+  </div>
+
+  <div class="signal-wrap"><span class="signal" aria-hidden="true"></span><span>active</span></div>
+
+  <div class="quiet-field" aria-label="Quiet visual field"></div>
+  <div class="vertical-note">SPACE / INTERVAL / SIGNAL</div>
+
+  <nav class="nav" aria-label="Specimen navigation">
+    <a href="#">Index</a>
+    <a href="#">Work</a>
+    <a href="#">Info</a>
+  </nav>
+
+  <div class="caption"><strong>RULE 07</strong> — if the page needs decoration to feel alive, the composition is not finished.</div>
+  <div class="clock" id="clock">04 OCT 2026<br>12:25:00</div>
+</main>
+
+<script>
+const el=document.getElementById('clock');
+function tick(){
+  const d=new Date();
+  const date=new Intl.DateTimeFormat('en-US',{day:'2-digit',month:'short',year:'numeric'}).format(d).toUpperCase();
+  const time=new Intl.DateTimeFormat('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(d);
+  el.innerHTML=date+'<br>'+time;
+}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
