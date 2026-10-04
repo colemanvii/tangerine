@@ -40,26 +40,57 @@ header{grid-row:1}.music{grid-row:2}.music h2{font-size:9px}.music a{font-size:1
 .art-thought{font-size:16px;margin-top:17px}.threads{font-size:11px;line-height:1.5}.signal:before{content:none}
 footer{grid-row:6;font-size:9px}.footer-note{font-size:8px}
 }
+
+/* Connected lattice: shared panel edges cross the page. */
+main{gap:0;grid-template-rows:55px 60px 1fr 1fr 30px;border-left:1px solid var(--rule);border-right:1px solid var(--rule)}
+header{padding-left:22px;padding-right:22px}
+.music{padding:12px 22px;border-bottom:1px solid var(--rule)}
+.block{position:relative;padding:24px 22px;border-top:0;align-self:stretch;margin:0!important;min-width:0}
+.block:has(#priorities-heading),.block:has(#art-heading){border-right:1px solid var(--rule)}
+.block:has(#outreach-heading),.block:has(#prayers-heading){border-left:1px solid var(--rule)}
+.block:has(#art-heading),.block:has(#threads-heading),.block:has(#prayers-heading){border-top:1px solid var(--rule)}
+.block:has(#threads-heading){align-self:stretch}
+.direction{height:100%;display:grid;place-content:center;padding:22px}
+footer{align-self:stretch;padding:9px 22px;border-top:1px solid var(--rule)}
+.panel-status{display:flex;align-items:center;gap:5px;font-size:8px;letter-spacing:.05em;color:var(--muted);margin:-3px 0 18px}
+.panel-status i{width:5px;height:5px;background:#6c775f;animation:panel-on 4s steps(1,end) infinite}
+.block:has(#art-heading) .panel-status i{animation-delay:1s}
+.block:has(#outreach-heading) .panel-status i{animation-delay:2s}
+.block:has(#prayers-heading) .panel-status i{animation-delay:3s}
+@keyframes panel-on{0%,85%,100%{opacity:1}86%,94%{opacity:.15}}
+@media(prefers-reduced-motion:reduce){.panel-status i{animation:none}}
+@media(max-width:700px){
+main{grid-template-rows:36px 40px 1fr 64px 1.2fr 24px;min-height:590px}
+header{padding:8px 12px}.music{padding:8px 12px}
+.block{padding:14px 12px!important}
+.block:has(#outreach-heading){border-left:0}
+.block:has(#priorities-heading),.block:has(#art-heading){border-right:1px solid var(--rule)}
+.block:has(#prayers-heading){border-left:0}
+.direction{padding:12px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.block:has(#art-heading),.block:has(#prayers-heading){border-top:0}
+.panel-status{font-size:7px;margin:0 0 10px}.block h2{margin-bottom:7px}
+footer{padding:7px 12px}
+}
 </style>
 </head>
 <body>
 <main aria-label="Haven personal surface">
 <header><span class="identity">PERSONAL / 1994</span><time class="date" id="date">SAT 03 OCT 2026</time></header>
 <section class="music" aria-labelledby="music-heading"><h2 id="music-heading">Now playing</h2><a href="https://open.spotify.com/search/Gunna%20One%20of%20Wun" target="_blank" rel="noopener noreferrer" aria-label="Open Gunna — One of Wun in Spotify"><span class="play" aria-hidden="true">▶</span><span class="track">Gunna — One of Wun</span></a><small>SET THE TONE.</small></section>
-<section class="block" aria-labelledby="priorities-heading"><h2 id="priorities-heading">Current priorities</h2><div class="list">
+<section class="block" aria-labelledby="priorities-heading"><h2 id="priorities-heading">Current priorities</h2><span class="panel-status"><i aria-hidden="true"></i>STATUS: ON</span><div class="list">
 <label class="check"><input id="freeman" type="checkbox"><span class="copy"><b>Freeman</b><span class="detail"> — choose the next move.</span></span><span class="next" id="next">START HERE</span></label>
 <label class="check"><input id="portfolio" type="checkbox"><span class="copy"><b>Portfolio</b><span class="detail"> — choose the work that belongs.</span></span></label>
 <label class="check"><input id="housing" type="checkbox"><span class="copy"><b>Housing</b><span class="detail"> — name what you need next.</span></span></label>
 </div></section>
-<section class="block" aria-labelledby="outreach-heading"><h2 id="outreach-heading">Outreach checklist</h2><div class="list"><label class="check"><input id="eric" type="checkbox"><span class="copy"><b>Eric</b><span class="detail"> — reconnect on House Stationery.</span></span></label></div></section>
-<section class="block" aria-labelledby="art-heading"><h2 id="art-heading">Art</h2><div class="list"><label class="check"><input id="brian-harris" type="checkbox"><span class="copy">Brian Harris<span class="detail"> — commission.</span></span></label><label class="check"><input id="logan-solomsen" type="checkbox"><span class="copy">Logan Solomsen<span class="detail"> — commission.</span></span></label></div><p class="art-thought">Make a painting I’m excited about.</p></section>
-<section class="block" aria-labelledby="threads-heading"><h2 id="threads-heading">Active threads</h2><div class="threads">
+<section class="block" aria-labelledby="outreach-heading"><h2 id="outreach-heading">Outreach checklist</h2><span class="panel-status"><i aria-hidden="true"></i>STATUS: ON</span><div class="list"><label class="check"><input id="eric" type="checkbox"><span class="copy"><b>Eric</b><span class="detail"> — reconnect on House Stationery.</span></span></label></div></section>
+<section class="block" aria-labelledby="art-heading"><h2 id="art-heading">Art</h2><span class="panel-status"><i aria-hidden="true"></i>STATUS: ON</span><div class="list"><label class="check"><input id="brian-harris" type="checkbox"><span class="copy">Brian Harris<span class="detail"> — commission.</span></span></label><label class="check"><input id="logan-solomsen" type="checkbox"><span class="copy">Logan Solomsen<span class="detail"> — commission.</span></span></label></div><p class="art-thought">Make a painting I’m excited about.</p></section>
+<section class="block" aria-labelledby="threads-heading"><h2 id="threads-heading">Active threads</h2><span class="panel-status"><i aria-hidden="true"></i>STATUS: ON</span><div class="threads">
 <p><span>Music</span><span class="signal">Back in the room.</span></p>
 <p><span>Haven</span><span class="signal">Less screen. More life.</span></p>
 
 <p><span>Faith / Body / People</span><span class="signal">Stay close to the physical world.</span></p>
 </div></section>
-<section class="block" aria-labelledby="prayers-heading"><h2 id="prayers-heading">Prayers</h2><div class="threads"><p><span>Kashus Culpepper</span><span class="signal">A modest monthly retainer for ongoing creative work, with room to grow. Help me serve him well and earn greater responsibility.</span></p></div></section>
+<section class="block" aria-labelledby="prayers-heading"><h2 id="prayers-heading">Prayers</h2><span class="panel-status"><i aria-hidden="true"></i>STATUS: ON</span><div class="threads"><p><span>Kashus Culpepper</span><span class="signal">A modest monthly retainer for ongoing creative work, with room to grow. Help me serve him well and earn greater responsibility.</span></p></div></section>
 <section class="direction" aria-labelledby="direction-heading"><h2 id="direction-heading">Direction</h2><p>Tend the work.<br>Give it time to grow.</p></section>
 <footer><span>SYSTEM READY_</span><span class="footer-note">First draft · checks last while open</span></footer>
 <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
