@@ -9,6 +9,37 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23d8d7d0' d='M0 0h32v32H0z'/%3E%3Cpath fill='none' stroke='%2321211e' stroke-width='3' d='M7 6v20M25 6v20M7 16h18'/%3E%3C/svg%3E">
 <style>
 :root{color-scheme:light;--paper:#d8d7d0;--ink:#242420;--muted:#64645c;--rule:#a4a49a;--mono:Monaco,'Lucida Console','Courier New',monospace}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:16px;-webkit-font-smoothing:antialiased;min-height:100svh;display:grid;place-items:center;padding:36px 28px}main{width:min(100%,790px)}header{border-top:4px solid var(--ink);border-bottom:1px solid var(--ink);padding:13px 0 12px;display:flex;justify-content:space-between;align-items:center;gap:12px}.identity{font-size:14px;font-weight:bold;letter-spacing:.06em}.date{font-size:12px;text-transform:uppercase;color:var(--muted)}.music{display:flex;align-items:center;gap:22px;padding:19px 0 20px;border-bottom:1px solid var(--ink)}h2{font-size:12px;line-height:1.4;letter-spacing:.075em;font-weight:normal;margin:0;text-transform:uppercase}.music h2{white-space:nowrap}.music a{color:inherit;text-decoration:none;font-size:14px;display:flex;gap:12px;align-items:center}.music a:hover .track{text-decoration:underline;text-underline-offset:4px}.play{width:21px;height:21px;border:1px solid var(--ink);display:grid;place-items:center;font-size:10px;line-height:1}.music small{font-size:12px;color:var(--muted);margin-left:auto}.block{padding:22px 0 20px;border-bottom:1px solid var(--ink)}.block h2{margin-bottom:12px}.list{display:grid;gap:2px}.check{display:flex;align-items:baseline;position:relative;gap:13px;cursor:pointer;min-height:35px;line-height:1.5;padding:5px 0}.check input{appearance:none;-webkit-appearance:none;margin:0;position:relative;top:2px;flex:0 0 15px;width:15px;height:15px;border:1.5px solid var(--ink);border-radius:0;background:transparent;cursor:pointer}.check input:checked{background:var(--ink)}.check input:checked:after{content:'';position:absolute;left:3px;top:0px;width:5px;height:9px;border-right:2px solid var(--paper);border-bottom:2px solid var(--paper);transform:rotate(45deg)}.check input:checked~.copy{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}.copy b{font-weight:normal}.copy .detail{color:var(--muted)}.next{font-size:11px;letter-spacing:.07em;margin-left:auto;padding:2px 6px;background:var(--ink);color:var(--paper);align-self:center;white-space:nowrap}.check:has(input:checked) .next{visibility:hidden}.threads{display:grid;gap:9px;line-height:1.6;font-size:14px}.threads p{display:grid;grid-template-columns:218px 1fr;gap:12px;margin:0}.signal{color:var(--muted)}.direction{padding:20px 0 21px;display:grid;grid-template-columns:116px 1fr;gap:16px;border-bottom:2px solid var(--ink)}.direction h2{padding-top:3px}.direction p{font-size:14px;line-height:1.65;margin:0;max-width:560px}footer{padding-top:12px;display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.05em}.footer-note{color:var(--muted);letter-spacing:0;font-size:11px}a:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:5px}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}@media(min-width:700px) and (max-height:760px){body{padding-top:18px;padding-bottom:18px}.block{padding:16px 0 14px}.music{padding:15px 0}.direction{padding:16px 0}.check{min-height:32px}}@media(max-width:600px){body{padding:20px;align-items:center}header{align-items:baseline}.identity{font-size:12px}.date{font-size:11px}.music{gap:15px}.music small{display:none}.music a{font-size:12px;gap:9px}.block{padding:18px 0 16px}.check{font-size:14px;gap:11px;min-height:38px}.copy .detail{display:block;font-size:12px}.next{font-size:10px}.threads{font-size:12px;gap:8px}.threads p{display:block}.signal{font-size:12px}.signal:before{content:" / "}.direction{grid-template-columns:1fr;gap:9px;padding:18px 0}.direction p{font-size:12px}.footer-note{font-size:10px}}@media(max-width:600px) and (max-height:740px){body{padding:14px 18px}.block{padding:10px 0 8px}.block h2{margin-bottom:7px}.music{padding:12px 0}.check{padding:3px 0;min-height:31px}.threads{gap:5px}.threads p{display:block}.signal:before{content:" / "}.direction{padding:12px 0;gap:6px}footer{padding-top:9px}}@media(prefers-reduced-motion:no-preference){.check input,.copy{transition:background .12s,color .12s}}
+
+/* A fixed composition: each thought has a place. */
+body{padding:28px 40px}
+main{width:min(100%,1120px);height:min(780px,calc(100svh - 56px));display:grid;grid-template-columns:1.1fr .8fr 1fr;grid-template-rows:55px 48px 1fr 1fr 28px;gap:20px 42px}
+header{grid-column:1/-1}.music{grid-column:1/-1;padding:8px 0;border-bottom:0}
+.block{padding:15px 0 0;border-bottom:0;border-top:1px solid var(--rule);align-self:start}
+.block:has(#priorities-heading){grid-column:1;grid-row:3}
+.block:has(#outreach-heading){grid-column:3;grid-row:3;margin-top:35px}
+.block:has(#art-heading){grid-column:1;grid-row:4}
+.block:has(#prayers-heading){grid-column:3;grid-row:4;margin-top:32px}
+.block:has(#threads-heading){grid-column:2;grid-row:4;align-self:end;font-size:12px}
+.direction{grid-column:2;grid-row:3;align-self:center;display:block;padding:0;border:0;text-align:center}
+.direction h2{display:none}.direction p{font-family:Georgia,serif;font-size:clamp(20px,2.2vw,29px);line-height:1.35;font-weight:normal}
+.threads p{display:block}.signal{display:block;margin-top:3px}.threads{font-size:13px;gap:12px}
+.check{font-size:14px;line-height:1.4;margin-bottom:7px}.copy .detail{display:block;font-size:12px}
+.next{font-size:9px;padding:3px 5px}.art-thought{font-family:Georgia,serif;font-size:18px;line-height:1.4;color:var(--muted);margin-top:22px}
+#art-heading{color:#9c4f29}footer{grid-column:1/-1;grid-row:5;align-self:end;border-top:1px solid var(--rule);padding-top:9px}
+@media(max-width:700px){
+body{padding:16px}main{height:calc(100svh - 32px);min-height:590px;grid-template-columns:1fr 1fr;grid-template-rows:36px 28px 1fr 58px 1.2fr 22px;gap:14px 22px}
+header{grid-row:1}.music{grid-row:2}.music h2{font-size:9px}.music a{font-size:11px}.music .play{width:16px;height:16px}
+.block{padding-top:9px}.block h2{font-size:10px;margin-bottom:10px}
+.block:has(#priorities-heading){grid-column:1;grid-row:3}
+.block:has(#outreach-heading){grid-column:2;grid-row:3;margin-top:24px}
+.direction{grid-column:1/-1;grid-row:4}.direction p{font-size:21px}.direction p br{display:none}
+.block:has(#art-heading){grid-column:1;grid-row:5}
+.block:has(#prayers-heading){grid-column:2;grid-row:5;margin-top:20px}
+.block:has(#threads-heading){display:none}
+.check{font-size:12px;gap:8px;min-height:29px;padding:3px 0}.check input{width:13px;height:13px;flex-basis:13px}.copy .detail{font-size:10px}.next{display:none}
+.art-thought{font-size:16px;margin-top:17px}.threads{font-size:11px;line-height:1.5}.signal:before{content:none}
+footer{grid-row:6;font-size:9px}.footer-note{font-size:8px}
+}
 </style>
 </head>
 <body>
@@ -21,14 +52,15 @@
 <label class="check"><input id="housing" type="checkbox"><span class="copy"><b>Housing</b><span class="detail"> — name what you need next.</span></span></label>
 </div></section>
 <section class="block" aria-labelledby="outreach-heading"><h2 id="outreach-heading">Outreach checklist</h2><div class="list"><label class="check"><input id="eric" type="checkbox"><span class="copy"><b>Eric</b><span class="detail"> — reconnect on House Stationery.</span></span></label></div></section>
+<section class="block" aria-labelledby="art-heading"><h2 id="art-heading">Art</h2><div class="list"><label class="check"><input id="brian-harris" type="checkbox"><span class="copy">Brian Harris<span class="detail"> — commission.</span></span></label><label class="check"><input id="logan-solomsen" type="checkbox"><span class="copy">Logan Solomsen<span class="detail"> — commission.</span></span></label></div><p class="art-thought">Make a painting I’m excited about.</p></section>
 <section class="block" aria-labelledby="threads-heading"><h2 id="threads-heading">Active threads</h2><div class="threads">
 <p><span>Music</span><span class="signal">Back in the room.</span></p>
 <p><span>Haven</span><span class="signal">Less screen. More life.</span></p>
-<p><span>Art / Emberwing</span><span class="signal">Keep making things.</span></p>
+
 <p><span>Faith / Body / People</span><span class="signal">Stay close to the physical world.</span></p>
 </div></section>
 <section class="block" aria-labelledby="prayers-heading"><h2 id="prayers-heading">Prayers</h2><div class="threads"><p><span>Kashus Culpepper</span><span class="signal">A modest monthly retainer for ongoing creative work, with room to grow. Help me serve him well and earn greater responsibility.</span></p></div></section>
-<section class="direction" aria-labelledby="direction-heading"><h2 id="direction-heading">Direction</h2><p>When on the computer, be fully there.<br>When off it, be fully in your life.</p></section>
+<section class="direction" aria-labelledby="direction-heading"><h2 id="direction-heading">Direction</h2><p>Tend the work.<br>Give it time to grow.</p></section>
 <footer><span>SYSTEM READY_</span><span class="footer-note">First draft · checks last while open</span></footer>
 <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
 </main>
