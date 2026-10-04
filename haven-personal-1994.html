@@ -16,13 +16,13 @@ header{border-top:4px solid var(--blue);border-bottom:1px solid var(--rule);padd
 .music{background:var(--peach);border-bottom:1px solid var(--rule);padding:18px 14px;display:grid;grid-template-columns:105px 1fr auto;gap:12px;align-items:center;flex:none}
 .music h2,.block h2,.practice h2,.listen h2{font-size:12px;line-height:1.35;letter-spacing:.075em;font-weight:400;margin:0;text-transform:uppercase}
 .playline{display:flex;gap:12px;align-items:center;font-size:14px}.play{width:23px;height:23px;border:1px solid var(--blue);display:grid;place-items:center;font-size:10px}
-.music small{font-size:11px;color:var(--muted);letter-spacing:.03em}.block{padding:19px 0 17px;border-bottom:1px solid var(--rule);flex:none}.block h2{margin-bottom:11px}
-.list{display:grid;gap:3px}.check{display:flex;gap:13px;align-items:baseline;min-height:31px;font-size:15px;line-height:1.4}
+.music small{font-size:11px;color:var(--muted);letter-spacing:.03em}.block{padding:15px 0 13px;border-bottom:1px solid var(--rule);flex:none}.block h2{margin-bottom:9px}
+.list{display:grid;gap:2px}.check{display:flex;gap:13px;align-items:baseline;min-height:28px;font-size:15px;line-height:1.4}
 .check input{appearance:none;-webkit-appearance:none;width:16px;height:16px;border:1.5px solid var(--blue);border-radius:0;margin:0;position:relative;top:2px;flex:none;background:transparent}
 .check input:checked{background:var(--blue)}.copy .detail{color:var(--muted)}.next{margin-left:auto;background:var(--blue);color:#eef0e9;font-size:10px;letter-spacing:.08em;padding:3px 7px;white-space:nowrap}
-.threads{display:grid;gap:7px;font-size:14px;line-height:1.45}.threads p{display:grid;grid-template-columns:240px 1fr;gap:13px;margin:0}.signal{color:var(--muted)}.threadline{font-size:14px;color:var(--muted)}
-.prayer-row,.practice,.listen{display:grid;grid-template-columns:235px 1fr;gap:18px}.prayer-row{font-size:14px;line-height:1.5}.prayer-row .copy{color:var(--muted)}
-.practice{padding:13px 0 14px;border-bottom:2px solid var(--blue);flex:none}.practice p{margin:0;font-size:14px;line-height:1.55}
+.threads{display:grid;gap:7px;font-size:14px;line-height:1.45}.threads p{display:grid;grid-template-columns:240px 1fr;gap:13px;margin:0}.signal{color:var(--muted)}.compact{padding:12px 0 11px}.compact h2{margin-bottom:7px}.threadline{font-size:14px;color:var(--muted)}
+.prayer-row,.practice,.listen{display:grid;grid-template-columns:235px 1fr;gap:18px}.prayer-row{font-size:14px;line-height:1.45}.prayers{padding-top:15px;padding-bottom:14px}.prayer-row .copy{color:var(--muted)}
+.practice{padding:12px 0 13px;border-bottom:2px solid var(--blue);flex:none}.practice p{margin:0;font-size:13px;line-height:1.45}
 .listen{display:none}.listen .tracks{display:none}.listen .tracks span:before{content:'— ';color:var(--muted)}
 footer{display:none}
 @media(max-width:620px){
@@ -53,11 +53,8 @@ footer{display:none}
 <label class="check"><input type="checkbox"><span class="copy">Connor Blakley <span class="detail">— reach out after personal site is live.</span></span></label>
 <label class="check"><input type="checkbox"><span class="copy">Kevin Caywood <span class="detail">— talk about construction / development role.</span></span></label>
 </div></section>
-<section class="block"><h2>Active threads</h2><div class="threads">
-<p><span>Music</span><span class="signal">Back in the room.</span></p><p><span>Haven</span><span class="signal">Less screen. More life.</span></p>
-<p><span>Art / Emberwing</span><span class="signal">Keep making things.</span></p><p><span>Faith / Body / People</span><span class="signal">Stay close to the physical world.</span></p>
-</div></section>
-<section class="block"><h2>Prayers</h2><div class="prayer-row"><span>Kashus Culpepper</span><span class="copy">A modest monthly retainer for ongoing creative work, with room to grow. Help me serve him well.</span></div></section>
+<section class="block compact"><h2>Active threads</h2><div class="threadline">Music / Haven / Art / Faith / Body / People</div></section>
+<section class="block prayers"><h2>Prayers</h2><div class="prayer-row"><span>Kashus Culpepper</span><span class="copy">A modest monthly retainer for ongoing creative work, with room to grow.</span></div></section>
 <section class="practice"><h2>Merton / practice</h2><p>Bring your gifts fully. Let another person’s needs matter as much as your self-expression.<br>Listen before proposing. Receive correction. Keep one promise today.</p></section>
 <section class="listen"><h2>Listening list</h2><div class="tracks"><span>Hermanos Gutiérrez</span><span>The Fall Off Is Inevitable</span><span>J. Cole — Bombs in the Ville/Hit the Gas</span><span>Hazlett / Joshua Sloane</span></div></section>
 <footer><span>SYSTEM READY_</span><span>QUIET INSTRUMENT / LIVE VIEW</span></footer>
