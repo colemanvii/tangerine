@@ -145,7 +145,7 @@
         ? window.HAVEN_MORNING.activeDate
         : localDateKey();
     return (
-      window.HAVEN_MORNING.briefs.find((brief) => brief.date === requested) || {
+      window.HAVEN_MORNING.briefs.filter((brief) => brief.date <= requested && (brief.priorities || []).some((item) => item.title?.trim())).sort((a, b) => b.date.localeCompare(a.date))[0] || {
         date: requested,
         priorities: [],
         outreach: [],
@@ -200,6 +200,7 @@
     const outreach = (brief.outreach || []).filter((item) => item.text?.trim());
     const reading = (brief.reading || []).filter((item) => String(item).trim());
     const money = (brief.money || []).filter((item) => String(item).trim());
+    const prayers = (brief.prayers || []).filter((item) => String(item).trim());
     const direction = (brief.direction || "").trim();
     const soundtrack = (brief.soundtrack || "").trim();
     const threads = (brief.threads || []).filter((item) => item.title?.trim());
@@ -247,7 +248,7 @@
         </div>
         <div class="os-status">
           <span>DATE: ${escapeText(terminalDate)}</span>
-          <span>STATUS: ARMED</span>
+          <span>STATUS: READY</span>
         </div>
       </header>
 
@@ -286,9 +287,11 @@
         <div class="os-list">${threadRows}</div>
       </section>
 
+      ${prayers.length ? `<section class="os-section"><div class="os-section-title">[PRAYERS]</div><div class="os-list">${prayers.map((item) => `<div class="os-row"><span class="os-box">›</span><span>${escapeText(String(item)).toUpperCase()}</span></div>`).join("")}</div></section>` : ""}
+
       <section class="os-section os-direction">
         <div class="os-section-title">[DIRECTION]</div>
-        <p>${escapeText(direction || "WHEN ON THE COMPUTER, BE FULLY LOCKED IN. WHEN OFF IT, BE FULLY IN YOUR LIFE.").toUpperCase()}</p>
+        <p>${escapeText(direction || "WHEN ON THE COMPUTER, BE FULLY THERE. WHEN OFF IT, BE FULLY IN YOUR LIFE.").toUpperCase()}</p>
       </section>
 
       <footer class="os-ready"><span>[SYSTEM READY_]</span><i aria-hidden="true"></i></footer>
