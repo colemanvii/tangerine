@@ -324,7 +324,6 @@ window.HAVEN_MORNING = {
         "SIX-MONTH AIM / +$8K–$12K",
         "RULE / GET PAID → COVER HOUSING → MOVE SAVINGS → LIVE"
       ],
-
       "direction": "Work on the screen. Live off the screen. Build competence, independence, and a life that feels real.",
       "soundtrack": "GUNNA / ONE OF WUN",
       "threads": [
@@ -413,22 +412,38 @@ window.HAVEN_MORNING = {
       "date": "2026-10-04",
       "priorities": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Put real work on the portfolio",
+          "summary": "Show photography, design, and artwork plainly."
+        },
+        {
+          "title": "Freeman: learn and document",
+          "summary": "Turn Gabe’s perspective into one useful field record."
+        },
+        {
+          "title": "Finish outstanding paintings",
+          "summary": "Brian Harris and Logan Solomsen commissions."
         }
       ],
       "threads": [
         {
-          "title": "",
-          "summary": ""
+          "title": "Freeman",
+          "summary": "The work is the brand."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Painting",
+          "summary": "Finish commissions; make work you care about."
         },
         {
-          "title": "",
-          "summary": ""
+          "title": "Music / Kash",
+          "summary": "Renew creative collaboration."
+        },
+        {
+          "title": "Housing",
+          "summary": "Cartersville home base within budget."
+        },
+        {
+          "title": "House Stationery",
+          "summary": "One considered specimen with Eric."
         }
       ],
       "changes": [
@@ -441,9 +456,54 @@ window.HAVEN_MORNING = {
         "href": ""
       },
       "grace": {
-        "text": "",
-        "source": ""
-      }
+        "text": "Commit thy works unto the Lord, and thy thoughts shall be established.",
+        "source": "Proverbs 16:3 · KJV"
+      },
+      "todos": [
+        {
+          "id": "relaunch-personal-site",
+          "text": "Publish real portfolio work"
+        },
+        {
+          "id": "brian-harris-commission",
+          "text": "Move Brian Harris commission forward"
+        },
+        {
+          "id": "logan-solomsen-commission",
+          "text": "Move Logan Solomsen commission forward"
+        }
+      ],
+      "outreach": [
+        {
+          "id": "kash-creative-retainer",
+          "text": "Kash — follow up on ongoing creative work"
+        },
+        {
+          "id": "connor-blakley",
+          "text": "Connor Blakley — after portfolio is live"
+        },
+        {
+          "id": "eric-stationery",
+          "text": "Eric — House Stationery"
+        }
+      ],
+      "reading": [
+        "Robert Henri / The Art Spirit",
+        "Thomas Merton / New Seeds of Contemplation"
+      ],
+      "money": [
+        "TAKE-HOME / $5,400 WORKING MONTHLY",
+        "RENT CEILING / $1,500",
+        "SAVE / $1,390 PER MONTH",
+        "CASH FLOOR / $10,000",
+        "SIX-MONTH AIM / +$8K–$12K",
+        "RULE / GET PAID → COVER HOUSING → MOVE SAVINGS → LIVE"
+      ],
+      "prayers": [
+        "Kashus Culpepper / modest monthly retainer for ongoing creative work, with room to grow. Serve him well; earn greater responsibility."
+      ],
+      "direction": "Be serious about the work itself. Build the garden. Take the next faithful step.",
+      "soundtrack": "GUNNA / ONE OF WUN"
     },
     {
       "date": "2026-10-05",
