@@ -1,3 +1,9 @@
+# Personal Haven maintenance
+
+The maintained personal dashboard is [personal/index.html](personal/index.html). Read [the update workflow and deployment map](personal/README.md) before changing or publishing it. Historical Astra files are checkpoints, not the active source. A commit does not establish a live update.
+
+---
+
 # Haven
 
 **A calm operating system for the home.**
