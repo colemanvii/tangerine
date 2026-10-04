@@ -8,23 +8,48 @@
 <title>Haven — Personal</title>
 <style>
 :root{--paper:#eef0e9;--peach:#ead0bf;--blue:#26469a;--muted:#66718a;--rule:#3354a3;--mono:Monaco,'Lucida Console','Courier New',monospace}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:linear-gradient(180deg,#d9e5e9 0,#f1eee5 58%,#f5efe3 100%);color:var(--blue)}
-body{font-family:var(--mono);-webkit-font-smoothing:antialiased;padding:38px 26px}main{width:min(870px,100%);margin:0 auto}
-header{border-top:4px solid var(--blue);border-bottom:1px solid var(--rule);padding:13px 0 12px;display:flex;justify-content:space-between;align-items:center}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#d9e5e9 0,#f1eee5 58%,#f5efe3 100%);color:var(--blue)}
+body{font-family:var(--mono);-webkit-font-smoothing:antialiased;padding:clamp(12px,3.2vh,30px) 26px}
+main{width:min(870px,100%);height:100%;margin:0 auto;display:grid;grid-template-rows:auto auto auto auto auto auto auto auto;align-content:stretch;overflow:hidden}
+header{border-top:4px solid var(--blue);border-bottom:1px solid var(--rule);padding:clamp(7px,1.2vh,11px) 0;display:flex;justify-content:space-between;align-items:center}
 .identity{font-size:14px;font-weight:700;letter-spacing:.055em}.date{font-size:12px;color:var(--muted);text-transform:uppercase}
-.music{background:var(--peach);border-bottom:1px solid var(--rule);padding:19px 14px;display:grid;grid-template-columns:105px 1fr auto;gap:12px;align-items:center}
+.music{background:var(--peach);border-bottom:1px solid var(--rule);padding:clamp(8px,1.5vh,13px) 14px;display:grid;grid-template-columns:105px 1fr auto;gap:12px;align-items:center}
 .music h2,.block h2,.practice h2,.listen h2{font-size:12px;line-height:1.35;letter-spacing:.075em;font-weight:400;margin:0;text-transform:uppercase}
 .playline{display:flex;gap:12px;align-items:center;font-size:14px}.play{width:23px;height:23px;border:1px solid var(--blue);display:grid;place-items:center;font-size:10px}
-.music small{font-size:11px;color:var(--muted);letter-spacing:.03em}.block{padding:24px 0 22px;border-bottom:1px solid var(--rule)}.block h2{margin-bottom:14px}
-.list{display:grid;gap:5px}.check{display:flex;gap:13px;align-items:baseline;min-height:34px;font-size:15px;line-height:1.45}
+.music small{font-size:11px;color:var(--muted);letter-spacing:.03em}.block{padding:clamp(8px,1.4vh,14px) 0;border-bottom:1px solid var(--rule);min-height:0}.block h2{margin-bottom:clamp(5px,.8vh,9px)}
+.list{display:grid;gap:2px}.check{display:flex;gap:13px;align-items:baseline;min-height:clamp(23px,3.2vh,29px);font-size:clamp(12px,1.55vh,14px);line-height:1.35}
 .check input{appearance:none;-webkit-appearance:none;width:16px;height:16px;border:1.5px solid var(--blue);border-radius:0;margin:0;position:relative;top:2px;flex:none;background:transparent}
 .check input:checked{background:var(--blue)}.copy .detail{color:var(--muted)}.next{margin-left:auto;background:var(--blue);color:#eef0e9;font-size:10px;letter-spacing:.08em;padding:3px 7px;white-space:nowrap}
-.threads{display:grid;gap:8px;font-size:14px;line-height:1.55}.threads p{display:grid;grid-template-columns:240px 1fr;gap:13px;margin:0}.signal{color:var(--muted)}
-.prayer-row,.practice,.listen{display:grid;grid-template-columns:235px 1fr;gap:18px}.prayer-row{font-size:14px;line-height:1.55}.prayer-row .copy{color:var(--muted)}
-.practice{padding:24px 0 28px;border-bottom:2px solid var(--blue)}.practice p{margin:0;font-size:14px;line-height:1.65}
-.listen{padding:18px 0;border-bottom:1px solid var(--rule);font-size:13px}.listen .tracks{display:grid;gap:7px}.listen .tracks span:before{content:'— ';color:var(--muted)}
-footer{padding-top:12px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.04em;color:var(--muted)}
-@media(max-width:620px){body{padding:20px 18px}.music{grid-template-columns:90px 1fr}.music small{display:none}.threads p,.prayer-row,.practice,.listen{grid-template-columns:1fr;gap:6px}.signal:before{content:'/ '}.next{font-size:9px}}
+.threads{display:grid;gap:clamp(2px,.55vh,5px);font-size:clamp(11px,1.45vh,13px);line-height:1.4}.threads p{display:grid;grid-template-columns:240px 1fr;gap:13px;margin:0}.signal{color:var(--muted)}
+.prayer-row,.practice,.listen{display:grid;grid-template-columns:235px 1fr;gap:18px}.prayer-row{font-size:clamp(11px,1.42vh,13px);line-height:1.4}.prayer-row .copy{color:var(--muted)}
+.practice{padding:clamp(8px,1.3vh,13px) 0;border-bottom:2px solid var(--blue);min-height:0}.practice p{margin:0;font-size:clamp(10px,1.35vh,12px);line-height:1.42}
+.listen{padding:clamp(7px,1.1vh,11px) 0;border-bottom:1px solid var(--rule);font-size:clamp(10px,1.3vh,12px);min-height:0}.listen .tracks{display:grid;grid-template-columns:1fr 1fr;gap:3px 18px}.listen .tracks span:before{content:'— ';color:var(--muted)}
+footer{padding-top:clamp(5px,.8vh,9px);display:flex;justify-content:space-between;font-size:9px;letter-spacing:.04em;color:var(--muted)}
+@media(max-width:620px){
+ body{padding:10px 14px}
+ .identity{font-size:11px}.date{font-size:9px}
+ .music{grid-template-columns:76px 1fr;padding:7px 9px}.music small{display:none}.playline{font-size:11px}.play{width:18px;height:18px}
+ .music h2,.block h2,.practice h2,.listen h2{font-size:9px}
+ .block{padding:7px 0}.block h2{margin-bottom:4px}
+ .check{font-size:10px;min-height:20px;gap:8px}.check input{width:12px;height:12px}.next{font-size:7px;padding:2px 4px}
+ .threads{font-size:9px;gap:1px}.threads p{grid-template-columns:125px 1fr;gap:6px}
+ .prayer-row,.practice,.listen{grid-template-columns:120px 1fr;gap:8px;font-size:9px}
+ .practice{padding:7px 0}.practice p{font-size:9px;line-height:1.28}.practice p br{display:none}
+ .listen{padding:6px 0}.listen .tracks{grid-template-columns:1fr 1fr;gap:2px 8px;font-size:8px}
+ footer{font-size:7px;padding-top:4px}
+}
+@media(max-height:720px){
+ body{padding-top:8px;padding-bottom:8px}
+ .identity{font-size:11px}.date{font-size:9px}
+ .music h2,.block h2,.practice h2,.listen h2{font-size:9px}
+ .music{padding:6px 10px}.playline{font-size:11px}.play{width:18px;height:18px}
+ .block{padding:6px 0}.block h2{margin-bottom:4px}
+ .check{font-size:10px;min-height:19px}.check input{width:12px;height:12px}
+ .threads,.prayer-row{font-size:9px;line-height:1.25}
+ .practice{padding:6px 0}.practice p{font-size:9px;line-height:1.25}.practice p br{display:none}
+ .listen{padding:5px 0;font-size:8px}.listen .tracks{gap:1px 14px}
+ footer{font-size:7px;padding-top:3px}
+}
 </style>
 </head>
 <body>
