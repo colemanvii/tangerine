@@ -1,108 +1,64 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ede8dd" />
-    <meta
-      name="description"
-      content="Haven — a calm operating system for the home. An interactive concept with representative data."
-    />
-    <title>Haven — Home</title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='6' fill='%23293e33'/%3E%3Cpath d='M12 10v20m16-20v20M12 20h16' stroke='%23f2ede3' stroke-width='3'/%3E%3C/svg%3E"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="home-data.js" defer></script>
-    <script src="app.js" defer></script>
-  </head>
-  <body>
-    <a class="skip" href="#content">Skip to content</a>
-    <div class="instrument" id="instrument">
-      <header class="masthead">
-        <a class="wordmark" href="#home" aria-label="Haven home"
-          >HAVEN<span class="brand-rule" aria-hidden="true"></span
-        ></a>
-        <div class="home-address">
-          Cedar House <span>Nashville, Tennessee</span>
-        </div>
-        <div class="era-switch" aria-label="Choose design year">
-          <span class="era-label">DESIGN YEAR</span>
-          <div class="era-options">
-            <button type="button" data-era="1971">1971</button>
-            <button type="button" data-era="1994">1994</button>
-            <button type="button" data-era="2026" class="active">2026</button>
-          </div>
-        </div>
-        <div class="header-actions">
-          <button class="demo-button" data-detail="demo">Demo home</button
-          ><button
-            class="idle-button"
-            id="rest"
-            aria-label="Enter quiet display"
-          >
-            <span aria-hidden="true">◐</span> Quiet display
-          </button>
-        </div>
-      </header>
-      <main id="content" tabindex="-1"></main>
-      <nav class="navigation" aria-label="Main navigation">
-        <a href="#home" data-view="home"
-          ><span aria-hidden="true">01</span>Home</a
-        >
-        <a href="#systems" data-view="systems"
-          ><span aria-hidden="true">02</span>Systems</a
-        >
-        <a href="#security" data-view="security"
-          ><span aria-hidden="true">03</span>Security</a
-        >
-        <a href="#household" data-view="household"
-          ><span aria-hidden="true">04</span>Household</a
-        >
-        <a href="#record" data-view="record"
-          ><span aria-hidden="true">05</span>Record</a
-        >
-      </nav>
-      <footer class="instrument-footer">
-        <span>CEDAR HOUSE <span class="footer-divider">/</span> EST. 2024</span
-        ><span>Representative data · Sunday, September 27, 2026 · 1:35 PM</span>
-      </footer>
-    </div>
-    <section class="idle" id="idle" aria-label="Quiet display" hidden></section>
-    <dialog id="detail" aria-labelledby="detail-title">
-      <div class="dialog-top">
-        <span class="label">CEDAR HOUSE / DEMO RECORD</span
-        ><button class="close-button" aria-label="Close details">✕</button>
-      </div>
-      <div id="detail-content"></div>
-    </dialog>
-    <div
-      id="announcement"
-      class="sr-only"
-      role="status"
-      aria-live="polite"
-    ></div>
-    <script>
-      (() => {
-        const key = "haven-design-year";
-        const buttons = [...document.querySelectorAll("[data-era]")];
-        const apply = (year) => {
-          document.documentElement.dataset.era = year;
-          buttons.forEach((b) => b.classList.toggle("active", b.dataset.era === year));
-          localStorage.setItem(key, year);
-          const announcement = document.getElementById("announcement");
-          if (announcement) announcement.textContent = "Haven design year " + year;
-        };
-        buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.era)));
-        apply(localStorage.getItem(key) || "2026");
-      })();
-    </script>
-    <noscript
-      ><p class="noscript">
-        Haven’s interactive demonstration needs JavaScript. This prototype uses
-        representative data, not live monitoring.
-      </p></noscript
-    >
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eef0e9">
+<meta name="description" content="Haven. A quiet personal operating surface.">
+<title>Haven — Personal</title>
+<style>
+:root{--paper:#eef0e9;--peach:#ead0bf;--blue:#26469a;--muted:#66718a;--rule:#3354a3;--mono:Monaco,'Lucida Console','Courier New',monospace}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#d9e5e9 0,#f1eee5 58%,#f5efe3 100%);color:var(--blue)}
+body{font-family:var(--mono);-webkit-font-smoothing:antialiased;padding:36px 28px}
+main{width:min(870px,100%);height:calc(100vh - 72px);margin:0 auto;display:flex;flex-direction:column;overflow:hidden}
+header{border-top:4px solid var(--blue);border-bottom:1px solid var(--rule);padding:13px 0 12px;display:flex;justify-content:space-between;align-items:center;flex:none}
+.identity{font-size:14px;font-weight:700;letter-spacing:.055em}.date{font-size:12px;color:var(--muted);text-transform:uppercase}
+.music{background:var(--peach);border-bottom:1px solid var(--rule);padding:18px 14px;display:grid;grid-template-columns:105px 1fr auto;gap:12px;align-items:center;flex:none}
+.music h2,.block h2,.practice h2,.listen h2{font-size:12px;line-height:1.35;letter-spacing:.075em;font-weight:400;margin:0;text-transform:uppercase}
+.playline{display:flex;gap:12px;align-items:center;font-size:14px}.play{width:23px;height:23px;border:1px solid var(--blue);display:grid;place-items:center;font-size:10px}
+.music small{font-size:11px;color:var(--muted);letter-spacing:.03em}.block{padding:15px 0 13px;border-bottom:1px solid var(--rule);flex:none}.block h2{margin-bottom:9px}
+.list{display:grid;gap:2px}.check{display:flex;gap:13px;align-items:baseline;min-height:28px;font-size:15px;line-height:1.4}
+.check input{appearance:none;-webkit-appearance:none;width:16px;height:16px;border:1.5px solid var(--blue);border-radius:0;margin:0;position:relative;top:2px;flex:none;background:transparent}
+.check input:checked{background:var(--blue)}.copy .detail{color:var(--muted)}.next{margin-left:auto;background:var(--blue);color:#eef0e9;font-size:10px;letter-spacing:.08em;padding:3px 7px;white-space:nowrap}
+.threads{display:grid;gap:7px;font-size:14px;line-height:1.45}.threads p{display:grid;grid-template-columns:240px 1fr;gap:13px;margin:0}.signal{color:var(--muted)}.compact{padding:12px 0 11px}.compact h2{margin-bottom:7px}.threadline{font-size:14px;color:var(--muted)}
+.prayer-row,.practice,.listen{display:grid;grid-template-columns:235px 1fr;gap:18px}.prayer-row{font-size:14px;line-height:1.45}.prayers{padding-top:15px;padding-bottom:14px}.prayer-row .copy{color:var(--muted)}
+.practice{padding:12px 0 13px;border-bottom:2px solid var(--blue);flex:none}.practice p{margin:0;font-size:13px;line-height:1.45}
+.listen{display:none}.listen .tracks{display:none}.listen .tracks span:before{content:'— ';color:var(--muted)}
+footer{display:none}
+@media(max-width:620px){
+ body{padding:18px 16px}
+ main{height:calc(100vh - 36px)}
+ .identity{font-size:12px}.date{font-size:10px}
+ .music{grid-template-columns:86px 1fr;padding:12px 10px}.music small{display:none}.playline{font-size:12px}
+ .music h2,.block h2,.practice h2{font-size:10px}
+ .block{padding:12px 0 10px}.block h2{margin-bottom:7px}
+ .check{font-size:12px;min-height:25px;gap:9px}.check input{width:13px;height:13px}.next{font-size:8px;padding:2px 5px}
+ .threads{font-size:11px;gap:3px}.threads p{grid-template-columns:145px 1fr;gap:7px}
+ .prayer-row,.practice{grid-template-columns:145px 1fr;gap:10px;font-size:11px}
+ .practice{padding:12px 0}.practice p{font-size:11px;line-height:1.4}.practice p br{display:none}
+}
+</style>
+</head>
+<body>
+<main aria-label="Haven personal surface">
+<header><span class="identity">PERSONAL / 1994</span><time class="date" id="date">SUN 04 OCT 2026</time></header>
+<section class="music"><h2>Listening</h2><div class="playline"><span class="play">▶</span><span>Hermanos Gutiérrez</span></div><small>SUNDAY SOUNDTRACK.</small></section>
+<section class="block"><h2>Current priorities</h2><div class="list">
+<label class="check"><input type="checkbox"><span class="copy">Freeman <span class="detail">— choose the next move.</span></span><span class="next">START HERE</span></label>
+<label class="check"><input type="checkbox"><span class="copy">Portfolio <span class="detail">— choose the work that belongs.</span></span></label>
+<label class="check"><input type="checkbox"><span class="copy">Housing <span class="detail">— name what you need next.</span></span></label>
+</div></section>
+<section class="block"><h2>Outreach checklist</h2><div class="list">
+<label class="check"><input type="checkbox"><span class="copy">Eric <span class="detail">— reconnect on House Stationery.</span></span></label>
+<label class="check"><input type="checkbox"><span class="copy">Connor Blakley <span class="detail">— reach out after personal site is live.</span></span></label>
+<label class="check"><input type="checkbox"><span class="copy">Kevin Caywood <span class="detail">— talk about construction / development role.</span></span></label>
+</div></section>
+<section class="block compact"><h2>Active threads</h2><div class="threadline">Music / Haven / Art / Faith / Body / People</div></section>
+<section class="block prayers"><h2>Prayers</h2><div class="prayer-row"><span>Kashus Culpepper</span><span class="copy">A modest monthly retainer for ongoing creative work, with room to grow.</span></div></section>
+<section class="practice"><h2>Merton / practice</h2><p>Bring your gifts fully. Let another person’s needs matter as much as your self-expression.<br>Listen before proposing. Receive correction. Keep one promise today.</p></section>
+<section class="listen"><h2>Listening list</h2><div class="tracks"><span>Hermanos Gutiérrez</span><span>The Fall Off Is Inevitable</span><span>J. Cole — Bombs in the Ville/Hit the Gas</span><span>Hazlett / Joshua Sloane</span></div></section>
+<footer><span>SYSTEM READY_</span><span>QUIET INSTRUMENT / LIVE VIEW</span></footer>
+</main>
+<script>const now=new Date(),d=document.getElementById('date');d.textContent=new Intl.DateTimeFormat('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric',timeZone:'America/New_York'}).format(now).replaceAll(',','').toUpperCase();</script>
+</body>
 </html>
