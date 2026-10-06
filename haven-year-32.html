@@ -184,18 +184,27 @@
   }
   .font-switch button,
   .font-switch output{
-    min-width:30px;
-    height:24px;
+    min-width:38px;
+    height:32px;
     display:grid;
     place-items:center;
     appearance:none;
     border:0;
     background:transparent;
     color:var(--dim);
-    padding:0 7px;
-    font-size:calc(8px * var(--font-scale));
+    padding:0 9px;
+    font-size:10px;
   }
-  .font-switch button{cursor:pointer}
+  .font-switch button{
+    cursor:pointer;
+    font-size:16px;
+    line-height:1;
+  }
+  .font-switch output{
+    min-width:52px;
+    cursor:pointer;
+    color:var(--fg);
+  }
   .font-switch button+output,
   .font-switch output+button{border-left:1px solid var(--rule)}
   .font-switch button:hover{color:var(--fg)}
@@ -428,9 +437,9 @@
     <span>HAVEN / YEAR 32 / STATIC LIVING PANEL</span>
     <div class="footer-actions">
       <div class="font-switch" aria-label="Font size">
-        <button id="fontDown" type="button" aria-label="Decrease font size">A−</button>
-        <output id="fontSize" aria-live="polite">100%</output>
-        <button id="fontUp" type="button" aria-label="Increase font size">A+</button>
+        <button id="fontDown" type="button" aria-label="Decrease font size">−</button>
+        <output id="fontSize" aria-live="polite" title="Reset to 100%">100%</output>
+        <button id="fontUp" type="button" aria-label="Increase font size">+</button>
       </div>
       <div class="mode-switch" aria-label="Interface mode">
         <button id="m1994" type="button">1994</button>
@@ -485,7 +494,7 @@
 
   const root=document.documentElement;
   const fontDown=$('#fontDown'), fontUp=$('#fontUp'), fontSize=$('#fontSize');
-  const FONT_MIN=.80, FONT_MAX=1.30, FONT_STEP=.05;
+  const FONT_MIN=.70, FONT_MAX=1.50, FONT_STEP=.10;
   let fontScale=parseFloat(localStorage.getItem('haven_font_scale')) || 1;
   function setFontScale(next){
     fontScale=Math.min(FONT_MAX,Math.max(FONT_MIN,Math.round(next*20)/20));
@@ -497,6 +506,21 @@
   }
   fontDown.addEventListener('click',()=>setFontScale(fontScale-FONT_STEP));
   fontUp.addEventListener('click',()=>setFontScale(fontScale+FONT_STEP));
+  fontSize.addEventListener('click',()=>setFontScale(1));
+  window.addEventListener('keydown',e=>{
+    if((e.metaKey||e.ctrlKey) && (e.key==='=' || e.key==='+')){
+      e.preventDefault();
+      setFontScale(fontScale+FONT_STEP);
+    }
+    if((e.metaKey||e.ctrlKey) && e.key==='-'){
+      e.preventDefault();
+      setFontScale(fontScale-FONT_STEP);
+    }
+    if((e.metaKey||e.ctrlKey) && e.key==='0'){
+      e.preventDefault();
+      setFontScale(1);
+    }
+  });
   setFontScale(fontScale);
 
   const b94=$('#m1994'), b33=$('#m3033');
