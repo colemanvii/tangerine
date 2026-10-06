@@ -238,16 +238,19 @@
   @keyframes blink{50%{opacity:0}}
 
   /* Intelligent type scaling: larger type gets denser layout, not larger boxes. */
+  body[data-font-size="large"] .column{grid-template-rows:220px 124px 1fr}
   body[data-font-size="large"] section{padding:8px 9px}
   body[data-font-size="large"] .grid{gap:6px 11px}
   body[data-font-size="large"] .label{margin-bottom:2px}
   body[data-font-size="large"] .value{line-height:1.12;letter-spacing:-.015em}
+  body[data-font-size="large"] .grid{grid-auto-rows:minmax(0,auto)}
   body[data-font-size="large"] .section-title{margin-bottom:6px}
   body[data-font-size="large"] .todo{padding:3px 0;gap:7px}
   body[data-font-size="large"] .todo label{line-height:1.08;letter-spacing:-.012em}
   body[data-font-size="large"] .money{gap:8px}
   body[data-font-size="large"] .status{margin-top:3px}
 
+  body[data-font-size="xl"] .column{grid-template-rows:246px 124px 1fr}
   body[data-font-size="xl"] section{padding:7px 8px}
   body[data-font-size="xl"] .grid{gap:4px 9px}
   body[data-font-size="xl"] .value{line-height:1.06}
@@ -368,6 +371,8 @@
       grid-template-rows:118px;
       gap:7px;
     }
+    body[data-font-size="large"] .column{grid-template-rows:138px}
+    body[data-font-size="xl"] .column{grid-template-rows:154px}
     .column .footer{display:none}
     section{padding:7px}
     .section-title{font-size:clamp(8px,calc(8px * var(--font-scale)),9px);margin-bottom:5px}
