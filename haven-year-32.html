@@ -356,40 +356,149 @@
   }
 
   @media (max-width:560px){
-    .app{width:100%;padding-left:10px;padding-right:10px}
-    .top{padding-bottom:7px}
-    h1{font-size:clamp(14px,calc(14px * var(--font-scale)),17px)}
+    html,body{overflow:hidden}
+    .app{
+      width:100%;
+      height:100svh;
+      padding:max(10px,env(safe-area-inset-top)) 10px max(8px,env(safe-area-inset-bottom));
+      grid-template-rows:auto 1fr auto;
+    }
+    .top{
+      padding-bottom:8px;
+      align-items:end;
+    }
+    h1{font-size:clamp(15px,calc(15px * var(--font-scale)),18px)}
+    .clock{font-size:9px;line-height:1.3}
+
     .screen{
+      min-height:0;
+      display:grid;
       grid-template-columns:1fr;
-      grid-template-rows:auto 1fr;
-      gap:7px;
-      padding-top:7px;
+      grid-template-rows:auto auto 1fr;
+      gap:8px;
+      padding-top:8px;
     }
     .column{
+      display:contents;
+    }
+    .column>section:first-child{
+      grid-row:1;
+    }
+    .column>section:nth-child(2){
+      grid-row:2;
+    }
+    .column>div:last-child{display:none}
+
+    section{
+      min-height:0;
+      padding:8px 9px;
+      overflow:hidden;
+    }
+    .section-title{
+      font-size:8px;
+      margin-bottom:6px;
+      letter-spacing:.14em;
+    }
+
+    /* Year 32 becomes the primary mobile card */
+    .grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:7px 12px;
+    }
+    .label{
+      font-size:7px;
+      margin-bottom:2px;
+    }
+    .value{
+      font-size:clamp(9px,calc(9px * var(--font-scale)),11px);
+      line-height:1.13;
+      letter-spacing:-.01em;
+    }
+
+    /* Money becomes a compact horizontal instrument */
+    .money{
+      grid-template-columns:1fr 118px;
+      gap:10px;
+      align-items:end;
+    }
+    .money strong{
+      font-size:clamp(21px,calc(21px * var(--font-scale)),26px);
+    }
+    .money-input{
+      width:118px;
+      padding:5px 6px;
+      font-size:10px;
+    }
+    .status{font-size:7px;margin-top:3px}
+    .progress{margin-top:6px;height:3px}
+
+    /* Open loops use remaining viewport instead of one huge empty card */
+    .screen>section.compact{
+      grid-row:3;
+      min-height:0;
       display:grid;
-      grid-template-columns:1.08fr .92fr;
-      grid-template-rows:118px;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      grid-auto-rows:min-content;
+      column-gap:14px;
+      align-content:start;
+      overflow:hidden;
+    }
+    .screen>section.compact>.section-title{
+      grid-column:1/-1;
+      margin-bottom:3px;
+    }
+    .compact .todo{
+      min-width:0;
+      padding:4px 0;
       gap:7px;
     }
-    body[data-font-size="large"] .column{grid-template-rows:138px}
-    body[data-font-size="xl"] .column{grid-template-rows:154px}
-    .column .footer{display:none}
-    section{padding:7px}
-    .section-title{font-size:clamp(8px,calc(8px * var(--font-scale)),9px);margin-bottom:5px}
-    .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 8px}
-    .label{font-size:clamp(7px,calc(7px * var(--font-scale)),8px)}
-    .value{font-size:clamp(9px,calc(9px * var(--font-scale)),11px);line-height:1.14}
-    .money{grid-template-columns:1fr;gap:4px}
-    .money strong{font-size:clamp(18px,calc(18px * var(--font-scale)),23px)}
-    .money-input{width:100%;padding:4px 5px;font-size:clamp(9px,calc(9px * var(--font-scale)),11px)}
-    .status{font-size:clamp(7px,calc(7px * var(--font-scale)),8px);margin-top:3px}
-    .progress{margin-top:5px;height:3px}
-    .compact .todo{padding:2px 0}
-    .compact .todo label{font-size:clamp(8px,calc(8px * var(--font-scale)),10px);line-height:1.08}
-    .compact .todo input{transform:scale(.8);margin-top:0}
-    body.mode-3033 .compact .todo input{transform:none;width:8px;height:8px}
-    .clock{font-size:clamp(9px,calc(9px * var(--font-scale)),10px)}
-    .footer{font-size:clamp(7px,calc(7px * var(--font-scale)),8px);padding-top:6px}
+    .compact .todo:nth-of-type(odd){
+      border-top:1px dotted var(--rule);
+    }
+    .compact .todo label{
+      font-size:clamp(8px,calc(8px * var(--font-scale)),9.5px);
+      line-height:1.12;
+    }
+    .compact .todo input{
+      transform:scale(.82);
+      margin-top:0;
+      flex:none;
+    }
+    body.mode-3033 .compact .todo input{
+      transform:none;
+      width:9px;
+      height:9px;
+    }
+
+    /* Font increases reflow spacing, not card height explosions */
+    body[data-font-size="large"] .grid{gap:5px 10px}
+    body[data-font-size="large"] .compact .todo{padding:3px 0}
+    body[data-font-size="xl"] .grid{gap:4px 9px}
+    body[data-font-size="xl"] .compact .todo{padding:2px 0}
+
+    .footer{
+      padding-top:7px;
+      font-size:7px;
+      align-items:end;
+    }
+    .footer>span{
+      max-width:145px;
+      line-height:1.25;
+    }
+    .footer-actions{gap:6px}
+    .font-switch button,
+    .font-switch output{
+      height:28px;
+      min-width:34px;
+      padding:0 6px;
+    }
+    .font-switch output{min-width:46px}
+    .font-switch button{font-size:14px}
+    .mode-switch button{
+      height:28px;
+      padding:0 7px;
+      font-size:7px;
+    }
   }
 </style>
 </head>
