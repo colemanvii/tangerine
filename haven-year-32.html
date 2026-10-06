@@ -15,6 +15,7 @@
     --accent:#7dff8c;
     --soft:#0b0e0b;
     --glow:0 0 18px rgba(125,255,140,.16);
+    --font-scale:1;
   }
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;overflow:hidden}
@@ -44,11 +45,11 @@
   }
   h1{
     margin:0;
-    font-size:16px;
+    font-size:calc(16px * var(--font-scale));
     font-weight:500;
     letter-spacing:-.01em;
   }
-  .clock{text-align:right;font-size:10px;line-height:1.45;color:var(--fg)}
+  .clock{text-align:right;font-size:calc(10px * var(--font-scale));line-height:1.45;color:var(--fg)}
   .muted{color:var(--dim)}
   .screen{
     min-height:0;
@@ -60,17 +61,19 @@
   .column{
     min-height:0;
     display:grid;
-    grid-template-rows:auto auto 1fr;
+    grid-template-rows:190px 124px 1fr;
     gap:10px;
   }
   section{
     min-width:0;
+    min-height:0;
+    overflow:hidden;
     padding:10px;
     border:1px solid var(--rule);
     background:var(--panel);
   }
   .section-title{
-    font-size:9px;
+    font-size:calc(9px * var(--font-scale));
     letter-spacing:.16em;
     text-transform:uppercase;
     color:var(--dim);
@@ -83,14 +86,14 @@
   }
   .item{min-width:0}
   .label{
-    font-size:8px;
+    font-size:calc(8px * var(--font-scale));
     color:var(--dim);
     text-transform:uppercase;
     letter-spacing:.1em;
     margin-bottom:3px;
   }
   .value{
-    font-size:11px;
+    font-size:calc(11px * var(--font-scale));
     line-height:1.25;
     color:var(--fg);
   }
@@ -102,7 +105,7 @@
   }
   .money strong{
     display:block;
-    font-size:24px;
+    font-size:calc(24px * var(--font-scale));
     line-height:1;
     font-weight:500;
     letter-spacing:-.04em;
@@ -152,7 +155,7 @@
     accent-color:var(--accent);
   }
   .todo label{
-    font-size:10px;
+    font-size:calc(10px * var(--font-scale));
     line-height:1.2;
   }
   .todo.done label{
@@ -169,6 +172,33 @@
     font-size:8px;
     letter-spacing:.08em;
   }
+  .footer-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .font-switch,
+  .mode-switch{
+    display:flex;
+    border:1px solid var(--rule);
+  }
+  .font-switch button,
+  .font-switch output{
+    min-width:30px;
+    height:24px;
+    display:grid;
+    place-items:center;
+    appearance:none;
+    border:0;
+    background:transparent;
+    color:var(--dim);
+    padding:0 7px;
+    font-size:calc(8px * var(--font-scale));
+  }
+  .font-switch button{cursor:pointer}
+  .font-switch button+output,
+  .font-switch output+button{border-left:1px solid var(--rule)}
+  .font-switch button:hover{color:var(--fg)}
   .mode-switch{
     display:flex;
     border:1px solid var(--rule);
@@ -298,7 +328,7 @@
   @media (max-width:560px){
     .app{width:100%;padding-left:10px;padding-right:10px}
     .top{padding-bottom:7px}
-    h1{font-size:14px}
+    h1{font-size:calc(14px * var(--font-scale))}
     .screen{
       grid-template-columns:1fr;
       grid-template-rows:auto 1fr;
@@ -308,26 +338,26 @@
     .column{
       display:grid;
       grid-template-columns:1.08fr .92fr;
-      grid-template-rows:auto;
+      grid-template-rows:118px;
       gap:7px;
     }
     .column .footer{display:none}
     section{padding:7px}
-    .section-title{font-size:8px;margin-bottom:5px}
+    .section-title{font-size:calc(8px * var(--font-scale));margin-bottom:5px}
     .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 8px}
-    .label{font-size:7px}
-    .value{font-size:9px;line-height:1.2}
+    .label{font-size:calc(7px * var(--font-scale))}
+    .value{font-size:calc(9px * var(--font-scale));line-height:1.2}
     .money{grid-template-columns:1fr;gap:4px}
-    .money strong{font-size:18px}
-    .money-input{width:100%;padding:4px 5px;font-size:9px}
-    .status{font-size:7px;margin-top:3px}
+    .money strong{font-size:calc(18px * var(--font-scale))}
+    .money-input{width:100%;padding:4px 5px;font-size:calc(9px * var(--font-scale))}
+    .status{font-size:calc(7px * var(--font-scale));margin-top:3px}
     .progress{margin-top:5px;height:3px}
     .compact .todo{padding:2px 0}
-    .compact .todo label{font-size:8px;line-height:1.12}
+    .compact .todo label{font-size:calc(8px * var(--font-scale));line-height:1.12}
     .compact .todo input{transform:scale(.8);margin-top:0}
     body.mode-3033 .compact .todo input{transform:none;width:8px;height:8px}
-    .clock{font-size:9px}
-    .footer{font-size:7px;padding-top:6px}
+    .clock{font-size:calc(9px * var(--font-scale))}
+    .footer{font-size:calc(7px * var(--font-scale));padding-top:6px}
   }
 </style>
 </head>
@@ -396,9 +426,16 @@
 
   <footer class="footer">
     <span>HAVEN / YEAR 32 / STATIC LIVING PANEL</span>
-    <div class="mode-switch" aria-label="Interface mode">
-      <button id="m1994" type="button">1994</button>
-      <button id="m3033" class="active" type="button">3033</button>
+    <div class="footer-actions">
+      <div class="font-switch" aria-label="Font size">
+        <button id="fontDown" type="button" aria-label="Decrease font size">A−</button>
+        <output id="fontSize" aria-live="polite">100%</output>
+        <button id="fontUp" type="button" aria-label="Increase font size">A+</button>
+      </div>
+      <div class="mode-switch" aria-label="Interface mode">
+        <button id="m1994" type="button">1994</button>
+        <button id="m3033" class="active" type="button">3033</button>
+      </div>
     </div>
   </footer>
 </main>
@@ -445,6 +482,22 @@
       cb.closest('.todo').classList.toggle('done',cb.checked);
     });
   });
+
+  const root=document.documentElement;
+  const fontDown=$('#fontDown'), fontUp=$('#fontUp'), fontSize=$('#fontSize');
+  const FONT_MIN=.80, FONT_MAX=1.30, FONT_STEP=.05;
+  let fontScale=parseFloat(localStorage.getItem('haven_font_scale')) || 1;
+  function setFontScale(next){
+    fontScale=Math.min(FONT_MAX,Math.max(FONT_MIN,Math.round(next*20)/20));
+    root.style.setProperty('--font-scale',fontScale);
+    fontSize.textContent=Math.round(fontScale*100)+'%';
+    fontDown.disabled=fontScale<=FONT_MIN;
+    fontUp.disabled=fontScale>=FONT_MAX;
+    localStorage.setItem('haven_font_scale',String(fontScale));
+  }
+  fontDown.addEventListener('click',()=>setFontScale(fontScale-FONT_STEP));
+  fontUp.addEventListener('click',()=>setFontScale(fontScale+FONT_STEP));
+  setFontScale(fontScale);
 
   const b94=$('#m1994'), b33=$('#m3033');
   function setMode(mode){
