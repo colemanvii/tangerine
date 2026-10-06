@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#050605" />
+<title>HAVEN / YEAR 32</title>
+<style>
+  :root{
+    --bg:#050605;
+    --panel:#050605;
+    --fg:#d8ffdc;
+    --dim:#6d8b72;
+    --rule:#1f2c21;
+    --accent:#7dff8c;
+    --soft:#0b0e0b;
+    --glow:0 0 18px rgba(125,255,140,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden}
+  body{
+    background:var(--bg);
+    color:var(--fg);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+    transition:background .25s ease,color .25s ease;
+  }
+  button,input{font:inherit}
+  .app{
+    width:100%;
+    height:100svh;
+    padding:max(12px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom));
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+    overflow:hidden;
+  }
+  .top{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:16px;
+    align-items:start;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  h1{
+    margin:0;
+    font-size:16px;
+    font-weight:500;
+    letter-spacing:-.01em;
+  }
+  .clock{text-align:right;font-size:10px;line-height:1.45;color:var(--fg)}
+  .muted{color:var(--dim)}
+  .screen{
+    min-height:0;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    padding-top:10px;
+  }
+  .column{
+    min-height:0;
+    display:grid;
+    grid-template-rows:auto auto 1fr;
+    gap:10px;
+  }
+  section{
+    min-width:0;
+    padding:10px;
+    border:1px solid var(--rule);
+    background:var(--panel);
+  }
+  .section-title{
+    font-size:9px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--dim);
+    margin-bottom:8px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px 14px;
+  }
+  .item{min-width:0}
+  .label{
+    font-size:8px;
+    color:var(--dim);
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    margin-bottom:3px;
+  }
+  .value{
+    font-size:11px;
+    line-height:1.25;
+    color:var(--fg);
+  }
+  .money{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:10px;
+    align-items:end;
+  }
+  .money strong{
+    display:block;
+    font-size:24px;
+    line-height:1;
+    font-weight:500;
+    letter-spacing:-.04em;
+  }
+  .money-input{
+    width:108px;
+    background:transparent;
+    color:var(--fg);
+    border:1px solid var(--rule);
+    padding:6px 7px;
+    outline:none;
+    border-radius:0;
+  }
+  .money-input:focus{border-color:var(--accent);box-shadow:var(--glow)}
+  .progress{
+    height:3px;
+    border:1px solid var(--rule);
+    margin-top:9px;
+    position:relative;
+  }
+  .progress>span{
+    display:block;
+    height:100%;
+    width:0%;
+    background:var(--accent);
+    transition:width .2s ease;
+  }
+  .status{
+    font-size:8px;
+    margin-top:5px;
+    color:var(--dim);
+  }
+  .compact{
+    min-height:0;
+    overflow:hidden;
+  }
+  .todo{
+    display:flex;
+    gap:8px;
+    align-items:flex-start;
+    padding:5px 0;
+    border-top:1px solid color-mix(in srgb,var(--rule) 75%, transparent);
+  }
+  .todo:first-of-type{border-top:0;padding-top:0}
+  .todo input{
+    margin:1px 0 0;
+    accent-color:var(--accent);
+  }
+  .todo label{
+    font-size:10px;
+    line-height:1.2;
+  }
+  .todo.done label{
+    text-decoration:line-through;
+    color:var(--dim);
+  }
+  .footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding-top:8px;
+    color:var(--dim);
+    font-size:8px;
+    letter-spacing:.08em;
+  }
+  .mode-switch{
+    display:flex;
+    border:1px solid var(--rule);
+  }
+  .mode-switch button{
+    appearance:none;
+    border:0;
+    background:transparent;
+    color:var(--dim);
+    padding:5px 8px;
+    font-size:8px;
+    cursor:pointer;
+  }
+  .mode-switch button+button{border-left:1px solid var(--rule)}
+  .mode-switch button.active{
+    color:var(--bg);
+    background:var(--accent);
+  }
+  .blink{
+    display:inline-block;
+    width:7px;
+    height:11px;
+    background:var(--accent);
+    margin-left:5px;
+    vertical-align:-1px;
+    animation:blink 1s steps(1,end) infinite;
+  }
+  @keyframes blink{50%{opacity:0}}
+
+  /* 1994 */
+  body.mode-1994{
+    --bg:#d5cdbd;
+    --panel:#d5cdbd;
+    --fg:#181714;
+    --dim:#69645a;
+    --rule:#7f786c;
+    --accent:#181714;
+    --soft:#c8c0b1;
+    --glow:none;
+    font-family:Monaco,"Courier New",monospace;
+  }
+  body.mode-1994 .app{
+    max-width:880px;
+    margin:0 auto;
+  }
+  body.mode-1994 section{
+    background:transparent;
+    box-shadow:none;
+  }
+  body.mode-1994 .top,
+  body.mode-1994 section,
+  body.mode-1994 .mode-switch{
+    border-color:var(--rule);
+  }
+  body.mode-1994 .todo{border-top-style:dotted}
+  body.mode-1994 .mode-switch button.active{
+    background:var(--fg);
+    color:var(--bg);
+  }
+
+  /* 3033 */
+  body.mode-3033{
+    --bg:#020403;
+    --panel:rgba(6,10,8,.72);
+    --fg:#d8ffe1;
+    --dim:#55705d;
+    --rule:#16311f;
+    --accent:#78ff98;
+    --soft:#071009;
+    --glow:0 0 20px rgba(120,255,152,.16);
+    background:
+      radial-gradient(circle at 50% -20%, rgba(120,255,152,.08), transparent 38%),
+      #020403;
+  }
+  body.mode-3033 .app{
+    position:relative;
+  }
+  body.mode-3033 .app:before{
+    content:"";
+    pointer-events:none;
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(rgba(255,255,255,.014) 1px, transparent 1px);
+    background-size:100% 4px;
+    mix-blend-mode:screen;
+    opacity:.35;
+  }
+  body.mode-3033 .top{
+    border-bottom-color:#17351f;
+  }
+  body.mode-3033 section{
+    background:linear-gradient(180deg, rgba(9,14,11,.78), rgba(4,7,5,.64));
+    border-color:#16311f;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.02),
+      0 0 0 1px rgba(120,255,152,.015);
+    backdrop-filter:blur(8px);
+  }
+  body.mode-3033 .section-title{
+    color:#6d8e75;
+  }
+  body.mode-3033 .value{
+    text-shadow:0 0 12px rgba(120,255,152,.05);
+  }
+  body.mode-3033 .money strong{
+    color:#effff2;
+    text-shadow:0 0 20px rgba(120,255,152,.12);
+  }
+  body.mode-3033 .todo input{
+    appearance:none;
+    width:10px;
+    height:10px;
+    border:1px solid #31583b;
+    margin-top:1px;
+    background:transparent;
+  }
+  body.mode-3033 .todo input:checked{
+    background:var(--accent);
+    box-shadow:0 0 10px rgba(120,255,152,.28);
+  }
+  body.mode-3033 .mode-switch{
+    background:#030604;
+    box-shadow:0 0 18px rgba(120,255,152,.05);
+  }
+  body.mode-3033 .mode-switch button.active{
+    background:var(--accent);
+    color:#020403;
+  }
+
+  @media (max-width:560px){
+    .app{padding-left:10px;padding-right:10px}
+    .top{padding-bottom:7px}
+    h1{font-size:14px}
+    .screen{
+      grid-template-columns:1fr;
+      grid-template-rows:auto 1fr;
+      gap:7px;
+      padding-top:7px;
+    }
+    .column{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      grid-template-rows:auto;
+      gap:7px;
+    }
+    .column .footer{display:none}
+    section{padding:7px}
+    .section-title{font-size:8px;margin-bottom:5px}
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 8px}
+    .label{font-size:7px}
+    .value{font-size:9px;line-height:1.2}
+    .money{grid-template-columns:1fr;gap:4px}
+    .money strong{font-size:18px}
+    .money-input{width:100%;padding:4px 5px;font-size:9px}
+    .status{font-size:7px;margin-top:3px}
+    .progress{margin-top:5px;height:3px}
+    .compact .todo{padding:2px 0}
+    .compact .todo label{font-size:8px;line-height:1.12}
+    .compact .todo input{transform:scale(.8);margin-top:0}
+    body.mode-3033 .compact .todo input{transform:none;width:8px;height:8px}
+    .clock{font-size:9px}
+    .footer{font-size:7px;padding-top:6px}
+  }
+</style>
+</head>
+<body class="mode-3033">
+<main class="app">
+  <header class="top">
+    <h1>hello, Cole.<span class="blink"></span></h1>
+    <div class="clock">
+      <div id="time">--:--</div>
+      <div id="date" class="muted">---</div>
+    </div>
+  </header>
+
+  <div class="screen">
+    <div class="column">
+      <section>
+        <div class="section-title">year 32</div>
+        <div class="grid">
+          <div class="item"><div class="label">principle</div><div class="value">SINGLE EYE / LIVE AWAKE</div></div>
+          <div class="item"><div class="label">faith</div><div class="value">FAITHFUL BEFORE SUCCESSFUL</div></div>
+          <div class="item"><div class="label">body</div><div class="value">175–180 / SOBER / STRONG</div></div>
+          <div class="item"><div class="label">home</div><div class="value">OWN PLACE / BUILD A BASE</div></div>
+          <div class="item"><div class="label">work</div><div class="value">FREEMAN / 6 MONTHS / MAKE IT UNDENIABLE</div></div>
+          <div class="item"><div class="label">art</div><div class="value">12 FINISHED WORKS</div></div>
+          <div class="item"><div class="label">music</div><div class="value">TEST CASH / MERCH POSSIBILITY</div></div>
+          <div class="item"><div class="label">community</div><div class="value">NASHVILLE + CARTERSVILLE</div></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title">money</div>
+        <div class="money">
+          <div>
+            <div class="label">cash floor</div>
+            <strong>$10,000</strong>
+            <div class="status">ABOVE THE FLOOR = FREEDOM</div>
+          </div>
+          <div>
+            <div class="label">current cash</div>
+            <input id="cash" class="money-input" inputmode="decimal" placeholder="$0" aria-label="Current cash" />
+          </div>
+        </div>
+        <div class="progress"><span id="cashBar"></span></div>
+        <div id="cashText" class="status">0% OF FLOOR</div>
+      </section>
+
+      <div></div>
+    </div>
+
+    <section class="compact">
+      <div class="section-title">open loops</div>
+      <div class="todo"><input type="checkbox" id="t1"><label for="t1">Jay — discuss long-term Cash merch role.</label></div>
+      <div class="todo"><input type="checkbox" id="t2"><label for="t2">Cash — discuss what the role could look like.</label></div>
+      <div class="todo"><input type="checkbox" id="t3"><label for="t3">Connor Smith — reach out.</label></div>
+      <div class="todo"><input type="checkbox" id="t4"><label for="t4">Jake Kinney — merch operation + design.</label></div>
+      <div class="todo"><input type="checkbox" id="t5"><label for="t5">John — reach out.</label></div>
+      <div class="todo"><input type="checkbox" id="t6"><label for="t6">Gabe — be real about Year 32, money, focus.</label></div>
+      <div class="todo"><input type="checkbox" id="t7"><label for="t7">Tell a few close friends / ask for prayer.</label></div>
+      <div class="todo"><input type="checkbox" id="t8"><label for="t8">Get medical guidance on stopping alcohol safely.</label></div>
+      <div class="todo"><input type="checkbox" id="t9"><label for="t9">Find the next housing option.</label></div>
+      <div class="todo"><input type="checkbox" id="t10"><label for="t10">Finish Brian Harris painting.</label></div>
+      <div class="todo"><input type="checkbox" id="t11"><label for="t11">Finish Logan Solomsen painting.</label></div>
+      <div class="todo"><input type="checkbox" id="t12"><label for="t12">Connor Blakley — contact after site is live.</label></div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <span>HAVEN / YEAR 32 / STATIC LIVING PANEL</span>
+    <div class="mode-switch" aria-label="Interface mode">
+      <button id="m1994" type="button">1994</button>
+      <button id="m3033" class="active" type="button">3033</button>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+
+  function tick(){
+    const now = new Date();
+    $('#time').textContent = now.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+    $('#date').textContent = now.toLocaleDateString([], {weekday:'short', month:'short', day:'numeric', year:'numeric'}).toUpperCase();
+  }
+  tick();
+  setInterval(tick,1000);
+
+  const cash=$('#cash'), bar=$('#cashBar'), txt=$('#cashText');
+  function updateCash(){
+    const val=Math.max(0,parseFloat(cash.value.replace(/[^0-9.]/g,''))||0);
+    localStorage.setItem('haven_cash',String(val));
+    const pct=Math.min(100,(val/10000)*100);
+    bar.style.width=pct+'%';
+    const remaining=Math.max(0,10000-val);
+    txt.textContent=val>=10000
+      ? 'FLOOR SECURED'
+      : Math.round(pct)+'% OF FLOOR / $'+remaining.toLocaleString(undefined,{maximumFractionDigits:0})+' TO GO';
+  }
+  const savedCash=localStorage.getItem('haven_cash');
+  if(savedCash!==null) cash.value='$'+Number(savedCash).toLocaleString();
+  cash.addEventListener('focus',()=>cash.value=cash.value.replace(/[^0-9.]/g,''));
+  cash.addEventListener('blur',()=>{
+    const val=Math.max(0,parseFloat(cash.value.replace(/[^0-9.]/g,''))||0);
+    cash.value='$'+val.toLocaleString(undefined,{maximumFractionDigits:2});
+  });
+  cash.addEventListener('input',updateCash);
+  updateCash();
+
+  document.querySelectorAll('.todo input[type="checkbox"]').forEach(cb=>{
+    const key='haven_'+cb.id;
+    cb.checked=localStorage.getItem(key)==='1';
+    cb.closest('.todo').classList.toggle('done',cb.checked);
+    cb.addEventListener('change',()=>{
+      localStorage.setItem(key,cb.checked?'1':'0');
+      cb.closest('.todo').classList.toggle('done',cb.checked);
+    });
+  });
+
+  const b94=$('#m1994'), b33=$('#m3033');
+  function setMode(mode){
+    document.body.classList.remove('mode-1994','mode-3033');
+    document.body.classList.add('mode-'+mode);
+    b94.classList.toggle('active',mode==='1994');
+    b33.classList.toggle('active',mode==='3033');
+    localStorage.setItem('haven_mode',mode);
+  }
+  b94.addEventListener('click',()=>setMode('1994'));
+  b33.addEventListener('click',()=>setMode('3033'));
+  setMode(localStorage.getItem('haven_mode') || '3033');
+})();
+</script>
+</body>
+</html>
