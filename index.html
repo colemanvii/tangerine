@@ -3,62 +3,153 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#eef0e9">
-<meta name="description" content="Haven. A quiet personal operating surface.">
-<title>Haven — Personal</title>
+<meta name="theme-color" content="#d8cfbe">
+<meta name="description" content="Haven — Year 32 static living panel.">
+<title>Haven — Year 32</title>
 <style>
-:root{--paper:#eef0e9;--peach:#ead0bf;--blue:#26469a;--muted:#66718a;--rule:#3354a3;--mono:Monaco,'Lucida Console','Courier New',monospace}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(180deg,#d9e5e9 0,#f1eee5 58%,#f5efe3 100%);color:var(--blue)}
-body{font-family:var(--mono);-webkit-font-smoothing:antialiased;padding:36px 28px}
-main{width:min(870px,100%);height:calc(100vh - 72px);margin:0 auto;display:flex;flex-direction:column;overflow:hidden}
-header{border-top:4px solid var(--blue);border-bottom:1px solid var(--rule);padding:13px 0 12px;display:flex;justify-content:space-between;align-items:center;flex:none}
-.identity{font-size:14px;font-weight:700;letter-spacing:.055em}.date{font-size:12px;color:var(--muted);text-transform:uppercase}
-.music{background:var(--peach);border-bottom:1px solid var(--rule);padding:18px 14px;display:grid;grid-template-columns:105px 1fr auto;gap:12px;align-items:center;flex:none}
-.music h2,.block h2,.practice h2,.listen h2{font-size:12px;line-height:1.35;letter-spacing:.075em;font-weight:400;margin:0;text-transform:uppercase}
-.playline{display:flex;gap:12px;align-items:center;font-size:14px}.play{width:23px;height:23px;border:1px solid var(--blue);display:grid;place-items:center;font-size:10px}
-.music small{font-size:11px;color:var(--muted);letter-spacing:.03em}.block{padding:15px 0 13px;border-bottom:1px solid var(--rule);flex:none}.block h2{margin-bottom:9px}
-.list{display:grid;gap:2px}.check{display:flex;gap:13px;align-items:baseline;min-height:28px;font-size:15px;line-height:1.4}
-.check input{appearance:none;-webkit-appearance:none;width:16px;height:16px;border:1.5px solid var(--blue);border-radius:0;margin:0;position:relative;top:2px;flex:none;background:transparent}
-.check input:checked{background:var(--blue)}.copy .detail{color:var(--muted)}.next{margin-left:auto;background:var(--blue);color:#eef0e9;font-size:10px;letter-spacing:.08em;padding:3px 7px;white-space:nowrap}
-.threads{display:grid;gap:7px;font-size:14px;line-height:1.45}.threads p{display:grid;grid-template-columns:240px 1fr;gap:13px;margin:0}.signal{color:var(--muted)}.compact{padding:12px 0 11px}.compact h2{margin-bottom:7px}.threadline{font-size:14px;color:var(--muted)}
-.prayer-row,.practice,.listen{display:grid;grid-template-columns:235px 1fr;gap:18px}.prayer-row{font-size:14px;line-height:1.45}.prayers{padding-top:15px;padding-bottom:14px}.prayer-row .copy{color:var(--muted)}
-.practice{padding:12px 0 13px;border-bottom:2px solid var(--blue);flex:none}.practice p{margin:0;font-size:13px;line-height:1.45}
-.listen{display:none}.listen .tracks{display:none}.listen .tracks span:before{content:'— ';color:var(--muted)}
-footer{display:none}
-@media(max-width:620px){
- body{padding:18px 16px}
- main{height:calc(100vh - 36px)}
- .identity{font-size:12px}.date{font-size:10px}
- .music{grid-template-columns:86px 1fr;padding:12px 10px}.music small{display:none}.playline{font-size:12px}
- .music h2,.block h2,.practice h2{font-size:10px}
- .block{padding:12px 0 10px}.block h2{margin-bottom:7px}
- .check{font-size:12px;min-height:25px;gap:9px}.check input{width:13px;height:13px}.next{font-size:8px;padding:2px 5px}
- .threads{font-size:11px;gap:3px}.threads p{grid-template-columns:145px 1fr;gap:7px}
- .prayer-row,.practice{grid-template-columns:145px 1fr;gap:10px;font-size:11px}
- .practice{padding:12px 0}.practice p{font-size:11px;line-height:1.4}.practice p br{display:none}
+:root{
+  --paper:#d8cfbe;
+  --ink:#191816;
+  --muted:#6d685f;
+  --rule:#7d776d;
+  --soft:#ebe4d8;
+  --mono:Monaco,'Lucida Console','Courier New',monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;background:var(--paper);color:var(--ink)}
+body{font-family:var(--mono);-webkit-font-smoothing:antialiased}
+main{width:min(1160px,calc(100% - 40px));margin:0 auto;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto}
+header{display:flex;justify-content:space-between;align-items:flex-start;padding:17px 0 18px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:0}
+.hello{font-size:22px;line-height:1}.stamp{text-align:right;font-size:11px;line-height:1.45;color:var(--muted);text-transform:uppercase}
+.board{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;padding-top:13px}
+.left{display:grid;grid-template-rows:auto auto;gap:13px;align-self:start}.right{min-width:0}
+.panel{border:1px solid var(--rule);padding:13px 14px;background:transparent}
+.eyebrow{font-size:11px;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;text-transform:uppercase}
+.top3{padding:17px 16px 15px}
+.top3-title{font-size:11px;letter-spacing:.08em;color:var(--muted);margin-bottom:14px;text-transform:uppercase}
+.goal{display:grid;grid-template-columns:28px 1fr auto;align-items:start;gap:10px;padding:12px 0;border-top:1px dotted rgba(25,24,22,.24)}
+.goal:first-of-type{border-top:0;padding-top:2px}
+.num{font-size:12px;color:var(--muted);padding-top:5px}
+.goal-copy{font-size:24px;line-height:1.18;letter-spacing:-.025em}
+.goal-copy small{display:block;font-size:11px;line-height:1.45;color:var(--muted);letter-spacing:0;margin-top:5px}
+.goal-tag{font-size:9px;letter-spacing:.08em;background:var(--ink);color:var(--paper);padding:4px 6px;margin-top:4px;white-space:nowrap}
+.support{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:13px}
+.support-card{border-top:1px solid var(--rule);padding-top:9px;min-width:0}
+.support-card b{font-size:10px;letter-spacing:.07em;font-weight:400;color:var(--muted);text-transform:uppercase}
+.support-card span{display:block;font-size:11px;line-height:1.45;margin-top:5px}
+.year32-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px 22px}
+.kicker{font-size:9px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.value{font-size:13px;line-height:1.2}
+.money{margin-top:13px}.money-row{display:grid;grid-template-columns:1fr 120px;gap:18px;align-items:end}.cashfloor .big{font-size:28px;letter-spacing:-.04em}.cashnote{font-size:9px;color:var(--muted);margin-top:3px;text-transform:uppercase}.cashbox{border:1px solid var(--rule);padding:8px 10px;font-size:19px}.bar{height:4px;border:1px solid var(--rule);margin-top:10px}.bar i{display:block;width:12%;height:100%;background:var(--ink)}.progress{font-size:9px;color:var(--muted);margin-top:6px;text-transform:uppercase}
+.loops{min-height:calc(100vh - 101px);display:flex;flex-direction:column}
+.loop-list{display:grid}.loop{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px dotted rgba(25,24,22,.28);font-size:12px;line-height:1.35}.loop:first-child{border-top:1px dotted rgba(25,24,22,.28)}.loop input{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1px solid var(--rule);background:var(--soft);border-radius:2px;margin:0;flex:none;position:relative;top:1px}.loop input:checked{background:var(--ink)}.loop input:checked:after{content:"";position:absolute;left:3px;top:0;width:4px;height:8px;border-right:2px solid var(--paper);border-bottom:2px solid var(--paper);transform:rotate(45deg)}
+.loop .muted{color:var(--muted)}
+footer{display:flex;justify-content:space-between;align-items:center;padding:10px 0 12px;font-size:9px;color:var(--muted);text-transform:uppercase}
+.toggle{display:flex;border:1px solid var(--rule)}.toggle span{padding:5px 10px}.toggle .active{background:var(--ink);color:var(--paper)}
+@media(max-width:760px){
+  main{width:min(100% - 24px,760px)}
+  header{padding:13px 0 14px}.hello{font-size:18px}.stamp{font-size:9px}
+  .board{grid-template-columns:1fr;gap:12px}
+  .loops{min-height:0}.goal-copy{font-size:20px}.support{grid-template-columns:1fr}
+  .year32-grid{gap:11px 15px}.value{font-size:12px}
+  .money-row{grid-template-columns:1fr 100px}.cashfloor .big{font-size:24px}.cashbox{font-size:16px}
+  footer{padding-bottom:16px}
 }
 </style>
 </head>
 <body>
-<main aria-label="Haven personal surface">
-<header><span class="identity">PERSONAL / 1994</span><time class="date" id="date">SUN 04 OCT 2026</time></header>
-<section class="music"><h2>Listening</h2><div class="playline"><span class="play">▶</span><span>Hermanos Gutiérrez</span></div><small>SUNDAY SOUNDTRACK.</small></section>
-<section class="block"><h2>Top 3</h2><div class="list">
-<label class="check"><input type="checkbox"><span class="copy">1. Secure housing</span><span class="next">START HERE</span></label>
-<label class="check"><input type="checkbox"><span class="copy">2. Start strong at Freeman</span></label>
-<label class="check"><input type="checkbox"><span class="copy">3. Take website portfolio live</span></label>
-</div></section>
-<section class="block"><h2>Outreach checklist</h2><div class="list">
-<label class="check"><input type="checkbox"><span class="copy">Eric <span class="detail">— reconnect on House Stationery.</span></span></label>
-<label class="check"><input type="checkbox"><span class="copy">Connor Blakley <span class="detail">— reach out after personal site is live.</span></span></label>
-<label class="check"><input type="checkbox"><span class="copy">Kevin Caywood <span class="detail">— talk about construction / development role.</span></span></label>
-</div></section>
-<section class="block compact"><h2>Active threads</h2><div class="threadline">Music / Haven / Art / Faith / Body / People</div></section>
-<section class="block prayers"><h2>Prayers</h2><div class="prayer-row"><span>Kashus Culpepper</span><span class="copy">A modest monthly retainer for ongoing creative work, with room to grow.</span></div></section>
-<section class="practice"><h2>Merton / practice</h2><p>Bring your gifts fully. Let another person’s needs matter as much as your self-expression.<br>Listen before proposing. Receive correction. Keep one promise today.</p></section>
-<section class="listen"><h2>Listening list</h2><div class="tracks"><span>Hermanos Gutiérrez</span><span>The Fall Off Is Inevitable</span><span>J. Cole — Bombs in the Ville/Hit the Gas</span><span>Hazlett / Joshua Sloane</span></div></section>
-<footer><span>SYSTEM READY_</span><span>QUIET INSTRUMENT / LIVE VIEW</span></footer>
+<main>
+<header>
+  <div class="hello">hello, Cole.</div>
+  <div class="stamp"><span id="time">—</span><br><span id="date">—</span></div>
+</header>
+
+<section class="board">
+  <div class="left">
+    <section class="panel top3">
+      <div class="top3-title">Top 3 / right now</div>
+
+      <div class="goal">
+        <div class="num">01</div>
+        <div class="goal-copy">Secure housing
+          <small>Make the call. Choose the six-month base. Get settled.</small>
+        </div>
+        <div class="goal-tag">START HERE</div>
+      </div>
+
+      <div class="goal">
+        <div class="num">02</div>
+        <div class="goal-copy">Start strong at Freeman
+          <small>Field first. Learn the company. Build trust before building noise.</small>
+        </div>
+      </div>
+
+      <div class="goal">
+        <div class="num">03</div>
+        <div class="goal-copy">Take website portfolio live
+          <small>Finish the rooms. Put the work in public. Stop polishing in private.</small>
+        </div>
+      </div>
+
+      <div class="support">
+        <div class="support-card"><b>Housing</b><span>226 Fife St · six-month conversation</span></div>
+        <div class="support-card"><b>Freeman</b><span>Begin with the end in mind · document the field</span></div>
+        <div class="support-card"><b>Portfolio</b><span>DESIGN · PHOTOS · INFO · launch</span></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="eyebrow">Year 32</div>
+      <div class="year32-grid">
+        <div><div class="kicker">Principle</div><div class="value">SINGLE EYE / LIVE AWAKE</div></div>
+        <div><div class="kicker">Faith</div><div class="value">FAITHFUL BEFORE SUCCESSFUL</div></div>
+        <div><div class="kicker">Body</div><div class="value">175–180 / SOBER / STRONG</div></div>
+        <div><div class="kicker">Home</div><div class="value">OWN PLACE / BUILD A BASE</div></div>
+        <div><div class="kicker">Work</div><div class="value">FREEMAN / 6 MONTHS / MAKE IT UNDENIABLE</div></div>
+        <div><div class="kicker">Art</div><div class="value">12 FINISHED WORKS</div></div>
+        <div><div class="kicker">Music</div><div class="value">TEST CASH / MERCH POSSIBILITY</div></div>
+        <div><div class="kicker">Community</div><div class="value">NASHVILLE + CARTERSVILLE</div></div>
+      </div>
+
+      <div class="money">
+        <div class="eyebrow">Money</div>
+        <div class="money-row">
+          <div class="cashfloor"><div class="kicker">Cash floor</div><div class="big">$10,000</div><div class="cashnote">above the floor = freedom</div></div>
+          <div><div class="kicker">Current cash</div><div class="cashbox">$1,200</div></div>
+        </div>
+        <div class="bar"><i></i></div>
+        <div class="progress">12% of floor / $8,800 to go</div>
+      </div>
+    </section>
+  </div>
+
+  <aside class="panel loops">
+    <div class="eyebrow">Open loops</div>
+    <div class="loop-list">
+      <label class="loop"><input type="checkbox"><span>Jay — discuss long-term Cash merch role.</span></label>
+      <label class="loop"><input type="checkbox"><span>Cash — discuss what the role could look like.</span></label>
+      <label class="loop"><input type="checkbox"><span>Connor Smith — reach out.</span></label>
+      <label class="loop"><input type="checkbox"><span>Jake Kinney — merch operation + design.</span></label>
+      <label class="loop"><input type="checkbox"><span>John — reach out.</span></label>
+      <label class="loop"><input type="checkbox"><span>Gabe — be real about Year 32, money, focus.</span></label>
+      <label class="loop"><input type="checkbox"><span>Tell a few close friends / ask for prayer.</span></label>
+      <label class="loop"><input type="checkbox"><span>Find the next housing option.</span></label>
+      <label class="loop"><input type="checkbox"><span>Finish Brian Harris painting.</span></label>
+      <label class="loop"><input type="checkbox"><span>Finish Logan Solomsen painting.</span></label>
+      <label class="loop"><input type="checkbox"><span>Connor Blakley — contact after site is live.</span></label>
+    </div>
+  </aside>
+</section>
+
+<footer>
+  <span>Haven / Year 32 / static living panel</span>
+  <div class="toggle"><span class="active">1994</span><span>3033</span></div>
+</footer>
 </main>
-<script>const now=new Date(),d=document.getElementById('date');d.textContent=new Intl.DateTimeFormat('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric',timeZone:'America/New_York'}).format(now).replaceAll(',','').toUpperCase();</script>
+<script>
+const dt = new Date();
+document.getElementById('time').textContent = new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'}).format(dt);
+document.getElementById('date').textContent = new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}).format(dt).toUpperCase().replace(',','');
+</script>
 </body>
 </html>
