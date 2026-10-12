@@ -4,6 +4,7 @@
 
 - Added three unchecked outreach actions for Tue 13 Oct: Joseph Martin (share move to Georgia), Connor Blakley / JAMS (creative work), and Kashus Culpepper (creative direction).
 - Added Joseph Martin to the prayer line under Active threads.
+- Also added Brian Fuller, John Morgan, Corey Kent, Connor Smith, Dawson, and Jordan Cobb as October 13 outreach.
 - Canonical source committed; live deployment not verified.
 
 ## 2026-10-04
