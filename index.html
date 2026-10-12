@@ -58,16 +58,28 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:12p
 }
 
 .radar{margin-top:13px;border:1px solid var(--rule);padding:12px}.radar h2{font:inherit;font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:normal;margin:0 0 12px;text-transform:uppercase}.radar-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.radar-col{min-width:0}.radar-col h3{font-size:10px;font-weight:normal;letter-spacing:.08em;color:var(--muted);margin:0 0 8px;text-transform:uppercase}.radar-item{font-size:11px;line-height:1.4;border-top:1px dotted rgba(25,24,22,.25);padding:7px 0}.radar-item a{color:inherit;text-decoration:none;border-bottom:1px solid var(--muted)}.radar-item small{display:block;font-size:10px;color:var(--muted);margin-top:3px}@media(max-width:760px){.radar-grid{grid-template-columns:1fr;gap:13px}}
+
+/* Single fixed screen: navigate between surfaces instead of scrolling. */
+html,body{height:100%;min-height:0;overflow:hidden}
+body{height:100dvh;min-height:0;padding:12px 16px;overflow:hidden}
+main{width:min(860px,calc(100vw - 32px));grid-template-rows:auto auto auto;transform-origin:center center}
+[hidden]{display:none!important}
+.view-nav{display:flex;gap:14px;align-items:center;justify-content:center;font-size:10px;letter-spacing:.08em}
+.view-nav a{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.view-nav a[aria-current="page"]{color:var(--ink);border-color:var(--ink)}
+header{align-items:center}.radar{margin-top:12px}
+@media(max-width:760px){body{display:grid;place-items:center;padding:10px}main{width:min(100vw - 20px,760px)}.view-nav{gap:8px;font-size:9px}header{gap:8px}.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.radar-item{font-size:10px}.radar-item small{font-size:9px}}
 </style>
 </head>
 <body>
 <main>
 <header>
   <div class="hello">hello, Cole.</div>
+  <nav class="view-nav" aria-label="Haven views"><a href="#home" id="home-link" aria-current="page">HOME</a><a href="#radar" id="radar-link">RADAR ↗</a></nav>
   <div class="stamp"><span id="time">—</span><br><span id="date">—</span></div>
 </header>
 
-<section class="board">
+<section class="board" id="home-view">
   <div class="left">
     <section class="panel top3">
       <div class="top3-title">Top 3 / right now</div>
@@ -144,7 +156,7 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:12p
   </aside>
 </section>
 
-<section class="radar" aria-labelledby="radar-title"><h2 id="radar-title">On the radar / references</h2><div class="radar-grid">
+<section class="radar" id="radar-view" hidden aria-labelledby="radar-title"><h2 id="radar-title">On the radar / references</h2><div class="radar-grid">
 <div class="radar-col"><h3>Companies / study</h3>
 <div class="radar-item"><a href="https://www.landandseadept.com/featured-projects" target="_blank" rel="noopener noreferrer">Land and Sea Dept.</a><small>Hospitality / worlds worth building</small></div>
 <div class="radar-item"><a href="https://www.yeti.com/stories/yeti-presents.html" target="_blank" rel="noopener noreferrer">YETI Presents</a><small>Documentary storytelling / Freeman</small></div>
@@ -166,6 +178,24 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:12p
 </footer>
 </main>
 <script>
+function showView(){
+ const radar=location.hash==='#radar';
+ document.getElementById('home-view').hidden=radar;
+ document.getElementById('radar-view').hidden=!radar;
+ document.getElementById('home-link').setAttribute('aria-current',radar?'false':'page');
+ document.getElementById('radar-link').setAttribute('aria-current',radar?'page':'false');
+ fitScreen();
+}
+function fitScreen(){
+ const main=document.querySelector('main');
+ main.style.zoom='1';
+ const bounds=main.getBoundingClientRect();
+ const scale=Math.min(1,(innerHeight-24)/Math.max(1,bounds.height),(innerWidth-24)/Math.max(1,bounds.width));
+ main.style.zoom=String(Math.max(.35,scale));
+}
+window.addEventListener('hashchange',showView);
+window.addEventListener('resize',fitScreen);
+showView();
 const dt = new Date();
 document.getElementById('time').textContent = new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'}).format(dt);
 document.getElementById('date').textContent = new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}).format(dt).toUpperCase().replace(',','');
