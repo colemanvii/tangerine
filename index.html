@@ -69,13 +69,14 @@ main{width:min(860px,calc(100vw - 32px));grid-template-rows:auto auto auto;trans
 .view-nav a[aria-current="page"]{color:var(--ink);border-color:var(--ink)}
 header{align-items:center}.radar{margin-top:12px}
 @media(max-width:760px){body{display:grid;place-items:center;padding:10px}main{width:min(100vw - 20px,760px)}.view-nav{gap:8px;font-size:9px}header{gap:8px}.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.radar-item{font-size:10px}.radar-item small{font-size:9px}}
+.toggle button{font:inherit;border:0;border-radius:0;background:transparent;color:var(--ink);padding:5px 10px;cursor:pointer;letter-spacing:inherit}.toggle button.active{background:var(--ink);color:var(--paper)}.toggle button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.radar{margin-top:12px;min-height:370px}.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 </style>
 </head>
 <body>
 <main>
 <header>
   <div class="hello">hello, Cole.</div>
-  <nav class="view-nav" aria-label="Haven views"><a href="#home" id="home-link" aria-current="page">HOME</a><a href="#radar" id="radar-link">RADAR ↗</a></nav>
   <div class="stamp"><span id="time">—</span><br><span id="date">—</span></div>
 </header>
 
@@ -174,7 +175,7 @@ header{align-items:center}.radar{margin-top:12px}
 </div></section>
 <footer>
   <span>Haven / Year 32 / static living panel</span>
-  <div class="toggle"><span class="active">1994</span><span>3033</span></div>
+  <div class="toggle" role="group" aria-label="Haven panels"><button type="button" id="panel-1994" class="active" aria-pressed="true">1994</button><button type="button" id="panel-3033" aria-pressed="false">3033</button></div>
 </footer>
 </main>
 <script>
@@ -182,8 +183,7 @@ function showView(){
  const radar=location.hash==='#radar';
  document.getElementById('home-view').hidden=radar;
  document.getElementById('radar-view').hidden=!radar;
- document.getElementById('home-link').setAttribute('aria-current',radar?'false':'page');
- document.getElementById('radar-link').setAttribute('aria-current',radar?'page':'false');
+ for(const [id,selected] of [['panel-1994',!radar],['panel-3033',radar]]){const b=document.getElementById(id);b.classList.toggle('active',selected);b.setAttribute('aria-pressed',String(selected));}
  fitScreen();
 }
 function fitScreen(){
@@ -193,6 +193,8 @@ function fitScreen(){
  const scale=Math.min(1,(innerHeight-24)/Math.max(1,bounds.height),(innerWidth-24)/Math.max(1,bounds.width));
  main.style.zoom=String(Math.max(.35,scale));
 }
+document.getElementById('panel-1994').addEventListener('click',()=>{location.hash='home';showView()});
+document.getElementById('panel-3033').addEventListener('click',()=>{location.hash='radar';showView()});
 window.addEventListener('hashchange',showView);
 window.addEventListener('resize',fitScreen);
 showView();
