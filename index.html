@@ -105,6 +105,16 @@ footer{grid-area:foot;padding:5px 0}
 .panel{padding:9px 11px}
 .top3-title,.eyebrow{margin-bottom:7px}
 @media(max-width:760px){body{padding:6px;display:grid;place-items:center}main{width:calc(100vw - 12px);grid-template-columns:1fr 1fr;grid-template-areas:"head head" "top year" "loops outreach" "radar radar" "foot foot";gap:7px}.support{grid-template-columns:repeat(3,1fr)}.goal-copy{font-size:14px}.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.tomorrow-list{grid-template-columns:1fr 1fr}.year32-grid{gap:7px}.value{font-size:10px}}
+
+/* Subtle retained palette control; no new screen or overflow */
+.palette{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.palette button{appearance:none;border:1px solid var(--rule);width:13px;height:13px;border-radius:50%;padding:0;cursor:pointer;outline-offset:3px}
+.palette button[data-color="off-white"]{background:#f2eee5}
+.palette button[data-color="sahara"]{background:#d8cfbe}
+.palette button[data-color="rust"]{background:#a75e41}
+.palette button[aria-pressed="true"]{outline:1.5px solid var(--ink)}
+.palette button:focus-visible{outline:2px solid var(--ink)}
+@media(max-width:760px){.palette{gap:5px}.palette button{width:12px;height:12px}}
 </style>
 </head>
 <body>
@@ -222,7 +232,11 @@ footer{grid-area:foot;padding:5px 0}
 <label class="loop"><input type="checkbox"><span>Jordan Cobb <span class="muted">— Reach out</span></span></label></div><div id="prayer-list" class="tomorrow-prayer"><div class="eyebrow">Prayer list</div><div>Joseph Martin — his well-being, work, and friendship.</div></div></section>
 <footer>
   <span>Haven / Year 32 / static living panel</span>
-  <span>ONE SURFACE / UPDATED 12 OCT 2026</span>
+  <div class="palette" role="group" aria-label="Haven background color">
+<button type="button" data-color="off-white" aria-label="Off White" aria-pressed="false" title="Off White"></button>
+<button type="button" data-color="sahara" aria-label="Sahara Tan" aria-pressed="true" title="Sahara Tan"></button>
+<button type="button" data-color="rust" aria-label="Rust" aria-pressed="false" title="Rust"></button>
+</div>
 </footer>
 </main>
 <script>
@@ -246,6 +260,25 @@ havenChecks.forEach((checkbox,index)=>{
     try{localStorage.setItem(key,checkbox.checked?'1':'0');}catch{}
   });
 });
+
+
+// Remember the background palette on this device.
+const themes={
+  'off-white':{paper:'#f2eee5',ink:'#23211d',muted:'#6c675e',rule:'#a49d91',soft:'#fffaf0'},
+  sahara:{paper:'#d8cfbe',ink:'#191816',muted:'#6d685f',rule:'#7d776d',soft:'#ebe4d8'},
+  rust:{paper:'#a75e41',ink:'#201713',muted:'#36251f',rule:'#51372b',soft:'#cb9075'}
+};
+function setHavenColor(name){
+  if(!themes[name])return;
+  for(const [k,v] of Object.entries(themes[name]))document.documentElement.style.setProperty('--'+k,v);
+  document.querySelector('meta[name="theme-color"]').setAttribute('content',themes[name].paper);
+  document.querySelectorAll('.palette button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===name)));
+  try{localStorage.setItem('haven:palette:v1',name);}catch{}
+}
+document.querySelectorAll('.palette button').forEach(b=>b.addEventListener('click',()=>setHavenColor(b.dataset.color)));
+let initialColor='sahara';
+try{initialColor=localStorage.getItem('haven:palette:v1')||'sahara';}catch{}
+setHavenColor(initialColor);
 
 const dt = new Date();
 document.getElementById('time').textContent = new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'}).format(dt);
