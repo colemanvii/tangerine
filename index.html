@@ -235,6 +235,18 @@ function fitScreen(){
 }
 window.addEventListener('resize',fitScreen);
 fitScreen();
+// Keep checklist marks on this device without changing the static layout.
+const havenChecks=[...document.querySelectorAll('input[type="checkbox"]')];
+havenChecks.forEach((checkbox,index)=>{
+  const label=checkbox.closest('label');
+  const text=(label?.textContent||'').trim().replace(/\s+/g,' ');
+  const key='haven:check:v1:'+index+':'+text;
+  try{checkbox.checked=localStorage.getItem(key)==='1';}catch{}
+  checkbox.addEventListener('change',()=>{
+    try{localStorage.setItem(key,checkbox.checked?'1':'0');}catch{}
+  });
+});
+
 const dt = new Date();
 document.getElementById('time').textContent = new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'}).format(dt);
 document.getElementById('date').textContent = new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}).format(dt).toUpperCase().replace(',','');
