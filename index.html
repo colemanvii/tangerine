@@ -72,6 +72,39 @@ header{align-items:center}.radar{margin-top:12px}
 .toggle button{font:inherit;border:0;border-radius:0;background:transparent;color:var(--ink);padding:5px 10px;cursor:pointer;letter-spacing:inherit}.toggle button.active{background:var(--ink);color:var(--paper)}.toggle button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .radar{margin-top:12px;min-height:0}.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .tomorrow-list{display:grid;grid-template-columns:1fr 1fr;column-gap:28px}.tomorrow-list .loop{font-size:12px;padding:11px 0}.tomorrow-prayer{border-top:1px solid var(--rule);padding-top:14px;font-size:10px;line-height:1.5;color:var(--muted);margin:18px 0 0}@media(max-width:600px){.tomorrow-list{column-gap:12px}.tomorrow-list .loop{font-size:10px;padding:9px 0}}
+
+/* FIXED INSTRUMENT — one viewport, no scrolling, no secondary surfaces */
+html,body{height:100%;width:100%;overflow:hidden!important}
+body{height:100dvh;min-height:0;overflow:hidden!important;padding:12px;display:grid;place-items:center}
+main{width:min(1480px,calc(100vw - 24px));display:grid;grid-template-columns:1.12fr 1fr 1.12fr;grid-template-areas:"head head head" "top loops outreach" "year loops outreach" "radar radar radar" "foot foot foot";gap:10px 14px;align-items:stretch;transform-origin:center center}
+header{grid-area:head;padding:9px 0}
+.board,.left{display:contents}
+.top3{grid-area:top}
+.left>.panel:not(.top3){grid-area:year}
+.loops{grid-area:loops;height:auto;min-height:0}
+#tomorrow-view{grid-area:outreach}
+#radar-view{grid-area:radar}
+footer{grid-area:foot;padding:5px 0}
+.radar{margin:0;min-height:0;padding:10px 12px}
+.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.radar-item{padding:4px 0;font-size:10px}
+.radar-item small{font-size:9px;margin-top:0}
+.tomorrow-list{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.tomorrow-list .loop{font-size:10px;padding:7px 0}
+.tomorrow-prayer{margin:8px 0 0;padding-top:8px}
+.goal-copy{font-size:16px}
+.goal{padding:6px 0}
+.goal-copy small{font-size:9px}
+.support{margin-top:7px;gap:7px}
+.year32-grid{gap:8px 12px}
+.money{margin-top:9px}
+.money-row{gap:8px}
+.cashfloor .big{font-size:22px}
+.cashbox{font-size:16px}
+.loop{padding:5px 0;font-size:10px}
+.panel{padding:9px 11px}
+.top3-title,.eyebrow{margin-bottom:7px}
+@media(max-width:760px){body{padding:6px;display:grid;place-items:center}main{width:calc(100vw - 12px);grid-template-columns:1fr 1fr;grid-template-areas:"head head" "top year" "loops outreach" "radar radar" "foot foot";gap:7px}.support{grid-template-columns:repeat(3,1fr)}.goal-copy{font-size:14px}.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.tomorrow-list{grid-template-columns:1fr 1fr}.year32-grid{gap:7px}.value{font-size:10px}}
 </style>
 </head>
 <body>
@@ -197,8 +230,8 @@ function fitScreen(){
  const main=document.querySelector('main');
  main.style.zoom='1';
  const bounds=main.getBoundingClientRect();
- const scale=Math.min(1,(innerWidth-24)/Math.max(1,bounds.width));
- main.style.zoom=String(Math.max(.35,scale));
+ const scale=Math.min(1,(innerWidth-16)/Math.max(1,bounds.width),(innerHeight-16)/Math.max(1,bounds.height));
+ main.style.zoom=String(Math.max(.18,scale));
 }
 window.addEventListener('resize',fitScreen);
 fitScreen();
