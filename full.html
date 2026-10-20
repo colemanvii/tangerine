@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#d8cfbe">
+<meta name="description" content="Haven — Year 32 static living panel.">
+<title>Haven — Year 32</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23d8cfbe%22%20d%3D%22M0%200h32v32H0z%22%2F%3E%3Cpath%20fill%3D%22%23191816%22%20d%3D%22M7%206h5v8h8V6h5v20h-5v-8h-8v8H7z%22%2F%3E%3C%2Fsvg%3E">
+<style>
+:root{
+  --paper:#d8cfbe;
+  --ink:#191816;
+  --muted:#6d685f;
+  --rule:#7d776d;
+  --soft:#ebe4d8;
+  --mono:Monaco,'Lucida Console','Courier New',monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;background:var(--paper);color:var(--ink)}
+body{font-family:var(--mono);-webkit-font-smoothing:antialiased;min-height:100vh;display:grid;place-items:center;padding:36px 24px}
+main{width:min(860px,calc(100% - 48px));margin:0 auto;display:grid;grid-template-rows:auto auto auto;align-content:start}
+header{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 0 16px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:0}
+.hello{font-size:19px;line-height:1}.stamp{text-align:right;font-size:10px;line-height:1.45;color:var(--muted);text-transform:uppercase}
+.board{display:grid;grid-template-columns:1.08fr .92fr;gap:12px;padding-top:12px;align-items:start}
+.left{display:grid;grid-template-rows:auto auto;gap:13px;align-self:start}.right{min-width:0}
+.panel{border:1px solid var(--rule);padding:11px 12px;background:transparent}
+.eyebrow{font-size:11px;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;text-transform:uppercase}
+.top3{padding:13px 12px 12px}
+.top3-title{font-size:11px;letter-spacing:.08em;color:var(--muted);margin-bottom:14px;text-transform:uppercase}
+.goal{display:grid;grid-template-columns:24px 1fr auto;align-items:start;gap:8px;padding:9px 0;border-top:1px dotted rgba(25,24,22,.24)}
+.goal:first-of-type{border-top:0;padding-top:2px}
+.num{font-size:10px;color:var(--muted);padding-top:4px}
+.goal-copy{font-size:20px;line-height:1.18;letter-spacing:-.025em}
+.goal-copy small{display:block;font-size:10px;line-height:1.45;color:var(--muted);letter-spacing:0;margin-top:4px}
+.goal-tag{font-size:9px;letter-spacing:.08em;background:var(--ink);color:var(--paper);padding:4px 6px;margin-top:4px;white-space:nowrap}
+.support{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:13px}
+.support-card{border-top:1px solid var(--rule);padding-top:9px;min-width:0}
+.support-card b{font-size:10px;letter-spacing:.07em;font-weight:400;color:var(--muted);text-transform:uppercase}
+.support-card span{display:block;font-size:10px;line-height:1.4;margin-top:4px}
+.year32-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px 22px}
+.kicker{font-size:9px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.value{font-size:11px;line-height:1.2}
+.money{margin-top:13px}.money-row{display:grid;grid-template-columns:1fr 120px;gap:18px;align-items:end}.cashfloor .big{font-size:28px;letter-spacing:-.04em}.cashnote{font-size:9px;color:var(--muted);margin-top:3px;text-transform:uppercase}.cashbox{border:1px solid var(--rule);padding:8px 10px;font-size:19px}.bar{height:4px;border:1px solid var(--rule);margin-top:10px}.bar i{display:block;width:12%;height:100%;background:var(--ink)}.progress{font-size:9px;color:var(--muted);margin-top:6px;text-transform:uppercase}
+.loops{display:flex;flex-direction:column;min-height:0;height:100%}
+.loop-list{display:grid}.loop{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px dotted rgba(25,24,22,.28);font-size:11px;line-height:1.35}.loop:first-child{border-top:1px dotted rgba(25,24,22,.28)}.loop input{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1px solid var(--rule);background:var(--soft);border-radius:2px;margin:0;flex:none;position:relative;top:1px}.loop input:checked{background:var(--ink)}.loop input:checked:after{content:"";position:absolute;left:3px;top:0;width:4px;height:8px;border-right:2px solid var(--paper);border-bottom:2px solid var(--paper);transform:rotate(45deg)}
+.loop .muted{color:var(--muted)}
+footer{display:flex;justify-content:space-between;align-items:center;padding:12px 0 18px;font-size:9px;color:var(--muted);text-transform:uppercase}
+.toggle{display:flex;border:1px solid var(--rule)}.toggle span{padding:5px 10px}.toggle .active{background:var(--ink);color:var(--paper)}
+@media(max-width:760px){
+  body{display:block;min-height:100vh;padding:18px 12px}
+  main{width:min(100% - 8px,760px)}
+  header{padding:13px 0 14px}.hello{font-size:18px}.stamp{font-size:9px}
+  .board{grid-template-columns:1fr;gap:12px}
+  .loops{min-height:0}.goal-copy{font-size:20px}.support{grid-template-columns:1fr}
+  .year32-grid{gap:11px 15px}.value{font-size:12px}
+  .money-row{grid-template-columns:1fr 100px}.cashfloor .big{font-size:24px}.cashbox{font-size:16px}
+  footer{padding-bottom:16px}
+}
+
+.radar{margin-top:13px;border:1px solid var(--rule);padding:12px}.radar h2{font:inherit;font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:normal;margin:0 0 12px;text-transform:uppercase}.radar-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.radar-col{min-width:0}.radar-col h3{font-size:10px;font-weight:normal;letter-spacing:.08em;color:var(--muted);margin:0 0 8px;text-transform:uppercase}.radar-item{font-size:11px;line-height:1.4;border-top:1px dotted rgba(25,24,22,.25);padding:7px 0}.radar-item a{color:inherit;text-decoration:none;border-bottom:1px solid var(--muted)}.radar-item small{display:block;font-size:10px;color:var(--muted);margin-top:3px}@media(max-width:760px){.radar-grid{grid-template-columns:1fr;gap:13px}}
+
+/* One continuous surface without view switching. */
+html,body{min-height:100%;height:auto;overflow:auto}
+body{min-height:100dvh;height:auto;padding:24px 16px;overflow:auto}
+main{width:min(860px,calc(100vw - 32px));display:block}
+[hidden]{display:none!important}
+.view-nav{display:flex;gap:14px;align-items:center;justify-content:center;font-size:10px;letter-spacing:.08em}
+.view-nav a{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.view-nav a[aria-current="page"]{color:var(--ink);border-color:var(--ink)}
+header{align-items:center}.radar{margin-top:12px}
+@media(max-width:760px){body{display:grid;place-items:center;padding:10px}main{width:min(100vw - 20px,760px)}.view-nav{gap:8px;font-size:9px}header{gap:8px}.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.radar-item{font-size:10px}.radar-item small{font-size:9px}}
+.toggle button{font:inherit;border:0;border-radius:0;background:transparent;color:var(--ink);padding:5px 10px;cursor:pointer;letter-spacing:inherit}.toggle button.active{background:var(--ink);color:var(--paper)}.toggle button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.radar{margin-top:12px;min-height:0}.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tomorrow-list{display:grid;grid-template-columns:1fr 1fr;column-gap:28px}.tomorrow-list .loop{font-size:12px;padding:11px 0}.tomorrow-prayer{border-top:1px solid var(--rule);padding-top:14px;font-size:10px;line-height:1.5;color:var(--muted);margin:18px 0 0}@media(max-width:600px){.tomorrow-list{column-gap:12px}.tomorrow-list .loop{font-size:10px;padding:9px 0}}
+
+/* FIXED INSTRUMENT — one viewport, no scrolling, no secondary surfaces */
+html,body{height:100%;width:100%;overflow:hidden!important}
+body{height:100dvh;min-height:0;overflow:hidden!important;padding:12px;display:grid;place-items:center}
+main{width:min(1480px,calc(100vw - 24px));display:grid;grid-template-columns:1.12fr 1fr 1.12fr;grid-template-areas:"head head head" "top loops outreach" "year loops outreach" "radar radar radar" "foot foot foot";gap:10px 14px;align-items:stretch;transform-origin:center center}
+header{grid-area:head;padding:9px 0}
+.board,.left{display:contents}
+.top3{grid-area:top}
+.left>.panel:not(.top3){grid-area:year}
+.loops{grid-area:loops;height:auto;min-height:0}
+#tomorrow-view{grid-area:outreach}
+#radar-view{grid-area:radar}
+footer{grid-area:foot;padding:5px 0}
+.radar{margin:0;min-height:0;padding:10px 12px}
+.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.radar-item{padding:4px 0;font-size:10px}
+.radar-item small{font-size:9px;margin-top:0}
+.tomorrow-list{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.tomorrow-list .loop{font-size:10px;padding:7px 0}
+.tomorrow-prayer{margin:8px 0 0;padding-top:8px}
+.goal-copy{font-size:16px}
+.goal{padding:6px 0}
+.goal-copy small{font-size:9px}
+.support{margin-top:7px;gap:7px}
+.year32-grid{gap:8px 12px}
+.money{margin-top:9px}
+.money-row{gap:8px}
+.cashfloor .big{font-size:22px}
+.cashbox{font-size:16px}
+.loop{padding:5px 0;font-size:10px}
+.panel{padding:9px 11px}
+.top3-title,.eyebrow{margin-bottom:7px}
+@media(max-width:760px){body{padding:6px;display:grid;place-items:center}main{width:calc(100vw - 12px);grid-template-columns:1fr 1fr;grid-template-areas:"head head" "top year" "loops outreach" "radar radar" "foot foot";gap:7px}.support{grid-template-columns:repeat(3,1fr)}.goal-copy{font-size:14px}.radar-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.tomorrow-list{grid-template-columns:1fr 1fr}.year32-grid{gap:7px}.value{font-size:10px}}
+
+/* Subtle retained palette control; no new screen or overflow */
+.palette{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.palette button{appearance:none;border:1px solid var(--rule);width:13px;height:13px;border-radius:0;padding:0;cursor:pointer;outline-offset:3px}
+.palette button[data-color="off-white"]{background:#f2eee5}
+.palette button[data-color="sahara"]{background:#d8cfbe}
+.palette button[data-color="rust"]{background:#a75e41}
+.palette button[aria-pressed="true"]{outline:1.5px solid var(--ink)}
+.palette button:focus-visible{outline:2px solid var(--ink)}
+@media(max-width:760px){.palette{gap:5px}.palette button{width:12px;height:12px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="hello">hello, Cole.</div>
+  <div class="stamp"><span id="time">—</span><br><span id="date">—</span></div>
+</header>
+
+<section class="board" id="home-view">
+  <div class="left">
+    <section class="panel top3">
+      <div class="top3-title">Top 3 / right now</div>
+
+      <div class="goal">
+        <div class="num">01</div>
+        <div class="goal-copy">Secure housing
+          <small>Make the call. Choose the six-month base. Get settled.</small>
+        </div>
+        <div class="goal-tag">START HERE</div>
+      </div>
+
+      <div class="goal">
+        <div class="num">02</div>
+        <div class="goal-copy">Start strong at Freeman
+          <small>Field first. Learn the company. Build trust before building noise.</small>
+        </div>
+      </div>
+
+      <div class="goal">
+        <div class="num">03</div>
+        <div class="goal-copy">Take website portfolio live
+          <small>Finish the rooms. Put the work in public. Stop polishing in private.</small>
+        </div>
+      </div>
+
+      <div class="support">
+        <div class="support-card"><b>Housing</b><span>226 Fife St · six-month conversation</span></div>
+        <div class="support-card"><b>Freeman</b><span>Begin with the end in mind · document the field</span></div>
+        <div class="support-card"><b>Portfolio</b><span>DESIGN · PHOTOS · INFO · launch</span></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="eyebrow">Year 32</div>
+      <div class="year32-grid">
+        <div><div class="kicker">Principle</div><div class="value">SINGLE EYE / LIVE AWAKE</div></div>
+        <div><div class="kicker">Faith</div><div class="value">FAITHFUL BEFORE SUCCESSFUL</div></div>
+        <div><div class="kicker">Body</div><div class="value">175–180 / SOBER / STRONG</div></div>
+        <div><div class="kicker">Home</div><div class="value">OWN PLACE / BUILD A BASE</div></div>
+        <div><div class="kicker">Work</div><div class="value">FREEMAN / 6 MONTHS / MAKE IT UNDENIABLE</div></div>
+        <div><div class="kicker">Art</div><div class="value">12 FINISHED WORKS</div></div>
+        <div><div class="kicker">Music</div><div class="value">TEST CASH / MERCH POSSIBILITY</div></div>
+        <div><div class="kicker">Community</div><div class="value">NASHVILLE + CARTERSVILLE</div></div>
+      </div>
+
+      <div class="money">
+        <div class="eyebrow">Money</div>
+        <div class="money-row">
+          <div class="cashfloor"><div class="kicker">Cash floor</div><div class="big">$10,000</div><div class="cashnote">above the floor = freedom</div></div>
+          <div><div class="kicker">Current cash</div><div class="cashbox">$1,200</div></div>
+        </div>
+        <div class="bar"><i></i></div>
+        <div class="progress">12% of floor / $8,800 to go</div>
+      </div>
+    </section>
+  </div>
+
+  <aside class="panel loops">
+    <div class="eyebrow">Open loops</div>
+<label class="loop"><input type="checkbox"><span>Joseph Martin — arrange a meeting in Nashville.</span></label>
+<label class="loop"><input type="checkbox"><span>Plan a date.</span></label>
+<label class="loop"><input type="checkbox"><span>Jay — arrange a meeting.</span></label>
+
+    <div class="loop-list">
+      <label class="loop"><input type="checkbox"><span>Jay — discuss long-term Cash merch role.</span></label>
+      <label class="loop"><input type="checkbox"><span>Cash — discuss what the role could look like.</span></label>
+      
+      <label class="loop"><input type="checkbox"><span>Jake Kinney — merch operation + design.</span></label>
+      <label class="loop"><input type="checkbox"><span>John — reach out.</span></label>
+      <label class="loop"><input type="checkbox"><span>Gabe — be real about Year 32, money, focus.</span></label>
+      <label class="loop"><input type="checkbox"><span>Tell a few close friends / ask for prayer.</span></label>
+      <label class="loop"><input type="checkbox"><span>Find the next housing option.</span></label>
+      <label class="loop"><input type="checkbox"><span>Finish Brian Harris painting.</span></label>
+      <label class="loop"><input type="checkbox"><span>Finish Logan Solomsen painting.</span></label>
+      <div class="eyebrow" style="margin:12px 0 4px">Live the life / Year 32</div>
+      <label class="loop"><input type="checkbox"><span>Rob Matre — reconnect; talk art and Plaid Columns.</span></label>
+      <label class="loop"><input type="checkbox"><span>Paint for fun — make something small, no obligation.</span></label>
+      <label class="loop"><input type="checkbox"><span>Read / listen to artists — 20 minutes.</span></label>
+      <label class="loop"><input type="checkbox"><span>Get into the world — gallery, show, camera, friends.</span></label>
+      
+    </div>
+  </aside>
+</section>
+
+<section class="radar" id="radar-view" aria-labelledby="radar-title"><h2 id="radar-title">On the radar / references</h2><div class="radar-grid">
+<div class="radar-col"><h3>Companies / study</h3>
+<div class="radar-item"><a href="https://www.landandseadept.com/featured-projects" target="_blank" rel="noopener noreferrer">Land and Sea Dept.</a><small>Hospitality / worlds worth building</small></div>
+<div class="radar-item"><a href="https://www.yeti.com/stories/yeti-presents.html" target="_blank" rel="noopener noreferrer">YETI Presents</a><small>Documentary storytelling / Freeman</small></div>
+<div class="radar-item"><a href="https://www.fieldmag.com/" target="_blank" rel="noopener noreferrer">Field Mag</a><small>Outdoor editorial / design</small></div></div>
+<div class="radar-col"><h3>Creative clients / explore</h3>
+<div class="radar-item">Kashus Culpepper<small>Creative direction / reconnect</small></div>
+<div class="radar-item">Connor Blakley / JAMS<small>Music collaboration / outreach</small></div>
+<div class="radar-item"><a href="https://www.wyattfloresmusic.com/" target="_blank" rel="noopener noreferrer">Wyatt Flores</a><small>Illustrated tour journal</small></div>
+<div class="radar-item"><a href="https://sierraferrell.com/" target="_blank" rel="noopener noreferrer">Sierra Ferrell</a><small>Posters / merch / packaging</small></div>
+<div class="radar-item"><a href="https://vincentneilemerson.com/" target="_blank" rel="noopener noreferrer">Vincent Neil Emerson</a><small>Painting / visual identity</small></div></div>
+<div class="radar-col"><h3>Living writers / read</h3>
+<div class="radar-item">Wright Thompson<small>Pappyland</small></div>
+<div class="radar-item">David Joy<small>When These Mountains Burn</small></div>
+<div class="radar-item">Chris Dombrowski<small>The River You Touch</small></div></div>
+</div><div style="border-top:1px solid var(--rule);padding-top:8px;margin-top:9px;font-size:10px;line-height:1.4">LESS RUMINATION. MORE PARTICIPATION. &nbsp; Make room for art, faith, music, friendship, adventure and beauty. Build stability to support living, not postpone it. <span style="color:var(--muted)">Faithful before successful. Back to living in the world.</span></div></section>
+<section class="radar" id="tomorrow-view" aria-labelledby="tomorrow-title"><h2 id="tomorrow-title">Tomorrow / Tuesday 13 Oct 2026</h2><div class="tomorrow-list"><label class="loop"><input type="checkbox"><span>Joseph Martin <span class="muted">— Share the move to Georgia</span></span></label>
+<label class="loop"><input type="checkbox"><span>Connor Blakley / JAMS <span class="muted">— Discuss creative work</span></span></label>
+<label class="loop"><input type="checkbox"><span>Kashus Culpepper <span class="muted">— Reconnect on creative direction</span></span></label>
+<label class="loop"><input type="checkbox"><span>Brian Fuller <span class="muted">— Reach out</span></span></label>
+<label class="loop"><input type="checkbox"><span>John Morgan <span class="muted">— Reach out</span></span></label>
+<label class="loop"><input type="checkbox"><span>Corey Kent <span class="muted">— Reach out</span></span></label>
+<label class="loop"><input type="checkbox"><span>Connor Smith <span class="muted">— Reach out</span></span></label>
+<label class="loop"><input type="checkbox"><span>Dawson <span class="muted">— Reach out</span></span></label>
+<label class="loop"><input type="checkbox"><span>Jordan Cobb <span class="muted">— Reach out</span></span></label>
+<label class="loop"><input type="checkbox"><span>Megan Hinde <span class="muted">— Reach out</span></span></label></div><div id="prayer-list" class="tomorrow-prayer"><div class="eyebrow">Prayer list</div><div>Joseph Martin — his well-being, work, and friendship.</div><div>J. Cole + JID — open doors to work together; prepare me to serve them well.</div></div></section>
+<footer>
+  <span>Haven / Year 32 / static living panel</span>
+  <div class="palette" role="group" aria-label="Haven background color">
+<button type="button" data-color="off-white" aria-label="Off White" aria-pressed="false" title="Off White"></button>
+<button type="button" data-color="sahara" aria-label="Sahara Tan" aria-pressed="true" title="Sahara Tan"></button>
+<button type="button" data-color="rust" aria-label="Rust" aria-pressed="false" title="Rust"></button>
+</div>
+</footer>
+</main>
+<script>
+function fitScreen(){
+ const main=document.querySelector('main');
+ main.style.zoom='1';
+ const bounds=main.getBoundingClientRect();
+ const scale=Math.min(1,(innerWidth-16)/Math.max(1,bounds.width),(innerHeight-16)/Math.max(1,bounds.height));
+ main.style.zoom=String(Math.max(.18,scale));
+}
+window.addEventListener('resize',fitScreen);
+fitScreen();
+// Keep checklist marks on this device without changing the static layout.
+const havenChecks=[...document.querySelectorAll('input[type="checkbox"]')];
+havenChecks.forEach((checkbox,index)=>{
+  const label=checkbox.closest('label');
+  const text=(label?.textContent||'').trim().replace(/\s+/g,' ');
+  const key='haven:check:v1:'+index+':'+text;
+  try{checkbox.checked=localStorage.getItem(key)==='1';}catch{}
+  checkbox.addEventListener('change',()=>{
+    try{localStorage.setItem(key,checkbox.checked?'1':'0');}catch{}
+  });
+});
+
+
+// Remember the background palette on this device.
+const themes={
+  'off-white':{paper:'#f2eee5',ink:'#23211d',muted:'#6c675e',rule:'#a49d91',soft:'#fffaf0'},
+  sahara:{paper:'#d8cfbe',ink:'#191816',muted:'#6d685f',rule:'#7d776d',soft:'#ebe4d8'},
+  rust:{paper:'#a75e41',ink:'#201713',muted:'#36251f',rule:'#51372b',soft:'#cb9075'}
+};
+function setHavenColor(name){
+  if(!themes[name])return;
+  for(const [k,v] of Object.entries(themes[name]))document.documentElement.style.setProperty('--'+k,v);
+  document.querySelector('meta[name="theme-color"]').setAttribute('content',themes[name].paper);
+  document.querySelectorAll('.palette button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===name)));
+  try{localStorage.setItem('haven:palette:v1',name);}catch{}
+}
+document.querySelectorAll('.palette button').forEach(b=>b.addEventListener('click',()=>setHavenColor(b.dataset.color)));
+let initialColor='sahara';
+try{initialColor=localStorage.getItem('haven:palette:v1')||'sahara';}catch{}
+setHavenColor(initialColor);
+
+const dt = new Date();
+document.getElementById('time').textContent = new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'}).format(dt);
+document.getElementById('date').textContent = new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}).format(dt).toUpperCase().replace(',','');
+</script>
+</body>
+</html>
