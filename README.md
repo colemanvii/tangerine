@@ -20,6 +20,7 @@ This repository is private. Keep personal context and daily records private.
 
 - `main` — home-system concept prototype documented below.
 - `morning-system` — personal Haven app under `morning/`; see that branch's `morning/README.md`.
+- `experiment/001-fear` — Haven as a place to return to your thinking: the Fear reading collection, commonplace book, desk and Return. See `experiments/001-fear/README.md` and `AUDIT.md`. Private prototype; not deployed.
 - Other branches — experiments or preserved checkpoints; review differences before removing them.
 
 The default branch is `main`. Switching it does not by itself change a deployment's configured production branch. Keep home-prototype and personal-app changes separate until deliberately integrated.
