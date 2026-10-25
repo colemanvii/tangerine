@@ -128,9 +128,12 @@ function demo() {
 function bucketFor(days, messages, now) {
   const buckets = [];
   if (days === 365) {
-    const first = new Date(now.getFullYear(), now.getMonth() - 11, 1);
-    for (let i = 0; i < 12; i++) {
+    const cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate() - days + 1);
+    const first = new Date(cutoff.getFullYear(), cutoff.getMonth(), 1);
+    const end = new Date(now.getFullYear(), now.getMonth(), 1);
+    for (let i = 0; i < 14; i++) {
       const day = new Date(first.getFullYear(), first.getMonth() + i, 1);
+      if (day > end) break;
       buckets.push({ key: monthKey(day), label: monthName(day), count: 0 });
     }
     const byKey = new Map(buckets.map(b => [b.key, b]));
@@ -257,7 +260,7 @@ function render() {
   });
   if(!hasData) return;
   const now = new Date();
-  const cutoff=now.getTime()-state.days*DAY;
+  const cutoff=new Date(now.getFullYear(), now.getMonth(), now.getDate()-state.days+1).getTime();
   const inPeriod=t=>t>=cutoff && t<=now.getTime();
   const conversationCounts=[];
   const all=[];
@@ -280,7 +283,7 @@ function render() {
   const leading=activity.buckets.slice().sort((a,b)=>b.count-a.count)[0];
   const bestDay=[...dates.entries()].sort((a,b)=>b[1]-a[1])[0];
   const dateFromKey=key=>new Date(key+"T12:00:00");
-  const elapsed=new Date(now.getTime()-state.days*DAY);
+  const elapsed=new Date(cutoff);
   setText("sourceLabel",state.mode==="demo"?"FICTIONAL DEMO · NOT YOUR DATA":"YOUR CHATGPT EXPORT");
   setText("windowLabel",longDay(elapsed)+" — "+longDay(now));
   setText("messagesValue",formatInt(user.length));
