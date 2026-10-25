@@ -34,7 +34,7 @@ h1 span { display: block; color: var(--orange); }
 .intro-secondary .small-muted { font-size: 13px !important; line-height: 1.5 !important; letter-spacing: 0 !important; color: var(--secondary); margin-bottom: 0 !important; }
 .tool-bar { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 66px; }
 .data-actions, .range-controls { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
-.upload-button { display: inline-flex; align-items: center; gap: 20px; color: var(--orange); cursor: pointer; letter-spacing: .14em; font-size: 11px; font-weight: 700; padding: 20px 0; }
+.upload-button { display: inline-flex; align-items: center; gap: 20px; color: var(--orange); cursor: pointer; letter-spacing: .14em; font-size: 11px; font-weight: 700; padding: 20px 0; border: 0; background: transparent; text-align: left; }
 .upload-button:hover { color: var(--ink); }
 .text-button { border: 0; background: none; padding: 10px 0; color: var(--secondary); font-size: 10px; font-weight: 600; letter-spacing: .15em; }
 .text-button:hover { color: var(--ink); }
