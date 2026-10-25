@@ -1,7 +1,8 @@
-# Personal Haven changes
+# Personal Tangerine changes
 
 ## 2026-10-25
 
+- Renamed the personal dashboard's user-facing brand to Tangerine; repository and deployment renaming remain separate pending actions.
 - Added an unchecked outreach task: contact Mark Perotta about photo badge (no fixed date/time).
 - Added an unchecked task for this week (Oct 25–31): reach out to Seth McWhorter; no meeting time specified.
 - Source updated only; live deployment not verified.
