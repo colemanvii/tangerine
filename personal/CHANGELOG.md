@@ -1,5 +1,10 @@
 # Personal Haven changes
 
+## 2026-10-25
+
+- Added an unchecked task for this week (Oct 25–31): reach out to Seth McWhorter; no meeting time specified.
+- Source updated only; live deployment not verified.
+
 ## 2026-10-20
 
 - Added a `Live the life / Year 32` action group: reconnect with Rob Matre, paint for pleasure, read or listen to artists, and spend time in the world.
