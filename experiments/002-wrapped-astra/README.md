@@ -8,6 +8,8 @@ Open `index.html` in a modern browser. Optionally serve this directory with `pyt
 
 Use **Open conversations.json** to select the `conversations.json` file from your ChatGPT data export. No upload occurs: the browser reads this file locally, in memory. Reloading clears the report. Demo data is invented, labeled, and never mixed with imported content.
 
+Run the offline logic tests with `node --test tests/*.test.mjs` (Node 20+). The importer and report do not require a build step or network connection.
+
 ## Definitions
 
 - **Messages:** human messages on each conversation's current path (when available), or unique nodes if branch history is unavailable.
