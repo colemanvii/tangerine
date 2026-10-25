@@ -1,6 +1,6 @@
-# Haven maintenance instructions
+# Tangerine maintenance instructions
 
-For personal Haven changes, read personal/README.md first.
+For personal Tangerine changes, read personal/README.md first.
 The canonical personal dashboard is personal/index.html on main.
 Cole gives add/change/complete/delete instructions in conversation; implement them with minimal content edits.
 Keep design steady. Do not update astra checkpoints as a substitute for the active source.
