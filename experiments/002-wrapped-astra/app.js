@@ -316,6 +316,7 @@ function showError(message) {
 }
 function clearError() { el("error").hidden=true;el("error").textContent=""; }
 
+el("openButton").addEventListener("click",()=>el("fileInput").click());
 el("fileInput").addEventListener("change",async function(){
   if (!this.files || !this.files[0]) return;
   clearError();
