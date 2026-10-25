@@ -1,14 +1,14 @@
-# Personal Haven maintenance
+# Personal Tangerine maintenance
 
 The maintained personal dashboard is [personal/index.html](personal/index.html). Read [the update workflow and deployment map](personal/README.md) before changing or publishing it. Historical Astra files are checkpoints, not the active source. A commit does not establish a live update.
 
 ---
 
-# Haven
+# Tangerine
 
 **A calm operating system for the home.**
 
-Haven is quiet infrastructure for daily life: one place to understand the state of a home, know what needs attention, and preserve the knowledge that normally disappears across apps, binders, contractors, devices, and time.
+Tangerine is quiet infrastructure for daily life: one place to understand the state of a home, know what needs attention, and preserve the knowledge that normally disappears across apps, binders, contractors, devices, and time.
 
 The interface is not the product. The product is **orientation**.
 
@@ -50,7 +50,7 @@ The goal is not more telemetry. It is less uncertainty.
 
 A builder can begin the record during construction: drawings, field photos, selections, equipment, warranties and decisions. At turnover, that same record becomes the homeowner's operating layer.
 
-**The builder creates the house. Haven remembers it.**
+**The builder creates the house. Tangerine remembers it.**
 
 ## Field notes
 
