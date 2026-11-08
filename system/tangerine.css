@@ -1,0 +1,75 @@
+/*
+ * Tangerine — system, foundation 001.
+ *
+ * Tokens and base typography shared by every Tangerine surface.
+ * Continues the contract on study/tangerine-wrapped-astra-001
+ * (docs/TANGERINE_PRODUCT.md): cyber white, deep ink, cold grey, hairline,
+ * tangerine. No external fonts, no gradients, no rounded corners.
+ *
+ * Tangerine orange is an index, not a decoration: at most one tangerine mark
+ * per view, used for the thing that is "now" or the moment of return.
+ */
+:root {
+  --paper: #fafbfb;          /* cyber white */
+  --paper-2: #f2f3f3;        /* recessed field */
+  --ink: #181a1b;            /* near-black */
+  --ink-2: #4a4e50;          /* secondary text */
+  --grey: #868b8d;           /* cold grey: metadata */
+  --grey-2: #b7bbbc;         /* quiet marks */
+  --rule: #dfe2e2;           /* hairline */
+  --tangerine: #f25a28;      /* the index */
+
+  --sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter, "Book Antiqua", Georgia, serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* 4px base; the scale is deliberately short */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
+
+  /* type: metadata 10.5 / body 14 / reading 18 / display 28 */
+  --t-meta: 10.5px; --t-small: 12px; --t-body: 14px; --t-read: 18px; --t-display: 28px;
+  --track-meta: .08em;
+
+  --hair: 1px solid var(--rule);
+  --focus: 0 0 0 1px var(--paper), 0 0 0 2px var(--ink);
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 var(--t-body)/1.45 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern", "liga";
+}
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: none; box-shadow: var(--focus); }
+::selection { background: var(--ink); color: var(--paper); }
+
+/* metadata voice: small, mono, tabular, like a caseback engraving */
+.t-meta {
+  font: 400 var(--t-meta)/1.3 var(--mono);
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--grey);
+  font-variant-numeric: tabular-nums;
+}
+.t-read { font: 400 var(--t-read)/1.6 var(--serif); }
+.t-display { font: 500 var(--t-display)/1.1 var(--sans); letter-spacing: -.015em; }
+
+/* The mark: a hairline dial with a single tangerine index at twelve.
+   The hand always comes back to twelve: keep, and return. */
+.mark { display: inline-block; width: 18px; height: 18px; vertical-align: middle; }
+.mark circle { fill: none; stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mark line { stroke: var(--tangerine); stroke-width: 2; }
+.wordmark { font: 500 15px/1 var(--sans); letter-spacing: -.01em; }
+
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
