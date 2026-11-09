@@ -106,10 +106,18 @@ A command center for projects, people and ideas, pinned to original sources. Tab
 
 | # | Milestone | Notes |
 | --- | --- | --- |
-| 002 | **Writing** | A quiet serif desk that keeps each draft as a revision through `store.reviseSource`. No AI completion. |
+| 002 | **Writing** — *built, see below* | A quiet serif desk that keeps each draft as a revision through `store.reviseSource`. No AI completion. |
 | 003 | **Identity + public site** | A specimen page from `system/` and a one-page `site/`: mark, philosophy, four practices, nothing more. Kept separate from the legacy Vercel source until a deliberate cutover. |
 | 004 | **Consolidation** | Bring the Fear store and the Wrapped importer into `core/` as adapters, and move legacy root files to `archive/`. Each change goes in a reviewed PR with a deployment check. |
 | 005 | **Private vault** | Durable storage outside the browser that the user owns: a folder of JSON or Markdown files. This must exist before any real material is used. |
+
+## 5a. Milestone 002: Writing, and trust in the browser store (built, 9 Nov 2026)
+
+- **Writing desk** (`#writing`): a list of pieces, and one serif column at a 680 px measure. No toolbar, formatting or AI.
+- **Drafts** (`store.saveDraft` and friends, a new `drafts` collection; IndexedDB v2 upgrades v1 in place). A draft is a working copy, never an original. It autosaves 600 ms after typing stops, on blur, on leaving the view, and when the tab is hidden. Every keystroke is also mirrored synchronously to `localStorage`, so words typed just before a crash are recovered on the next load.
+- **Restore** (`store.restore`, `validateBackup`): all-or-nothing validation, including fingerprints, then a dry-run preview, then a merge that never overwrites.
+- **Verification** reports `intact`, `changed`, `unavailable` (no SHA-256 on this connection) or `unfingerprinted`. The interface no longer says "verified" when nothing was checked.
+- **Still true:** storage is this browser only. Milestone 005 (private vault) remains the durable answer.
 
 ## 6. Recommendation
 

@@ -4,6 +4,10 @@
  * Whiteboard: the author's command center for projects, people and ideas,
  * pinned to original sources in the archive. The board is a working layer:
  * it moves, links and bookmarks things, and only ever references originals.
+ *
+ * Writing: a quiet desk for long-form work. Drafts autosave as you type and are
+ * recovered after a reload or crash; keeping a draft makes an original or a new
+ * revision. Browser storage is not a vault: export a copy to keep one outside it.
  */
 (function () {
   'use strict';
@@ -18,7 +22,11 @@
     store: null, sources: [], items: [], links: [], dismissed: new Set(),
     view: 'whiteboard', sel: null, archiveSel: null, linkFrom: null, linking: false,
     composing: null, query: '', hits: null, verify: {},
+    drafts: [], desk: null, persisted: null,
   };
+  const MIRROR = 'tangerine.desk.mirror';
+  const lsGet = (k) => { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
+  const lsSet = (k, v) => { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage blocked: the IndexedDB draft still saves */ } };
 
   /* ---------- helpers ---------- */
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -51,25 +59,35 @@
 
   async function load() {
     const s = state.store;
-    [state.sources, state.items, state.links, state.dismissed] = await Promise.all([s.sources(), s.items(), s.links(), s.dismissed()]);
+    [state.sources, state.items, state.links, state.dismissed, state.drafts] = await Promise.all([s.sources(), s.items(), s.links(), s.dismissed(), s.drafts()]);
     const demo = state.sources.some((x) => x.demonstration) || state.items.some((x) => x.demonstration);
     document.getElementById('demo-note').hidden = !demo;
-    document.getElementById('storage').textContent = s.durable ? 'Kept in this browser only · nothing is sent' : 'Memory only · cleared on reload';
+    const el = document.getElementById('storage');
+    el.textContent = s.durable ? 'This browser only · not a vault' : 'Not saved · memory only';
+    el.title = s.durable ? 'Nothing is sent anywhere. Clearing this site’s data, a different address or port, or another browser means an empty Tangerine. Export a copy regularly.' : (s.problem || '');
+    el.classList.toggle('warn', !s.durable);
+    const last = await s.getMeta('lastExport');
+    document.getElementById('last-copy').textContent = 'Last copy · ' + (last ? ago(last) : 'never');
+    const n = state.drafts.length;
+    document.getElementById('draft-count').textContent = n ? '· ' + n + ' draft' + (n > 1 ? 's' : '') : '';
   }
 
   /* ---------- routing ---------- */
   function route() {
     const [view, id] = (location.hash.slice(1) || 'whiteboard').split('/');
-    state.view = ['whiteboard', 'archive', 'return'].includes(view) ? view : 'whiteboard';
+    flushDesk();
+    state.view = ['whiteboard', 'archive', 'return', 'writing'].includes(view) ? view : 'whiteboard';
     if (state.view === 'archive' && id) state.archiveSel = decodeURIComponent(id);
+    if (state.view === 'writing') openDesk(id ? decodeURIComponent(id) : null);
     document.querySelectorAll('.nav a').forEach((a) => { if (a.dataset.view === state.view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    document.title = 'Tangerine — ' + { whiteboard: 'Whiteboard', archive: 'Archive', return: 'Return' }[state.view];
+    document.title = 'Tangerine — ' + { whiteboard: 'Whiteboard', archive: 'Archive', return: 'Return', writing: 'Writing' }[state.view];
     render();
   }
 
   function render() {
     if (state.view === 'archive') return renderArchive();
     if (state.view === 'return') return renderReturn();
+    if (state.view === 'writing') return renderWriting();
     renderBoard();
   }
 
@@ -212,14 +230,22 @@
   function provHTML(s) {
     const r0 = s.revisions[0];
     const v = state.verify[s.id];
-    const fp = r0.sha256 ? r0.sha256.slice(0, 8) + '…' + r0.sha256.slice(-4) : 'unavailable';
+    const fp = r0.sha256 ? r0.sha256.slice(0, 8) + '…' + r0.sha256.slice(-4) : 'none taken';
+    const VERDICT = {
+      intact: '<span class="ok">· verified</span>',
+      changed: '· CHANGED',
+      unavailable: '· cannot verify on this connection',
+      unfingerprinted: '· not taken when kept · cannot verify',
+    };
+    const hint = v && v.status === 'unavailable' ? '<div><span></span><span>SHA-256 needs a secure address. Open Tangerine at http://127.0.0.1:4321 to verify.</span></div>'
+      : v && v.status === 'unfingerprinted' ? '<div><span></span><span>Kept over a connection without SHA-256, so there is nothing to verify against.</span></div>' : '';
     return `<div class="prov t-meta">
       <div><span>Original</span><span>${s.kind === 'collected' ? 'Collected · kept exactly as found' : 'Unaltered by Tangerine'}</span></div>
       <div><span>Author</span><span>${esc(s.author || 'Unknown')}</span></div>
       <div><span>Made</span><span>${fmtDate(s.madeOn)}</span></div>
       <div><span>Source</span><span>${esc(s.provenance || 'Unknown')}</span></div>
       <div><span>Revisions</span><span>${s.revisions.length} · by the author only</span></div>
-      <div><span>SHA-256</span><span>${fp} ${v ? (v.intact ? '<span class="ok">· verified</span>' : '· CHANGED') : `<button class="link" data-verify="${s.id}">verify</button>`}</span></div>
+      <div><span>SHA-256</span><span>${fp} ${v ? VERDICT[v.status] : `<button class="link" data-verify="${s.id}">verify</button>`}</span></div>${hint}
     </div>`;
   }
 
@@ -421,6 +447,7 @@
   document.addEventListener('keydown', async (e) => {
     const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
     if (e.key === '/' && !typing) { e.preventDefault(); document.getElementById('q').focus(); return; }
+    if (e.key === 'Escape' && state.view === 'writing') { if (typing) document.activeElement.blur(); return; }
     if (e.key === 'Escape') {
       if (typing) document.activeElement.blur();
       state.linking = false; state.linkFrom = null; state.composing = null;
@@ -484,6 +511,7 @@
         ${provHTML(s)}
         <div class="row">
           <button class="btn" data-act="pin-here">${onBoard ? 'Show on whiteboard' : 'Pin to whiteboard'}</button>
+          ${s.kind === 'writing' || s.kind === 'note' ? `<a class="btn quiet" href="#writing/${encodeURIComponent('src:' + s.id)}" style="text-decoration:none">Open at the desk</a>` : ''}
           ${s.kind !== 'collected' ? '<button class="btn quiet" data-act="revise">Revise</button>' : ''}
         </div>
         ${s.revisions.length > 1 ? `<div class="revs"><div class="label t-meta"><span>Revisions</span></div><ul class="list">${s.revisions.slice().reverse().map((x) => `<li><span class="t-meta">Revision ${x.n} · ${fmtDate(x.at)} · ${x.sha256 ? x.sha256.slice(0, 8) : ''}${x.n === 1 ? ' · original' : ''}</span><p class="original" style="font-size:15px;margin-top:4px;color:var(--ink-2)">${esc(x.body)}</p></li>`).join('')}</ul></div>` : ''}
@@ -502,6 +530,269 @@
     const r = e.target.closest('[data-act="revise"]');
     if (r) { state.composing = { type: 'revise' }; renderArchive(); }
   });
+
+  /* ================= WRITING ================= */
+  /*
+   * The desk edits a working copy (a draft), never the original. Every
+   * keystroke is mirrored synchronously to localStorage and, a moment later,
+   * saved as a draft in IndexedDB. Keeping turns the draft into an original
+   * (revision 1) or appends a new revision; earlier revisions remain.
+   */
+  const WRITABLE = (s) => s.kind === 'writing' || s.kind === 'note';
+  const newKey = () => 'new:' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const words = (t) => (String(t).trim().match(/\S+/g) || []).length;
+  const clock = (iso) => new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const draftByKey = (k) => state.drafts.find((d) => d.key === k);
+
+  function deskPieces() {
+    const loose = state.drafts.filter((d) => !d.key.startsWith('src:'));
+    const kept = state.sources.filter(WRITABLE);
+    return { loose, kept };
+  }
+
+  function openDesk(key) {
+    if (state.desk && state.desk.key === key) return;
+    if (!key) {
+      const { loose, kept } = deskPieces();
+      const recent = state.drafts[0];
+      key = recent ? recent.key : kept[0] ? 'src:' + kept[0].id : (loose[0] ? loose[0].key : newKey());
+    }
+    const d = draftByKey(key);
+    const sourceId = d ? d.sourceId : key.startsWith('src:') ? key.slice(4) : null;
+    const src = sourceId && srcById(sourceId);
+    const r = src && cur(src);
+    state.desk = {
+      key, sourceId, kind: d ? d.kind : src ? src.kind : 'writing',
+      baseN: d ? d.baseN : r ? r.n : null,
+      title: d ? d.title : r ? r.title : '', body: d ? d.body : r ? r.body : '',
+      savedAt: d ? d.savedAt : null, recovered: d || null, pending: null, saving: Promise.resolve(),
+    };
+  }
+
+  function keptRev() { const s = state.desk && state.desk.sourceId && srcById(state.desk.sourceId); return s ? cur(s) : null; }
+  function deskChanged() {
+    const k = state.desk, r = keptRev();
+    return r ? k.title !== r.title || k.body !== r.body : Boolean(k.title.trim() || k.body.trim());
+  }
+
+  function deskStatusHTML() {
+    const k = state.desk, r = keptRev(), changed = deskChanged();
+    const left = r ? `${esc(k.kind)} · revision ${r.n} kept ${fmtDate(r.at)}` : `${esc(k.kind)} · not yet kept`;
+    const right = !changed ? (r ? 'Matches the kept version' : 'Empty') : k.savedAt ? 'Draft saved ' + clock(k.savedAt) + ' · not yet kept' : 'Draft · saving…';
+    return `<span>${left}</span><span id="desk-save">${right}</span>`;
+  }
+
+  function renderWriting() {
+    const k = state.desk, r = keptRev();
+    const src = k.sourceId && srcById(k.sourceId);
+    const { loose, kept } = deskPieces();
+    const item = (key, title, meta, draft) => `<li><button aria-current="${key === k.key}" data-desk="${esc(key)}"><span class="t-meta">${meta}</span><h4>${esc(title || 'Untitled')}</h4><span class="k t-meta">${draft ? '<span class="draft-tag">Draft · not yet kept</span>' : ''}</span></button></li>`;
+    const notices = [];
+    if (!state.store.durable) notices.push(`<p class="notice warn"><b>Not saved.</b> Browser storage is unavailable here, so nothing on this desk survives a reload. ${esc(state.store.problem || '')}</p>`);
+    if (k.recovered && deskChanged()) notices.push(`<p class="notice">Recovered an unfinished draft from ${fmtDate(k.recovered.savedAt)}, ${clock(k.recovered.savedAt)}. It is not yet kept.${k.recovered.restoredFrom ? ' It came from a restored copy and differed from the draft already here.' : ''}</p>`);
+    if (r && k.baseN && r.n > k.baseN) notices.push(`<p class="notice">The kept version moved on to revision ${r.n} after this draft began from revision ${k.baseN}. Keeping adds revision ${r.n + 1}; nothing is replaced.</p>`);
+    if (src && src.demonstration) notices.push('<p class="notice">Demonstration · fictional.</p>');
+    main.innerHTML = `<div class="wd">
+      <div class="ar-list wd-list"><div class="head"><span class="t-meta">Writing · ${kept.length + loose.length}</span><button class="link t-meta" data-act="desk-new">New piece</button></div>
+        <ol>${loose.map((d) => item(d.key, d.title, fmtDate(d.savedAt).slice(3), true)).join('')}
+        ${kept.map((x) => item('src:' + x.id, cur(x).title, fmtDate(x.madeOn).slice(3), Boolean(draftByKey('src:' + x.id)))).join('')}</ol>
+      </div>
+      <div class="wd-desk"><div class="page">
+        <div class="wd-status t-meta" role="status">${deskStatusHTML()}</div>
+        ${notices.join('')}
+        <label class="visually-hidden" for="desk-title">Title</label>
+        <input id="desk-title" class="wd-title" value="${esc(k.title)}" placeholder="Title" autocomplete="off">
+        <label class="visually-hidden" for="desk-body">Text</label>
+        <textarea id="desk-body" class="wd-body" placeholder="Begin." spellcheck="true">${esc(k.body)}</textarea>
+        <div class="wd-foot">
+          <span class="t-meta" id="desk-words">${words(k.body)} words</span>
+          <div class="row" style="margin-top:0">
+            <button class="btn" data-act="desk-keep">${r ? 'Keep revision ' + (r.n + 1) : 'Keep'}</button>
+            ${draftByKey(k.key) || (k.recovered && deskChanged()) ? '<button class="btn quiet" data-act="desk-discard">Discard draft</button>' : ''}
+            ${src ? `<a class="btn quiet" href="#archive/${encodeURIComponent(src.id)}" style="text-decoration:none">Open in archive</a>` : ''}
+          </div>
+        </div>
+        <p class="derived-note">Drafts save in this browser as you type and come back after a reload. Keeping makes an original, or adds a revision beside the earlier ones. This browser is not a vault: <button class="link" data-act="export">export a copy</button> to keep one outside it.${state.persisted === true ? ' The browser has granted persistent storage.' : state.persisted === false ? ' The browser has not granted persistent storage, so it may clear this site’s data under pressure.' : ''}</p>
+      </div></div></div>`;
+    grow();
+  }
+
+  function grow() {
+    const t = document.getElementById('desk-body'); if (!t) return;
+    t.style.height = 'auto'; t.style.height = t.scrollHeight + 'px';
+  }
+
+  function updateDeskChrome() {
+    const st = document.querySelector('.wd-status'); if (st) st.innerHTML = deskStatusHTML();
+    const w = document.getElementById('desk-words'); if (w) w.textContent = words(state.desk.body) + ' words';
+  }
+
+  main.addEventListener('input', (e) => {
+    if (state.view !== 'writing' || !state.desk) return;
+    if (e.target.id !== 'desk-title' && e.target.id !== 'desk-body') return;
+    const k = state.desk;
+    k.title = document.getElementById('desk-title').value;
+    k.body = document.getElementById('desk-body').value;
+    if (e.target.id === 'desk-body') grow();
+    // Synchronous safety copy: survives a crash between keystroke and save.
+    lsSet(MIRROR, { key: k.key, sourceId: k.sourceId, kind: k.kind, baseN: k.baseN, title: k.title, body: k.body, at: new Date().toISOString() });
+    k.savedAt = null; updateDeskChrome();
+    clearTimeout(k.pending); k.pending = setTimeout(flushDesk, 600);
+  });
+  main.addEventListener('focusout', (e) => { if (e.target.id === 'desk-body' || e.target.id === 'desk-title') flushDesk(); });
+
+  /* Save the desk's working copy now. Safe to call at any time. */
+  function flushDesk() {
+    const k = state.desk; if (!k || !state.store) return Promise.resolve();
+    clearTimeout(k.pending); k.pending = null;
+    const snap = { key: k.key, sourceId: k.sourceId, kind: k.kind, baseN: k.baseN, title: k.title, body: k.body };
+    const changed = deskChanged();
+    k.saving = k.saving.then(async () => {
+      if (changed) {
+        const d = await state.store.saveDraft(snap);
+        // Only report "saved" if nothing was typed while this save was under way.
+        if (state.desk === k && k.title === snap.title && k.body === snap.body) { k.savedAt = d.savedAt; updateDeskChrome(); }
+      } else {
+        await state.store.discardDraft(snap.key);
+      }
+      state.drafts = await state.store.drafts();
+      const n = state.drafts.length;
+      document.getElementById('draft-count').textContent = n ? '· ' + n + ' draft' + (n > 1 ? 's' : '') : '';
+      const m = lsGet(MIRROR); if (m && m.key === snap.key && m.body === snap.body && m.title === snap.title) lsSet(MIRROR, null);
+    }).catch((err) => toast('Draft not saved · ' + err.message));
+    return k.saving;
+  }
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flushDesk(); });
+  window.addEventListener('pagehide', () => flushDesk());
+
+  /*
+   * After a crash or reload. The safety copy is written on every keystroke and
+   * cleared once a saved draft matches it, so if it is still here and differs,
+   * it holds the latest words.
+   */
+  async function recoverMirror() {
+    const m = lsGet(MIRROR); if (!m || !m.key) return;
+    const d = await state.store.getDraft(m.key);
+    if (!d || m.body !== d.body || m.title !== d.title) {
+      const src = m.sourceId && (await state.store.getSource(m.sourceId));
+      const r = src && src.revisions[src.revisions.length - 1];
+      if (!r || r.title !== m.title || r.body !== m.body) await state.store.saveDraft(m);
+    }
+    lsSet(MIRROR, null);
+  }
+
+  async function keepDesk() {
+    await flushDesk();
+    const k = state.desk, st = state.store, r = keptRev();
+    if (!k.body.trim()) { toast('Nothing to keep yet'); return; }
+    if (r && !deskChanged()) { toast('Already kept · no changes'); return; }
+    let msg;
+    if (r) {
+      const s = await st.reviseSource(k.sourceId, { title: k.title || 'Untitled', body: k.body }, USER_EDIT);
+      msg = 'Revision ' + s.revisions.length + ' kept · earlier versions remain';
+    } else if (k.sourceId) {
+      toast('The original for this draft is no longer in the archive · kept as a new piece');
+      const s = await st.keepSource({ kind: k.kind, title: k.title || 'Untitled', body: k.body, author: 'Me', madeOn: new Date().toISOString().slice(0, 10), provenance: 'Written in Tangerine' });
+      k.sourceId = s.id; msg = 'Kept as a new original';
+    } else {
+      const s = await st.keepSource({ kind: k.kind, title: k.title || 'Untitled', body: k.body, author: 'Me', madeOn: new Date().toISOString().slice(0, 10), provenance: 'Written in Tangerine' });
+      k.sourceId = s.id; msg = s.revisions[0].sha256 ? 'Kept · fingerprinted' : 'Kept · no fingerprint on this connection';
+    }
+    await st.discardDraft(k.key); lsSet(MIRROR, null);
+    await load();
+    const key = 'src:' + k.sourceId;
+    state.desk = null; history.replaceState(null, '', '#writing/' + encodeURIComponent(key)); openDesk(key);
+    renderWriting(); toast(msg);
+  }
+
+  async function discardDesk() {
+    if (!confirm('Discard this draft? The kept version, if there is one, is not affected.')) return;
+    const k = state.desk; clearTimeout(k.pending); await k.saving;
+    await state.store.discardDraft(k.key); lsSet(MIRROR, null);
+    await load(); state.desk = null; openDesk(k.sourceId ? 'src:' + k.sourceId : null);
+    history.replaceState(null, '', '#writing/' + encodeURIComponent(state.desk.key));
+    renderWriting(); toast('Draft discarded');
+  }
+
+  /* Change pieces at once, so nothing typed in between lands in the wrong one. */
+  function switchDesk(key) {
+    flushDesk();
+    state.desk = null; openDesk(key);
+    history.pushState(null, '', '#writing/' + encodeURIComponent(key));
+    renderWriting();
+  }
+
+  main.addEventListener('click', async (e) => {
+    if (state.view !== 'writing') return;
+    const b = e.target.closest('[data-desk], [data-act]'); if (!b) return;
+    if (b.dataset.desk) { switchDesk(b.dataset.desk); return; }
+    const a = b.dataset.act;
+    if (a === 'desk-new') { switchDesk(newKey()); document.getElementById('desk-title').focus(); }
+    if (a === 'desk-keep') await keepDesk();
+    if (a === 'desk-discard') await discardDesk();
+    if (a === 'export') exportCopy();
+  });
+
+  /* ================= BACKUP & RESTORE ================= */
+
+  async function exportCopy() {
+    await flushDesk();
+    const data = await state.store.exportAll();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+    a.download = 'tangerine-' + new Date().toISOString().slice(0, 10) + '.json';
+    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    await state.store.setMeta('lastExport', new Date().toISOString());
+    await load(); toast('Copy exported · keep it somewhere outside this browser');
+  }
+
+  function dialog(html) {
+    let d = document.getElementById('dlg');
+    if (!d) { d = document.createElement('dialog'); d.id = 'dlg'; d.className = 'dlg'; document.body.append(d); }
+    d.innerHTML = html; if (!d.open) d.showModal();
+    return d;
+  }
+
+  async function restoreFile(file) {
+    let data;
+    const head = `<div class="label t-meta"><span>Restore from a copy</span></div><h2>${esc(file.name)}</h2>`;
+    try { data = JSON.parse(await file.text()); }
+    catch (e) { dialog(`${head}<p class="notice warn">This file is not valid JSON. Nothing was changed.</p><div class="row"><button class="btn" data-dlg="close">Close</button></div>`); return; }
+    await flushDesk();
+    const plan = await state.store.restore(data, { dryRun: true });
+    if (!plan.ok) {
+      dialog(`${head}<p class="notice warn">This copy did not pass validation, so nothing was restored and nothing was changed.</p>
+        <ul class="list errs">${plan.errors.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+        <div class="row"><button class="btn" data-dlg="close">Close</button></div>`);
+      return;
+    }
+    const c = plan.counts, row = (k, v) => `<div><span>${k}</span><span>${v}</span></div>`;
+    const nothing = !(plan.added + plan.extended + plan.separate + plan.items + plan.links + plan.drafts + plan.draftsSeparate);
+    const d = dialog(`${head}<p class="t-meta" style="margin-top:6px">Exported ${plan.exportedAt ? fmtDate(plan.exportedAt) + ', ' + clock(plan.exportedAt) : '· date unknown'} · ${c.sources} original${c.sources === 1 ? '' : 's'} · ${c.drafts} draft${c.drafts === 1 ? '' : 's'} · ${c.items} board item${c.items === 1 ? '' : 's'}</p>
+      <div class="prov t-meta">
+        ${row('New originals', plan.added)}
+        ${row('Later revisions', plan.extended ? plan.extended + ' · appended to what is kept' : 0)}
+        ${row('Kept beside', plan.separate ? plan.separate + ' · differ from what is kept here, added as separate copies' : 0)}
+        ${row('Already here', plan.same)}
+        ${row('Drafts', plan.drafts + (plan.draftsSeparate ? ' · and ' + plan.draftsSeparate + ' differing, added beside yours' : ''))}
+        ${row('Board', plan.items + ' items · ' + plan.links + ' links')}
+      </div>
+      ${plan.notes.map((n) => `<p class="derived-note">${esc(n)}</p>`).join('')}
+      <p class="derived-note">Nothing already kept in this browser will be replaced or removed.</p>
+      <div class="row">${nothing ? '<button class="btn" data-dlg="close">Everything here already · close</button>' : '<button class="btn" data-dlg="apply">Restore</button><button class="btn quiet" data-dlg="close">Cancel</button>'}</div>`);
+    d.onclick = async (e) => {
+      const b = e.target.closest('[data-dlg]'); if (!b) return;
+      if (b.dataset.dlg === 'apply') {
+        b.disabled = true;
+        const r = await state.store.restore(data);
+        d.close();
+        if (!r.ok) { toast('Restore stopped · nothing was changed'); return; }
+        await load(); state.desk = null; route();
+        toast('Restored · ' + (r.added + r.extended + r.separate) + ' originals, ' + (r.drafts + r.draftsSeparate) + ' drafts · nothing replaced');
+      } else d.close();
+    };
+  }
+  document.addEventListener('click', (e) => { const b = e.target.closest('#dlg [data-dlg="close"]'); if (b) b.closest('dialog').close(); });
 
   /* ================= RETURN ================= */
 
@@ -535,13 +826,10 @@
 
   /* ================= boot ================= */
 
-  document.getElementById('export').addEventListener('click', async () => {
-    const data = await state.store.exportAll();
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
-    a.download = 'tangerine-' + new Date().toISOString().slice(0, 10) + '.json';
-    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-  });
+  document.getElementById('export').addEventListener('click', exportCopy);
+  const fileIn = document.getElementById('restore-file');
+  document.getElementById('restore').addEventListener('click', () => fileIn.click());
+  fileIn.addEventListener('change', () => { const f = fileIn.files[0]; fileIn.value = ''; if (f) restoreFile(f); });
   document.getElementById('remove-demo').addEventListener('click', async () => {
     if (!confirm('Remove all demonstration material? Anything you kept yourself stays.')) return;
     await state.store.removeDemonstration(); await state.store.setMeta('demonstration', 'removed');
@@ -551,7 +839,12 @@
   (async function boot() {
     state.store = await openStore();
     if ((await state.store.getMeta('demonstration')) === undefined) await window.TangerineDemo.install(state.store);
+    await recoverMirror();
     await load();
+    if (state.drafts.length) toast(state.drafts.length + ' unfinished draft' + (state.drafts.length > 1 ? 's' : '') + ' recovered · see Writing');
+    if (navigator.storage && navigator.storage.persist) {
+      try { state.persisted = (await navigator.storage.persisted()) || (await navigator.storage.persist()); } catch (e) { state.persisted = null; }
+    }
     window.addEventListener('hashchange', route);
     window.addEventListener('resize', () => state.view === 'whiteboard' && drawLinks());
     route();

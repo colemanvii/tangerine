@@ -19,7 +19,7 @@
     <a href="#whiteboard" data-view="whiteboard"><span class="t-meta">01</span> Whiteboard</a>
     <a href="#archive" data-view="archive"><span class="t-meta">02</span> Archive</a>
     <a href="#return" data-view="return"><span class="t-meta">03</span> Return</a>
-    <span class="nav-off" title="Milestone 002"><span class="t-meta">04</span> Writing</span>
+    <a href="#writing" data-view="writing"><span class="t-meta">04</span> Writing <span class="t-meta" id="draft-count"></span></a>
   </nav>
   <label class="search">
     <span class="visually-hidden">Search the archive and whiteboard</span>
@@ -34,7 +34,10 @@
   <span id="storage">—</span>
   <span id="demo-note" hidden>Demonstration material · fictional · <button type="button" id="remove-demo" class="link">Remove</button></span>
   <span class="foot-right">
+    <span id="last-copy"></span>
     <button type="button" id="export" class="link">Export a copy</button>
+    <button type="button" id="restore" class="link">Restore a copy</button>
+    <input type="file" id="restore-file" accept="application/json,.json" hidden>
     <span>Foundation 001 · Study</span>
   </span>
 </footer>
