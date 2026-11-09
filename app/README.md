@@ -1,4 +1,4 @@
-# Tangerine Digital — Whiteboard and Writing study (foundation 001)
+# TABLET — Spatial canvas and writing study (foundation 001)
 
 A local, private prototype. **Do not deploy.** The page carries `noindex`.
 
@@ -18,7 +18,7 @@ Open <http://127.0.0.1:4321/app/>. No build step, dependencies or network reques
 
 ## Use
 
-- **Whiteboard** — drag cards (or select and use arrow keys; Shift moves 48 px). `+ Project`, `+ Person`, `+ Idea`, `+ Pin source`, `Link`. Select a project to read or leave a bookmark and see related originals from the archive.
+- **Canvas** — drag cards (or select and use arrow keys; Shift moves 48 px). `+ Project`, `+ Person`, `+ Idea`, `+ Pin source`, `Link`. Select a project to read or leave a bookmark and see related originals from the archive.
 - **Archive** — originals with provenance, fingerprint and revision history. *Keep new* adds your own writing or note.
 - **Writing** — a quiet desk for long-form work. *New piece* starts one. Drafts save as you type
   and come back after a reload, a crash or a closed tab. *Keep* makes an original (revision 1,
@@ -27,7 +27,13 @@ Open <http://127.0.0.1:4321/app/>. No build step, dependencies or network reques
 - **Return** — what was kept on this day in an earlier year, the thread resting longest, one explained connection.
 - `/` searches everything. `Esc` cancels.
 
-Demonstration material is fictional and labeled; remove it from the footer.
+Demonstration material is fictional and labeled; remove it from the footer. This prototype does **not** automatically import ChatGPT conversations.
+
+## Direction
+
+TABLET is the working name for the spatial interface. Tangerine remains the archive and source of original writing. The canvas is not a task dashboard; it may hold ideas, people, projects, references and connections together without demanding a category or a next action.
+
+See [`docs/TABLET.md`](../docs/TABLET.md) for the proposed conversation-to-canvas ingestion model, consent boundaries and implementation milestones. No conversation synchronization is currently running.
 
 ## Where your writing lives — read this
 

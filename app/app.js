@@ -1,7 +1,7 @@
 /*
- * Tangerine Digital — foundation 001.
+ * TABLET by Tangerine — foundation 001.
  *
- * Whiteboard: the author's command center for projects, people and ideas,
+ * Canvas: the author's spatial surface for projects, people and ideas,
  * pinned to original sources in the archive. The board is a working layer:
  * it moves, links and bookmarks things, and only ever references originals.
  *
@@ -80,7 +80,7 @@
     if (state.view === 'archive' && id) state.archiveSel = decodeURIComponent(id);
     if (state.view === 'writing') openDesk(id ? decodeURIComponent(id) : null);
     document.querySelectorAll('.nav a').forEach((a) => { if (a.dataset.view === state.view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    document.title = 'Tangerine — ' + { whiteboard: 'Whiteboard', archive: 'Archive', return: 'Return', writing: 'Writing' }[state.view];
+    document.title = 'TABLET — ' + { whiteboard: 'Canvas', archive: 'Archive', return: 'Return', writing: 'Writing' }[state.view];
     render();
   }
 
@@ -138,7 +138,7 @@
     const maxX = Math.max(1240, ...state.items.map((i) => i.x + CARD_W + 120));
     main.innerHTML = `
       <div class="wb">
-        <div class="board-wrap" aria-label="Whiteboard">
+        <div class="board-wrap" aria-label="TABLET canvas">
           <div class="board-hint t-meta">${state.linking ? (state.linkFrom ? 'Choose the second item' : 'Choose the first item to link') + ' · Esc to cancel' : 'Drag to arrange · Arrow keys move the selection'}</div>
           <div class="board" style="width:${maxX}px;height:${maxY}px">
             <svg class="links" aria-hidden="true"></svg>
@@ -191,7 +191,7 @@
         ${b ? `<div style="margin-top:14px">${coldFields(b)}</div><p class="t-meta" style="margin-top:8px">Bookmark left ${ago(b.at)}</p>` : '<p class="derived-note">No bookmark yet.</p>'}
         <div class="row"><button class="btn" data-open="${now.id}">Open</button></div></section>`;
     } else {
-      html += `<section><div class="label t-meta"><span>Whiteboard</span></div><h2>Nothing is marked now.</h2><p class="derived-note">Select a project and choose “Make this now”.</p></section>`;
+      html += `<section><div class="label t-meta"><span>TABLET</span></div><h2>Nothing is marked now.</h2><p class="derived-note">Select something on the canvas, or add a thought.</p></section>`;
     }
     const counts = ['project', 'person', 'idea', 'source'].map((k) => state.items.filter((i) => i.kind === k).length);
     html += `<section><div class="label t-meta"><span>On the board</span></div>
