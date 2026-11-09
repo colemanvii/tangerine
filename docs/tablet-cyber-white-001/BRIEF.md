@@ -3,6 +3,12 @@
 ## Purpose
 Build a quiet personal instrument that gets its owner **out of AI conversations and into the world**. This is a proposal for the existing Tangerine local prototype, not a new product launch. No deployment or production changes.
 
+## Defining object — the first white iPod
+
+The owner remembers the original object: **white front, silver back, four controls glowing red, and a deliberately tactile wheel**. The first time listening to music through it is the emotional benchmark. Build an instrument someone wants to hold, not another AI dashboard. This is an interface philosophy, **not a literal hardware replica**. Use white/cool ivory space, metallic restraint, one red-orange signal, geometric/orbital selection, and near-total stillness. Light should feel alive by contrast rather than animated chrome. Radial interaction is a study, not a prerequisite for accessibility or basic tasks.
+
+The broader Tangerine product thesis is in [`INSTRUMENT.md`](https://github.com/colemanvii/tangerine/blob/main/INSTRUMENT.md). The **personal website** is a separate expression of this design DNA and should allow intentional, visitor-initiated music playback (only authorized audio); don't fold that functionality into the daily TABLET panel.
+
 ## Roles (one direction, no looping)
 1. **ChatGPT = intake.** One conversational thread for capture, decisions, and concise handoffs. Do not assume a conversation is synced automatically to this app.
 2. **TABLET = orientation.** The small, read-only-by-default surface for what matters **now**, the next real action, and what can wait. It is not a feed, conversation archive, or reflection engine.
