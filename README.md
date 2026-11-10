@@ -18,6 +18,10 @@ We are interested in the things people carry through life: photographs, words, p
 
 **Make it worth keeping.** Build with care and for longevity.
 
+## Product direction — The Synthesis Interface
+
+[Tangerine synthesis](SYNTHESIS.md) is the developing product thesis: **an interface atop ChatGPT that turns conversation into coherent context**—projects, people, decisions, relationships, and next actions—without manually managing folders and threads. The current product brief is a direction to test, not a working ChatGPT integration.
+
 ## Product direction — The Personal Instrument
 
 The [Tangerine instrument](INSTRUMENT.md) takes its cue from the first white iPod: white face, silver back, red-lit controls, and deliberate tactile interaction. **Cyber. White. Orange. Panel. Static. Luminescent. Orbital.**
