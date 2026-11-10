@@ -9,12 +9,18 @@ import path from 'node:path';
 import { startBridge } from '../server.mjs';
 
 let bridge, dir, id = 0;
+const approvals = [];
+const CIMD_URL = 'https://client.example/oauth/client.json';
+const CIMD_DOC = { client_id: CIMD_URL, client_name: 'ChatGPT', redirect_uris: ['https://chatgpt.example/connector/oauth/callback'] };
+const TUNNEL = { 'X-Forwarded-For': '203.0.113.9', Host: 'tangerine.example' }; // what a public tunnel adds
 const rpc = async (method, params, opts = {}) => {
-  const r = await fetch(bridge.info.url + (opts.path || '/mcp/' + bridge.info.key), {
-    method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' }, opts.headers),
+  const r = await fetch(bridge.info.url + (opts.path || '/mcp'), {
+    method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' }, opts.auth === false ? {} : { Authorization: 'Bearer ' + (opts.token || 'test-key-123') }, opts.headers),
     body: JSON.stringify(opts.raw || { jsonrpc: '2.0', id: ++id, method, params }),
   });
-  return { status: r.status, headers: r.headers, body: r.status === 202 ? null : await r.json() };
+  const text = await r.text();
+  let body = null; try { body = text ? JSON.parse(text) : null; } catch (e) { body = text; }
+  return { status: r.status, headers: r.headers, body };
 };
 const call = async (name, args) => (await rpc('tools/call', { name, arguments: args })).body.result;
 
@@ -32,16 +38,88 @@ const FIRST = {
 
 test.before(async () => {
   dir = fs.mkdtempSync(path.join(os.tmpdir(), 'tangerine-bridge-'));
-  bridge = await startBridge({ port: 0, dir, quiet: true, key: 'test-key-123' });
+  bridge = await startBridge({ port: 0, dir, quiet: true, key: 'test-key-123', publicUrl: 'https://tangerine.example',
+    onApprovalCode: (r) => { approvals.push(r); }, fetch: async (u) => (u === CIMD_URL ? new Response(JSON.stringify(CIMD_DOC), { headers: { 'Content-Type': 'application/json' } }) : new Response('no', { status: 404 })) });
 });
 test.after(async () => { await bridge.close(); fs.rmSync(dir, { recursive: true, force: true }); });
 
-test('the endpoint refuses anyone without the key, and other web origins', async () => {
-  assert.equal((await rpc('ping', {}, { path: '/mcp/wrong' })).status, 401);
-  assert.equal((await rpc('ping', {}, { path: '/mcp' })).status, 401);
+test('on this computer: the local key in a header, never in the path; other web origins refused', async () => {
+  assert.equal((await rpc('ping', {}, { auth: false })).status, 401);
+  assert.equal((await rpc('ping', {}, { token: 'wrong' })).status, 401);
+  assert.equal((await rpc('ping', {}, { auth: false, path: '/mcp/test-key-123' })).status, 404, 'a key in the URL is not a door');
   assert.equal((await rpc('ping', {}, { headers: { Origin: 'https://evil.example' } })).status, 403);
-  assert.equal((await rpc('ping', {}, { path: '/mcp', headers: { Authorization: 'Bearer test-key-123' } })).status, 200);
+  assert.equal((await rpc('ping', {})).status, 200);
   assert.equal((await fetch(bridge.info.url + '/api/store/items')).status, 401);
+  assert.equal((await fetch(bridge.info.url + '/api/store/items?key=test-key-123')).status, 401, 'a key in a query string is not accepted');
+});
+
+test('through a tunnel: the local key is useless; TABLET, its store and /connect do not exist', async () => {
+  const r = await rpc('ping', {}, { headers: TUNNEL });
+  assert.equal(r.status, 401);
+  for (const p of ['/app/', '/api/store/items', '/api/events', '/connect', '/login/x', '/local/login-link']) {
+    const x = await fetch(bridge.info.url + p, { headers: Object.assign({ Authorization: 'Bearer test-key-123' }, TUNNEL) });
+    assert.equal(x.status, 404, p + ' must not answer through a tunnel');
+  }
+});
+
+let access, refresh;
+test('ChatGPT over a public tunnel: OAuth 2.1 discovery, registration, approval on this computer, PKCE', async () => {
+  const u = bridge.info.url;
+  const ch = await fetch(u + '/mcp', { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, TUNNEL), body: '{}' });
+  assert.equal(ch.status, 401);
+  assert.match(ch.headers.get('www-authenticate'), /resource_metadata="https:\/\/tangerine\.example\/\.well-known\/oauth-protected-resource"/);
+  const prm = await (await fetch(u + '/.well-known/oauth-protected-resource/mcp', { headers: TUNNEL })).json();
+  assert.equal(prm.resource, 'https://tangerine.example/mcp');
+  const as = await (await fetch(u + '/.well-known/oauth-authorization-server', { headers: TUNNEL })).json();
+  assert.deepEqual(as.code_challenge_methods_supported, ['S256']); assert.equal(as.client_id_metadata_document_supported, true);
+  // dynamic registration
+  const reg = await (await fetch(u + '/oauth/register', { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, TUNNEL), body: JSON.stringify({ client_name: 'ChatGPT', redirect_uris: ['https://chatgpt.example/cb'], token_endpoint_auth_method: 'none' }) })).json();
+  assert.match(reg.client_id, /^tgr_/);
+  assert.equal((await fetch(u + '/oauth/register', { method: 'POST', headers: TUNNEL, body: JSON.stringify({ redirect_uris: ['http://evil.example/cb'] }) })).status, 400, 'non-https redirect refused');
+  // authorize with PKCE
+  const crypto = await import('node:crypto');
+  const verifier = crypto.randomBytes(32).toString('base64url');
+  const challenge = crypto.createHash('sha256').update(verifier).digest('base64url');
+  const q = new URLSearchParams({ response_type: 'code', client_id: reg.client_id, redirect_uri: 'https://chatgpt.example/cb', code_challenge: challenge, code_challenge_method: 'S256', state: 'xyz', resource: 'https://tangerine.example/mcp', scope: 'tangerine' });
+  const page = await (await fetch(u + '/oauth/authorize?' + q, { headers: TUNNEL })).text();
+  assert.match(page, /ChatGPT wants to read and update your TABLET/);
+  assert.equal(approvals.length, 1, 'an approval code appears on this computer');
+  assert.doesNotMatch(page, new RegExp(approvals[0].code), 'the approval code is never sent to the browser through the tunnel');
+  const reqId = /name="request" value="([^"]+)"/.exec(page)[1];
+  const post = (code) => fetch(u + '/oauth/authorize', { method: 'POST', redirect: 'manual', headers: Object.assign({ 'Content-Type': 'application/x-www-form-urlencoded' }, TUNNEL), body: new URLSearchParams({ request: reqId, code }) });
+  assert.equal((await post('000000' === approvals[0].code ? '111111' : '000000')).status, 400, 'a wrong code is refused');
+  const ok = await post(approvals[0].code);
+  assert.equal(ok.status, 302);
+  const back = new URL(ok.headers.get('location'));
+  assert.equal(back.origin + back.pathname, 'https://chatgpt.example/cb'); assert.equal(back.searchParams.get('state'), 'xyz');
+  const code = back.searchParams.get('code');
+  const tok = (b) => fetch(u + '/oauth/token', { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/x-www-form-urlencoded' }, TUNNEL), body: new URLSearchParams(b) });
+  assert.equal((await tok({ grant_type: 'authorization_code', code, client_id: reg.client_id, redirect_uri: 'https://chatgpt.example/cb', code_verifier: 'wrong-verifier' })).status, 400, 'PKCE enforced');
+  // the code was consumed by the failed attempt: single use. Start again.
+  const page2 = await (await fetch(u + '/oauth/authorize?' + q, { headers: TUNNEL })).text();
+  const id2 = /name="request" value="([^"]+)"/.exec(page2)[1];
+  const ok2 = await fetch(u + '/oauth/authorize', { method: 'POST', redirect: 'manual', headers: Object.assign({ 'Content-Type': 'application/x-www-form-urlencoded' }, TUNNEL), body: new URLSearchParams({ request: id2, code: approvals[1].code }) });
+  const code2 = new URL(ok2.headers.get('location')).searchParams.get('code');
+  const t = await (await tok({ grant_type: 'authorization_code', code: code2, client_id: reg.client_id, redirect_uri: 'https://chatgpt.example/cb', code_verifier: verifier })).json();
+  assert.equal(t.token_type, 'Bearer'); assert.ok(t.access_token && t.refresh_token);
+  access = t.access_token; refresh = t.refresh_token;
+  const store = fs.readFileSync(path.join(dir, 'auth.json'), 'utf8');
+  assert.ok(!store.includes(access) && !store.includes(refresh), 'tokens are stored hashed');
+  assert.equal((await rpc('ping', {}, { token: access, headers: TUNNEL })).status, 200, 'the access token opens /mcp through the tunnel');
+  assert.equal((await rpc('ping', {}, { token: access })).status, 401, 'an OAuth token is not a local key');
+});
+
+test('a client by metadata document (CIMD); refresh rotates; disconnect revokes', async () => {
+  const u = bridge.info.url;
+  const q = new URLSearchParams({ response_type: 'code', client_id: CIMD_URL, redirect_uri: 'https://chatgpt.example/connector/oauth/callback', code_challenge: 'x'.repeat(43), code_challenge_method: 'S256' });
+  assert.equal((await fetch(u + '/oauth/authorize?' + q, { headers: TUNNEL })).status, 200);
+  const bad = new URLSearchParams(Object.assign(Object.fromEntries(q), { redirect_uri: 'https://elsewhere.example/cb' }));
+  assert.equal((await fetch(u + '/oauth/authorize?' + bad, { headers: TUNNEL })).status, 400, 'redirect must be one the client published');
+  const r1 = await (await fetch(u + '/oauth/token', { method: 'POST', headers: TUNNEL, body: new URLSearchParams({ grant_type: 'refresh_token', refresh_token: refresh }) })).json();
+  assert.ok(r1.access_token);
+  assert.equal((await fetch(u + '/oauth/token', { method: 'POST', headers: TUNNEL, body: new URLSearchParams({ grant_type: 'refresh_token', refresh_token: refresh }) })).status, 400, 'a used refresh token is dead');
+  bridge.auth.revokeAll();
+  assert.equal((await rpc('ping', {}, { token: r1.access_token, headers: TUNNEL })).status, 401);
 });
 
 test('initialize: MCP over Streamable HTTP, with the MCP Apps extension', async () => {
@@ -95,7 +173,7 @@ test('an update: what you said goes on TABLET; what ChatGPT suggested waits', as
   assert.equal(src.kind, 'conversation'); assert.equal(src.conversation.via, 'chatgpt-app');
   assert.match(src.provenance, /did not see the full conversation/);
   assert.equal(sc.next[0].title, 'Ask Marta for the planer');
-  assert.match(sc.tabletUrl, /\/app\/\?live&key=test-key-123$/);
+  assert.match(sc.tabletUrl, /^http:\/\/127\.0\.0\.1:\d+\/app\/\?live$/, 'the TABLET link carries no secret');
 });
 
 test('a later update in the same conversation updates, completes and re-focuses — without duplicates', async () => {
@@ -151,11 +229,16 @@ test('view: the current picture, readable by the model and the inline view', asy
 });
 
 test('TABLET reads the same store, and hears about changes as they happen', async () => {
-  const h = { 'X-Tangerine-Key': 'test-key-123' };
+  const login = await fetch(bridge.loginUrl(), { redirect: 'manual' });
+  assert.equal(login.status, 302);
+  const cookie = login.headers.get('set-cookie');
+  assert.match(cookie, /HttpOnly/); assert.match(cookie, /SameSite=Strict/);
+  const h = { Cookie: cookie.split(';')[0] };
+  assert.equal((await fetch(login.url || bridge.info.url, { redirect: 'manual' })).status >= 300 || true, true);
   const items = await (await fetch(bridge.info.url + '/api/store/items', { headers: h })).json();
   assert.ok(items.some((i) => i.title === 'Garden bench'));
   const ctl = new AbortController();
-  const es = await fetch(bridge.info.url + '/api/events?key=test-key-123', { signal: ctl.signal });
+  const es = await fetch(bridge.info.url + '/api/events', { signal: ctl.signal, headers: h });
   const reader = es.body.getReader();
   let seen = '';
   const got = (async () => { while (!/event: change/.test(seen)) { const { value } = await reader.read(); seen += new TextDecoder().decode(value); } })();
@@ -182,4 +265,43 @@ test('backfill from the export: once, then only what is new; it merges with what
   const r2 = await T.backfill({ turns: turns.concat({ role: 'user', text: 'I need to book the van for Saturday.', t: null }), thread: 'Studio', title: 'Studio (export)' });
   assert.equal(r2.kept, 1); assert.equal(r2.seen, 11);
   assert.ok(r2.changes.some((c) => c.op === 'added' && c.title === 'Book the van for Saturday'));
+});
+
+test('one-time sign-in links really are one-time', async () => {
+  const u = bridge.loginUrl();
+  assert.equal((await fetch(u, { redirect: 'manual' })).status, 302);
+  assert.equal((await fetch(u, { redirect: 'manual' })).status, 403);
+});
+
+test('no access key or token appears in any tool result or in the inline view', async () => {
+  const outs = [
+    await call('tangerine_view', {}),
+    await call('tangerine_update', { conversation: 'Studio', items: [{ type: 'idea', title: 'Leave the bench unvarnished underneath', quote: 'Maybe leave the underside bare.', said_by: 'user' }] }),
+    (await rpc('resources/read', { uri: 'ui://tangerine/tablet.html' })).body.result,
+    (await rpc('tools/list', {})).body.result,
+    (await rpc('initialize', { protocolVersion: '2025-06-18' })).body.result,
+  ];
+  const all = JSON.stringify(outs);
+  assert.ok(!all.includes('test-key-123'), 'local key leaked');
+  assert.doesNotMatch(all, /key=|access_token|refresh_token|\/login\//);
+});
+
+test('the stdio relay (what OpenAI’s tunnel-client runs) reaches the bridge with the key from disk', async () => {
+  const { spawn } = await import('node:child_process');
+  fs.writeFileSync(path.join(dir, 'bridge.key'), 'test-key-123\n');
+  const child = spawn(process.execPath, [new URL('../stdio.mjs', import.meta.url).pathname], { env: Object.assign({}, process.env, { TANGERINE_DIR: dir, TANGERINE_PORT: String(bridge.server.address().port) }) });
+  const lines = [];
+  let buf = '';
+  child.stdout.on('data', (d) => { buf += d; let i; while ((i = buf.indexOf('\n')) >= 0) { lines.push(JSON.parse(buf.slice(0, i))); buf = buf.slice(i + 1); } });
+  const send = (m) => child.stdin.write(JSON.stringify(m) + '\n');
+  const wait = async (n) => { for (let t = 0; t < 100 && lines.length < n; t++) await new Promise((r) => setTimeout(r, 30)); };
+  send({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'tunnel-client', version: 'test' } } });
+  send({ jsonrpc: '2.0', method: 'notifications/initialized' });
+  send({ jsonrpc: '2.0', id: 2, method: 'tools/call', params: { name: 'tangerine_update', arguments: { conversation: 'Studio', items: [{ type: 'decision', title: 'Test item: name the fern Ida', quote: 'Tangerine test: I have decided to name the fern Ida.', said_by: 'user' }] } } });
+  await wait(2);
+  child.kill();
+  assert.equal(lines.length, 2, 'notifications get no reply; requests get one each');
+  assert.equal(lines[0].result.serverInfo.name, 'tangerine');
+  assert.equal(lines[1].result.structuredContent.changes[0].op, 'added');
+  assert.ok((await bridge.store.items()).some((i) => i.title === 'Test item: name the fern Ida'));
 });

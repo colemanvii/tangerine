@@ -66,29 +66,28 @@ Tests: `node --test bridge/tests/*.test.mjs` (12: auth, origin, initialize, tool
 
 Screens (`docs/synthesis-002/screens/`, fictional): 01 the card in a conversation (simulated host) · 02 TABLET live · 03 evidence · 04 TABLET after the conversation.
 
-## 4. Running it with your real conversation
+## 4. Connecting a real ChatGPT account (security revision, v0.3)
 
-Real material never enters this repository. It stays in `private/` on the machine running the bridge.
+Step-by-step instructions, the two connection paths and the one-item live test are in [`bridge/README.md`](../../bridge/README.md). In short:
 
-1. **Start the bridge** (on your Mac, from a clone of this branch): `node bridge/server.mjs`. Open the TABLET link it prints.
-2. **Backfill** (optional, recommended): request your export in ChatGPT (Settings → Data controls → Export), then
-   `node bridge/backfill.mjs ~/Downloads/conversations.json` to list, and `--pick <n> --as "<name>"` for your one ongoing conversation.
-3. **Connect ChatGPT** — *your decision, it exposes an endpoint:* run a tunnel to `127.0.0.1:4330` (e.g. `cloudflared tunnel --url http://127.0.0.1:4330`), restart the bridge with `TANGERINE_PUBLIC_URL=https://<tunnel-host>`, then in ChatGPT enable developer mode and create an app/connector with URL `https://<tunnel-host>/mcp/<key>` (printed by the bridge), no OAuth. Stop the tunnel to disconnect.
-4. **One custom instruction** (ChatGPT → Personalization), optional:
-   *“When I make a decision, commit to something, finish something, or mention a project or person that matters to my work, update Tangerine with the exact quote.”*
-5. Talk. Glance at TABLET when you want the picture.
+- **No secret in any URL, tool result or the conversation.** The earlier `/mcp/<key>` address and `?key=` TABLET link are gone (a key in a path now gets a plain 404).
+- **Path A — OpenAI Secure MCP Tunnel** (preferred; OpenAI documents custom tunnel connections for Business, Enterprise and Edu workspaces): `tunnel-client` runs `node bridge/stdio.mjs`, which relays to the bridge over loopback with the local key read from disk. Nothing listens publicly.
+- **Path B — development tunnel + OAuth 2.1** (fallback): discovery (`/.well-known/oauth-protected-resource`, authorization-server metadata), Client ID Metadata Documents or dynamic registration, authorization code + PKCE S256, an approval code shown only on your computer, hashed tokens, one-hour access, rotating refresh, one-click revoke at `/connect`. Through the tunnel only `/mcp` and OAuth answer; TABLET, its store and `/connect` do not exist there.
+- **TABLET** signs in with a one-time, two-minute link (`node bridge/open.mjs`) that sets an HttpOnly, SameSite=Strict cookie.
+- **`node bridge/doctor.mjs [--public https://…]`** checks all of it before you connect.
+
+Verified here (fictional data): 18 protocol/security tests, 21 browser checks including Tangerine’s consent page with the approval code, ChatGPT’s token exchange, and the live test rehearsed over both paths: *one fictional decision → TABLET → Undo from the inline card → gone from TABLET*.
+
+**Not verifiable from this environment:** your plan, the exact menu names on your account, whether Secure MCP Tunnel is offered to you, and whether your plan permits write tools. The live test in `bridge/README.md` §3 answers all four in five minutes.
 
 ## 5. Honest limits
 
 - **Not zero-touch.** ChatGPT decides when to call the tool, and developer mode asks you to confirm each write. That is one click, inside the conversation — far less than copy-paste, but not nothing.
 - **ChatGPT chooses what to relay and which words to quote.** Tangerine cannot verify a quote against a conversation it cannot see; the relay is kept and labelled as such. The backfill path *is* verifiable against the export.
-- **The key in the URL is a shared secret**, adequate for a personal prototype behind your own tunnel; a real product needs OAuth, which developer mode supports.
+- **Single user.** OAuth here authorizes one person’s bridge; there are no accounts or scopes beyond “use Tangerine’s tools”.
 - **Not yet run against a live ChatGPT account.** The protocol is tested against the MCP / MCP Apps specifications with a simulated host. Plan availability of write tools and exact menu names must be confirmed on your account.
 - **Private vault still pending:** the store is a JSON file on one machine, with export/restore.
 
-## 6. What I need from you
+## 6. Next
 
-To prototype with **real, explicitly authorized** material, choose one:
-1. **Backfill locally (no endpoint).** Run step 2 on your Mac with your export. Nothing leaves your machine.
-2. **Connect for real.** Run steps 1–4 yourself (you control the tunnel), talk for a day, then judge TABLET.
-3. **Bring a selected excerpt or export into this session.** I can run it here in `private/` (git-ignored, never committed) and show you TABLET built from it; the container is ephemeral and its files are discarded with the session.
+Run the live test (`bridge/README.md` §3) on your account. Only after it passes: the one-time backfill of your ongoing conversation, then no more imports.

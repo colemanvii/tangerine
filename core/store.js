@@ -527,7 +527,7 @@
    * machine (bridge/server.mjs) so ChatGPT's relays and TABLET share one store.
    */
   function httpBackend(base, key) {
-    const headers = { 'X-Tangerine-Key': key };
+    const headers = key ? { 'X-Tangerine-Key': key } : {}; // TABLET in the browser uses its session cookie instead
     const at = (c, k) => (base || '') + '/api/store/' + encodeURIComponent(c) + (k === undefined ? '' : '/' + encodeURIComponent(k));
     const json = async (r) => { if (!r.ok) throw new Error('The Tangerine bridge answered ' + r.status); return r.json(); };
     return {
@@ -539,8 +539,8 @@
     };
   }
   async function openLiveStore(key, base) {
-    const r = await fetch((base || '') + '/api/info', { headers: { 'X-Tangerine-Key': key } });
-    if (!r.ok) throw new Error(r.status === 401 ? 'This TABLET link has the wrong key.' : 'The Tangerine bridge is not reachable.');
+    const r = await fetch((base || '') + '/api/info', { headers: key ? { 'X-Tangerine-Key': key } : {} });
+    if (!r.ok) throw new Error(r.status === 401 ? 'TABLET is not signed in on this computer.' : 'The Tangerine bridge is not reachable.');
     const s = createStore(httpBackend(base, key));
     s.live = true;
     return s;

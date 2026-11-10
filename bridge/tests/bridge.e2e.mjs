@@ -13,10 +13,12 @@ const { chromium } = require('playwright');
 const shotsAt = process.argv.includes('--shots') ? process.argv[process.argv.indexOf('--shots') + 1] : null;
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'tangerine-bridge-e2e-'));
-const bridge = await startBridge({ port: 0, dir, quiet: true, key: 'e2e-key' });
+const approvals = [];
+const bridge = await startBridge({ port: 0, dir, quiet: true, key: 'e2e-key', publicUrl: 'https://tangerine.example', onApprovalCode: (r) => approvals.push(r) });
 let id = 0;
-const mcp = async (method, params) => (await (await fetch(bridge.info.mcp, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: ++id, method, params }) })).json()).result;
-const call = (name, args) => mcp('tools/call', { name, arguments: args });
+let auth = { Authorization: 'Bearer e2e-key' };
+const mcp = async (method, params, headers) => (await (await fetch(bridge.info.mcp, { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, headers || auth), body: JSON.stringify({ jsonrpc: '2.0', id: ++id, method, params }) })).json()).result;
+const call = (name, args, headers) => mcp('tools/call', { name, arguments: args }, headers);
 let n = 0; const ok = (m) => console.log('ok', ++n, m);
 const errors = [];
 const browser = await chromium.launch();
@@ -27,11 +29,11 @@ try {
   // ---- 1. TABLET is open on the desktop, empty, live ----
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
   const tablet = await ctx.newPage(); watch(tablet); tablet.on('dialog', (d) => d.accept());
-  await tablet.goto(bridge.info.tablet);
+  await tablet.goto(bridge.loginUrl());
   await tablet.waitForSelector('.wb');
   assert.equal(await tablet.locator('.card').count(), 0); ok('live TABLET starts from the bridge’s store: no demonstration material');
   assert.match(await tablet.locator('#storage').innerText(), /Live/i); ok('footer says TABLET is live from the bridge');
-  assert.doesNotMatch(tablet.url(), /key=/); ok('the key is taken out of the address bar');
+  assert.match(tablet.url(), /\/app\/\?live$/); ok('TABLET is signed in by a one-time link; its address carries no secret');
 
   // ---- 2. ChatGPT relays (as it would during the conversation) ----
   const relay = await call('tangerine_update', { conversation: 'Studio', items: [
@@ -97,7 +99,8 @@ try {
   await tablet.waitForFunction(() => document.body.innerText.includes('Sketch the joinery'), null, { timeout: 5000 });
   ok('Keep in the conversation places the suggestion on TABLET, still labelled');
   await view.locator('#open').click();
-  assert.match(await host.evaluate(() => window.__opened), /\/app\/\?live&key=e2e-key/); ok('“Open TABLET” asks the host to open the live TABLET');
+  await host.waitForFunction(() => Boolean(window.__opened));
+  assert.match(await host.evaluate(() => window.__opened), /^http:\/\/127\.0\.0\.1:\d+\/app\/\?live$/); ok('“Open TABLET” opens the local TABLET; the link carries no secret');
 
   // ---- 4. TABLET: evidence and the way back; your arrangement stays ----
   await tablet.bringToFront();
@@ -119,7 +122,51 @@ try {
   await tablet.waitForTimeout(200);
   await shot(tablet, '04-tablet-after-conversation');
 
-  // ---- 5. the view tool from a fresh card ----
+  // ---- 5. the live test, rehearsed: one fictional item, over each way ChatGPT can connect ----
+  // (a) public development tunnel + OAuth, exactly as ChatGPT runs it
+  const T = { 'X-Forwarded-For': '203.0.113.9', Host: 'tangerine.example' };
+  const u = bridge.info.url;
+  const reg = await (await fetch(u + '/oauth/register', { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, T), body: JSON.stringify({ client_name: 'ChatGPT', redirect_uris: ['https://chatgpt.example/cb'] }) })).json();
+  const crypto = await import('node:crypto');
+  const verifier = crypto.randomBytes(32).toString('base64url'), challenge = crypto.createHash('sha256').update(verifier).digest('base64url');
+  // the person's browser, sent by ChatGPT to the authorize page through the tunnel
+  const consent = await ctx.newPage(); watch(consent);
+  let redirectedTo = null; // where the bridge sends the browser back to ChatGPT
+  await consent.route('https://tangerine.example/**', async (route) => { try {
+    const r = route.request(); const url = new URL(r.url());
+    const resp = await fetch(u + url.pathname + url.search, { method: r.method(), headers: Object.assign({}, r.headers(), T, { 'content-type': r.headers()['content-type'] || 'text/plain' }), body: r.postData() || undefined, redirect: 'manual' });
+    if (resp.status >= 300 && resp.status < 400) { redirectedTo = resp.headers.get('location'); return route.fulfill({ status: 200, contentType: 'text/html', body: '<p>Returned to ChatGPT.</p>' }); }
+    const keep = ['content-type', 'location', 'content-security-policy', 'cache-control'];
+    await route.fulfill({ status: resp.status, headers: Object.fromEntries([...resp.headers].filter(([k]) => keep.includes(k))), body: Buffer.from(await resp.arrayBuffer()) });
+  } catch (e) { console.log('ROUTE', e.message); throw e; } });
+  await consent.route('https://chatgpt.example/**', (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<p>ChatGPT received the authorization.</p>' }));
+  await consent.goto('https://tangerine.example/oauth/authorize?' + new URLSearchParams({ response_type: 'code', client_id: reg.client_id, redirect_uri: 'https://chatgpt.example/cb', code_challenge: challenge, code_challenge_method: 'S256', state: 's1', scope: 'tangerine' }));
+  assert.match(await consent.locator('h1').innerText(), /ChatGPT wants to read and update your TABLET/); ok('ChatGPT’s sign-in shows Tangerine’s consent page, asking for a code from this computer');
+  await shot(consent, '05-connect-consent');
+  const local = await ctx.newPage(); watch(local);
+  await local.goto(bridge.loginUrl()); await local.goto(bridge.info.url + '/connect');
+  assert.match(await local.locator('.code').innerText(), new RegExp(approvals[approvals.length - 1].code)); ok('the approval code is shown only on this computer (/connect)');
+  await shot(local, '06-connect-local');
+  await consent.locator('input[name="code"]').fill(approvals[approvals.length - 1].code);
+  await consent.locator('button[type="submit"]').first().click();
+  await consent.waitForFunction(() => /Returned to ChatGPT/.test(document.body.innerText));
+  const back = new URL(redirectedTo);
+  assert.equal(back.origin + back.pathname, 'https://chatgpt.example/cb'); assert.equal(back.searchParams.get('state'), 's1');
+  const code = back.searchParams.get('code');
+  const tok = await (await fetch(u + '/oauth/token', { method: 'POST', headers: T, body: new URLSearchParams({ grant_type: 'authorization_code', code, client_id: reg.client_id, redirect_uri: 'https://chatgpt.example/cb', code_verifier: verifier }) })).json();
+  assert.ok(tok.access_token); ok('ChatGPT receives a token after you approve (PKCE verified)');
+  await local.close(); await consent.close();
+  const viaTunnel = Object.assign({ Authorization: 'Bearer ' + tok.access_token }, T);
+  await tablet.bringToFront();
+  const test = await call('tangerine_update', { conversation: 'Studio', items: [{ type: 'decision', title: 'Tangerine test: name the fern Ida', quote: 'Tangerine test: I have decided to name the fern Ida.', said_by: 'user' }] }, viaTunnel);
+  await tablet.waitForFunction(() => document.body.innerText.includes('name the fern Ida'), null, { timeout: 5000 });
+  ok('ChatGPT → Tangerine → TABLET: the fictional test item appears on TABLET');
+  const pid = test.structuredContent.changes[0].proposalId;
+  await call('tangerine_undo', { proposalId: pid }, viaTunnel);
+  await tablet.waitForFunction(() => !document.body.innerText.includes('name the fern Ida'), null, { timeout: 5000 });
+  ok('Undo (from the card in ChatGPT) → it leaves TABLET');
+
+  // ---- 6. the view tool from a fresh card ----
   const v = await call('tangerine_view', {});
   assert.match(v.content[0].text, /NOW: Garden bench/); ok('“what’s on my plate?” — the view tool gives ChatGPT and the card the current picture');
 

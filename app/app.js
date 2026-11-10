@@ -1388,13 +1388,8 @@
    */
   const params = new URLSearchParams(location.search);
   const LIVE = params.has('live');
-  let liveKey = null;
-  function liveKeyFromURL() {
-    const k = params.get('key');
-    try { if (k) sessionStorage.setItem('tangerine.liveKey', k); liveKey = k || sessionStorage.getItem('tangerine.liveKey'); } catch (e) { liveKey = k; }
-    if (k) { params.delete('key'); history.replaceState(null, '', location.pathname + '?' + params.toString().replace(/=(&|$)/g, '$1') + location.hash); }
-    return liveKey;
-  }
+  /* Live TABLET signs in with a session cookie (one-time link from the bridge). A key in the address is never used. */
+  if (params.has('key')) { params.delete('key'); history.replaceState(null, '', location.pathname + '?' + params.toString().replace(/=(&|$)/g, '$1') + location.hash); }
   let refreshTimer = null;
   function liveRefresh() {
     clearTimeout(refreshTimer);
@@ -1416,9 +1411,9 @@
 
   (async function boot() {
     if (LIVE) {
-      try { state.store = await window.TangerineStore.openLiveStore(liveKeyFromURL() || ''); }
-      catch (e) { main.innerHTML = `<p class="empty">${esc(e.message)} Start it with <span class="t-meta">node bridge/server.mjs</span> and open the TABLET link it prints.</p>`; return; }
-      const es = new EventSource('/api/events?key=' + encodeURIComponent(liveKey));
+      try { state.store = await window.TangerineStore.openLiveStore(''); }
+      catch (e) { main.innerHTML = `<p class="empty">TABLET is not signed in on this computer. Run <span class="t-meta">node bridge/open.mjs</span> (the bridge must be running) to open it.</p>`; return; }
+      const es = new EventSource('/api/events');
       es.addEventListener('change', liveRefresh);
       es.onerror = () => { document.getElementById('storage').textContent = 'Live · reconnecting to the bridge…'; };
       es.addEventListener('hello', () => load());
