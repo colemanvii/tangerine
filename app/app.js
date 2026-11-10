@@ -81,7 +81,7 @@
     const demo = state.sources.some((x) => x.demonstration) || state.items.some((x) => x.demonstration);
     document.getElementById('demo-note').hidden = !demo;
     const el = document.getElementById('storage');
-    el.textContent = s.durable ? 'This browser only · not a vault' : 'Not saved · memory only';
+    el.textContent = s.live ? 'Live · kept by the Tangerine bridge on this machine' : s.durable ? 'This browser only · not a vault' : 'Not saved · memory only';
     el.title = s.durable ? 'Nothing is sent anywhere. Clearing this site’s data, a different address or port, or another browser means an empty Tangerine. Export a copy regularly.' : (s.problem || '');
     el.classList.toggle('warn', !s.durable);
     const last = await s.getMeta('lastExport');
@@ -1381,9 +1381,51 @@
     state.sel = null; await load(); render();
   });
 
+  /*
+   * Live: opened from the Tangerine bridge (bridge/server.mjs) with ?live.
+   * TABLET then reads and writes the bridge's store on this machine, and
+   * redraws when ChatGPT relays something. No demonstration is installed.
+   */
+  const params = new URLSearchParams(location.search);
+  const LIVE = params.has('live');
+  let liveKey = null;
+  function liveKeyFromURL() {
+    const k = params.get('key');
+    try { if (k) sessionStorage.setItem('tangerine.liveKey', k); liveKey = k || sessionStorage.getItem('tangerine.liveKey'); } catch (e) { liveKey = k; }
+    if (k) { params.delete('key'); history.replaceState(null, '', location.pathname + '?' + params.toString().replace(/=(&|$)/g, '$1') + location.hash); }
+    return liveKey;
+  }
+  let refreshTimer = null;
+  function liveRefresh() {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(async () => {
+      const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement && document.activeElement.tagName);
+      if (drag || state.composing || typing || document.querySelector('dialog[open]')) { liveRefresh(); return; }
+      const before = new Set(state.items.map((i) => i.id));
+      await load();
+      const fresh = state.items.filter((i) => !before.has(i.id) && i.origin === 'conversation');
+      fresh.forEach((it, i) => {
+        const anchor = linkedTo(it.id).find((o) => o.kind === 'project') || linkedTo(it.id)[0];
+        state.arrivals.set(it.id, { x: anchor ? anchor.x : it.x, y: anchor ? anchor.y : it.y - 80, i });
+      });
+      if (state.view === 'writing') return; // never redraw under someone's sentence
+      render();
+      if (fresh.length) toast(fresh.length + ' new from ChatGPT');
+    }, 400);
+  }
+
   (async function boot() {
-    state.store = await openStore();
-    if ((await state.store.getMeta('demonstration')) === undefined) await window.TangerineDemo.install(state.store);
+    if (LIVE) {
+      try { state.store = await window.TangerineStore.openLiveStore(liveKeyFromURL() || ''); }
+      catch (e) { main.innerHTML = `<p class="empty">${esc(e.message)} Start it with <span class="t-meta">node bridge/server.mjs</span> and open the TABLET link it prints.</p>`; return; }
+      const es = new EventSource('/api/events?key=' + encodeURIComponent(liveKey));
+      es.addEventListener('change', liveRefresh);
+      es.onerror = () => { document.getElementById('storage').textContent = 'Live · reconnecting to the bridge…'; };
+      es.addEventListener('hello', () => load());
+    } else {
+      state.store = await openStore();
+    }
+    if (!LIVE && (await state.store.getMeta('demonstration')) === undefined) await window.TangerineDemo.install(state.store);
     await recoverMirror();
     await load();
     if (state.drafts.length) toast(state.drafts.length + ' unfinished draft' + (state.drafts.length > 1 ? 's' : '') + ' recovered · see Writing');

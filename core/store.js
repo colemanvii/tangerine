@@ -522,6 +522,30 @@
     };
   }
 
+  /*
+   * The live store: the same records, kept by the Tangerine bridge on this
+   * machine (bridge/server.mjs) so ChatGPT's relays and TABLET share one store.
+   */
+  function httpBackend(base, key) {
+    const headers = { 'X-Tangerine-Key': key };
+    const at = (c, k) => (base || '') + '/api/store/' + encodeURIComponent(c) + (k === undefined ? '' : '/' + encodeURIComponent(k));
+    const json = async (r) => { if (!r.ok) throw new Error('The Tangerine bridge answered ' + r.status); return r.json(); };
+    return {
+      durable: true, live: true,
+      all: (c) => fetch(at(c), { headers }).then(json),
+      get: (c, k) => fetch(at(c, k), { headers }).then(json).then((v) => (v === null ? undefined : v)),
+      put: (c, k, v) => fetch(at(c, k), { method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, headers), body: JSON.stringify(v) }).then(json).then(() => undefined),
+      remove: (c, k) => fetch(at(c, k), { method: 'DELETE', headers }).then(json).then(() => undefined),
+    };
+  }
+  async function openLiveStore(key, base) {
+    const r = await fetch((base || '') + '/api/info', { headers: { 'X-Tangerine-Key': key } });
+    if (!r.ok) throw new Error(r.status === 401 ? 'This TABLET link has the wrong key.' : 'The Tangerine bridge is not reachable.');
+    const s = createStore(httpBackend(base, key));
+    s.live = true;
+    return s;
+  }
+
   async function openStore(name) {
     try { return createStore(await indexedDBBackend(name || 'tangerine-foundation-001')); }
     catch (e) {
@@ -531,7 +555,7 @@
     }
   }
 
-  const exported = { createStore, memoryBackend, openStore, validateBackup, USER_EDIT, USER_DELETE, deepFreeze, BACKUP_FORMAT };
+  const exported = { createStore, memoryBackend, httpBackend, openLiveStore, openStore, validateBackup, USER_EDIT, USER_DELETE, deepFreeze, BACKUP_FORMAT };
   if (typeof module !== 'undefined' && module.exports) module.exports = exported;
   else root.TangerineStore = exported;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

@@ -3,3 +3,7 @@
 tangerine-*.json
 *.tangerine.json
 private/
+# ChatGPT data exports and the bridge's store are private; never commit them.
+conversations.json
+chat.html
+*.chatgpt-export.zip
