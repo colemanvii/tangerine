@@ -1,43 +1,69 @@
-# tangerine
+# Tangerine
 
-*A place to keep what matters and return to it.*
+**A synthesis interface for ChatGPT.**
 
-Tangerine is an independent creative company working across design, technology, publishing, and objects.
+*Talk naturally. See what matters. Get back to making and living.*
 
-We are interested in the things people carry through life: photographs, words, places, music, tools, and memories. We believe the way something is made affects how it is experienced, and that useful things can also be beautiful.
+Tangerine is a product concept for a visual layer atop ChatGPT. ChatGPT is where conversation happens; **Tangerine** is where permitted conversation context becomes a clear, source-grounded picture of the people, projects, ideas, decisions, relationships, and next actions that matter.
 
-## Point of view
+Its first interface is **TABLET**: a spatial, rearrangeable canvas for seeing connections without manually building a filing system.
 
-**Attention over noise.** Make space for the things worth noticing.
+> **The product promise:** One ongoing conversation. A living picture of your world. No extra organizational work.
 
-**Originals matter.** Keep authorship, history, and context intact.
+## The intended experience
 
-**Design is the work.** Material, typography, proportion, and behavior are not decoration.
+**CHATGPT → SYNTHESIS → TABLET → ACTION**
 
-**Return is as important as discovery.** Good work gains meaning with time.
+- **Talk.** Have a natural conversation in ChatGPT. Don't start a new thread, create a folder, or maintain a board just to think.
+- **Synthesize.** With appropriate permission and source access, Tangerine proposes important people, projects, decisions, questions, commitments, and connections. It separates facts from suggestions and provides evidence.
+- **See.** TABLET makes that context navigable: relationships on a spatial field, plus a quiet orientation to NOW, NEXT, and OPEN LOOPS.
+- **Act and return.** Make, write, reconnect, decide, or leave the screen. The point isn't to spend more time managing software.
 
-**Make it worth keeping.** Build with care and for longevity.
+Tangerine is **not** a replacement chatbot, another task manager, or a prettier version of manually sorting ChatGPT exports.
 
-## Product direction — The Synthesis Interface
+## What exists today
 
-[Tangerine synthesis](SYNTHESIS.md) is the developing product thesis: **an interface atop ChatGPT that turns conversation into coherent context**—projects, people, decisions, relationships, and next actions—without manually managing folders and threads. The current product brief is a direction to test, not a working ChatGPT integration.
+**Prototype 001 is a working local study, not a live ChatGPT-connected product.**
 
-## Product direction — The Personal Instrument
+On branch [`claude/upbeat-newton-p6gfp5`](https://github.com/colemanvii/tangerine/tree/claude/upbeat-newton-p6gfp5), the prototype includes:
 
-The [Tangerine instrument](INSTRUMENT.md) takes its cue from the first white iPod: white face, silver back, red-lit controls, and deliberate tactile interaction. **Cyber. White. Orange. Panel. Static. Luminescent. Orbital.**
+- Manual capture of pasted ChatGPT conversations or a user-selected `conversations.json` export.
+- Source-attributed proposals for projects, people, ideas, decisions, actions, and open questions.
+- Review, correction, deduplication, and undo before anything appears on TABLET.
+- A draggable, zoomable canvas with source evidence and links between objects.
+- A writing desk connected to the objects and their original words.
+- Local browser storage and export/restore, using fictional demonstration material in the public repository.
 
-Its first practical surface is **TABLET**, a quiet personal panel for NOW, NEXT, OPEN LOOPS and a printable WEEKLY SHEET. The aim is to spend less time inside software and more time making, listening and living. The [bounded TABLET study](https://github.com/colemanvii/tangerine/blob/study/tablet-cyber-white-001/docs/tablet-cyber-white-001/BRIEF.md) is where Claude can develop and test it without altering the deployed legacy experience.
+The prototype's documentation reports passing unit and browser acceptance suites; it has **not** been merged into `main` or deployed as the new product.
 
-A personal website with intentional, visitor-controlled music can become a related expression of the same object philosophy. This is product direction, not a claim that these features are already implemented.
+[Read the prototype documentation](https://github.com/colemanvii/tangerine/blob/claude/upbeat-newton-p6gfp5/docs/prototype-001/README.md)
 
-## Current work
+**What does not exist yet:** automatic access to your ChatGPT conversations, continuous synchronization, a private cross-device vault, or a seamless embedded layer over the ChatGPT interface. A manual import workflow is an engineering bridge, **not** the intended final user experience.
 
-Our first active exploration is a digital space for collecting, organizing, and returning to the material of a creative life.
+## The immediate work
 
-It brings writing, photographs, notes, and other original sources into a single place. AI can assist with searching, connecting, and resurfacing material without rewriting the originals.
+1. **Verify a supported, permissioned ChatGPT handoff or integration.** Investigate genuine capabilities before promising automatic conversation access. If a seamless overlay or real-time API isn't supported, describe the limitation clearly and design the lowest-friction authorized alternative.
+2. **Protect real data.** Design a private durable store, user consent, retention/deletion controls, and transparent synchronization status before relying on real personal or client material.
+3. **Prove one useful loop.** Authorized conversation → sourced synthesis → corrected TABLET context → a useful decision, connection, or piece of writing. Measure whether it reduces organizational effort.
+4. **Refine the instrument.** Keep motion purposeful and subordinate to comprehension, following the approved Material studies and Tangerine visual language.
 
-This work is in development. The broader Tangerine identity is not limited to any one medium.
+## Design language
+
+**Cyber. White. Orange. Panel. Static. Luminescent. Orbital.**
+
+Architectural white, sharp typography, careful proportions, quiet silver, minimal orange signals, and precise, restrained motion. The reference is the clarity of an exquisitely designed physical instrument, not a decorative imitation of another interface.
+
+The Freeman, personal-site, and Material projects may share this sensibility without sharing the same screen layout or product purpose.
+
+## Source of truth and safeguards
+
+- [`SYNTHESIS.md`](SYNTHESIS.md) — product thesis, interaction requirements, and limits.
+- [`INSTRUMENT.md`](INSTRUMENT.md) — visual and interaction principles.
+- [`AGENTS.md`](AGENTS.md) — implementation boundaries for coding agents.
+- [TABLET conversation-canvas specification](https://github.com/colemanvii/tangerine/blob/study/tablet-conversation-canvas-001/docs/TABLET.md) — evidence, review, placement, and source fidelity.
+
+This repository is **public**. Never commit personal conversation exports, confidential source material, credentials, unpublished writing, or real private records. The current `main` branch retains older Haven/Tangerine work and deployments; do not equate this README or the prototype branch with a production cutover.
 
 ---
 
-© Tangerine · 2026
+*Tangerine · A place to keep what matters and return to it.*
