@@ -11,6 +11,12 @@ Not another feed, chatbot destination, productivity game, or dashboard. Tangerin
 
 **Product test: does it help you pay attention, then let you leave?**
 
+## Synthesis as the layer above conversation
+
+The newer [Synthesis Interface brief](SYNTHESIS.md) defines the wider product: ChatGPT is the conversational entry point; Tangerine synthesizes the useful context; TABLET can be its quiet, physical-feeling presentation surface. The ambition is **less thread and tab management, not another app to maintain**. Notion remains an explicit durable ledger, and Claude a separate build environment.
+
+This is product intent, not a claim of automatic conversation access or synchronization. Keep the currently documented explicit handoff flow until a permissioned integration is tested.
+
 ## The object
 
 The design reference is not the appearance of a current AI app. It is the sensation of encountering an early white iPod for the first time and discovering music through a beautifully resolved physical thing.
