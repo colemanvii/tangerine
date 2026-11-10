@@ -72,7 +72,54 @@
     await store.setMeta('demonstration', true);
   }
 
-  const exported = { seed, install };
+  /*
+   * A fictional conversation with ChatGPT, written for this study, in the
+   * shape ChatGPT's web copy produces ("You said:" / "ChatGPT said:"). It
+   * mentions the demonstration projects above so reconciliation can be seen:
+   * existing cards receive evidence and links rather than being duplicated.
+   * Nobody here is real.
+   */
+  const SAMPLE_CONVERSATION = `You said:
+Morning. Quick brain dump before the studio. The Desk clock is moving again. R. Moreau came back and said brass is possible but it doubles the machining time. I've decided to go with anodised aluminium for the first case; brass can wait for No. 2.
+
+ChatGPT said:
+That sounds like a sensible split: aluminium keeps No. 1 moving and leaves brass as a deliberate upgrade later.
+Next steps:
+1. Send R. Moreau the revised case drawing with the aluminium finish noted.
+2. Ask for a lead time on a run of five cases.
+Is there anything still open on the dial?
+
+You said:
+The dial is done. The open question is whether the tangerine index should be printed or inlaid. I need to send the dial file to Moreau by Friday.
+
+You said:
+Different thing. For the Notebook, 80 sheets, E. Lindqvist sent the letterpress quote and it's higher than I hoped. Should I do a smaller first run of 200 instead of 500?
+
+ChatGPT said:
+A first run of 200 lowers the risk and tells you how people actually use it before you commit to more paper. You could ask Lindqvist whether the plates can be kept for a second run, so a reprint costs less.
+
+You said:
+Good point. I'll ask Lindqvist about keeping the plates for a second run. We agreed the cover stays one colour.
+
+You said:
+Something new: I want to do an Open Studio weekend in the spring, showing the clock, the notebook and the Small Rooms prints together. My friend Ines Okafor offered to help with the space. What if the invitation is printed on the notebook paper?
+
+ChatGPT said:
+An Open Studio could be the first public moment for all three projects, and the printed invitation ties it together. To keep it light:
+- Pick two possible weekends.
+- Ask Ines Okafor which dates the space is free.
+
+You said:
+Let's go with the last weekend of April, if the space is free. I'll text Ines tonight. Still waiting on her about the dates for the space.
+For Small Rooms I still haven't photographed the north window. That's the thing I keep avoiding.
+
+ChatGPT said:
+It might help to make that the one thing for this week, so the rest can wait without guilt.
+
+You said:
+Yes. The one thing this week is the north window photograph. Everything else can wait.`;
+
+  const exported = { seed, install, SAMPLE_CONVERSATION };
   if (typeof module !== 'undefined' && module.exports) module.exports = exported;
   else root.TangerineDemo = exported;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

@@ -16,10 +16,11 @@
     <span class="wordmark">TABLET <span class="t-meta">by tangerine</span></span>
   </a>
   <nav class="nav" aria-label="Environments">
-    <a href="#whiteboard" data-view="whiteboard"><span class="t-meta">01</span> Canvas</a>
-    <a href="#archive" data-view="archive"><span class="t-meta">02</span> Archive</a>
-    <a href="#return" data-view="return"><span class="t-meta">03</span> Return</a>
-    <a href="#writing" data-view="writing"><span class="t-meta">04</span> Writing <span class="t-meta" id="draft-count"></span></a>
+    <a href="#whiteboard" data-view="whiteboard"><span class="t-meta">01</span> TABLET</a>
+    <a href="#capture" data-view="capture"><span class="t-meta">02</span> Capture <span class="t-meta" id="pending-count"></span></a>
+    <a href="#writing" data-view="writing"><span class="t-meta">03</span> Writing <span class="t-meta" id="draft-count"></span></a>
+    <a href="#archive" data-view="archive"><span class="t-meta">04</span> Archive</a>
+    <a href="#return" data-view="return"><span class="t-meta">05</span> Return</a>
   </nav>
   <label class="search">
     <span class="visually-hidden">Search TABLET and the archive</span>
@@ -38,12 +39,15 @@
     <button type="button" id="export" class="link">Export a copy</button>
     <button type="button" id="restore" class="link">Restore a copy</button>
     <input type="file" id="restore-file" accept="application/json,.json" hidden>
-    <span>TABLET · Foundation study</span>
+    <input type="file" id="capture-file" accept="application/json,.json" hidden>
+    <span>TABLET · Prototype 001 · study</span>
   </span>
 </footer>
 
 <script src="../core/store.js"></script>
 <script src="../core/index.js"></script>
+<script src="../core/capture.js"></script>
+<script src="../core/synthesis.js"></script>
 <script src="demo.js"></script>
 <script src="app.js"></script>
 </body>

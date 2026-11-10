@@ -1,4 +1,8 @@
-# TABLET — Spatial canvas and writing study (foundation 001)
+# TABLET — Prototype 001: conversation → synthesis → canvas → writing
+
+**Start here:** [`docs/prototype-001/README.md`](../docs/prototype-001/README.md) — what was built, how to try it, tests and limits.
+
+Built on foundation 001–002 (below, unchanged in substance).
 
 A local, private prototype. **Do not deploy.** The page carries `noindex`.
 
@@ -10,7 +14,7 @@ From the repository root:
 python3 -m http.server 4321 --bind 127.0.0.1
 ```
 
-Open <http://127.0.0.1:4321/app/>. No build step, dependencies or network requests.
+Open <http://127.0.0.1:4321/app/> (or `#capture` to begin with a conversation). No build step, dependencies or network requests.
 (Serve over `http://127.0.0.1`, not `file://`: the SHA-256 fingerprint needs a secure context.)
 
 **Always use the same address.** Browser storage belongs to one origin: `127.0.0.1:4321`,
@@ -18,6 +22,7 @@ Open <http://127.0.0.1:4321/app/>. No build step, dependencies or network reques
 
 ## Use
 
+- **Capture** — paste ChatGPT conversation text or open `conversations.json`; review the proposed projects, people, decisions, actions, questions and ideas, each with the words it came from; accept what is right.
 - **Canvas** — drag cards (or select and use arrow keys; Shift moves 48 px). `+ Project`, `+ Person`, `+ Idea`, `+ Pin source`, `Link`. Select a project to read or leave a bookmark and see related originals from the archive.
 - **Archive** — originals with provenance, fingerprint and revision history. *Keep new* adds your own writing or note.
 - **Writing** — a quiet desk for long-form work. *New piece* starts one. Drafts save as you type
@@ -27,7 +32,7 @@ Open <http://127.0.0.1:4321/app/>. No build step, dependencies or network reques
 - **Return** — what was kept on this day in an earlier year, the thread resting longest, one explained connection.
 - `/` searches everything. `Esc` cancels.
 
-Demonstration material is fictional and labeled; remove it from the footer. This prototype does **not** automatically import ChatGPT conversations.
+Demonstration material is fictional and labeled; remove it from the footer. This prototype does **not** connect to ChatGPT: conversations come in only by paste or by a file you choose.
 
 ## Direction
 
@@ -61,7 +66,8 @@ is the long-term answer. Until it exists, the exported copy is your backup.
 ## Tests
 
 ```sh
-node --test app/tests/*.test.cjs                                   # store, drafts, restore, index (no browser)
+node --test app/tests/*.test.cjs                                   # store, drafts, restore, index, capture, synthesis
+node app/tests/prototype.e2e.cjs                                   # conversation → TABLET acceptance (49 checks)
 node app/tests/whiteboard.e2e.cjs                                  # needs the server above
 node app/tests/writing.e2e.cjs                                     # desk, drafts, backup, restore
 node app/tests/whiteboard.e2e.cjs --shots docs/foundation-001/screens   # also writes screenshots

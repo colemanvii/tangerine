@@ -20,6 +20,12 @@
  *   is kept is added beside it as a separate copy. Everything returned is a
  *   frozen copy.
  *
+ * - Conversations brought in by the person are kept like collected material:
+ *   exactly as captured, never revised. What synthesis proposes from them lives
+ *   in its own collection ('proposals') and reaches the board only when the
+ *   person accepts it. An accepted object keeps its evidence: the conversation,
+ *   the turn and the exact words.
+ *
  * Carries forward the append-only design proven in experiment/001-fear
  * (experiments/001-fear/store.js) and the bookmark from haven-001-return-loop.
  *
@@ -30,11 +36,13 @@
 
   const USER_EDIT = 'user-edit';
   const USER_DELETE = 'user-delete';
-  const SOURCE_KINDS = ['writing', 'note', 'photograph', 'collected'];
-  const ITEM_KINDS = ['project', 'person', 'idea', 'source'];
-  const COLLECTIONS = ['sources', 'items', 'links', 'derived', 'meta', 'drafts'];
+  const SOURCE_KINDS = ['writing', 'note', 'photograph', 'collected', 'conversation'];
+  const FIXED_KINDS = ['collected', 'conversation'];   // kept exactly as found; never revised
+  const ITEM_KINDS = ['project', 'person', 'idea', 'source', 'decision', 'action', 'question'];
+  const COLLECTIONS = ['sources', 'items', 'links', 'derived', 'meta', 'drafts', 'proposals'];
   const BACKUP_FORMAT = 'tangerine/foundation-001';
-  const DATA = ['sources', 'items', 'links', 'derived', 'drafts'];
+  const DATA = ['sources', 'items', 'links', 'derived', 'drafts', 'proposals'];
+  const OPTIONAL = ['drafts', 'proposals'];             // older backups predate these
 
   const clone = (v) => (v === undefined ? undefined : JSON.parse(JSON.stringify(v)));
   function deepFreeze(v) {
@@ -74,7 +82,7 @@
   function indexedDBBackend(name) {
     return new Promise((resolve, reject) => {
       if (!root.indexedDB) return reject(new Error('IndexedDB unavailable'));
-      const req = root.indexedDB.open(name, 2); // v2 adds drafts
+      const req = root.indexedDB.open(name, 3); // v2 adds drafts, v3 proposals
       req.onupgradeneeded = () => {
         COLLECTIONS.forEach((c) => { if (!req.result.objectStoreNames.contains(c)) req.result.createObjectStore(c); });
       };
@@ -128,6 +136,7 @@
           madeOn: input.madeOn || null,            // the original date, as the author gives it
           provenance: input.provenance || null,    // where it came from
           plate: input.plate || null,              // photograph metadata (no image is embedded in this study)
+          conversation: input.kind === 'conversation' ? pickConversation(input.conversation) : null,
           demonstration: Boolean(input.demonstration),
           keptAt: rev.at,
           revisions: [rev],
@@ -141,6 +150,7 @@
         if (token !== USER_EDIT) throw new Error('Sources change only by explicit author edit');
         const src = await requireSource(id);
         if (src.kind === 'collected') throw new Error('Collected material is kept exactly as found');
+        if (src.kind === 'conversation') throw new Error('A captured conversation is kept exactly as captured');
         const prev = current(src);
         const rev = { n: prev.n + 1, at: now(), by: 'author', title: change.title ?? prev.title, body: change.body ?? prev.body };
         rev.sha256 = await fingerprint(canonical(rev));
@@ -185,6 +195,14 @@
           x: Math.round(input.x || 0), y: Math.round(input.y || 0),
           now: false,
           bookmarks: [],
+          // Where it came from: the author, or a conversation (via an accepted proposal).
+          origin: input.origin === 'conversation' ? 'conversation' : 'author',
+          basis: input.basis || null,              // 'you' | 'chatgpt' | 'unverified' — who said it
+          confidence: input.confidence || null,
+          evidence: (input.evidence || []).map(pickEvidence),
+          synthKey: input.synthKey || null,
+          status: input.kind === 'action' ? (input.status === 'done' ? 'done' : 'open') : null,
+          when: input.when ? String(input.when) : null,  // the words used ("by Friday"), never a computed date
           demonstration: Boolean(input.demonstration),
           createdAt: now(),
         };
@@ -203,6 +221,12 @@
           if ('title' in change) item.title = String(change.title);
           if ('role' in change) item.role = String(change.role);
         }
+        if (item.kind === 'action' && 'status' in change) item.status = change.status === 'done' ? 'done' : 'open';
+        if (!item.evidence) item.evidence = [];
+        if (change.addEvidence) for (const e of change.addEvidence.map(pickEvidence)) {
+          if (!item.evidence.some((x) => sameEvidence(x, e))) item.evidence.push(e);
+        }
+        if (change.removeEvidence) item.evidence = item.evidence.filter((x) => !change.removeEvidence.some((e) => sameEvidence(x, e)));
         await backend.put('items', id, item);
         return frozen(item);
       },
@@ -231,12 +255,15 @@
       },
       async items() { return frozen((await backend.all('items')).sort((a, b) => a.no - b.no)); },
 
-      async link(a, b, note) {
+      /* meta.origin: 'author' (drawn by hand) | 'conversation' (stated) | 'inferred' (from nearby context). */
+      async link(a, b, note, meta) {
         if (a === b) throw new Error('An item cannot link to itself');
         const links = await backend.all('links');
         const found = links.find((l) => (l.a === a && l.b === b) || (l.a === b && l.b === a));
         if (found) return frozen(found);
-        const l = { id: makeId('lnk'), a, b, note: note ? String(note) : '', at: now() };
+        const origin = meta && ['conversation', 'inferred'].includes(meta.origin) ? meta.origin : 'author';
+        const l = { id: makeId('lnk'), a, b, note: note ? String(note) : '', origin, at: now() };
+        if (meta && meta.proposalId) l.proposalId = String(meta.proposalId);
         await backend.put('links', l.id, l);
         return frozen(l);
       },
@@ -248,6 +275,40 @@
       async undismiss(key) { await backend.remove('derived', 'dismiss:' + key); },
       async dismissed() { return new Set((await backend.all('derived')).map((d) => d.key)); },
 
+      /*
+       * Proposals: what synthesis suggests from one captured conversation.
+       * Derived, separate, reviewable. Saving the same proposal again keeps the
+       * person's decision about it (accepted, dismissed) and its edited title.
+       */
+      async saveProposals(sourceId, list, extra) {
+        await requireSource(sourceId);
+        const out = [];
+        for (const p of list) {
+          const id = sourceId + '|' + p.key;
+          const prev = await backend.get('proposals', id);
+          if (prev) { out.push(prev); continue; }
+          const rec = Object.assign(clone(p), { id, sourceId, state: 'pending', itemId: null, edited: null, at: now() }, extra || {});
+          await backend.put('proposals', id, rec);
+          out.push(rec);
+        }
+        return frozen(out);
+      },
+      async proposals(sourceId) {
+        const all = await backend.all('proposals');
+        return frozen(all.filter((p) => !sourceId || p.sourceId === sourceId).sort((a, b) => a.at.localeCompare(b.at)));
+      },
+      async setProposal(id, change) {
+        const p = await backend.get('proposals', id);
+        if (!p) throw new Error('No proposal ' + id);
+        if ('state' in change) { if (!['pending', 'accepted', 'dismissed'].includes(change.state)) throw new Error('Unknown state'); p.state = change.state; }
+        if ('itemId' in change) p.itemId = change.itemId || null;
+        if ('edited' in change) p.edited = change.edited ? String(change.edited) : null;
+        if ('created' in change) p.created = Boolean(change.created);  // true when accepting it made a new card
+        p.decidedAt = now();
+        await backend.put('proposals', id, p);
+        return frozen(p);
+      },
+
       /* Drafts: unfinished work, autosaved. Not originals until kept. */
       async saveDraft(d) {
         if (!d || !d.key) throw new Error('A draft needs a key');
@@ -258,6 +319,7 @@
           kind: SOURCE_KINDS.includes(d.kind) && d.kind !== 'collected' ? d.kind : 'writing',
           title: String(d.title || ''), body: String(d.body || ''),
           baseN: d.baseN || null,                     // the revision it started from
+          itemId: d.itemId || (prev && prev.itemId) || null, // the TABLET object it is written about, if any
           startedAt: (prev && prev.startedAt) || d.startedAt || now(),
           savedAt: now(),
         };
@@ -274,10 +336,12 @@
       async removeDemonstration() {
         for (const s of await backend.all('sources')) if (s.demonstration) await backend.remove('sources', s.id);
         for (const i of await backend.all('items')) if (i.demonstration) await api.removeItem(i.id);
+        const gone = new Set((await backend.all('sources')).map((x) => x.id));
+        for (const p of await backend.all('proposals')) if (p.demonstration || !gone.has(p.sourceId)) await backend.remove('proposals', p.id);
       },
 
       async exportAll() {
-        const out = { format: BACKUP_FORMAT, version: 2, exportedAt: now() };
+        const out = { format: BACKUP_FORMAT, version: 3, exportedAt: now() };
         for (const c of DATA) out[c] = await backend.all(c);
         return out;
       },
@@ -296,7 +360,7 @@
         const dry = Boolean(opts && opts.dryRun);
         const check = await validateBackup(data);
         const report = { ok: check.ok, errors: check.errors, notes: check.notes, exportedAt: data && data.exportedAt || null,
-          counts: check.counts, added: 0, extended: 0, separate: 0, same: 0, items: 0, links: 0, drafts: 0, draftsSeparate: 0 };
+          counts: check.counts, added: 0, extended: 0, separate: 0, same: 0, items: 0, links: 0, drafts: 0, draftsSeparate: 0, proposals: 0 };
         if (!check.ok) return report;
         const writes = [];
         for (const src of data.sources || []) {
@@ -336,6 +400,10 @@
           report.draftsSeparate++;
           const key = 'restored:' + makeId('d');
           writes.push(['drafts', key, Object.assign(clone(d), { key, restoredFrom: d.key })]);
+        }
+        for (const p of data.proposals || []) {
+          if (await backend.get('proposals', p.id)) continue;
+          report.proposals++; writes.push(['proposals', p.id, p]);
         }
         if (!dry) for (const [c, k, v] of writes) await backend.put(c, k, v);
         report.dryRun = dry;
@@ -380,14 +448,14 @@
     const str = (v) => typeof v === 'string';
     const num = (v) => typeof v === 'number' && isFinite(v);
     for (const c of DATA) {
-      if (data[c] === undefined) { if (c === 'drafts') { counts[c] = 0; continue; } fail('Missing the "' + c + '" list.'); continue; }
+      if (data[c] === undefined) { if (OPTIONAL.includes(c)) { counts[c] = 0; continue; } fail('Missing the "' + c + '" list.'); continue; }
       if (!Array.isArray(data[c])) { fail('"' + c + '" is not a list.'); continue; }
       counts[c] = data[c].length;
       const seen = new Set();
       data[c].forEach((v, i) => {
         const at = c + ' #' + (i + 1);
         if (!v || typeof v !== 'object') return fail(at + ' is not a record.');
-        const id = c === 'derived' ? v.key : c === 'drafts' ? v.key : v.id;
+        const id = c === 'derived' || c === 'drafts' ? v.key : v.id;
         if (!str(id) || !id) return fail(at + ' has no id.');
         if (seen.has(id)) fail(at + ' repeats the id ' + id + '.');
         seen.add(id);
@@ -397,13 +465,15 @@
           v.revisions.forEach((r, j) => {
             if (!r || r.n !== j + 1 || !str(r.title) || !str(r.body) || !str(r.at)) fail(at + ' revision ' + (j + 1) + ' is malformed.');
           });
-          if (v.kind === 'collected' && v.revisions.length > 1) fail(at + ' is collected material but has revisions.');
+          if (FIXED_KINDS.includes(v.kind) && v.revisions.length > 1) fail(at + ' is ' + (v.kind === 'collected' ? 'collected material' : 'a captured conversation') + ' but has revisions.');
         }
         if (c === 'items') {
           if (!ITEM_KINDS.includes(v.kind) || !num(v.x) || !num(v.y) || !Array.isArray(v.bookmarks)) fail(at + ' is malformed.');
         }
         if (c === 'links' && (!str(v.a) || !str(v.b))) fail(at + ' is malformed.');
         if (c === 'drafts' && (!str(v.body) || !str(v.title) || !str(v.savedAt))) fail(at + ' is malformed.');
+        if (c === 'items' && v.evidence !== undefined && !Array.isArray(v.evidence)) fail(at + ' has malformed evidence.');
+        if (c === 'proposals' && (!str(v.sourceId) || !str(v.type) || !str(v.title) || !['pending', 'accepted', 'dismissed'].includes(v.state))) fail(at + ' is malformed.');
       });
     }
     if (!errors.length) {
@@ -419,6 +489,29 @@
       else if (checked) notes.push(checked + ' fingerprints checked and matching.');
     }
     return { ok: errors.length === 0, errors, notes, counts };
+  }
+
+  function pickEvidence(e) {
+    return {
+      sourceId: e.sourceId ? String(e.sourceId) : null, // the captured conversation
+      turn: Number.isInteger(e.turn) ? e.turn : null,   // which turn in it
+      role: e.role || null,                             // 'user' | 'assistant' | 'note'
+      quote: String(e.quote || ''),                     // the exact words
+      verified: e.verified === false ? false : true,    // false: a quote ChatGPT gave that was not found in the capture
+    };
+  }
+  const sameEvidence = (a, b) => a.sourceId === b.sourceId && a.turn === b.turn && a.quote === b.quote;
+  function pickConversation(c) {
+    c = c || {};
+    return {
+      thread: String(c.thread || 'Conversation'),   // the ongoing conversation this capture belongs to
+      via: String(c.via || 'paste'),               // 'paste' | 'export' — how it was brought in
+      title: c.title ? String(c.title) : null,     // ChatGPT's own title, if the export had one
+      exportId: c.exportId ? String(c.exportId) : null,
+      turnKeys: Array.isArray(c.turnKeys) ? c.turnKeys.map(String) : [],
+      seen: Number.isInteger(c.seen) ? c.seen : 0, // turns brought in again that were already captured
+      first: c.first || null, last: c.last || null, // message times, only when the export carried them
+    };
   }
 
   function pickBookmark(b) {
