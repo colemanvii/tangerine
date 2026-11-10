@@ -1,0 +1,5 @@
+# Private material never belongs in this public repository.
+# Exported Tangerine backups contain your writing.
+tangerine-*.json
+*.tangerine.json
+private/
