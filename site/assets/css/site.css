@@ -1,14 +1,22 @@
 /*
  * Tangerine — studio site.
- * One object, one name, one sentence, one way in.
+ * One symbol, one name, one sentence, one way in.
+ *
+ * Proportions are tied to the wordmark width (--w):
+ *   symbol diameter  = 0.24 w   (about 1.5 × the wordmark's cap height)
+ *   symbol → name    = 0.15 w   (about one cap height of air)
  */
 :root {
   --paper: #FBFBFB;
-  --ink: #1D1D1F;
-  --grey: #6E6E73;
-  --ring: #D2D2D7;
-  --tangerine: #F25A28;
-  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --ink: #1D1D1F;        /* type */
+  --grey-1: #424245;     /* positioning line */
+  --grey-2: #6E6E73;     /* supporting text, footer: 4.9:1 on paper */
+  --grey-3: #C7C7CC;     /* the ring */
+  --grey-4: #AEAEB2;     /* the noon index */
+  --tangerine: #F25A28;  /* the sun, the chevron: never body text */
+
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --w: min(400px, max(272px, 30vw), 74vw);
   color-scheme: light;
 }
 
@@ -23,41 +31,54 @@ body {
 }
 h1, p { margin: 0; }
 ::selection { background: var(--tangerine); color: #fff; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 
 main {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center;
-  padding: 72px 24px;
+  padding: 64px 24px 24px;
 }
 
-.object { width: clamp(88px, 11vw, 132px); height: auto; overflow: visible; margin-bottom: clamp(40px, 7vh, 64px); }
-.ring { fill: none; stroke: var(--ring); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.sun { fill: var(--tangerine); }
+/* The symbol */
+.symbol { width: calc(var(--w) * .24); height: auto; overflow: visible; margin-bottom: calc(var(--w) * .15); }
+.ring  { fill: none; stroke: var(--grey-3); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.index { stroke: var(--grey-4); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.sun   { fill: var(--tangerine); }
 
-h1 {
-  font-size: clamp(48px, 7.5vw, 96px); line-height: 1.04;
-  font-weight: 600; letter-spacing: -.035em;
-}
-.line {
-  margin-top: 14px;
-  font-size: clamp(21px, 2.4vw, 28px); line-height: 1.25;
-  font-weight: 400; letter-spacing: -.012em; text-wrap: balance;
-}
-.small {
-  margin-top: clamp(28px, 4vh, 40px); max-width: 30em;
-  font-size: 15px; line-height: 1.5; color: var(--grey); letter-spacing: -.005em;
+/* The name */
+.wordmark { line-height: 0; }
+.wordmark svg { width: var(--w); height: auto; fill: currentColor; overflow: visible; }
+
+/* The words */
+.position {
+  margin-top: calc(var(--w) * .1);
+  font-size: clamp(19px, 1.9vw, 24px); line-height: 1.3;
+  font-weight: 400; letter-spacing: -.012em; color: var(--grey-1);
   text-wrap: balance;
 }
-.link {
-  margin-top: clamp(28px, 4vh, 40px);
-  display: inline-flex; align-items: center; gap: 4px; min-height: 44px;
-  font-size: clamp(17px, 1.6vw, 19px); color: var(--tangerine); text-decoration: none;
+.support {
+  margin-top: 18px;
+  font-size: clamp(15px, 1.2vw, 17px); line-height: 1.5;
+  letter-spacing: -.008em; color: var(--grey-2);
 }
-.link span { font-size: 1.25em; line-height: 1; transform: translateY(-1px); }
-.link:hover { text-decoration: underline; text-underline-offset: 4px; }
-.link:focus-visible { outline: 2px solid var(--tangerine); outline-offset: 4px; border-radius: 4px; }
+.begin {
+  margin-top: clamp(32px, 5vh, 48px);
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 4px;
+  font-size: clamp(16px, 1.3vw, 18px); font-weight: 500; letter-spacing: -.01em;
+  color: var(--ink); text-decoration: none;
+}
+.chev { color: var(--tangerine); font-size: 1.3em; line-height: 1; transform: translateY(-.06em); transition: transform .3s cubic-bezier(.2, .8, .2, 1); }
+.begin:hover .chev, .begin:focus-visible .chev { transform: translate(3px, -.06em); }
+.begin:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 6px; }
 
 footer {
-  padding: 20px 24px calc(20px + env(safe-area-inset-bottom));
-  text-align: center; font-size: 12px; color: var(--grey);
+  padding: 20px 24px calc(22px + env(safe-area-inset-bottom));
+  text-align: center; font-size: 12px; letter-spacing: -.005em; color: var(--grey-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chev { transition: none; }
+}
+@media print {
+  .symbol { display: none; }
 }

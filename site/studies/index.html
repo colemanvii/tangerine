@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tangerine — Wordmark studies</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --paper: #FBFBFB; --ink: #1D1D1F; --grey-1: #424245; --grey-2: #6E6E73; --grey-3: #C7C7CC; --grey-4: #AEAEB2; --tangerine: #F25A28;
+  --sf: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --sf-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --hn: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sf); -webkit-font-smoothing: antialiased; }
+h1, h2, p { margin: 0; }
+.study {
+  min-height: 100vh; min-height: 100svh; position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  padding: 96px 24px 64px; border-bottom: 1px solid #E8E8ED;
+}
+.note { position: absolute; left: 24px; right: 24px; top: 22px; display: flex; justify-content: space-between; gap: 16px; font-size: 12px; color: var(--grey-2); text-align: left; }
+.note b { color: var(--ink); font-weight: 600; }
+.why { position: absolute; left: 24px; right: 24px; bottom: 22px; font-size: 12px; line-height: 1.5; color: var(--grey-2); max-width: 46em; margin: 0 auto; }
+
+.symbol { overflow: visible; display: block; }
+.ring { fill: none; stroke: var(--grey-3); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.index { stroke: var(--grey-4); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.sun { fill: var(--tangerine); }
+.position { font-size: clamp(19px, 1.9vw, 24px); line-height: 1.3; letter-spacing: -.012em; color: var(--grey-1); text-wrap: balance; }
+.support { margin-top: 18px; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.5; color: var(--grey-2); max-width: 26em; text-wrap: balance; }
+.begin { margin-top: 40px; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 17px; font-weight: 500; color: var(--ink); text-decoration: none; }
+.begin span { color: var(--tangerine); font-size: 1.3em; line-height: 1; }
+
+/* A — Helvetica Neue. Stacked; the classic, neutral answer. */
+#a .symbol { width: 92px; margin-bottom: 52px; }
+#a .wm { font-family: var(--hn); font-weight: 500; font-size: clamp(56px, 7vw, 88px); line-height: 1; letter-spacing: -.034em; font-kerning: normal; }
+#a .wm .t { letter-spacing: -.07em; }      /* draw the a under the T's arm */
+#a .position { margin-top: 26px; }
+
+/* B — SF Pro. A horizontal lockup: the ring becomes the first letter-shape. */
+#b .lockup { display: inline-flex; align-items: center; gap: .2em; font-family: var(--sf-display); font-weight: 600; font-size: clamp(54px, 6.6vw, 84px); letter-spacing: -.045em; line-height: 1; }
+#b .lockup .symbol { width: .74em; height: .74em; transform: translateY(.03em); }
+#b .position { margin-top: 30px; }
+
+/* C — Newsreader, outlined and hand-spaced. Stacked, proportioned to the wordmark. */
+#c { --w: min(400px, max(272px, 30vw), 74vw); }
+#c .symbol { width: calc(var(--w) * .24); margin-bottom: calc(var(--w) * .15); }
+#c .wm img { width: var(--w); display: block; }
+#c .position { margin-top: calc(var(--w) * .1); }
+
+@media (max-width: 600px) { .note { flex-direction: column; gap: 2px; } }
+</style>
+</head>
+<body>
+
+<section class="study" id="a" aria-label="Study A">
+  <p class="note"><span><b>A</b> &nbsp;Helvetica Neue Medium &middot; −34 tracking, T–a tightened</span><span>Ring above &middot; copy: the plain statement</span></p>
+  <svg class="symbol" viewBox="-60 -60 120 120" aria-hidden="true"><circle class="ring" r="50"/><circle class="sun" r="5.5" cx="0" cy="-50"/></svg>
+  <h2 class="wm"><span class="t">T</span>angerine</h2>
+  <p class="position">An independent creative studio led by Cole&nbsp;Calfee.</p>
+  <p class="support">Creative direction and business building for a select number of clients.</p>
+  <a class="begin" href="#a">Begin a conversation<span aria-hidden="true">&#8250;</span></a>
+  <p class="why">Neutral and exact. The most “Swiss” answer, closest to the current site. It is precise, but it could belong to many studios: the name carries no voice of its own.</p>
+</section>
+
+<section class="study" id="b" aria-label="Study B">
+  <p class="note"><span><b>B</b> &nbsp;SF Pro Display Semibold, lowercase &middot; −45 tracking</span><span>Ring as lockup &middot; copy: the relationship</span></p>
+  <h2 class="lockup"><svg class="symbol" viewBox="-60 -60 120 120" aria-hidden="true"><circle class="ring" r="50"/><circle class="sun" r="7" cx="0" cy="-50"/></svg>tangerine</h2>
+  <p class="position">An independent creative studio led by Cole&nbsp;Calfee.</p>
+  <p class="support">Long-term creative partnerships with people making extraordinary things.</p>
+  <a class="begin" href="#b">Begin a conversation<span aria-hidden="true">&#8250;</span></a>
+  <p class="why">Native and product-like; the ring reads almost as a letter. It is beautiful on Apple devices, but SF Pro is licensed only for Apple platforms: it cannot become a logo file, and on Windows or Android it falls back to another face.</p>
+</section>
+
+<section class="study" id="c" aria-label="Study C">
+  <p class="note"><span><b>C</b> &nbsp;Newsreader Display, outlined &middot; −20 tracking, hand-kerned</span><span>Ring above, noon index &middot; copy: the practice and the pace</span></p>
+  <svg class="symbol" viewBox="-60 -60 120 120" aria-hidden="true"><circle class="ring" r="50"/><line class="index" x1="0" y1="-50" x2="0" y2="-43"/><circle class="sun" r="5.5" cx="0" cy="-50"/></svg>
+  <h2 class="wm"><img src="../assets/wordmark.svg" alt="Tangerine"></h2>
+  <p class="position">An independent creative studio led by Cole&nbsp;Calfee.</p>
+  <p class="support">Creative direction and business building.<br>A few clients at a time, for a long&nbsp;time.</p>
+  <a class="begin" href="#c">Begin a conversation<span aria-hidden="true">&#8250;</span></a>
+  <p class="why">The unexpected one, and the one implemented. An editorial serif gives the name a voice (a publisher, an atelier, a person), while everything around it stays Apple-quiet. Outlined and hand-spaced, it looks identical on every device and is free to use as a logo (SIL Open Font License).</p>
+</section>
+
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
