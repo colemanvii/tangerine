@@ -1,48 +1,39 @@
-# Tangerine — repository instructions for coding agents
+# Tangerine — Repository guidance for agents
 
-## Product definition (current direction)
+## Current identity
 
-**Tangerine is a synthesis interface designed to sit atop ChatGPT. TABLET is its spatial presentation surface.**
+**Tangerine is an independent creative practice and working home for client projects and collaborations.** It is not currently defined as a ChatGPT synthesis product, a TABLET app, a home operating system, or a consumer SaaS.
 
-The user should be able to think naturally in one ongoing ChatGPT conversation and see the important context — projects, people, ideas, decisions, relationships, next actions, and open loops — represented accurately, without manually maintaining folders, exports, boards, or a second chat application.
+Do not restart or publicize those past product directions as current without an explicit new instruction. Treat historical files as archival studies.
 
-**Product test: does this eliminate organizational effort and make thinking clearer?** Do not confuse a beautiful capture UI with the finished product. Manual conversation paste/import is a bounded prototype technique, not the intended ongoing interaction.
+## Before changing anything
 
-Read these before product changes:
+1. Read [README.md](README.md) for the current description.
+2. Read [IDENTITY.md](IDENTITY.md) if the task concerns Tangerine's typography, logo, site, or visual direction.
+3. Identify the *specific* client project or deliverable and the authorized scope. If a client or deliverable is not named, do not infer one from archives.
+4. Inspect the current branch, active PRs and relevant files; avoid duplicating other agents' work.
+5. Keep changes isolated and easy to review.
 
-1. [`SYNTHESIS.md`](SYNTHESIS.md) — product definition and the continuity/integration problem.
-2. [`INSTRUMENT.md`](INSTRUMENT.md) — interaction and visual principles.
-3. [Prototype 001 documentation](https://github.com/colemanvii/tangerine/blob/claude/upbeat-newton-p6gfp5/docs/prototype-001/README.md) — current working local study and its real limits.
-4. [`docs/TABLET.md` in the canvas study](https://github.com/colemanvii/tangerine/blob/study/tablet-conversation-canvas-001/docs/TABLET.md) — capture, provenance, reconciliation, placement, and privacy contract.
+## Client-work safeguards
 
-## Current work and source branches
+- This repository is **public**. Do not publish confidential project briefs, client documents, private messages, personal data, licensed source assets, financial details, unpublished artwork, photographs, credentials, or API tokens.
+- Do not assume that client names, images, logos or case studies are cleared for public use.
+- Protect authorship and original files; preserve source references and revision history.
+- Do not confuse an assistant-generated draft or visual study with final approved client work.
+- Work on one concrete output at a time; favor finishing over spinning up new dashboards or speculative products.
+- Test relevant code before requesting review. Never claim a deployment or integration without verification.
 
-- `claude/upbeat-newton-p6gfp5`: **Prototype 001**, a local conversation-capture → review → TABLET → writing loop. Preserve the branch and tests. It has *manual* ChatGPT import, *not* automatic ChatGPT synchronization.
-- `study/tangerine-foundation-001`: original immutable-source store, canvas, writing desk, backup/restore.
-- `study/tablet-conversation-canvas-001`: TABLET identity and aggregation specification.
-- `study/tablet-cyber-white-001`: instrument design study.
-- `study/tangerine-wrapped-astra-001`: experimental ChatGPT export reader / Wrapped exploration.
-- `experiment/001-fear`: commonplace and reading experiment; preserve source attribution.
-- `main`: public entrypoint and retained legacy Haven runtime. Do not assume README changes correspond to a deployed app.
-- `archive/haven-before-tangerine-2026-10-25`: preserved legacy history.
+## Historical technology experiments — retain, don't inherit
 
-## Engineering priorities
+- `main` still contains Haven/Tangerine prototype HTML and JavaScript; existing deployment and routing must be inspected before modifying them.
+- `SYNTHESIS.md` is a historical ChatGPT-integration product idea, not the current operating brief.
+- `INSTRUMENT.md`, `PRODUCT.md`, `DESIGN.md`, and TABLET/whiteboard branches are earlier experiments.
+- Do not delete or rename historical files just to tidy the repository. Do not silently merge legacy branches or launch their apps.
 
-1. **Integration feasibility first.** Identify an actually supported, permissioned path from ChatGPT to Tangerine. Document what can and cannot be accessed; do not claim background syncing, full transcript access, or a browser overlay without verifying support.
-2. **Private persistence before reliance.** Browser IndexedDB is only device-/origin-local. Establish a user-controlled vault with access controls, deletion/retention, recovery, and explicit sync states before handling real conversations as a reliable long-lived system.
-3. **Grounded synthesis.** Preserve originals; distinguish user statements from assistant suggestions and inferred relationships; retain exact evidence, review and undo. Incorrect records must be correctable and removable.
-4. **Real use over demos.** Demonstrate a consented, private conversation becoming useful context, with less work for the user. Fictional fixtures are for automated tests only.
-5. **Design with restraint.** Architectural white, precision, quiet silver, one orange signal, minimal and accessible motion. Prioritize understanding over ornament.
+## Tangerine identity exploration
 
-Do not silently expand the app into a task manager, Notion clone, an extra chatbot, or a daily copy/paste ritual. Notion may be a durable project ledger when explicitly directed; GitHub is the implementation record; neither is the private original source archive.
+Industrial Study 004 is the user's current preferred typography *study*. Keep the cyber-white/graphite/orange palette, exacting composition, and no-gradients/no-rounded-card restraint in design experiments. Preserve earlier study alternatives, including the fruit symbol. Do not treat the wordmark or signal stripes as a final approved mark without further review.
 
-## Non-negotiable safeguards
+## Definition of done
 
-- This repository is **public**. Commit no private conversations, user data, confidential client information, unpublished artwork or writing, original photographs, export files, tokens, or secrets.
-- No unauthorized scraping of ChatGPT UI/session data and no false claims of access to memory, prior chats, or other apps.
-- Preserve immutable originals, source attribution, reversible changes, and existing backup/restore behavior.
-- Do not change production deployments, Vercel settings, repository visibility, `index.html`, `personal/`, or legacy runtimes incidentally. A study branch or README update is not authorization to deploy, migrate, or delete.
-- Check the latest branch HEAD and other agents' work before modifying shared code. Prefer a separate reviewed branch for new capabilities.
-- Respect reduced motion; no autoplay, compulsive notifications, engagement loops, or fabricated dates, analytics, and provenance.
-
-**Acceptance:** The person can open TABLET, recognize a trustworthy picture of their world, make or discover one useful connection, and return to real life without maintaining the system.
+A deliverable is clear, usable, source-respectful, safely handled, tested where relevant, and ready for the intended client/workflow. The work—not the tool itself—is the point.

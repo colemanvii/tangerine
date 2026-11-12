@@ -1,6 +1,8 @@
-# Tangerine — The Synthesis Interface
+# Tangerine — The Synthesis Interface (historical study)
 
-Status: **active product direction. Prototype 001 exists on a study branch; direct ChatGPT integration, private cross-device storage, and deployment remain unbuilt.**
+**ARCHIVED CONCEPT — not Tangerine's current identity or active work brief.** As of 12 November 2026, Tangerine is a working creative practice for client projects and collaborations. This document preserves an earlier proposal for a ChatGPT synthesis interface. Its implementation ideas and future-tense claims below are historical, not commitments or deployed features.
+
+Status when explored: Prototype 001 existed on a study branch; direct ChatGPT integration, private cross-device storage, and deployment were unbuilt.
 
 ## Definition
 
