@@ -51,6 +51,19 @@ h1, h2, p { margin: 0; }
 #c .wm img { width: var(--w); display: block; }
 #c .position { margin-top: calc(var(--w) * .1); }
 
+/* D — C with the name in tangerine. */
+#d { --w: min(400px, max(272px, 30vw), 74vw); }
+#d .symbol { width: calc(var(--w) * .24); margin-bottom: calc(var(--w) * .15); }
+#d .wm-orange { width: var(--w); aspect-ratio: 8729 / 1968; background: var(--tangerine);
+  -webkit-mask: url(../assets/wordmark.svg) center / contain no-repeat; mask: url(../assets/wordmark.svg) center / contain no-repeat; }
+#d .position { margin-top: calc(var(--w) * .1); }
+
+/* E — C with the fruit inside the ring; the sun still orbits the rim. */
+#e { --w: min(400px, max(272px, 30vw), 74vw); }
+#e .symbol { width: calc(var(--w) * .3); margin-bottom: calc(var(--w) * .13); }
+#e .wm img { width: var(--w); display: block; }
+#e .position { margin-top: calc(var(--w) * .1); }
+
 @media (max-width: 600px) { .note { flex-direction: column; gap: 2px; } }
 </style>
 </head>
@@ -82,7 +95,27 @@ h1, h2, p { margin: 0; }
   <p class="position">An independent creative studio led by Cole&nbsp;Calfee.</p>
   <p class="support">Creative direction and business building.<br>A few clients at a time, for a long&nbsp;time.</p>
   <a class="begin" href="#c">Begin a conversation<span aria-hidden="true">&#8250;</span></a>
-  <p class="why">The unexpected one, and the one implemented. An editorial serif gives the name a voice (a publisher, an atelier, a person), while everything around it stays Apple-quiet. Outlined and hand-spaced, it looks identical on every device and is free to use as a logo (SIL Open Font License).</p>
+  <p class="why">The unexpected one, and the basis of the site. An editorial serif gives the name a voice (a publisher, an atelier, a person), while everything around it stays Apple-quiet. Outlined and hand-spaced, it looks identical on every device and is free to use as a logo (SIL Open Font License).</p>
+</section>
+
+<section class="study" id="d" aria-label="Study D">
+  <p class="note"><span><b>D</b> &nbsp;C, with the name in tangerine &middot; implemented</span><span>Ring above &middot; same copy</span></p>
+  <svg class="symbol" viewBox="-60 -60 120 120" aria-hidden="true"><circle class="ring" r="50"/><line class="index" x1="0" y1="-50" x2="0" y2="-43"/><circle class="sun" r="5.5" cx="0" cy="-50"/></svg>
+  <h2 class="wm"><div class="wm-orange" role="img" aria-label="Tangerine"></div></h2>
+  <p class="position">An independent creative studio led by Cole&nbsp;Calfee.</p>
+  <p class="support">Creative direction and business building.<br>A few clients at a time, for a long&nbsp;time.</p>
+  <a class="begin" href="#d">Begin a conversation<span aria-hidden="true">&#8250;</span></a>
+  <p class="why">Implemented. Warm and immediate: the name carries the colour, and the dot and chevron echo it. Orange is kept to large display (about 3.2:1); every word you read is grey or ink.</p>
+</section>
+
+<section class="study" id="e" aria-label="Study E">
+  <p class="note"><span><b>E</b> &nbsp;C, with an original fruit mark inside the ring</span><span>Sun still orbits the rim &middot; same copy</span></p>
+  <svg class="symbol" viewBox="-60 -60 120 120" aria-hidden="true"><circle class="ring" r="50"/><g transform="translate(-40.3 -42.5) scale(.79)"><ellipse cx="67" cy="61" rx="20" ry="18" fill="#E14E1C"/><ellipse cx="41" cy="63" rx="24" ry="21.5" fill="#F25A28" stroke="#FBFBFB" stroke-width="1.8"/><path d="M51 34C48 37 45 39 42.5 42M52 34C56 36 60 39 63 43.5" fill="none" stroke="#2A3522" stroke-width="1.7" stroke-linecap="round"/><path d="M50.5 33C44 22 27 20 13 28C25 37 41 39 50.5 33Z M53 32.5C59 21 76 20 89 28C77 37 61 39 53 32.5Z" fill="#2E5634"/></g><circle class="sun" r="5.5" cx="0" cy="-50"/></svg>
+  <h2 class="wm"><img src="../assets/wordmark.svg" alt="Tangerine"></h2>
+  <p class="position">An independent creative studio led by Cole&nbsp;Calfee.</p>
+  <p class="support">Creative direction and business building.<br>A few clients at a time, for a long&nbsp;time.</p>
+  <a class="begin" href="#e">Begin a conversation<span aria-hidden="true">&#8250;</span></a>
+  <p class="why">Inspired by the profile picture: fruit within a circle. Two tangerines on one twig: a studio and a client, growing together. Drawn flat and original. On the page, the orbiting sun competes with the fruit, so the drawing became the favicon instead, where it is clearer than a ring.</p>
 </section>
 
 <script src="../assets/js/site.js" defer></script>

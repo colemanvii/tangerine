@@ -13,7 +13,7 @@
   --grey-2: #6E6E73;     /* supporting text, footer: 4.9:1 on paper */
   --grey-3: #C7C7CC;     /* the ring */
   --grey-4: #AEAEB2;     /* the noon index */
-  --tangerine: #F25A28;  /* the sun, the chevron: never body text */
+  --tangerine: #F25A28;  /* the name, the sun, the chevron: never small text */
 
   --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
   --w: min(400px, max(272px, 30vw), 74vw);
@@ -47,7 +47,7 @@ main {
 
 /* The name */
 .wordmark { line-height: 0; }
-.wordmark svg { width: var(--w); height: auto; fill: currentColor; overflow: visible; }
+.wordmark svg { width: var(--w); height: auto; fill: var(--tangerine); overflow: visible; }  /* large display only: 3.2:1 */
 
 /* The words */
 .position {

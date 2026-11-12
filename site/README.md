@@ -22,6 +22,8 @@ The wordmark is **Newsreader Display** (Production Type, SIL Open Font License),
 - r–i +10 and i–n +5, to open the stems;
 - g–e −10, e–r −5 and n–e −5.
 
+It is set in **tangerine** (`#F25A28`), about 3.2:1 on paper. That is acceptable for a name this large, and every word you actually read stays grey or ink.
+
 Outlining means it looks identical on every device and needs no font download. `tools/wordmark.py` regenerates `assets/wordmark.svg`; the exact parameters are in the script's header.
 
 An editorial serif gives the name a voice (a publisher, an atelier, a person) while everything around it stays quiet in the visitor's system sans (SF Pro on Apple devices).
@@ -40,24 +42,30 @@ A hairline ring with one tangerine dot: the sun, at the visitor's local time.
 | Token | Use |
 |---|---|
 | `#FBFBFB` | paper |
-| `#1D1D1F` | wordmark, contact link |
+| `#1D1D1F` | contact link |
 | `#424245` | positioning line |
 | `#6E6E73` | supporting text and footer (4.9:1) |
 | `#C7C7CC` | ring |
 | `#AEAEB2` | noon index |
-| `#F25A28` | the sun and the chevron only, never text |
+| `#F25A28` | the name, the sun and the chevron; never small text |
 
 The contact link is now ink (about 16:1 contrast) instead of tangerine text (about 3:1).
 
 ## Studies
 
-`studies/index.html` compares the three explored directions, full-screen and stacked:
+`studies/index.html` compares the explored directions, full-screen and stacked:
 
 - **A. Helvetica Neue Medium.** Ring above, plain copy. Neutral and exact, but anonymous.
 - **B. SF Pro Display Semibold, lowercase.** The ring becomes a horizontal lockup, with copy about long-term partnerships. Native-feeling, but SF Pro is licensed only for Apple platforms, so it cannot become a logo, and it falls back on Windows and Android.
-- **C. Newsreader, outlined.** Implemented.
+- **C. Newsreader, outlined.** The basis of the site.
+- **D. C with the name in tangerine.** Implemented.
+- **E. C with the fruit drawing inside the ring.** The drawing became the favicon.
 
 A and B use installed fonts, so they render as intended only on Apple devices.
+
+## Favicon
+
+`assets/favicon.svg` is an original flat drawing of two tangerines on one twig, inspired by the studio's profile picture (the picture itself is not used). It is recognisable at 16px on light and dark tab bars, where a hairline ring is not. Study E shows it inside the ring on the page; there the orbiting sun competed with it.
 
 ## Placeholder email
 
