@@ -6,27 +6,22 @@ A one-screen website for Tangerine, the independent creative studio led by Cole 
 
 ## The idea
 
-The site is built like Tangerine's own instruments (the TABLET and foundation studies):
-- cyber-white field, black type and monospace labels;
-- hairline rules;
-- one tangerine signal marking the single action (■ Begin);
-- a work field beside a side panel;
-- no motion.
+Apple-style restraint: one object, one name, one sentence, one way in.
 
-The panel says only what is needed: who leads the studio, that it works with a select few clients, the six disciplines, and how to begin.
-
-The field holds one diagram, an **orbit**. The tangerine dot is the sun, placed by the visitor's own clock: 06 at the horizon on the left, 12 at the top, 18 on the right. By day it is solid and above the line; at night it is hollow and below. It is computed on the device, and nothing is sent or stored.
+The page is a single centred column on a near-white field. The object is a thin ring with one tangerine dot, which is the sun placed by the visitor's own clock (noon at the top, midnight at the bottom). Below it: **Tangerine**, "An independent creative studio led by Cole Calfee.", one quiet line naming the six disciplines and the select-client model, and a single tangerine link, *Begin a conversation ›*.
 
 ## History
 
-The earlier, fuller "First Light" versions (a scroll-driven day) are in git history at `c5a92b8` and `b092e3a`.
+Earlier directions are in git history:
+- `c5a92b8`: First Light, a scroll-driven day.
+- `b092e3a`: First Light, simplified.
+- `524ede7`: the instrument panel.
 
 ## Craft
 
-- **Shared design system:** uses the same tokens as `system/tangerine.css` on the foundation study: `#FAFBFB` paper, `#181A1B` ink, `#DFE2E2` hairline, `#F25A28` tangerine.
-- **System fonts only:** Helvetica Neue / system sans and system mono.
-- **No dependencies:** no framework, build step, cookies, analytics or third-party requests. About 1 KB of JavaScript.
-- **Without JavaScript:** the page renders fully; the orbit shows the sun at noon.
+- **System fonts:** Apple's own SF Pro on Apple devices, falling back to Helvetica Neue and system sans elsewhere.
+- **No dependencies:** no framework, build step, cookies, analytics or third-party requests. The JavaScript is a few lines that place the dot.
+- **Without JavaScript:** the dot rests at noon.
 
 ## Preview locally
 
