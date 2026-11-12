@@ -1,33 +1,32 @@
-# Tangerine — "First Light"
+# Tangerine — studio site
 
-A responsive one-page site for Tangerine, the independent creative studio led by Cole Calfee. This is a **second creative vision**, built to be compared with the first website concept. It is self-contained in `site/` and does not touch the legacy root (`index.html`, `personal/`, etc.).
+A one-screen website for Tangerine, the independent creative studio led by Cole Calfee. This is a **second creative vision**, built to be compared with the first website concept. It is self-contained in `site/` and does not touch the legacy root (`index.html`, `personal/`, etc.).
 
 **Not deployed.** Nothing here changes any Vercel setting, production branch or domain.
 
 ## The idea
 
-The site is one day, and it doesn't explain itself.
+The site is built like Tangerine's own instruments (the TABLET and foundation studies):
+- cyber-white field, black type and monospace labels;
+- hairline rules;
+- one tangerine signal marking the single action (■ Begin);
+- a work field beside a side panel;
+- no motion.
 
-A single tangerine disc is the sun. It rises from a horizon set on the baseline of *keeping.*, crosses the page, and sets on the footer's last rule. The background moves through the hours with it.
+The panel says only what is needed: who leads the studio, that it works with a select few clients, the six disciplines, and how to begin.
 
-| Hour | Section |
-|---|---|
-| 06:00 dawn | *Work worth keeping.* An independent creative studio led by Cole Calfee, working with a select few clients. |
-| 10:00 day | Practice: six disciplines, shown as the six segments of a cut tangerine. The fruit turns slowly through them, and the sun sits at its heart. |
-| 12:00 noon | *Few, by design.* One line. |
-| 17:40 golden hour | The page turns tangerine: *Begin a conversation*, and an email address. |
-| 21:00 night | *A place to keep what matters and return to it.* The sun sets. |
+The field holds one diagram, an **orbit**. The tangerine dot is the sun, placed by the visitor's own clock: 06 at the horizon on the left, 12 at the top, 18 on the right. By day it is solid and above the line; at night it is hollow and below. It is computed on the device, and nothing is sent or stored.
 
-## Simplified from v1
+## History
 
-The first version (commit `c5a92b8`) also had a long "between" statement, a six-step method dial, five principles, a studio/clients section, a mobile index menu and an email composer. These were removed to keep the site small and confident. They are in git history if any piece is wanted back.
+The earlier, fuller "First Light" versions (a scroll-driven day) are in git history at `c5a92b8` and `b092e3a`.
 
-## Craft notes
+## Craft
 
-- **Fonts:** Fraunces, Hanken Grotesk and JetBrains Mono, self-hosted under the SIL Open Font License (licences in `assets/fonts/`).
-- **Colour:** one hue, tangerine `#F25A28`, against warm neutrals that change with the hour. Tones are CSS `@property` tokens, so the colour transitions are smooth.
-- **No tracking or dependencies:** no cookies, analytics, third-party requests, framework or build step.
-- **Fallbacks:** reduced motion is respected, and without JavaScript every section still paints its own hour.
+- **Shared design system:** uses the same tokens as `system/tangerine.css` on the foundation study: `#FAFBFB` paper, `#181A1B` ink, `#DFE2E2` hairline, `#F25A28` tangerine.
+- **System fonts only:** Helvetica Neue / system sans and system mono.
+- **No dependencies:** no framework, build step, cookies, analytics or third-party requests. About 1 KB of JavaScript.
+- **Without JavaScript:** the page renders fully; the orbit shows the sun at noon.
 
 ## Preview locally
 
