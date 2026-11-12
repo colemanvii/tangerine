@@ -1,6 +1,6 @@
 # Tangerine — The Synthesis Interface
 
-Status: **product direction / design brief, 9 November 2026. Not a claim of an implemented integration or authorization to deploy.**
+Status: **active product direction. Prototype 001 exists on a study branch; direct ChatGPT integration, private cross-device storage, and deployment remain unbuilt.**
 
 ## Definition
 
@@ -47,21 +47,32 @@ These are *views of one underlying context*, not six databases the person has to
 - **Quiet, beautiful, usable.** Preserve the Personal Instrument / TABLET design principles: white field, precision, restraint, minimal notifications, no compulsive engagement loop.
 - **Originals are preserved.** Summaries and links do not overwrite source writing, photographs, conversations, or notes.
 
-## First bounded proof
+## Working study — Prototype 001
 
-A credible first version can be small:
+The [local prototype](https://github.com/colemanvii/tangerine/blob/claude/upbeat-newton-p6gfp5/docs/prototype-001/README.md) demonstrates a bounded loop:
 
-1. Ingest a **small set of explicitly authorized, user-selected** notes or conversation excerpts, retaining source links and timestamps where available.
-2. Extract a reviewable set of people, projects, decisions, commitments, and connections; clearly mark uncertain interpretations.
-3. Present **NOW / NEXT / OPEN LOOPS** above a searchable or browsable context map.
-4. Let the person confirm, edit, or dismiss suggested records and return to the original source.
-5. Test the desktop workflow: open one interface, understand the current picture in 30 seconds, then close it.
+1. **Explicit capture:** paste conversation text or choose a `conversations.json` file from ChatGPT export.
+2. **Grounded proposals:** extract people, projects, decisions, next actions and open questions with speaker and exact source quotation; flag uncertain interpretations.
+3. **Review:** accept, correct, dismiss, reconcile duplicates, and undo proposed changes.
+4. **TABLET:** inspect the spatial map, navigate back to cited source turns, view NOW / NEXT / OPEN LOOPS and work with connected writing.
+5. **Local preservation:** browser storage and export/restore; fictional sample in public code.
 
-The existing TABLET study is a **possible presentation surface** for this synthesis; do not replace or deploy the legacy runtime merely because this direction is recorded.
+These are prototype capabilities, not a seamless product. The branch's test documentation reports passing checks, but the study is not merged into `main`, deployed as the new interface, or connected automatically to ChatGPT. The browser-only storage is not an adequate private durable vault.
+
+## Next bounded proof — the actual product experience
+
+The next research and implementation milestone is **connection, not more UI**:
+
+1. Identify which supported ChatGPT access or authorization surfaces are actually available. Investigate a low-friction integration but never claim a real-time overlay or universal history API without verifying it.
+2. Define a safe private persistence model with user control over permissions, retention, deletion and synchronization status.
+3. Test a real, user-authorized exchange from their normal ChatGPT flow into TABLET, reducing or eliminating manual transfers where possible.
+4. Confirm it produces a trustworthy useful synthesis in under 30 seconds and does not create another system to maintain.
+
+Manual paste/export is a temporary engineering bridge, **not a feature to normalize as the daily workflow**.
 
 ## Integration reality
 
-There is **no verified automatic synchronization** here among ChatGPT, Tangerine, Notion, Notable, Dia, or Claude. Ordinary GitHub code does not gain access to a person's ChatGPT conversations or memory. A future implementation must first establish which authorized export, connector, API, or user-selected capture method is actually available, and what permissions, freshness, and deletion controls it supports.
+There is **no verified automatic synchronization** here among ChatGPT, Tangerine, Notion, Notable, Dia, or Claude. The local Prototype 001 implements a user-initiated import, not a direct live connection. Ordinary GitHub code does not gain access to a person's ChatGPT conversations or memory. A future implementation must first establish which authorized export, connector, API, or user-selected capture method is actually available, and what permissions, freshness, and deletion controls it supports.
 
 Until then, design and test with synthetic examples or deliberately selected material held in an appropriate private environment. Do not add conversation transcripts, personal records, credentials, or client details to this **public** repository.
 
