@@ -4,7 +4,7 @@
 
 ## Starting point
 
-Tangerine's product should feel like a beautifully made instrument: calm, legible, fast, and nearly effortless. Its creative identity may be more expressive than the product interface. Typography is not an afterthought; it is material.
+Tangerine is a creative practice focused on client work. Its own identity should be confident, crisp, warm, and distinct without overshadowing the work it presents. Typography is not an afterthought; it is material.
 
 The current studies were prompted by designer Kostya Petrenko's (@kxdgraphics) retro typography explorations. Study the historical thinking, craft, scale, and graphic treatment—not his particular compositions or a contemporary imitation of them.
 
@@ -35,7 +35,7 @@ The preferred direction is **04**, selected for further exploration—not approv
 
 ## Restraints
 
-No rounded cards, gradients, fake patina, random decorative rules, gratuitous 3D, illegible experimental text, or UI clutter. Do not allow the dramatic display wordmark to make routine reading difficult. The user should never have to manage the design instead of their own work.
+No rounded cards, gradients, fake patina, random decorative rules, gratuitous 3D, illegible experimental text, or UI clutter. Do not let a dramatic wordmark overshadow client projects or make everyday reading difficult.
 
 Any final font decision must verify licensing, small-size legibility, numerical glyphs, accessibility, browser performance, and real use across desktop and mobile.
 
@@ -43,10 +43,10 @@ Any final font decision must verify licensing, small-size legibility, numerical 
 
 1. **Wordmark alone:** redraw TANGERINE as precise editable lettering, with true optical spacing and correct glyph construction; compare a wide cut and a more restrained cut.
 2. **Signal mark:** test the stripe motif as an independent black/orange symbol at 16, 32, and 64 px. Reject it if it cannot be distinctive without ornament.
-3. **Real product application:** place a candidate wordmark and symbol in a genuine TABLET header, empty state and writing view. Do not change the live app.
+3. **Real studio application:** test the wordmark and symbol on a portfolio/site header, project cover, and a simple proposal or presentation title page. These are studies, not approved or deployed changes.
 4. **Non-logo application:** test one printed study sheet or label on white to verify that the system remains beautiful outside screen mockups.
 5. **Choose with evidence:** compare to the orange-fruit mark and editorial type direction before announcing a final identity.
 
 ## Implementation boundaries
 
-Preserve the current app, legacy Haven work, and established archive/source integrity. Do not ship the identity study from a documentation update. Record exact typeface names and licensing only after they have been checked. Use branch-based review for an actual design-system implementation.
+Preserve existing Tangerine and historical Haven materials and source integrity. Do not ship an identity study from a documentation update. Record exact typeface names and licensing only after checking them. Use branch-based review for an actual Tangerine website or identity implementation.
