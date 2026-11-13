@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f7f3" />
+  <meta name="description" content="Tangerine is an independent creative studio led by Cole Calfee. Creative direction, film, identity, photography, words, and digital experiences." />
+  <title>Tangerine — An Independent Creative Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root{--paper:#f7f7f3;--white:#fefefa;--ink:#24231f;--muted:#76756f;--rule:#d0cec4;--orange:#df531d;--orange-dark:#b73913;--maroon:#6c2d20;--brown:#30271f;--display:'Instrument Serif',Iowan Old Style,Georgia,serif;--sans:'DM Sans',Helvetica,Arial,sans-serif;--mono:'DM Mono',monospace;}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--orange);color:white}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    svg{display:block}
+    .wrap{width:min(100% - 88px,1550px);margin-inline:auto}
+    .mono,.eyebrow{font:400 11px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.075em}
+    .eyebrow{color:#626059}
+    .topline{height:5px;background:var(--orange)}
+    .site-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:27px 0 24px;border-bottom:1px solid var(--ink)}
+    .header-side{font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.045em;line-height:1.5}
+    .header-side span{display:block}
+    .brand-small{font:italic 42px/.75 var(--display);letter-spacing:-.055em;color:var(--orange)}
+    .desktop-nav{display:flex;justify-content:flex-end;gap:27px;white-space:nowrap}
+    .desktop-nav a,.mobile-nav a{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.05em;transition:color .2s ease}
+    .desktop-nav a:hover,.mobile-nav a:hover{color:var(--orange)}
+    .menu-button{display:none;background:transparent;border:0;padding:10px;margin-right:-10px;cursor:pointer;align-items:center;gap:8px;font:11px var(--mono);text-transform:uppercase}
+    .menu-lines{width:21px;height:11px;border-top:1px solid currentColor;border-bottom:1px solid currentColor}
+    .mobile-nav{display:none}
+    .hero{padding-top:32px}
+    .hero-meta{display:flex;justify-content:space-between;align-items:center;gap:24px}
+    .hero-meta .eyebrow:last-child{text-align:right}
+    .giant-word{font:400 clamp(150px,21vw,355px)/.80 var(--display);letter-spacing:-.073em;color:var(--orange);margin:54px 0 25px -12px;white-space:nowrap}
+    .hero-rule{border-top:1px solid var(--ink)}
+    .hero-bottom{display:grid;grid-template-columns:1.25fr 1fr;gap:60px;align-items:end;padding:45px 0 70px}
+    .hero-title{font:400 clamp(57px,6.15vw,105px)/.99 var(--display);letter-spacing:-.038em;margin:0;max-width:900px}
+    .hero-title em{color:var(--orange);font-weight:400}
+    .hero-intro{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;max-width:510px;margin-left:auto}
+    .hero-intro .number{font:12px var(--mono);color:var(--orange);margin-top:5px;white-space:nowrap}
+    .hero-intro p{font-size:clamp(16px,1.45vw,22px);line-height:1.46;letter-spacing:-.027em;margin:0}
+    .hero-intro small{display:block;font:11px/1.65 var(--mono);text-transform:uppercase;letter-spacing:.025em;margin-top:25px;color:var(--muted)}
+    .statement-visual{position:relative;background:#e9e6da;min-height:600px;overflow:hidden;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:grid;grid-template-columns:1fr 1.2fr}
+    .statement-copy{z-index:1;display:flex;flex-direction:column;justify-content:space-between;padding:42px 0 43px 44px}
+    .statement-copy .eyebrow{color:#574f43}
+    .statement-copy blockquote{font:italic clamp(50px,5.3vw,85px)/1.05 var(--display);letter-spacing:-.03em;max-width:520px;margin:0}
+    .statement-copy blockquote strong{font-weight:400;color:var(--orange-dark)}
+    .fruit-art{align-self:end;justify-self:end;width:min(100%,840px);height:auto;margin-right:-8%;margin-bottom:-9%;filter:drop-shadow(6px 16px 2px rgba(96,52,18,.065));}
+    .visual-caption{display:flex;justify-content:space-between;gap:16px;padding:12px 0 70px}
+    .section-top{display:flex;justify-content:space-between;align-items:end;border-top:1px solid var(--ink);padding:20px 0 32px;gap:24px}
+    .section-top h2{font:400 clamp(58px,7vw,115px)/.9 var(--display);letter-spacing:-.055em;margin:0}
+    .section-top p{max-width:300px;text-align:right;font-size:14px;line-height:1.5;margin:0;color:#625f59}
+    .section-no{font:12px var(--mono);color:var(--orange);display:block;margin-bottom:9px}
+    .work{padding:0 0 125px}
+    .work-entry{margin-top:25px}
+    .work-visual{position:relative;overflow:hidden;min-height:610px;isolation:isolate}
+    .freeman-visual{background:#e7e2d8;display:grid;grid-template-columns:1fr 1fr}
+    .freeman-visual::before{content:"";position:absolute;inset:17px;border:1px solid rgba(70,52,40,.25);pointer-events:none}
+    .freeman-copy{padding:65px 30px 50px 70px;display:flex;flex-direction:column;z-index:1}
+    .freeman-copy .eyebrow{color:#62564a}
+    .freeman-script{font:italic clamp(80px,10vw,157px)/.85 var(--display);color:var(--maroon);letter-spacing:-.07em;margin-top:75px}
+    .freeman-copy .tagline{font:400 clamp(35px,4.1vw,62px)/1.06 var(--display);text-transform:uppercase;letter-spacing:-.025em;color:var(--brown);margin:auto 0 0}
+    .freeman-architecture{width:100%;height:100%;align-self:end;overflow:visible}
+    .work-meta{display:flex;justify-content:space-between;gap:24px;padding:18px 0 38px;border-bottom:1px solid var(--rule)}
+    .work-meta h3{font:400 clamp(34px,3.2vw,47px)/1 var(--display);letter-spacing:-.02em;margin:0}
+    .work-meta .work-type{text-align:right;max-width:400px;font:12px/1.7 var(--mono);text-transform:uppercase;color:var(--muted)}
+    .work-entry.second{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;margin-top:70px}
+    .joseph-visual{min-height:580px;background:#352b23;color:#e8d9bd;position:relative;overflow:hidden}
+    .joseph-frame{position:absolute;inset:18px;border:1px solid rgba(229,209,175,.36);pointer-events:none}
+    .joseph-monogram{font:400 78px/1 var(--display);letter-spacing:-.06em;text-align:center;padding-top:35px}
+    .joseph-name{text-align:center;font:11px var(--mono);letter-spacing:.26em;margin-top:10px}
+    .hat-art{position:absolute;left:4%;width:92%;bottom:4%;height:70%}
+    .second .work-meta{display:flex;flex-direction:column;justify-content:end;align-items:flex-start;padding:20px 20px 32px 12px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+    .second .work-meta h3{font-size:clamp(57px,6.3vw,103px);line-height:.91}
+    .second .work-meta p{font-size:18px;line-height:1.55;max-width:380px;margin:30px 0 12px}
+    .second .work-meta .work-type{text-align:left}
+    .arrow-link{display:inline-flex;align-items:center;gap:17px;font:12px var(--mono);text-transform:uppercase;padding-top:20px;border-top:1px solid var(--rule);margin-top:15px;transition:gap .2s ease}
+    .arrow-link:hover{gap:28px;color:var(--orange)}
+    .arrow-link svg{width:18px;height:18px}
+    .disciplines{background:var(--orange);color:#fffaf1;padding:30px 0 35px}
+    .disciplines-grid{display:grid;grid-template-columns:1.1fr 2.3fr;gap:60px}
+    .disciplines .eyebrow{color:#ffdbca}
+    .disciplines h2{font:400 clamp(52px,6vw,90px)/1.03 var(--display);letter-spacing:-.04em;margin:40px 0 0}
+    .discipline-list{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-self:end}
+    .discipline-list span{font:400 clamp(21px,2vw,30px)/1.1 var(--display);border-bottom:1px solid rgba(255,250,241,.55);padding:18px 0}
+    .journal{padding:120px 0 135px}
+    .journal-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}
+    .journal-feature{border-top:1px solid var(--ink);padding-top:18px;display:flex;flex-direction:column;justify-content:space-between;min-height:430px}
+    .journal-feature h3{font:400 clamp(59px,6.5vw,110px)/.95 var(--display);letter-spacing:-.047em;max-width:780px;margin:32px 0}
+    .journal-feature h3 em{color:var(--orange);font-weight:400}
+    .journal-feature .bottom{display:flex;justify-content:space-between;align-items:end;gap:20px}
+    .journal-feature .bottom p{font-size:16px;max-width:380px;margin:0}
+    .journal-secondary{border-top:1px solid var(--ink);display:flex;flex-direction:column}
+    .journal-note{padding:20px 0 31px;border-bottom:1px solid var(--rule)}
+    .journal-note h3{font:400 clamp(37px,3.5vw,58px)/1.03 var(--display);letter-spacing:-.035em;margin:33px 0 18px}
+    .journal-note p{font-size:14px;color:#67645e;margin:0;max-width:350px}
+    .journal .small-aside{font:11px/1.7 var(--mono);text-transform:uppercase;color:var(--muted);margin-top:auto;padding-top:35px}
+    .about{background:var(--ink);color:var(--paper);padding:88px 0 40px}
+    .about-grid{display:grid;grid-template-columns:1fr 1.18fr;gap:70px}
+    .about .eyebrow{color:#a7a6a0}
+    .about-title{font:400 clamp(69px,8.1vw,139px)/.9 var(--display);letter-spacing:-.05em;margin:34px 0 0}
+    .about-title em{color:#f18656;font-weight:400}
+    .about-right{border-top:1px solid #55534e;padding-top:23px}
+    .about-right p{font:400 clamp(22px,2.4vw,37px)/1.24 var(--display);letter-spacing:-.018em;margin:0 0 35px;max-width:680px}
+    .about-right .about-small{font:15px/1.6 var(--sans);color:#c5c4be;max-width:510px}
+    .about-bottom{display:flex;justify-content:space-between;gap:24px;margin:120px 0 0;padding:22px 0;border-top:1px solid #55534e;align-items:end}
+    .about-bottom .philosophy{font:italic clamp(30px,3vw,49px)/1.1 var(--display);letter-spacing:-.02em}
+    .about-bottom .philosophy em{color:#f18656}
+    .contact{padding:90px 0 30px}
+    .contact .eyebrow{margin-bottom:30px}
+    .contact-link{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--ink);padding:0 0 22px;font:400 clamp(80px,11.3vw,190px)/.82 var(--display);letter-spacing:-.06em;color:var(--orange);transition:color .2s ease}
+    .contact-link:hover{color:var(--orange-dark)}
+    .contact-link svg{width:clamp(37px,5vw,77px);height:auto;stroke-width:1}
+    .footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;padding:20px 0 45px}
+    .footer a:hover{text-decoration:underline}
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+    .reveal.in-view{opacity:1;transform:none}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}*{animation-duration:.01ms!important}}
+    @media(max-width:1050px){.wrap{width:calc(100% - 52px)}.giant-word{margin-left:-7px;font-size:21vw}.statement-visual{min-height:500px}.work-visual{min-height:500px}.freeman-copy{padding:50px 20px 40px 44px}.freeman-script{margin-top:55px}.fruit-art{margin-right:-17%}.joseph-visual{min-height:480px}}
+    @media(max-width:700px){
+      .wrap{width:calc(100% - 34px)}.site-header{grid-template-columns:1fr auto;gap:14px;padding:21px 0 19px}.header-side{display:none}.brand-small{font-size:38px}.desktop-nav{display:none}.menu-button{display:flex}.mobile-nav{display:none;flex-direction:column;gap:0;border-bottom:1px solid var(--ink)}.mobile-nav.open{display:flex}.mobile-nav a{padding:17px 0;border-bottom:1px solid var(--rule)}.hero{padding-top:24px}.hero-meta{align-items:start}.hero-meta .eyebrow{font-size:9px}.giant-word{font-size:22.15vw;margin:50px 0 20px -4px;letter-spacing:-.077em}.hero-bottom{grid-template-columns:1fr;gap:32px;padding:35px 0 60px}.hero-title{font-size:clamp(60px,13vw,89px)}.hero-intro{margin-left:0;max-width:100%}.hero-intro p{font-size:17px}.statement-visual{display:flex;flex-direction:column;min-height:650px}.statement-copy{padding:28px 25px 0;min-height:310px;gap:34px}.statement-copy blockquote{font-size:59px}.fruit-art{width:115%;margin-top:-30px;margin-right:-11%;margin-bottom:-20%}.visual-caption{padding-bottom:78px}.visual-caption .eyebrow{font-size:9px}.section-top{align-items:start;flex-direction:column;padding-bottom:24px}.section-top h2{font-size:76px}.section-top p{text-align:left}.work{padding-bottom:80px}.work-entry{margin-top:15px}.work-visual{min-height:530px}.freeman-visual{display:flex;flex-direction:column}.freeman-copy{padding:37px 30px 5px;min-height:330px}.freeman-script{font-size:110px;margin-top:42px}.freeman-copy .tagline{font-size:43px;margin:30px 0 0}.freeman-architecture{height:280px;margin-top:-35px}.work-meta{flex-direction:column;gap:8px}.work-meta .work-type{text-align:left;font-size:10px}.work-entry.second{display:flex;flex-direction:column;gap:25px;margin-top:60px}.joseph-visual{min-height:510px}.second .work-meta{padding:25px 0 35px}.second .work-meta h3{font-size:80px}.second .work-meta p{font-size:17px}.disciplines{padding:35px 0 45px}.disciplines-grid{grid-template-columns:1fr;gap:35px}.disciplines h2{font-size:72px;margin-top:25px}.discipline-list{gap:0 18px}.discipline-list span{font-size:24px}.journal{padding:85px 0 100px}.journal-grid{grid-template-columns:1fr;gap:65px}.journal-feature{min-height:380px}.journal-feature h3{font-size:75px}.journal-feature .bottom{flex-direction:column;align-items:start;gap:20px}.journal-note h3{font-size:57px}.about{padding-top:75px}.about-grid{grid-template-columns:1fr;gap:55px}.about-title{font-size:93px}.about-right p{font-size:32px}.about-bottom{margin-top:95px;align-items:start;flex-direction:column}.about-bottom .philosophy{font-size:35px}.contact{padding-top:70px}.contact-link{font-size:18vw;padding-bottom:20px}.contact-link svg{width:42px}.footer{font-size:10px}
+    }
+    @media(max-width:370px){.hero-title{font-size:55px}.statement-copy blockquote{font-size:50px}.freeman-script{font-size:91px}.journal-feature h3{font-size:62px}.giant-word{font-size:22vw}}
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header class="site-header wrap">
+    <div class="header-side"><span>Independent creative studio</span><span>Georgia · Everywhere</span></div>
+    <a class="brand-small" href="#top" aria-label="Tangerine, home">t.</a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#work">Work</a><a href="#journal">Journal</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-navigation">Menu <span class="menu-lines"></span></button>
+  </header>
+  <nav class="mobile-nav wrap" id="mobile-navigation" aria-label="Mobile navigation">
+    <a href="#work">Work</a><a href="#journal">Journal</a><a href="#about">About</a><a href="#contact">Contact</a>
+  </nav>
+  <main id="top">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-meta"><span class="eyebrow">An independent creative studio<br />Est. 2026</span><span class="eyebrow">Art, direction &amp; everything between<br />01 / 04</span></div>
+      <div class="giant-word" aria-label="tangerine">tangerine.</div>
+      <div class="hero-rule"></div>
+      <div class="hero-bottom">
+        <h1 class="hero-title" id="hero-title">Making things<br />with <em>feeling.</em></h1>
+        <div class="hero-intro"><span class="number">↗</span><div><p>Tangerine is the creative world of Cole Calfee—an independent studio for ideas worth making and stories worth telling.</p><small>Creative direction · Film · Design<br/>Photography · Writing · Art</small></div></div>
+      </div>
+    </section>
+    <section class="wrap" aria-label="Tangerine philosophy">
+      <div class="statement-visual reveal">
+        <div class="statement-copy"><span class="eyebrow">A guiding principle / No. 001</span><blockquote>In cyberspace<br/>as it is <strong>in heaven.</strong></blockquote><span class="eyebrow">Made with intention. Meant to be felt.</span></div>
+        <svg class="fruit-art" viewBox="0 0 800 670" role="img" aria-label="An original illustration of two tangerines with leaves">
+          <defs><pattern id="dots" width="13" height="13" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#5e3115" opacity=".18"/></pattern><clipPath id="fruitA"><path d="M158 357 C160 236 250 172 364 192 C459 206 520 290 494 391 C477 494 381 559 270 535 C179 516 145 449 158 357Z"/></clipPath><clipPath id="fruitB"><path d="M385 367 C395 245 484 203 581 228 C687 259 736 345 697 448 C661 541 557 582 472 536 C401 499 375 439 385 367Z"/></clipPath></defs>
+          <path d="M396 251 C390 160 410 108 434 43" stroke="#463e24" stroke-width="9" stroke-linecap="round" fill="none"/>
+          <path d="M424 125 C333 75 260 85 213 132 C283 169 356 170 424 125Z" fill="#617348" stroke="#39482a" stroke-width="4"/>
+          <path d="M425 138 C501 59 589 51 638 91 C592 155 502 174 425 138Z" fill="#596d3e" stroke="#39482a" stroke-width="4"/>
+          <path d="M219 132 Q306 133 422 126 M427 139 Q531 126 632 91" stroke="#c2ba91" stroke-width="2.5" fill="none" opacity=".7"/>
+          <path d="M158 357 C160 236 250 172 364 192 C459 206 520 290 494 391 C477 494 381 559 270 535 C179 516 145 449 158 357Z" fill="#d95c20" stroke="#8c3817" stroke-width="5"/>
+          <path d="M385 367 C395 245 484 203 581 228 C687 259 736 345 697 448 C661 541 557 582 472 536 C401 499 375 439 385 367Z" fill="#ef781e" stroke="#98411a" stroke-width="5"/>
+          <path d="M158 357 C160 236 250 172 364 192 C459 206 520 290 494 391 C477 494 381 559 270 535 C179 516 145 449 158 357Z" fill="url(#dots)"/>
+          <path d="M385 367 C395 245 484 203 581 228 C687 259 736 345 697 448 C661 541 557 582 472 536 C401 499 375 439 385 367Z" fill="url(#dots)"/>
+          <g clip-path="url(#fruitA)" fill="none" stroke="#f39e54" opacity=".26" stroke-width="5"><path d="M180 312C245 206 411 215 458 335"/><path d="M179 360C222 470 352 524 467 443"/><path d="M236 239C204 330 215 420 289 521"/><path d="M336 206C312 312 355 443 427 491"/></g>
+          <g clip-path="url(#fruitB)" fill="none" stroke="#fac077" opacity=".29" stroke-width="5"><path d="M398 346C491 227 624 274 690 353"/><path d="M418 443C506 549 644 521 708 418"/><path d="M516 244C482 346 498 466 573 546"/></g>
+          <path d="M342 189 Q350 150 391 144 Q405 167 396 200 Q361 212 342 189Z" fill="#49643c" stroke="#304629" stroke-width="4"/>
+          <path d="M542 228 Q528 185 565 180 Q598 191 602 225 Q568 240 542 228Z" fill="#587347" stroke="#304629" stroke-width="4"/>
+          <g fill="#7b3b18" opacity=".65"><circle cx="240" cy="303" r="4"/><circle cx="303" cy="437" r="3"/><circle cx="408" cy="310" r="3"/><circle cx="569" cy="333" r="3"/><circle cx="639" cy="419" r="4"/><circle cx="519" cy="479" r="3"/></g>
+        </svg>
+      </div>
+      <div class="visual-caption"><span class="eyebrow">Tangerine / The idea</span><span class="eyebrow">Beauty · Order · Humanity · Delight</span></div>
+    </section>
+    <section class="work wrap" id="work" aria-labelledby="work-title">
+      <div class="section-top"><div><span class="section-no">01 / Selected work</span><h2 id="work-title">Good company.</h2></div><p>Long relationships, strong convictions, and work built to last. A selection of creative partnerships.</p></div>
+      <article class="work-entry reveal">
+        <div class="work-visual freeman-visual" role="img" aria-label="Conceptual Freeman editorial artwork with architectural line drawing">
+          <div class="freeman-copy"><span class="eyebrow">Freeman / General Contracting</span><span class="freeman-script">Freeman</span><p class="tagline">Built for<br />generations.</p></div>
+          <svg class="freeman-architecture" viewBox="0 0 700 650" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+            <g fill="none" stroke="#655244" stroke-width="2" opacity=".76"><path d="M8 469 L308 179 L678 435"/><path d="M64 492 L310 245 L639 469"/><path d="M131 484 V340 L309 163 L579 373 V594 H131Z"/><path d="M183 593 V394 L308 275 L532 417 V593"/><path d="M305 163V31 M305 31L341 64"/><path d="M308 275V595"/><path d="M0 594H700"/><path d="M210 595V461H272V595 M341 595V461H401V595 M430 595V469H500V595"/><path d="M182 413H531 M182 443H531"/><path d="M246 346 L245 393M305 301V393 M368 349V393"/><path d="M490 397V322 M491 322L551 371"/><path d="M123 600L124 646 M185 600L186 646 M310 599V647 M437 600V647 M576 600V647"/></g>
+            <g stroke="#8c745d" stroke-width="1" opacity=".5"><path d="M100 601V649 M114 601V649 M145 601V649 M159 601V649 M475 601V649 M490 601V649 M504 601V649 M517 601V649"/><path d="M0 612H700 M0 635H700"/></g>
+            <g fill="#6b4b35" opacity=".18"><path d="M130 595V340L308 163V275L182 393V595Z"/></g>
+          </svg>
+        </div>
+        <div class="work-meta"><h3>Freeman General Contracting</h3><div class="work-type">Ongoing creative partnership<br />Brand · Editorial · Film · Digital</div></div>
+      </article>
+      <article class="work-entry second reveal">
+        <div class="joseph-visual" role="img" aria-label="Conceptual Joseph Martin Hatmaker art direction with illustrated hat">
+          <span class="joseph-frame"></span><div class="joseph-monogram">JM</div><div class="joseph-name">JOSEPH MARTIN · HATMAKER</div>
+          <svg class="hat-art" viewBox="0 0 680 410" aria-hidden="true"><g fill="none" stroke="#dac3a1" stroke-width="4"><path d="M176 226 C208 200 205 106 245 78 C272 58 314 110 349 110 C382 110 415 60 446 91 C479 120 467 200 496 227"/><path d="M155 234C187 226 243 229 282 238 C342 253 418 252 489 228"/><path d="M163 253C264 313 431 313 522 251"/><path d="M151 254 C100 240 50 268 65 296 C87 339 229 362 344 362 C478 362 599 347 620 301 C635 272 579 252 527 253"/><path d="M204 204 C286 233 416 241 476 206"/><path d="M195 215 C284 245 418 255 484 218"/><path d="M245 78Q306 133 350 133Q410 130 445 91" stroke-width="2"/><path d="M64 300 C165 383 539 398 618 302" stroke-width="2"/></g><g fill="#e4cfac" opacity=".08"><path d="M205 217C225 176 224 97 249 81C284 93 305 119 350 118C403 117 419 79 446 93C477 120 457 197 479 218C403 251 276 250 205 217Z"/></g></svg>
+        </div>
+        <div class="work-meta"><span class="eyebrow">02 / A study in craftsmanship</span><h3>Joseph<br/>Martin.</h3><p>An evolving visual world for a hatmaker—built around the maker, his materials, and the character of the work.</p><div class="work-type">Identity · Illustration · Art direction</div><span class="eyebrow" style="border-top:1px solid var(--rule);padding-top:18px;display:block">A developing collaboration / 2026</span></div>
+      </article>
+    </section>
+    <section class="disciplines" aria-labelledby="disciplines-title">
+      <div class="wrap disciplines-grid"><div><span class="eyebrow">What gets made / No fixed medium</span><h2 id="disciplines-title">One idea.<br/><i>Many forms.</i></h2></div><div class="discipline-list"><span>Creative direction</span><span>Films &amp; moving image</span><span>Identity &amp; design</span><span>Photography</span><span>Digital experiences</span><span>Writing &amp; editorial</span></div></div>
+    </section>
+    <section class="journal wrap" id="journal" aria-labelledby="journal-title">
+      <div class="section-top"><div><span class="section-no">02 / Journal</span><h2 id="journal-title">On the record.</h2></div><p>Notes from a life spent looking, making, and paying attention. Some finished, some still becoming.</p></div>
+      <div class="journal-grid">
+        <article class="journal-feature reveal"><span class="eyebrow">Field note 001 / A story to write</span><h3>The day I met <em>Wendell Berry.</em></h3><div class="bottom"><p>On memory, place, and what it means to encounter a person whose words have lived with you.</p><span class="eyebrow">From the notebook ↗</span></div></article>
+        <div class="journal-secondary reveal"><article class="journal-note"><span class="eyebrow">Working title / Reflection</span><h3>What is fear?</h3><p>A meditation on courage, music, memory, and the life we hope to make.</p></article><article class="journal-note"><span class="eyebrow">Archive / Personal work</span><h3>Things worth keeping.</h3><p>Photographs, drawings, fragments, collected along the way.</p></article><div class="small-aside">The journal is a living notebook.<br/>Not everything has to be finished to belong.</div></div>
+      </div>
+    </section>
+    <section class="about" id="about" aria-labelledby="about-title"><div class="wrap"><div class="about-grid"><div><span class="eyebrow">03 / About Tangerine</span><h2 class="about-title" id="about-title">Small studio.<br/><em>Big world.</em></h2></div><div class="about-right"><p>Tangerine is an independent creative studio led by Cole Calfee, working at the intersection of art, storytelling, design, and business.</p><p class="about-small">Sometimes that means directing a film. Sometimes building a visual identity, making a photograph, writing something worth reading, or helping a founder articulate a vision. The medium follows the idea—and the work is always personal.</p></div></div><div class="about-bottom"><div class="philosophy">In cyberspace as it is <em>in heaven.</em></div><div class="eyebrow">An organizing belief, not a slogan.<br/>Made in Georgia · Working everywhere.</div></div></div></section>
+    <section class="contact wrap" id="contact" aria-labelledby="contact-title"><span class="eyebrow">04 / Begin something</span><a class="contact-link" href="https://www.instagram.com/ex.tangerina/" target="_blank" rel="noopener noreferrer" id="contact-title" aria-label="Connect with Tangerine on Instagram"><span>Let's talk.</span><svg viewBox="0 0 75 75" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M8 67L67 8M17 8H67V58"/></svg></a><p class="eyebrow" style="margin-top:15px">For projects, ideas, and people doing interesting things. Currently connecting through Instagram.</p></section>
+  </main>
+  <footer class="footer wrap"><span class="eyebrow">© <span id="year">2026</span> Tangerine Studio</span><span class="eyebrow">Independent by design</span><a class="eyebrow" href="#top">Back to top ↑</a></footer>
+  <script>
+    const button=document.querySelector('.menu-button');const menu=document.querySelector('.mobile-nav');
+    button.addEventListener('click',()=>{const open=menu.classList.toggle('open');button.setAttribute('aria-expanded',String(open));button.setAttribute('aria-label',open?'Close menu':'Open menu');});
+    menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');button.setAttribute('aria-expanded','false');button.setAttribute('aria-label','Open menu');}));
+    document.getElementById('year').textContent=new Date().getFullYear();
+    if('IntersectionObserver' in window){const observer=new IntersectionObserver((entries)=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');observer.unobserve(entry.target);}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in-view'));}
+  </script>
+</body>
+</html>
