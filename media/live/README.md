@@ -1,5 +1,16 @@
 # Tangerine Live / Version 1
 
+## Editorial V2 / public preview
+
+**Preview:** https://tangerine-live-v1-preview.vercel.app/media/live/index.html
+
+This follow-on branch changes the first edition from an empty hero to a content-first newspaper grid, served by a dynamic Python endpoint at `/api/headlines`. The endpoint concurrently gathers the same configured publisher RSS feeds, returns source-linked headline metadata, and supplies CDN caching for 10 minutes. The browser fetches the API on load and every seven minutes while open, and falls back to the static `stories.json` snapshot if live retrieval fails. The public Vercel preview was manually deployed from the branch without altering the Tangerine production repository root.
+
+**Verified on the public preview November 14, 2026:** the endpoint responded with 28 real headlines across 11 configured feeds. A browser smoke check confirmed that articles appeared in the lead, secondary and Just In areas; source links and the Technology filter worked. This does not imply every source's article claims are independently verified.
+
+**Important:** The API only runs on hosting that supports Python functions (the preview uses Vercel). GitHub Pages or a plain static host cannot provide `/api/headlines`; those hosts must rely on the separate GitHub Actions-generated static snapshot after it is activated on the default branch. The refresh schedule remains unactivated for the default branch.
+
+
 A self-aggregating news front page. No paid APIs, manual daily editing, AI-written claims, email sending, or external browser dependencies.
 
 ## Included
