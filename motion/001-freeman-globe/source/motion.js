@@ -8,9 +8,9 @@
     paper: "#fff9f1",          // Freeman ivory
     red: "#f93822",            // Freeman red: script and globe, one colour
     D: 100,                    // globe diameter in bitmap pixels, as on the Edition 001 plate
-    K: 6,                      // device pixels per bitmap pixel (even, so 4:2:0 chroma lands on the grid)
+    K: 4,                      // device pixels per bitmap pixel (even, so 4:2:0 chroma lands on the grid)
     centreY: 912,              // optical centre of the mark, a little above the middle of the frame
-    turn: 220,                 // degrees travelled in one loop: 13.09 s per revolution (the study's "about thirteen")
+    turn: 180,                 // degrees travelled in one loop: 16 s per revolution (round 1 was 220, 13.09 s)
     start: 0                   // rotation at frame 0
   };
   SPEC.frames = SPEC.fps * SPEC.seconds;
