@@ -1,0 +1,30 @@
+name: Tangerine Live — checks
+
+on:
+  pull_request:
+    paths:
+      - "media/live/**"
+      - ".github/workflows/tangerine-live*.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile Python
+        run: python -m compileall -q media/live
+      - name: Test aggregation logic offline
+        run: python -m unittest discover -s media/live/tests -v
+      - name: Check browser script syntax
+        run: node --check media/live/live.js
+      - name: Verify local page references
+        run: |
+          test -f media/live/index.html
+          test -f media/live/live.css
+          test -f media/live/stories.json
+          grep -q 'src="live.js"' media/live/index.html
+          grep -q 'href="live.css"' media/live/index.html
