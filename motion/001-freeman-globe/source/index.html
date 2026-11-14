@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Freeman Globe 001 — live preview</title>
 <!-- Preview of the same frames render.cjs encodes. Serve the project folder over http:
-       cd motion/001-freeman-globe && python3 -m http.server 8850   →  http://127.0.0.1:8850/source/
+       cd motion/001-freeman-globe && python3 -m http.server 8850   →  http://127.0.0.1:8850/source/  (globe)  or  /source/?v=pendant
      Space pauses. ← → step one frame. L jumps to the loop seam. -->
 <style>
   html,body{margin:0;height:100%;background:#1c1a16;display:grid;place-items:center}
@@ -15,14 +15,18 @@
 <script>
 (async () => {
   const src = await (await fetch("../assets/freeman-globe-mark.original.js")).text();
-  const film = FreemanGlobe.create(FreemanMark.load(src)), S = film.SPEC;
+  const film = FreemanGlobe.create(FreemanMark.load(src), new URLSearchParams(location.search).get("v") || "globe"), S = film.SPEC;
   const ctx = document.querySelector("canvas").getContext("2d");
+  const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)), paper = hex(S.paper), red = hex(S.red);
+  const img = ctx.createImageData(film.PW, film.PH);
+  ctx.fillStyle = S.paper; ctx.fillRect(0, 0, S.width, S.height);
   function draw(frame) {
-    const g = film.frameGrid(frame);
-    ctx.fillStyle = S.paper; ctx.fillRect(0, 0, S.width, S.height);
-    ctx.fillStyle = S.red;
-    for (let y = 0; y < film.H; y++) for (let x = 0; x < film.W; x++)
-      if (g[y * film.W + x]) ctx.fillRect(film.x0 + x * S.K, film.y0 + y * S.K, S.K, S.K);
+    const cov = film.coverage(frame), d = img.data;
+    for (let i = 0; i < cov.length; i++) {
+      const a = cov[i] / 255;
+      d[i * 4] = paper[0] + (red[0] - paper[0]) * a; d[i * 4 + 1] = paper[1] + (red[1] - paper[1]) * a; d[i * 4 + 2] = paper[2] + (red[2] - paper[2]) * a; d[i * 4 + 3] = 255;
+    }
+    ctx.putImageData(img, film.x0, film.y0);
   }
   let frame = 0, paused = false, t0 = performance.now();
   const tick = (now) => {
