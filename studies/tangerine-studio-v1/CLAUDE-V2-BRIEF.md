@@ -20,6 +20,22 @@ Tangerine is the independent creative world and studio of Cole Calfee: art, desi
 
 The guiding principle is **“In cyberspace as it is in heaven.”** Translate that into beauty, order, warmth, humanity, craft, and delight. Do not use it as a decorative substitute for design quality.
 
+## Personality: more like Cole, and more fun
+
+**This is a crucial distinction.** Cole's personal website and Freeman's website share a point of view: disciplined typography, good margins, precise editing, graphic confidence, and respect for the subject. Tangerine belongs to that family, but **should not look like either site's sibling clone**.
+
+- **Freeman** is the serious, confident, architectural expression: the work, the people, and the built record come first.
+- **Cole's personal site** is intimate, contemplative, and autobiographical: a quieter expression of one person.
+- **Tangerine** is the studio door thrown open: brighter, more playful, surprising, curious, sometimes eccentric, unmistakably authored. This is where the painter, writer, photographer, director, and designer meet.
+
+Aim for **disciplined mischief**: cultivated visual taste with genuine spontaneity. Tangerine should have a grin. Let the orange be more alive here. Find one or two moments of charm, unexpected scale, original illustration, witty microcopy, visual surprise, or delightful micro-interaction that only makes sense for this studio. They must be well drawn and intelligently placed, not generic animations or novelty UX. The tiny blinking bitmap fruit is a great example: a little joke in the middle of a serious piece of craft.
+
+The work itself should feel varied. A beautifully typeset essay, a peculiar visual study, a documentary frame, a painted object, a maker's materials, and a hospitality collaboration can live together without all being presented in identical cards. Make space for range and surprise without compromising editorial structure.
+
+**Do not confuse 'fun' with loudness or clutter.** Avoid playful-agency clichés, childish fruit mascots, emoji overload, stickers everywhere, colorful gradients, contrived quirkiness, and a sterile minimalism that removes the human being. Fun should come from Cole's actual creative world, curiosity, original work, and editorial decisions—not a template's idea of playfulness. Don't invent artwork or biographical experiences and attribute them to him.
+
+When judging V2, ask: *Would this feel at home beside the personal site and Freeman in its quality of craft, yet immediately be identifiable as Tangerine from its warmth, character, and delight?*
+
 ## What must survive from V1
 
 - The oversized, warm editorial **tangerine** identity and distinctive orange signature.
