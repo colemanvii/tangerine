@@ -1,0 +1,38 @@
+name: Tangerine Live — refresh headlines
+
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tangerine-live-feed
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Test aggregator
+        run: python -m unittest discover -s media/live/tests -v
+      - name: Aggregate publisher headlines
+        run: python media/live/aggregate.py
+      - name: Publish changed snapshot
+        run: |
+          git add media/live/stories.json
+          if ! git diff --cached --quiet; then
+            git -c user.name="github-actions[bot]" \
+                -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+                commit -m "data(media): refresh Tangerine live feed"
+            git push
+          else
+            echo "No new headlines; no commit."
+          fi
