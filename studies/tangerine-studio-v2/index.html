@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f7f3" />
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="Tangerine is the creative world of Cole Calfee: writing, painting, photography, film, design, and creative direction. Design No. 02, a study." />
+  <title>Tangerine — Design No. 02</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&family=Silkscreen&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --paper:#f7f7f3;--plate:#e9e6da;--ink:#24231f;--muted:#6b6963;--rule:#d0cec4;
+      --orange:#df531d;--orange-dark:#b73913;--orange-soft:#f18656;--maroon:#6c2d20;--brown:#30271f;--leaf:#4e6b43;
+      --display:'Instrument Serif','Iowan Old Style',Georgia,serif;
+      --sans:'DM Sans',Helvetica,Arial,sans-serif;
+      --mono:'DM Mono',ui-monospace,Menlo,monospace;
+      --bit:'Silkscreen','DM Mono',monospace;
+      --gutter:44px;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+    ::selection{background:var(--orange);color:#fff}
+    a{color:inherit;text-decoration:none}
+    a:focus-visible,.lens:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
+    svg{display:block}
+    h1,h2,h3,p,ol,ul,figure,blockquote{margin:0;padding:0}
+    ol,ul{list-style:none}
+    em,i{font-style:italic}
+    .skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:10px 14px;font:12px var(--mono);z-index:10}
+    .skip:focus{left:8px}
+    .wrap{width:min(100% - var(--gutter)*2,1550px);margin-inline:auto}
+
+    /* ——— label system: mono for words, bitmap for numbers ——— */
+    .label{font:400 11px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.075em;color:var(--muted)}
+    .bit{font:400 16px/1 var(--bit);letter-spacing:0;color:var(--orange);text-transform:uppercase;-webkit-font-smoothing:none;font-smooth:never}
+    .fruit{display:inline-block;width:.2em;height:.2em;vertical-align:baseline;flex:none}
+    .fruit svg{width:100%;height:100%;overflow:visible}
+    .fruit.off svg{visibility:hidden}
+    .px{display:block;width:36px;height:36px}
+    .nb{white-space:nowrap}
+
+    /* ——— masthead ——— */
+    .topline{height:5px;background:var(--orange)}
+    .masthead{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:22px 0 20px;border-bottom:1px solid var(--ink)}
+    .masthead .label{color:var(--ink);letter-spacing:.045em}
+    .masthead .label span{display:block}
+    .brand{font:italic 44px/.8 var(--display);letter-spacing:-.05em;color:var(--orange);display:inline-flex;align-items:baseline;gap:3px;padding:4px 2px}
+    .brand .fruit{width:11px;height:11px}
+    .nav{display:flex;justify-content:flex-end;gap:28px}
+    .nav a{font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;padding:8px 0;border-bottom:1px solid transparent}
+    .nav a:hover{color:var(--orange);border-bottom-color:var(--orange)}
+
+    /* ——— cover ——— */
+    .cover{padding-top:26px}
+    .cover-meta{display:flex;justify-content:space-between;gap:24px}
+    .cover-meta .label:last-child{text-align:right}
+    .wordmark{font:400 min(calc((100vw - var(--gutter)*2)/2.86),542px)/.8 var(--display);letter-spacing:-.073em;color:var(--orange);margin:.2em 0 .1em -.035em;white-space:nowrap;display:flex;align-items:baseline}
+    .wordmark .fruit{width:.168em;height:.168em;margin-left:.045em;cursor:pointer}
+    .cover-bottom{display:grid;grid-template-columns:1.25fr 1fr;gap:60px;align-items:end;padding:44px 0 64px;border-top:1px solid var(--ink)}
+    .cover h1{font:400 clamp(57px,6.15vw,105px)/.99 var(--display);letter-spacing:-.038em}
+    .cover h1 em{color:var(--orange)}
+    .cover h1 sup{font:400 .3em/1 var(--mono);color:var(--orange);vertical-align:top;position:relative;top:.5em;margin-left:.1em;letter-spacing:0}
+    .intro{max-width:480px;margin-left:auto}
+    .intro p{font-size:clamp(17px,1.45vw,22px);line-height:1.46;letter-spacing:-.022em}
+    .intro .label{display:block;margin-top:22px}
+    .contents{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+    .contents a{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:baseline;padding:18px 20px 20px 0;border-left:1px solid var(--rule);padding-left:20px;transition:background .2s,color .2s}
+    .contents a:first-child{border-left:0;padding-left:0}
+    .contents a b{font:400 clamp(24px,2.1vw,32px)/1.05 var(--display);letter-spacing:-.02em}
+    .contents a .label{grid-column:2;margin-top:4px}
+    .contents a:hover b{color:var(--orange);font-style:italic}
+
+    /* ——— plate I: the principle ——— */
+    .principle{padding:64px 0 0}
+    .plate{background:var(--plate);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:grid;grid-template-columns:1fr 1.15fr;min-height:600px}
+    .plate-copy{display:flex;flex-direction:column;justify-content:space-between;gap:40px;padding:38px 0 40px 44px}
+    .plate-copy .label{color:#574f43}
+    .plate blockquote{font:italic clamp(50px,5.3vw,86px)/1.04 var(--display);letter-spacing:-.03em}
+    .plate blockquote strong{font-weight:400;color:var(--orange-dark)}
+    .art{position:relative;align-self:center;justify-self:center;width:min(92%,760px);aspect-ratio:800/672;margin:24px 0;touch-action:pan-y}
+    .art>svg{width:100%;height:100%}
+    .lens{position:absolute;left:0;top:0;overflow:hidden;background:var(--plate);outline:1px solid var(--ink);cursor:grab;touch-action:none;display:none}
+    .lens.ready{display:block}
+    .lens:active{cursor:grabbing}
+    .lens img{position:absolute;max-width:none;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none;user-select:none}
+    .lens-tag{position:absolute;left:-1px;top:-1px;font:400 8px/1 var(--bit);color:var(--plate);background:var(--ink);padding:4px 6px 5px;transform:translateY(-100%);white-space:nowrap;-webkit-font-smoothing:none;display:none;pointer-events:none}
+    .lens.ready+.lens-tag{display:block}
+    .caption{display:flex;justify-content:space-between;gap:16px;padding:12px 0 0}
+    .caption .bit{margin-right:12px}
+
+    /* ——— forms ——— */
+    .forms{background:var(--orange);color:#fffaf1;margin-top:96px;padding:34px 0 44px}
+    .forms .label{color:#ffe1d2}
+    .forms-grid{display:grid;grid-template-columns:1fr 2.2fr;gap:60px;align-items:end}
+    .forms h2{font:400 clamp(52px,6vw,92px)/1 var(--display);letter-spacing:-.04em;margin-top:44px}
+    .forms ul{display:grid;grid-template-columns:repeat(3,1fr);gap:0 36px}
+    .forms li{display:flex;align-items:center;gap:18px;font:400 clamp(22px,2vw,31px)/1.1 var(--display);border-top:1px solid rgba(255,250,241,.55);padding:17px 0 19px}
+    .forms li .px{flex:none}
+
+    /* ——— section heads ——— */
+    .head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;border-top:1px solid var(--ink);padding:18px 0 34px}
+    .head h2{font:400 clamp(58px,7vw,116px)/.9 var(--display);letter-spacing:-.055em;margin-top:12px}
+    .head p{max-width:310px;font-size:14px;line-height:1.5;color:var(--muted);text-align:right}
+    .head .bit{margin-right:12px}
+
+    /* ——— work ——— */
+    .work{padding:110px 0 0}
+    .freeman{position:relative;background:#e7e2d8;display:grid;grid-template-columns:1fr 1fr;min-height:620px;overflow:hidden}
+    .freeman::before{content:"";position:absolute;inset:17px;border:1px solid rgba(70,52,40,.25);pointer-events:none}
+    .freeman-copy{padding:62px 30px 54px 68px;display:flex;flex-direction:column}
+    .freeman-copy .label{color:#62564a}
+    .freeman-script{font:italic clamp(80px,10vw,160px)/.85 var(--display);color:var(--maroon);letter-spacing:-.07em;margin-top:70px}
+    .freeman-tag{font:400 clamp(34px,4.1vw,62px)/1.04 var(--display);text-transform:uppercase;letter-spacing:-.02em;color:var(--brown);margin-top:auto}
+    .freeman svg{width:100%;height:100%;align-self:end;overflow:visible}
+    .js .draw path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.2s cubic-bezier(.6,0,.2,1)}
+    .js .draw path:nth-child(n+4){transition-delay:.5s}
+    .js .draw path:nth-child(n+8){transition-delay:1s}
+    .js .draw .wash{opacity:0;transition:opacity 1.2s 2.2s}
+    .js .draw:not(.in){visibility:hidden}
+    .js .draw.in path{stroke-dashoffset:0}
+    .js .draw.in .wash{opacity:.18}
+    .facts{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:0 40px;padding:20px 0 0}
+    .facts h3{font:400 clamp(34px,3.3vw,50px)/1 var(--display);letter-spacing:-.022em}
+    .facts h3+p{font-size:16px;line-height:1.55;max-width:430px;margin-top:16px}
+    .facts dl{margin:0;border-top:1px solid var(--rule)}
+    .facts dl div{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--rule);padding:9px 0}
+    .facts dt,.facts dd{margin:0;font:400 11px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+    .facts dt{color:var(--muted)}
+    .facts dd{text-align:right}
+    .facts .note{font:400 11px/1.7 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-top:1px solid var(--rule);padding-top:9px}
+
+    .jm{display:grid;grid-template-columns:.82fr 1.18fr;gap:32px;margin-top:104px}
+    .jm-copy{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:18px 0 28px;display:flex;flex-direction:column}
+    .jm-copy h3{font:400 clamp(64px,7.4vw,124px)/.88 var(--display);letter-spacing:-.05em;margin-top:auto;padding-top:60px}
+    .jm-copy h3 i{color:var(--orange)}
+    .jm-copy p.body{font-size:18px;line-height:1.55;max-width:400px;margin:28px 0 26px}
+    .jm-copy .facts{display:block;padding:0}
+    .jm-plate{position:relative;background:#352b23;color:#e8d9bd;min-height:640px;overflow:hidden}
+    .jm-plate::before{content:"";position:absolute;inset:18px;border:1px solid rgba(229,209,175,.36);pointer-events:none}
+    .jm-mono{font:400 78px/1 var(--display);letter-spacing:-.06em;text-align:center;padding-top:44px}
+    .jm-name{text-align:center;font:400 11px/1 var(--mono);letter-spacing:.26em;margin-top:12px}
+    .jm-plate svg{position:absolute;left:8%;width:84%;bottom:9%;height:62%}
+    .jm-plate .label{position:absolute;left:34px;right:34px;bottom:30px;color:#b9a98d;display:flex;justify-content:space-between;gap:12px}
+
+    .ledger{margin-top:104px;border-top:1px solid var(--ink)}
+    .ledger-head{display:flex;justify-content:space-between;gap:20px;padding:14px 0 26px}
+    .ledger li{display:grid;grid-template-columns:70px 1.5fr 1.2fr 1fr;gap:24px;align-items:baseline;border-top:1px solid var(--rule);padding:17px 0 19px}
+    .ledger li:last-child{border-bottom:1px solid var(--ink)}
+    .ledger b{font:400 clamp(27px,2.7vw,40px)/1.05 var(--display);letter-spacing:-.02em}
+    .ledger li.open b{font-style:italic;color:var(--muted)}
+    .ledger .status{text-align:right;color:var(--ink)}
+    .ledger li.open .status{color:var(--orange-dark)}
+
+    /* ——— journal ——— */
+    .journal{padding:130px 0 0}
+    .book{display:grid;grid-template-columns:150px 1.5fr 1fr;gap:0 36px}
+    .margin{border-top:1px solid var(--ink);padding-top:16px}
+    .margin .label{display:block;margin-bottom:14px}
+    .feature{border-top:1px solid var(--ink);padding:16px 0 0;display:flex;flex-direction:column;min-height:440px}
+    .feature h3{font:400 clamp(60px,6.7vw,112px)/.94 var(--display);letter-spacing:-.047em;margin:36px 0 44px;max-width:8.2em}
+    .feature h3 em{color:var(--orange)}
+    .feature h3 .fruit{width:.25em;height:.25em;margin-left:.07em}
+    .feature .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:end;gap:24px}
+    .feature .foot p{font-size:16px;max-width:390px}
+    .notes{border-top:1px solid var(--ink)}
+    .notes article{padding:16px 0 28px;border-bottom:1px solid var(--rule)}
+    .notes h3{font:400 clamp(36px,3.5vw,56px)/1.03 var(--display);letter-spacing:-.035em;margin:26px 0 14px}
+    .notes h3 .fruit{width:.3em;height:.3em;margin-left:.1em}
+    .notes p{font-size:14px;color:var(--muted);max-width:350px}
+    .notes .aside{font:400 11px/1.7 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:22px}
+    .roll{margin-top:84px}
+    .strip{background:var(--ink);display:flex;gap:10px;padding:26px 10px;overflow:hidden;position:relative}
+    .strip::before,.strip::after{content:"";position:absolute;left:0;right:0;height:10px;background:repeating-linear-gradient(90deg,var(--paper) 0 12px,transparent 12px 30px);background-position:9px 0}
+    .strip::before{top:8px}.strip::after{bottom:8px}
+    .frame{flex:1 0 170px;aspect-ratio:3/2;background:#3a3832;position:relative;display:grid;place-items:center}
+    .frame span{position:absolute;left:8px;bottom:6px;font:400 16px/1 var(--bit);color:#8d8a80;-webkit-font-smoothing:none}
+    .frame.exposed{background:var(--plate)}
+    .frame.exposed span{color:#574f43}
+    .frame .fruit{width:34%;height:auto;aspect-ratio:1}
+
+    /* ——— about ——— */
+    .about{background:var(--ink);color:var(--paper);margin-top:130px;padding:84px 0 36px}
+    .about .label{color:#a7a6a0}
+    .about-grid{display:grid;grid-template-columns:1fr 1.18fr;gap:70px}
+    .about h2{font:400 clamp(69px,8.1vw,140px)/.9 var(--display);letter-spacing:-.05em;margin-top:30px}
+    .about h2 em{color:var(--orange-soft)}
+    .about-right{border-top:1px solid #55534e;padding-top:22px}
+    .about-right p{font:400 clamp(24px,2.5vw,39px)/1.22 var(--display);letter-spacing:-.018em;max-width:700px}
+    .about-right p+p{margin-top:.8em}
+    .about-right p.small{font:400 15px/1.6 var(--sans);letter-spacing:0;color:#c5c4be;max-width:500px;margin-top:34px}
+    .creed{margin-top:120px;border-top:1px solid #55534e;padding-top:22px;display:grid;grid-template-columns:1fr 1.18fr;gap:70px;align-items:end}
+    .creed blockquote{font:italic clamp(40px,4.6vw,76px)/1.02 var(--display);letter-spacing:-.03em}
+    .creed blockquote em{color:var(--orange-soft)}
+    .creed ol{display:grid;grid-template-columns:repeat(5,auto);justify-content:space-between;gap:12px 20px}
+    .creed li{font:400 clamp(19px,1.7vw,26px)/1.1 var(--display);display:flex;flex-direction:column;gap:12px}
+    .creed li .bit{color:var(--orange-soft)}
+    .creed-foot{margin-top:40px;display:flex;justify-content:space-between;gap:20px}
+
+    /* ——— contact & colophon ——— */
+    .contact{padding:92px 0 0}
+    .contact-link{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--ink);padding:26px 0 22px;font:400 clamp(80px,11.3vw,192px)/.82 var(--display);letter-spacing:-.06em;color:var(--orange);transition:color .2s}
+    .contact-link:hover{color:var(--orange-dark)}
+    .contact-link:hover span{font-style:italic}
+    .contact-link svg{width:clamp(37px,5vw,77px);height:auto}
+    .contact-foot{display:flex;justify-content:space-between;gap:24px;padding-top:14px}
+    .clock{font:italic 22px/1.3 var(--display);color:var(--ink);text-align:right;text-transform:none;letter-spacing:-.01em}
+    .colophon{margin-top:100px;border-top:1px solid var(--rule);display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:20px 40px;padding:18px 0 44px}
+    .colophon a:hover{color:var(--orange)}
+    .colophon .label:last-child{text-align:right}
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{transition:none!important;animation:none!important}
+      .js .draw path{stroke-dashoffset:0}.js .draw .wash{opacity:.18}
+    }
+
+    @media(max-width:1050px){
+      :root{--gutter:26px}
+      .plate{min-height:500px}
+      .contents{grid-template-columns:1fr 1fr}
+      .contents a:nth-child(odd){border-left:0;padding-left:0}
+      .contents a:nth-child(n+3){border-top:1px solid var(--rule)}
+      .plate-copy{padding-left:30px}
+      .freeman{min-height:520px}
+      .freeman-copy{padding:50px 20px 44px 44px}
+      .forms-grid{grid-template-columns:1fr;gap:34px}
+      .forms h2{margin-top:26px}
+      .book{grid-template-columns:1.4fr 1fr}
+      .margin{grid-column:1/-1;display:flex;gap:28px;border-top:0;padding:0 0 12px}
+      .margin .label{margin:0}
+      .jm-plate{min-height:540px}
+      .creed{grid-template-columns:1fr;gap:44px}
+      .ledger li{grid-template-columns:54px 1.6fr 1fr}
+      .ledger .form{display:none}
+    }
+    @media(max-width:700px){
+      :root{--gutter:17px}
+      .label{font-size:10px}
+      .masthead{grid-template-columns:auto 1fr;padding:16px 0 14px}
+      .masthead>.label{display:none}
+      .brand{font-size:38px}
+      .nav{gap:18px}
+      .nav a{font-size:10px;padding:12px 0}
+      .cover{padding-top:18px}
+      .cover-meta .label{font-size:9px}
+      
+      .cover-bottom{grid-template-columns:1fr;gap:30px;padding:32px 0 48px}
+      .cover h1{font-size:clamp(55px,15.4vw,89px)}
+      .intro{margin-left:0;max-width:100%}
+      .contents a{padding:14px 10px 16px 0;column-gap:10px}
+      .contents a:nth-child(even){padding-left:14px}
+      .contents a .label{font-size:9px}
+      .principle{padding-top:48px}
+      .plate{display:flex;flex-direction:column;min-height:0}
+      .plate-copy{padding:24px 22px 0;gap:30px}
+      .plate blockquote{font-size:clamp(50px,15vw,62px)}
+      .plate-copy .label:last-child{display:none}
+      .art{width:calc(100% - 28px);margin:26px auto 24px}
+      .caption{flex-direction:column;gap:2px}
+      .caption .label{font-size:9px}
+      .forms{margin-top:72px;padding:28px 0 34px}
+      .forms h2{font-size:clamp(58px,18vw,72px);margin-top:20px}
+      .forms ul{grid-template-columns:1fr 1fr;gap:0 18px}
+      .forms li{font-size:22px;gap:12px;padding:14px 0 15px}
+      .forms li .px{width:18px;height:18px}
+      .head{grid-template-columns:1fr;padding-bottom:26px;gap:16px}
+      .head h2{font-size:clamp(62px,19.5vw,78px)}
+      .head p{text-align:left}
+      .work{padding-top:80px}
+      .freeman{display:flex;flex-direction:column;min-height:0}
+      .freeman-copy{padding:36px 30px 0}
+      .freeman-script{font-size:clamp(92px,28vw,112px);margin-top:40px}
+      .freeman-tag{font-size:clamp(38px,11vw,44px);margin-top:28px}
+      .freeman svg{height:290px;margin-top:-28px}
+      .facts{grid-template-columns:1fr;gap:22px}
+      .jm{display:flex;flex-direction:column-reverse;gap:0;margin-top:72px}
+      .jm-plate{min-height:500px}
+      .jm-plate .label{left:30px;right:30px;font-size:9px}
+      .jm-copy{border-top:0;padding-top:22px}
+      .jm-copy h3{font-size:clamp(70px,21vw,84px);padding-top:26px}
+      .jm-copy p.body{font-size:17px}
+      .ledger{margin-top:72px}
+      .ledger li{grid-template-columns:44px 1fr;gap:6px 8px;padding:14px 0 15px}
+      .ledger .form{display:block;grid-column:2}
+      .ledger .status{grid-column:2;text-align:left}
+      .ledger-head .label:last-child{display:none}
+      .strip .frame:first-child{display:none}
+      .ledger b{font-size:29px}
+      .journal{padding-top:88px}
+      .book{grid-template-columns:1fr}
+      .margin{flex-wrap:wrap;gap:4px 20px}
+      .feature{min-height:0}
+      .feature h3{font-size:clamp(62px,19vw,76px);margin:28px 0 34px}
+      .feature .foot{flex-direction:column;align-items:start;gap:18px;padding-bottom:56px}
+      .notes h3{font-size:clamp(44px,13.5vw,56px)}
+      .roll{margin-top:60px;margin-inline:calc(var(--gutter)*-1)}
+      .roll .caption{padding-inline:var(--gutter)}
+      .frame{flex-basis:150px}
+      .about{margin-top:88px;padding-top:66px}
+      .about-grid{grid-template-columns:1fr;gap:48px}
+      .about h2{font-size:clamp(74px,23.5vw,94px)}
+      .about-right p{font-size:clamp(26px,7.6vw,32px)}
+      .creed{margin-top:84px}
+      .creed blockquote{font-size:clamp(46px,13.6vw,58px)}
+      .creed ol{grid-template-columns:1fr 1fr;justify-content:stretch;gap:0 18px}
+      .creed li{flex-direction:row;align-items:baseline;gap:12px;border-top:1px solid #55534e;padding:12px 0 13px;font-size:23px}
+      .creed li:last-child{grid-column:1/-1}
+      .creed-foot{flex-direction:column;gap:6px}
+      .contact{padding-top:70px}
+      .contact-link{font-size:18vw;padding:20px 0}
+      .contact-link svg{width:42px}
+      .contact-foot{flex-direction:column;gap:16px}
+      .clock{text-align:left;font-size:21px}
+      .colophon{grid-template-columns:1fr;margin-top:70px;gap:14px}
+      .colophon .label:last-child{text-align:left}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#work">Skip to the work</a>
+  <div class="topline"></div>
+  <header class="masthead wrap">
+    <div class="label"><span>Independent creative studio</span><span>Georgia · Everywhere</span></div>
+    <a class="brand" href="#top" aria-label="Tangerine, home">t<span class="fruit" aria-hidden="true">.</span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#work">Work</a><a href="#journal">Journal</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="cover wrap" aria-labelledby="cover-title">
+      <div class="cover-meta">
+        <span class="label">The creative world of Cole Calfee<br />Est. 2026</span>
+        <span class="label">Design No. 02<br />A study, not yet published</span>
+      </div>
+      <div class="wordmark" role="img" aria-label="tangerine."><span aria-hidden="true">tangerine</span><span class="fruit" id="period" aria-hidden="true">.</span></div>
+      <div class="cover-bottom">
+        <h1 id="cover-title">Making things<br />with <em>feeling.</em><sup aria-hidden="true">*</sup></h1>
+        <div class="intro">
+          <p>Tangerine is the creative world of Cole Calfee—an independent studio for ideas worth making and stories worth telling.</p>
+          <span class="label">* And, where appropriate, with fruit.</span>
+        </div>
+      </div>
+      <nav class="contents" aria-label="Contents">
+        <a href="#work"><span class="bit">01</span><b>Good company</b><span class="label">The work</span></a>
+        <a href="#journal"><span class="bit">02</span><b>On the record</b><span class="label">The journal</span></a>
+        <a href="#about"><span class="bit">03</span><b>Small studio, big world</b><span class="label">About</span></a>
+        <a href="#contact"><span class="bit">04</span><b>Let’s talk</b><span class="label">Contact</span></a>
+      </nav>
+    </section>
+
+    <section class="principle wrap" aria-label="A founding principle">
+      <figure>
+        <div class="plate">
+          <div class="plate-copy">
+            <span class="label">A founding principle</span>
+            <blockquote>In cyberspace<br />as it is <strong>in heaven.</strong></blockquote>
+            <span class="label">Made with intention.<br />Meant to be felt.</span>
+          </div>
+          <div class="art" id="art">
+            <svg viewBox="0 0 800 672" role="img" aria-label="An original illustration of two tangerines with leaves. A movable square shows part of the same drawing as a coarse bitmap.">
+              <defs><pattern id="dots" width="13" height="13" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#5e3115" opacity=".18"/></pattern><clipPath id="fruitA"><path d="M158 357 C160 236 250 172 364 192 C459 206 520 290 494 391 C477 494 381 559 270 535 C179 516 145 449 158 357Z"/></clipPath><clipPath id="fruitB"><path d="M385 367 C395 245 484 203 581 228 C687 259 736 345 697 448 C661 541 557 582 472 536 C401 499 375 439 385 367Z"/></clipPath></defs>
+              <path d="M396 251 C390 160 410 108 434 43" stroke="#463e24" stroke-width="9" stroke-linecap="round" fill="none"/>
+              <path d="M424 125 C333 75 260 85 213 132 C283 169 356 170 424 125Z" fill="#617348" stroke="#39482a" stroke-width="4"/>
+              <path d="M425 138 C501 59 589 51 638 91 C592 155 502 174 425 138Z" fill="#596d3e" stroke="#39482a" stroke-width="4"/>
+              <path d="M219 132 Q306 133 422 126 M427 139 Q531 126 632 91" stroke="#c2ba91" stroke-width="2.5" fill="none" opacity=".7"/>
+              <path d="M158 357 C160 236 250 172 364 192 C459 206 520 290 494 391 C477 494 381 559 270 535 C179 516 145 449 158 357Z" fill="#d95c20" stroke="#8c3817" stroke-width="5"/>
+              <path d="M385 367 C395 245 484 203 581 228 C687 259 736 345 697 448 C661 541 557 582 472 536 C401 499 375 439 385 367Z" fill="#ef781e" stroke="#98411a" stroke-width="5"/>
+              <path d="M158 357 C160 236 250 172 364 192 C459 206 520 290 494 391 C477 494 381 559 270 535 C179 516 145 449 158 357Z" fill="url(#dots)"/>
+              <path d="M385 367 C395 245 484 203 581 228 C687 259 736 345 697 448 C661 541 557 582 472 536 C401 499 375 439 385 367Z" fill="url(#dots)"/>
+              <g clip-path="url(#fruitA)" fill="none" stroke="#f39e54" opacity=".26" stroke-width="5"><path d="M180 312C245 206 411 215 458 335"/><path d="M179 360C222 470 352 524 467 443"/><path d="M236 239C204 330 215 420 289 521"/><path d="M336 206C312 312 355 443 427 491"/></g>
+              <g clip-path="url(#fruitB)" fill="none" stroke="#fac077" opacity=".29" stroke-width="5"><path d="M398 346C491 227 624 274 690 353"/><path d="M418 443C506 549 644 521 708 418"/><path d="M516 244C482 346 498 466 573 546"/></g>
+              <path d="M342 189 Q350 150 391 144 Q405 167 396 200 Q361 212 342 189Z" fill="#49643c" stroke="#304629" stroke-width="4"/>
+              <path d="M542 228 Q528 185 565 180 Q598 191 602 225 Q568 240 542 228Z" fill="#587347" stroke="#304629" stroke-width="4"/>
+              <g fill="#7b3b18" opacity=".65"><circle cx="240" cy="303" r="4"/><circle cx="303" cy="437" r="3"/><circle cx="408" cy="310" r="3"/><circle cx="569" cy="333" r="3"/><circle cx="639" cy="419" r="4"/><circle cx="519" cy="479" r="3"/></g>
+            </svg>
+            <div class="lens" id="lens" tabindex="0" role="slider" aria-label="Bitmap lens. Use the arrow keys to move it across the drawing." aria-valuetext="Over the right-hand tangerine"><img alt="" /></div>
+            <span class="lens-tag" id="lens-tag" aria-hidden="true">IN CYBERSPACE</span>
+          </div>
+        </div>
+        <figcaption class="caption">
+          <span class="label"><span class="bit">FIG. 1</span>One tangerine, two resolutions. <span id="lens-hint">Move the square.</span></span>
+          <span class="label">Beauty · Humanity · Imagination · Order · Care</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="forms" aria-labelledby="forms-title">
+      <div class="wrap forms-grid">
+        <div><span class="label">What gets made / No fixed medium</span><h2 id="forms-title">One idea.<br /><i>Many forms.</i></h2></div>
+        <ul>
+          <li><span class="px" data-icon="page"></span>Writing</li>
+          <li><span class="px" data-icon="brush"></span>Painting</li>
+          <li><span class="px" data-icon="camera"></span>Photography</li>
+          <li><span class="px" data-icon="film"></span>Film</li>
+          <li><span class="px" data-icon="arrow"></span>Design</li>
+          <li><span class="px" data-icon="star"></span>Creative direction</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="work wrap" id="work" aria-labelledby="work-title">
+      <div class="head">
+        <div><span class="bit">01</span><span class="label">Selected work</span><h2 id="work-title">Good company.</h2></div>
+        <p>Long relationships, strong convictions, and work built to last. Two creative partnerships, and room held for more.</p>
+      </div>
+
+      <article aria-labelledby="freeman-title">
+        <div class="freeman" role="img" aria-label="Conceptual editorial artwork for Freeman with an architectural line drawing of a house. An illustration, not project photography.">
+          <div class="freeman-copy"><span class="label">Freeman / General Contracting</span><span class="freeman-script">Freeman</span><p class="freeman-tag">Built for<br />generations.</p></div>
+          <svg class="draw" viewBox="0 0 700 650" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+            <g fill="none" stroke="#655244" stroke-width="2" opacity=".76">
+              <path pathLength="1" d="M0 594H700"/>
+              <path pathLength="1" d="M131 594 V340 L309 163 L579 373 V594"/>
+              <path pathLength="1" d="M183 593 V394 L308 275 L532 417 V593"/>
+              <path pathLength="1" d="M8 469 L308 179 L678 435"/>
+              <path pathLength="1" d="M64 492 L310 245 L639 469"/>
+              <path pathLength="1" d="M308 275V595"/>
+              <path pathLength="1" d="M182 413H531 M182 443H531"/>
+              <path pathLength="1" d="M210 595V461H272V595 M341 595V461H401V595 M430 595V469H500V595"/>
+              <path pathLength="1" d="M246 346 L245 393M305 301V393 M368 349V393"/>
+              <path pathLength="1" d="M490 397V322 M491 322L551 371"/>
+              <path pathLength="1" d="M305 163V31 M305 31L341 64"/>
+              <path pathLength="1" d="M123 600L124 646 M185 600L186 646 M310 599V647 M437 600V647 M576 600V647"/>
+            </g>
+            <g stroke="#8c745d" stroke-width="1" opacity=".5" fill="none"><path pathLength="1" d="M100 601V649 M114 601V649 M145 601V649 M159 601V649 M475 601V649 M490 601V649 M504 601V649 M517 601V649"/><path pathLength="1" d="M0 612H700 M0 635H700"/></g>
+            <g class="wash" fill="#6b4b35" opacity=".18"><polygon points="130,595 130,340 308,163 308,275 182,393 182,595"/></g>
+          </svg>
+        </div>
+        <div class="facts">
+          <div><h3 id="freeman-title">Freeman General Contracting</h3><p>The serious one. Architectural, confident, and plainly spoken—where the work, the people, and the built record come first.</p></div>
+          <dl>
+            <div><dt>Partnership</dt><dd>Ongoing</dd></div>
+            <div><dt>Forms</dt><dd>Brand · Editorial · Film · Digital</dd></div>
+          </dl>
+          <p class="note">Plate: conceptual illustration by the studio. Not project photography.</p>
+        </div>
+      </article>
+
+      <article class="jm" aria-labelledby="jm-title">
+        <div class="jm-copy">
+          <span class="label">A study in craftsmanship</span>
+          <h3 id="jm-title">Joseph<br /><i>Martin.</i></h3>
+          <p class="body">An evolving visual world for a hatmaker—built around the maker, his materials, and the character of the work.</p>
+          <div class="facts"><dl>
+            <div><dt>Partnership</dt><dd>Developing · 2026</dd></div>
+            <div><dt>Forms</dt><dd>Identity · Illustration · Art direction</dd></div>
+          </dl></div>
+        </div>
+        <div class="jm-plate" role="img" aria-label="Conceptual art direction study for Joseph Martin, Hatmaker, with a line illustration of a hat. An illustration, not product photography.">
+          <div class="jm-mono">JM</div><div class="jm-name">JOSEPH MARTIN · HATMAKER</div>
+          <svg class="draw" viewBox="0 0 680 410" aria-hidden="true"><g fill="none" stroke="#dac3a1" stroke-width="4" stroke-linecap="round">
+            <path pathLength="1" d="M151 254 C100 240 50 268 65 296 C87 339 229 362 344 362 C478 362 599 347 620 301 C635 272 579 252 527 253"/>
+            <path pathLength="1" d="M176 226 C208 200 205 106 245 78 C272 58 314 110 349 110 C382 110 415 60 446 91 C479 120 467 200 496 227"/>
+            <path pathLength="1" d="M155 234C187 226 243 229 282 238 C342 253 418 252 489 228"/>
+            <path pathLength="1" d="M163 253C264 313 431 313 522 251"/>
+            <path pathLength="1" d="M204 204 C286 233 416 241 476 206"/>
+            <path pathLength="1" d="M195 215 C284 245 418 255 484 218"/>
+            <path pathLength="1" d="M245 78Q306 133 350 133Q410 130 445 91" stroke-width="2"/>
+            <path pathLength="1" d="M64 300 C165 383 539 398 618 302" stroke-width="2"/>
+          </g></svg>
+          <span class="label"><span>Plate: conceptual study</span><span>Not product photography</span></span>
+        </div>
+      </article>
+
+      <div class="ledger">
+        <div class="ledger-head"><span class="label">The ledger / Kept honestly</span><span class="label">Updated when there is something true to add</span></div>
+        <ol>
+          <li><span class="bit">001</span><b>Freeman General Contracting</b><span class="label form">Brand · Editorial · Film · Digital</span><span class="label status">Ongoing</span></li>
+          <li><span class="bit">002</span><b>Joseph Martin, Hatmaker</b><span class="label form">Identity · Illustration · Art direction</span><span class="label status">Developing</span></li>
+          <li class="open"><span class="bit">003</span><b>A film</b><span class="label form">Moving image</span><span class="label status">Line held</span></li>
+          <li class="open"><span class="bit">004</span><b>Something made with friends</b><span class="label form">Form to be decided</span><span class="label status">Line held</span></li>
+          <li><span class="bit">005</span><b>This website</b><span class="label form">An experiment in serif and bitmap</span><span class="label status">Design No. 02</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="journal wrap" id="journal" aria-labelledby="journal-title">
+      <div class="head">
+        <div><span class="bit">02</span><span class="label">Journal</span><h2 id="journal-title">On the record.</h2></div>
+        <p>A commonplace book: essays, observations, photographs, drawings, experiments. Some finished, some still becoming.</p>
+      </div>
+      <div class="book">
+        <aside class="margin" aria-label="A note on the notation">
+          <span class="label">In the margin</span>
+          <span class="label" style="color:var(--ink)">A title that ends in a tangerine is not yet written.</span>
+          <span class="label">A full stop means it is.</span>
+        </aside>
+        <article class="feature">
+          <span class="label">Essay / A story to write</span>
+          <h3>The day I met <em>Wendell <span class="nb">Berry<span class="fruit" role="img" aria-label=" (not yet written)">.</span></span></em></h3>
+          <div class="foot"><p>On memory, place, and what it means to encounter a person whose words have lived with you.</p><span class="label">In the notebook</span></div>
+        </article>
+        <div class="notes">
+          <article><span class="label">Reflection / Working title</span><h3>What is <span class="nb">fear?<span class="fruit" role="img" aria-label=" (not yet written)">.</span></span></h3><p>A meditation on courage, music, memory, and the life we hope to make.</p></article>
+          <article><span class="label">Archive / Personal work</span><h3>Things worth <span class="nb">keeping<span class="fruit" role="img" aria-label=" (not yet gathered)">.</span></span></h3><p>Photographs, drawings, fragments, collected along the way.</p></article>
+          <p class="aside">The journal is a living notebook.<br />Not everything has to be finished to belong.</p>
+        </div>
+      </div>
+      <figure class="roll">
+        <div class="strip" aria-hidden="true">
+          <div class="frame"><span>1A</span></div>
+          <div class="frame"><span>2A</span></div>
+          <div class="frame exposed"><i class="fruit">.</i><span>3A</span></div>
+          <div class="frame"><span>4A</span></div>
+          <div class="frame"><span>5A</span></div>
+          <div class="frame"><span>6A</span></div>
+          <div class="frame"><span>7A</span></div>
+        </div>
+        <figcaption class="caption">
+          <span class="label"><span class="bit">FIG. 2</span>Roll 001. One frame exposed; the rest are held for photographs.</span>
+          <span class="label">No stock, no stand-ins</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="about-grid">
+          <div><span class="bit" style="color:var(--orange-soft);margin-right:12px">03</span><span class="label">About Tangerine</span><h2 id="about-title">Small studio.<br /><em>Big world.</em></h2></div>
+          <div class="about-right">
+            <p>I’m a writer, painter, photographer, filmmaker, designer, and creative director from Georgia.</p>
+            <p>I work alongside ambitious founders, make things with friends, explore strange ideas, and pursue beauty wherever I find it.</p>
+            <p class="small">Tangerine is where all of that lives. It is not an agency. It is one person with a lot of ideas, some extraordinarily talented collaborators, and an ambition to make beautiful things. The medium follows the idea—and the work is always personal. <span style="white-space:nowrap">—Cole Calfee</span></p>
+          </div>
+        </div>
+        <div class="creed">
+          <blockquote>In cyberspace<br />as it is <em>in heaven.</em></blockquote>
+          <ol aria-label="What that asks of the work">
+            <li><span class="bit">1</span>Beauty</li>
+            <li><span class="bit">2</span>Humanity</li>
+            <li><span class="bit">3</span>Imagination</li>
+            <li><span class="bit">4</span>Order</li>
+            <li><span class="bit">5</span>Extraordinary care</li>
+          </ol>
+        </div>
+        <div class="creed-foot"><span class="label">An organizing belief, not a slogan.</span><span class="label">Made in Georgia · Working everywhere</span></div>
+      </div>
+    </section>
+
+    <section class="contact wrap" id="contact" aria-labelledby="contact-title">
+      <div><span class="bit" style="margin-right:12px">04</span><span class="label">Begin something</span></div>
+      <a class="contact-link" href="https://www.instagram.com/ex.tangerina/" target="_blank" rel="noopener noreferrer" id="contact-title" aria-label="Let’s talk. Connect with Tangerine on Instagram (opens in a new tab)"><span>Let’s talk.</span><svg viewBox="0 0 75 75" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M8 67L67 8M17 8H67V58"/></svg></a>
+      <div class="contact-foot">
+        <p class="label">For projects, ideas, and people doing interesting things.<br />Currently connecting through Instagram.</p>
+        <p class="clock" id="clock">Made in Georgia.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="colophon wrap">
+    <span class="label">Colophon. Set in Instrument Serif, DM Sans &amp; DM Mono, with numerals in Silkscreen. The small tangerine is drawn on a 24-pixel grid.</span>
+    <span class="label">© <span id="year">2026</span> Tangerine Studio<br />Independent by design</span>
+    <a class="label" href="#top">Back to top ↑</a>
+  </footer>
+
+  <script>
+  (function(){
+    var root=document.documentElement;root.classList.add('js');
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var NS='http://www.w3.org/2000/svg';
+
+    /* —— bitmap drawing: every pixel mark on the page comes from these grids —— */
+    function pixels(rows,colors,crop){
+      var svg=document.createElementNS(NS,'svg');
+      var w=rows[0].length,h=rows.length;
+      svg.setAttribute('viewBox',crop||('0 0 '+w+' '+h));
+      svg.setAttribute('shape-rendering','crispEdges');svg.setAttribute('aria-hidden','true');
+      rows.forEach(function(row,y){
+        for(var x=0;x<w;){
+          var c=row[x];if(c==='.'){x++;continue}
+          var x0=x;while(x<w&&row[x]===c)x++;
+          var r=document.createElementNS(NS,'rect');
+          r.setAttribute('x',x0);r.setAttribute('y',y);r.setAttribute('width',x-x0);r.setAttribute('height',1);
+          r.setAttribute('fill',colors[c]);svg.appendChild(r);
+        }
+      });
+      return svg;
+    }
+    /* the V1 bitmap tangerine, transcribed pixel for pixel from the original GIF */
+    var FRUIT=['...............LLL......','.............LLLLLL.....','...........SLLLLLL......','..........LSLLLL........','........OOOSOOOO........','......OOOOOOOOOOOO......','.....OOOOOOOOOOOOOO.....','....OOOOOOOOOOOOOOOO....','...OOOOOOOOOOOOOOOOOO...','...OOOOOOOOOOOOOOOOOO...','...OOOOOOOOOOOOOOOOOO...','...OOOOOOOOOOOOOOOOOO...','....OOOOOOOOOOOOOOOO....','....OOOOOOOOOOOOOOOO....','.....OOOOOOOOOOOOOO.....','......OOOOOOOOOOOO......','........OOOOOOOO........','..........OOOO..........'];
+    var FRUIT_COLORS={O:'#e15a22',L:'#4e6b43',S:'#81552f'};
+    var fruits=[].slice.call(document.querySelectorAll('.fruit'));
+    fruits.forEach(function(el){el.textContent='';el.appendChild(pixels(FRUIT,FRUIT_COLORS,'3 0 18 18'))});
+
+    var ICONS={
+      page:['.########...','.#......##..','.#......#.#.','.#......####','.#.........#','.#.#####...#','.#.........#','.#.#######.#','.#.........#','.#.#####...#','.#.........#','.###########'],
+      brush:['.........##.','........###.','.......###..','......###...','.....###....','....###.....','..#.##......','.###........','.####.......','####........','###.........','#...........'],
+      camera:['............','...###......','.##########.','.#........#.','.#...##...#.','.#..#..#..#.','.#..#..#..#.','.#...##...#.','.#........#.','.##########.','............','............'],
+      film:['############','#.#.#.#.#.##','############','#..........#','#..........#','#..........#','#..........#','#..........#','############','#.#.#.#.#.##','############','............'],
+      arrow:['.#..........','.##.........','.#.#........','.#..#.......','.#...#......','.#....#.....','.#.....#....','.#......#...','.#...####...','.#.#..#.....','.##.#..#....','.....##.....'],
+      star:['.....##.....','.....##.....','.#...##...#.','..##.##.##..','....####....','.##########.','....####....','..##.##.##..','.#...##...#.','.....##.....','.....##.....','............']
+    };
+    document.querySelectorAll('[data-icon]').forEach(function(el){el.appendChild(pixels(ICONS[el.dataset.icon],{'#':'currentColor'}))});
+
+    /* —— the blink: a signature, not a loop. One fruit at a time, now and then. —— */
+    function blink(el){
+      if(!el||el.blinking)return;el.blinking=true;
+      el.classList.add('off');
+      setTimeout(function(){el.classList.remove('off')},90);
+      setTimeout(function(){el.classList.add('off')},220);
+      setTimeout(function(){el.classList.remove('off');el.blinking=false},310);
+    }
+    if(!reduce){
+      var seen=new Set();
+      if('IntersectionObserver' in window){
+        var fo=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?seen.add(e.target):seen.delete(e.target)})});
+        fruits.forEach(function(f){fo.observe(f)});
+      }
+      (function wait(){
+        setTimeout(function(){
+          var v=Array.from(seen);
+          if(v.length&&!document.hidden)blink(v[Math.floor(Math.random()*v.length)]);
+          wait();
+        },4200+Math.random()*5200);
+      })();
+      var period=document.getElementById('period');
+      period.addEventListener('pointerenter',function(){blink(period)});
+      period.addEventListener('click',function(){blink(period)});
+    }
+
+    /* —— Fig. 1: the same drawing, seen through a square of cyberspace —— */
+    (function(){
+      var art=document.getElementById('art'),lens=document.getElementById('lens'),tag=document.getElementById('lens-tag');
+      var svg=art.querySelector('svg'),img=lens.querySelector('img');
+      var COLS=50,ROWS=42,SIZE=16,cx=22,cy=8,S=6;
+      var PAL=[[217,92,32],[239,120,30],[97,115,72],[57,72,42],[70,62,36],[140,56,23],[243,158,84]];
+      var src=new Image();
+      src.onload=function(){
+        try{
+          var big=document.createElement('canvas');big.width=COLS*S;big.height=ROWS*S;
+          var b=big.getContext('2d');b.drawImage(src,0,0,big.width,big.height);
+          var d=b.getImageData(0,0,big.width,big.height).data;
+          var out=document.createElement('canvas');out.width=COLS;out.height=ROWS;
+          var o=out.getContext('2d'),px=o.createImageData(COLS,ROWS);
+          for(var y=0;y<ROWS;y++)for(var x=0;x<COLS;x++){
+            var i=((y*S+S/2)*big.width+(x*S+S/2))*4,j=(y*COLS+x)*4;
+            if(d[i+3]<140)continue;
+            var best=0,bd=1e9;
+            PAL.forEach(function(p,k){var dr=d[i]-p[0],dg=d[i+1]-p[1],db=d[i+2]-p[2],dist=dr*dr+dg*dg+db*db;if(dist<bd){bd=dist;best=k}});
+            px.data[j]=PAL[best][0];px.data[j+1]=PAL[best][1];px.data[j+2]=PAL[best][2];px.data[j+3]=255;
+          }
+          o.putImageData(px,0,0);
+          img.src=out.toDataURL();
+          lens.classList.add('ready');place();
+        }catch(e){/* no bitmap, no lens: the drawing stands on its own */}
+      };
+      var clone=svg.cloneNode(true);clone.setAttribute('width',COLS*S);clone.setAttribute('height',ROWS*S);clone.setAttribute('xmlns',NS);
+      src.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(new XMLSerializer().serializeToString(clone));
+
+      function place(){
+        var cell=art.clientWidth/COLS;
+        cx=Math.max(0,Math.min(COLS-SIZE,cx));cy=Math.max(0,Math.min(ROWS-SIZE,cy));
+        var x=Math.round(cx*cell),y=Math.round(cy*cell),s=Math.round(SIZE*cell);
+        lens.style.width=lens.style.height=s+'px';
+        lens.style.transform='translate('+x+'px,'+y+'px)';
+        tag.style.transform='translate('+x+'px,'+y+'px) translateY(-100%)';
+        img.style.width=art.clientWidth+'px';img.style.height=art.clientHeight+'px';
+        img.style.left=-x+'px';img.style.top=-y+'px';
+      }
+      function follow(e){
+        var r=art.getBoundingClientRect(),cell=r.width/COLS;
+        cx=Math.round((e.clientX-r.left)/cell-SIZE/2);cy=Math.round((e.clientY-r.top)/cell-SIZE/2);place();
+      }
+      var dragging=false;
+      art.addEventListener('pointermove',function(e){if(e.pointerType==='mouse'||dragging)follow(e)});
+      lens.addEventListener('pointerdown',function(e){dragging=true;try{lens.setPointerCapture(e.pointerId)}catch(_){ }});
+      lens.addEventListener('pointermove',function(e){if(dragging&&e.pointerType!=='mouse')follow(e)});
+      ['pointerup','pointercancel'].forEach(function(t){lens.addEventListener(t,function(){dragging=false})});
+      lens.addEventListener('keydown',function(e){
+        var k={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];
+        if(!k)return;e.preventDefault();cx+=k[0]*2;cy+=k[1]*2;place();
+      });
+      window.addEventListener('resize',place);
+      if(window.matchMedia('(hover: none)').matches)document.getElementById('lens-hint').textContent='Drag the square.';
+    })();
+
+    /* —— drawings draw themselves once, the way they were made —— */
+    var draws=document.querySelectorAll('.draw');
+    if('IntersectionObserver' in window&&!reduce){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.25});
+      draws.forEach(function(d){io.observe(d)});
+    }else draws.forEach(function(d){d.classList.add('in')});
+
+    /* —— the time in Georgia, in words —— */
+    (function(){
+      try{
+        var parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date());
+        var h=+parts.find(function(p){return p.type==='hour'}).value%24,m=+parts.find(function(p){return p.type==='minute'}).value;
+        var names=['twelve','one','two','three','four','five','six','seven','eight','nine','ten','eleven'];
+        var steps=['','five past','ten past','a quarter past','twenty past','twenty-five past','half past','twenty-five to','twenty to','a quarter to','ten to','five to'];
+        var s=Math.round(m/5),hh=h;if(s===12){s=0;hh=(h+1)%24}
+        var shown=s>6?(hh+1)%24:hh;
+        var part=shown<5?'at night':shown<12?'in the morning':shown<17?'in the afternoon':shown<21?'in the evening':'at night';
+        var t=s===0?names[shown%12]+' o’clock':steps[s]+' '+names[shown%12];
+        if(s===0&&shown===12){t='noon';part=''}
+        if(s===0&&shown===0){t='midnight';part=''}
+        document.getElementById('clock').textContent='It is '+(m%5?'about ':'')+t+(part?' '+part:'')+' in Georgia.';
+      }catch(e){}
+    })();
+    document.getElementById('year').textContent=new Date().getFullYear();
+  })();
+  </script>
+</body>
+</html>
