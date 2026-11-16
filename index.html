@@ -1,66 +1,145 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#d8cfbe">
-<title>Haven / Year 32</title>
-<style>
-:root{--paper:#d8cfbe;--ink:#191816;--muted:#6d685f;--rule:#9d9588}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink)}
-body{font-family:Monaco,"Lucida Console","Courier New",monospace;-webkit-font-smoothing:antialiased;padding:clamp(20px,4vw,56px)}
-main{max-width:880px;margin:0 auto;min-height:calc(100svh - 2 * clamp(20px,4vw,56px));display:flex;flex-direction:column}
-header,footer{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-header{border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);padding:14px 0}
-header strong{font-size:17px;font-weight:400}
-time,footer{font-size:10px;color:var(--muted);letter-spacing:.04em}
-.content{flex:1;display:flex;flex-direction:column;justify-content:center;padding:30px 0;gap:clamp(34px,6vh,65px)}
-section{display:grid;grid-template-columns:128px 1fr;gap:18px;align-items:start}
-h2{margin:6px 0 0;font-size:11px;text-transform:uppercase;font-weight:400;letter-spacing:.12em;color:var(--muted)}
-ol{margin:0;padding:0;list-style:none;display:grid;gap:15px;counter-reset:now}
-ol li{font-size:clamp(19px,3.1vw,30px);line-height:1.22;letter-spacing:-.04em}
-ol li:before{counter-increment:now;content:"0" counter(now) "  ";font-size:11px;letter-spacing:0;color:var(--muted);vertical-align:middle}
-.actions{display:grid;gap:13px}
-label{display:flex;align-items:baseline;gap:13px;font-size:clamp(14px,1.75vw,17px);line-height:1.35;cursor:pointer}
-input{appearance:none;width:16px;height:16px;border:1px solid var(--ink);background:transparent;margin:0;flex:none;transform:translateY(1px)}
-input:checked{background:var(--ink)}
-input:checked+span{text-decoration:line-through;color:var(--muted)}
-.direction{font-size:clamp(17px,2.3vw,24px);line-height:1.45;letter-spacing:-.025em;max-width:650px;margin:0}
-footer{border-top:1px solid var(--rule);padding:13px 0 0}
-a{color:inherit;text-underline-offset:3px}
-a:hover{color:var(--ink)}
-@media(max-width:620px){
-section{grid-template-columns:1fr;gap:14px}
-.content{justify-content:flex-start;gap:40px;padding:35px 0}
-ol li{font-size:22px}
-.direction{font-size:19px}
-footer{font-size:9px}
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f9f9f7">
+  <meta name="description" content="Tangerine is an independent creative studio working across marketing, advertising, brand, design, and storytelling. Long-term games with long-term people.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tangerine — Independent Creative Studio">
+  <meta property="og:description" content="Long-term games with long-term people.">
+  <title>Tangerine — Independent Creative Studio</title>
+  <style>
+    :root { color-scheme: light; --paper:#f9f9f7; --ink:#171717; --muted:#6b6b68; --rule:#d9d9d4; --orange:#f85a19; }
+    *, *::before, *::after { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial,"Helvetica Neue",Helvetica,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; }
+    a:focus-visible { outline:2px solid var(--orange); outline-offset:5px; }
+    .wrap { width:min(100% - 72px, 1480px); margin-inline:auto; }
+    .kicker { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:11px; text-transform:uppercase; letter-spacing:.075em; }
+    .masthead { border-top:1px solid var(--ink); border-bottom:1px solid var(--rule); min-height:90px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display:inline-flex; align-items:center; gap:11px; font-weight:800; font-size:clamp(24px,2.8vw,35px); letter-spacing:-.067em; text-decoration:none; }
+    .fruit { flex:none; width:22px; height:22px; }
+    nav { display:flex; gap:clamp(18px,3vw,42px); }
+    nav a { font-size:12px; text-decoration:none; }
+    nav a:hover, .contact-link:hover { color:var(--orange); }
+    .hero { min-height: min(820px,84svh); display:flex; flex-direction:column; justify-content:space-between; padding:clamp(62px,10vh,140px) 0 38px; border-bottom:1px solid var(--ink); }
+    .hero h1 { margin:0; max-width:1120px; font-size:clamp(62px,9.4vw,155px); font-weight:600; letter-spacing:-.087em; line-height:.94; }
+    .hero h1 em { color:var(--orange); font-style:normal; }
+    .hero-foot { display:flex; align-items:end; justify-content:space-between; gap:32px; padding-top:80px; }
+    .hero-foot p { margin:0; max-width:435px; font-size:clamp(16px,1.6vw,21px); line-height:1.4; letter-spacing:-.025em; }
+    .hero-foot .kicker { color:var(--muted); }
+    section { scroll-margin-top:36px; }
+    .section-intro { padding:26px 0 75px; display:grid; grid-template-columns:1fr 2fr; gap:40px; }
+    .section-intro h2 { margin:0; font-size:clamp(30px,4vw,64px); font-weight:500; line-height:1.06; letter-spacing:-.06em; max-width:780px; }
+    .work { padding-bottom:100px; }
+    .work-list { border-top:1px solid var(--rule); }
+    .work-row { display:grid; grid-template-columns:55px minmax(0,1fr) minmax(140px,245px); gap:22px; align-items:baseline; padding:27px 0 32px; border-bottom:1px solid var(--rule); }
+    .work-row .number, .work-row .kind { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:11px; text-transform:uppercase; letter-spacing:.02em; color:var(--muted); }
+    .work-row h3 { font-size:clamp(28px,4.1vw,64px); font-weight:500; letter-spacing:-.065em; line-height:1.04; margin:0; }
+    .studio { border-top:1px solid var(--ink); padding-bottom:105px; }
+    .studio .section-intro { padding-bottom:55px; }
+    .capabilities { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 42px; margin-left:calc(33.333% + 13px); }
+    .capabilities div { padding:15px 0; border-top:1px solid var(--rule); font-size:clamp(15px,1.6vw,21px); letter-spacing:-.025em; }
+    .contact { background:var(--ink); color:var(--paper); padding:35px 0 26px; }
+    .contact-inner { display:grid; grid-template-columns:1fr 2fr; gap:40px; }
+    .contact h2 { margin:0 0 90px; font-size:clamp(45px,7.5vw,115px); font-weight:500; letter-spacing:-.078em; line-height:1; }
+    .contact-link { display:inline-block; border-bottom:1px solid currentColor; padding:0 0 7px; text-decoration:none; font-size:clamp(20px,2.3vw,31px); letter-spacing:-.04em; }
+    footer { display:flex; align-items:baseline; justify-content:space-between; border-top:1px solid #565653; padding:25px 0 0; margin-top:115px; color:#c0c0bc; }
+    footer a { text-decoration:none; }
+    @media(max-width:760px) {
+      .wrap { width:calc(100% - 38px); }
+      .masthead { min-height:75px; }
+      .brand { font-size:27px; }
+      nav { gap:16px; }
+      nav a { font-size:11px; }
+      .hero { min-height:75svh; padding:80px 0 28px; }
+      .hero h1 { font-size:clamp(53px,11.1vw,88px); line-height:.98; letter-spacing:-.08em; }
+      .hero-foot { flex-direction:column; align-items:start; gap:30px; padding-top:80px; }
+      .section-intro { display:block; padding:24px 0 48px; }
+      .section-intro .kicker { display:block; margin-bottom:35px; }
+      .section-intro h2 { font-size:clamp(30px,7.6vw,50px); }
+      .work { padding-bottom:75px; }
+      .work-row { grid-template-columns:30px 1fr; gap:12px; padding:24px 0; }
+      .work-row .kind { grid-column:2; }
+      .work-row h3 { font-size:clamp(28px,7.4vw,46px); }
+      .studio { padding-bottom:80px; }
+      .capabilities { margin-left:0; grid-template-columns:1fr; }
+      .contact-inner { display:block; }
+      .contact h2 { margin:45px 0 70px; }
+      footer { margin-top:90px; }
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
 </head>
 <body>
-<main>
-<header><strong>hello, Cole.</strong><time id="date"></time></header>
-<div class="content">
-<section aria-labelledby="now"><h2 id="now">Now</h2><ol>
-<li>Find your place.</li>
-<li>Do good work at Freeman.</li>
-<li>Make art. Live your life.</li>
-</ol></section>
-<section aria-labelledby="next"><h2 id="next">Next</h2><div class="actions">
-<label><input id="housing-choice" type="checkbox"><span>Take the next housing step.</span></label>
-<label><input id="matre-contact" type="checkbox"><span>Reach out to Rob Matre.</span></label>
-<label><input id="paint-play" type="checkbox"><span>Paint something just for fun.</span></label>
-</div></section>
-<section aria-labelledby="direction"><h2 id="direction">Direction</h2>
-<p class="direction">Less rumination. More participation.<br><br>Make me faithful before You make me successful. Get me back to living in the world.</p></section>
-</div>
-<footer><span>HAVEN / YEAR 32</span><a href="./full.html">FULL RECORD ↗</a></footer>
-</main>
-<script>
-document.getElementById('date').textContent=new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'America/New_York'}).format(new Date()).toUpperCase();
-document.querySelectorAll('input[type="checkbox"]').forEach(input=>{const key='haven:simple:'+input.id;try{input.checked=localStorage.getItem(key)==='1'}catch{}input.addEventListener('change',()=>{try{localStorage.setItem(key,input.checked?'1':'0')}catch{}})});
-</script>
+  <div class="wrap">
+    <header class="masthead">
+      <a class="brand" href="#top" aria-label="Tangerine, home">
+        <svg class="fruit" viewBox="0 0 24 24" role="img" aria-label="Four-part tangerine symbol" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#f85a19" d="M10.7 1.4a10.7 10.7 0 0 0-9.3 9.3h9.3zM13.3 1.4v9.3h9.3a10.7 10.7 0 0 0-9.3-9.3zM1.4 13.3a10.7 10.7 0 0 0 9.3 9.3v-9.3zM13.3 13.3v9.3a10.7 10.7 0 0 0 9.3-9.3z"/>
+        </svg>
+        tangerine
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#work">Work</a>
+        <a href="#studio">Studio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="top">
+      <div class="hero">
+        <h1>Long-term games<br>with long-term<br><em>people.</em></h1>
+        <div class="hero-foot">
+          <p>An independent creative studio making good things with people we believe in.</p>
+          <span class="kicker">Creative direction / Marketing / Design</span>
+        </div>
+      </div>
+      <section id="work" class="work" aria-labelledby="work-heading">
+        <div class="section-intro">
+          <span class="kicker">01 / Relationships</span>
+          <h2 id="work-heading">A few people.<br>A lot of good work.</h2>
+        </div>
+        <div class="work-list">
+          <div class="work-row"><span class="number">01</span><h3>Joseph Martin</h3><span class="kind">Western wear / Craft</span></div>
+          <div class="work-row"><span class="number">02</span><h3>Kashus Culpepper</h3><span class="kind">Music / Storytelling</span></div>
+          <div class="work-row"><span class="number">03</span><h3>Freeman</h3><span class="kind">Construction / Hospitality</span></div>
+        </div>
+      </section>
+      <section id="studio" class="studio" aria-labelledby="studio-heading">
+        <div class="section-intro">
+          <span class="kicker">02 / The studio</span>
+          <h2 id="studio-heading">Ideas, execution,<br>and everything between.</h2>
+        </div>
+        <div class="capabilities" aria-label="Studio capabilities">
+          <div>Brand strategy &amp; identity</div>
+          <div>Marketing &amp; advertising</div>
+          <div>Social media &amp; paid campaigns</div>
+          <div>Public relations &amp; communications</div>
+          <div>Creative direction &amp; design</div>
+          <div>Film, photography &amp; storytelling</div>
+          <div>Illustration &amp; typography</div>
+          <div>Partnerships &amp; campaigns</div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="wrap">
+      <div class="contact-inner">
+        <span class="kicker">03 / Contact</span>
+        <div>
+          <h2 id="contact-heading">Let's make<br>something good.</h2>
+          <a class="contact-link" href="https://www.instagram.com/ex.tangerina/" target="_blank" rel="noopener noreferrer">Find us on Instagram ↗</a>
+        </div>
+      </div>
+      <footer class="kicker">
+        <span>© 2026 Tangerine</span>
+        <span>Independent by design.</span>
+        <a href="#top">Back to top ↑</a>
+      </footer>
+    </div>
+  </section>
 </body>
 </html>
