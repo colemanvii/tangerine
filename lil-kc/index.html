@@ -148,7 +148,7 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;color:v
 
 <script src="takes.js"></script>
 <script>
-(function(){
+function startLibrary(){
   var LIB = window.KC_LIBRARY, $ = function(id){return document.getElementById(id)};
   var REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var STORE = 'lil-kc-library-decisions';
@@ -170,8 +170,9 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;color:v
       this.cache=[]; for(var i=0;i<item.frames;i++){ var im=new Image(); im.src=frameSrc(item,i); this.cache.push(im) }
       this.el=document.createElement('img'); this.el.alt=item.title+' '+(item.subtitle||''); stage.appendChild(this.el);
     } else if(item.kind==='video'){
-      this.el=document.createElement('video'); this.el.src=item.path; this.el.loop=true; this.el.muted=true; this.el.playsInline=true;
-      this.el.setAttribute('aria-label', item.title); stage.appendChild(this.el);
+      this.el=document.createElement('video'); this.el.src=item.path; this.el.preload='auto'; if(item.poster) this.el.poster=item.poster; this.el.loop=true; this.el.muted=true; this.el.playsInline=true;
+      this.el.setAttribute('aria-label', item.title); this.el.setAttribute('playsinline',''); this.el.setAttribute('muted',''); stage.appendChild(this.el);
+      this.el.addEventListener('loadedmetadata', function(){ self.onTick&&self.onTick() });
       this.el.addEventListener('timeupdate', function(){ if(self.el.duration){ self.u=self.el.currentTime/self.el.duration; self.onTick&&self.onTick() } });
     } else {
       this.el=document.createElement('img'); this.el.src=item.path; this.el.alt=item.title; stage.appendChild(this.el);
@@ -239,7 +240,7 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;color:v
     LIB.takes.forEach(function(t){
       var b=document.createElement('button'); b.className='card'; b.type='button'; b.setAttribute('aria-pressed', t.id===current);
       var poster = t.kind==='frames' ? frameSrc(t,(t.poster||1)-1) : (t.poster||'');
-      b.innerHTML='<div class="stage">'+(poster?'<img alt="" src="'+esc(poster)+'">':'')+'</div><div class="row"><h3>'+esc(t.title)+'</h3>'+chip(statusOf(t))+'</div><small>'+esc(t.subtitle||'')+'<br>'+esc(t.made_with||'')+'</small>';
+      b.innerHTML='<div class="stage">'+(poster?'<img alt="" src="'+esc(poster)+'">':'')+'</div><div class="row"><h3>'+esc(t.title)+'</h3>'+chip(statusOf(t))+'</div>'+(t.private?'<span class="label">Private · not in the public repo</span>':'')+'<small>'+esc(t.subtitle||'')+'<br>'+esc(t.made_with||'')+'</small>';
       b.onclick=function(){ current=t.id; showTake() };
       $('shelf').appendChild(b);
     });
@@ -247,11 +248,11 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;color:v
   function showTake(){
     stopAll();
     var t=takeById(current); if(!t){ $('t-title').textContent='No takes yet'; return }
-    $('t-kicker').textContent=(t.subtitle||'')+' · '+t.date;
+    $('t-kicker').textContent=(t.subtitle||'')+' · '+t.date+(t.private?' · private, not in the public repo':'');
     $('t-title').textContent=t.title;
     $('t-chip').innerHTML=chip(statusOf(t));
     var p=new Player($('t-stage'), t); active=[p]; transport($('t-transport'), [p]);
-    $('t-facts').innerHTML=[t.made_with, t.kind==='frames'?(t.frames+' drawings at '+t.fps+' per second'):t.kind, t.id]
+    $('t-facts').innerHTML=[t.made_with, t.kind==='frames'?(t.frames+' drawings at '+t.fps+' per second'):t.kind, t.id, t.sha256?('SHA-256 '+t.sha256.slice(0,16)+'…'):'']
       .filter(Boolean).map(function(s){return '<span>'+esc(s)+'</span>'}).join('');
     $('t-prov').innerHTML=(t.provenance||[]).map(function(s){return '<li>'+esc(s)+'</li>'}).join('');
     decision(t); shelf();
@@ -297,5 +298,11 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;color:v
   }
   window.addEventListener('hashchange', route);
   route();
+}
+// Takes that are not cleared for the public repository live in takes.private.js, which is never committed.
+(function(){
+  var p=document.createElement('script'); p.src='takes.private.js';
+  p.onload=p.onerror=function(){ startLibrary() };
+  document.head.appendChild(p);
 })();
 </script>
