@@ -1,0 +1,345 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Lil KC — The Heart keys</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a light-table. One inspector (master | study) at the top, then the key strip, then the model sheet. Square edges, no gradients. */
+:root{
+  --bg:#f3f5f6; --panel:#ffffff; --fg:#1d2124; --muted:#5c656c; --rule:#cdd3d7;
+  --accent:#e8590c; --accent-fg:#ffffff; --paper:#fcdfba; --check-a:#e9ecee; --check-b:#ffffff;
+  --display:"Space Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#16191b; --panel:#1f2326; --fg:#eceff1; --muted:#9aa4ab; --rule:#3a4146;
+  --accent:#ff7a2e; --accent-fg:#16191b; --check-a:#2a2f33; --check-b:#1f2326; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#16191b; --panel:#1f2326; --fg:#eceff1; --muted:#9aa4ab; --rule:#3a4146;
+  --accent:#ff7a2e; --accent-fg:#16191b; --check-a:#2a2f33; --check-b:#1f2326; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(28px,4.4vw,44px);line-height:1.05;font-weight:700}
+h2{font-size:22px;font-weight:600}
+h3{font-size:15px;font-weight:600}
+p{margin:0;max-width:66ch}
+.label{font:500 11px/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+header{display:flex;flex-direction:column;gap:12px;border-bottom:2px solid var(--fg);padding-bottom:20px}
+.status{display:inline-flex;align-self:flex-start;gap:8px;align-items:center;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  border:1.5px solid var(--accent);color:var(--accent);padding:5px 9px}
+.status i{width:8px;height:8px;background:var(--accent);display:block}
+section{display:flex;flex-direction:column;gap:16px}
+.sec-head{display:flex;flex-direction:column;gap:6px}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
+.ctl{display:flex;flex-direction:column;gap:6px;min-width:0}
+.seg{display:flex;flex-wrap:wrap;border:1.5px solid var(--fg)}
+.seg button{font:500 13px var(--body);color:var(--fg);background:transparent;border:0;border-right:1.5px solid var(--fg);padding:7px 11px;cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.seg button:focus-visible,.key:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=range]{accent-color:var(--accent);width:170px;max-width:100%}
+
+/* stages */
+.table{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.table.single{grid-template-columns:1fr}
+.table.single .pane-master{display:none}
+@media (max-width:720px){.table{grid-template-columns:1fr}}
+.pane{display:flex;flex-direction:column;gap:6px;min-width:0}
+.pane-cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.stage{position:relative;overflow:hidden;width:100%;max-width:100%;border:1.5px solid var(--fg);background:var(--paper)}
+.stage img{position:absolute;max-width:none;display:block;user-select:none;-webkit-user-drag:none}
+.stage.g-clear{background:repeating-conic-gradient(var(--check-a) 0 25%,var(--check-b) 0 50%) 0 0/20px 20px}
+.stage.g-white{background:#fff}
+.note{border-left:3px solid var(--accent);padding:2px 0 2px 12px}
+.note b{font-family:var(--display)}
+
+/* key strip */
+.keys{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+@media (max-width:980px){.keys{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.keys{grid-template-columns:repeat(2,1fr)}}
+.key{display:flex;flex-direction:column;gap:6px;text-align:left;background:var(--panel);color:var(--fg);border:1.5px solid var(--rule);padding:8px;cursor:pointer;font:inherit;min-width:0}
+.key[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 -4px 0 var(--accent)}
+.key .stage{border-width:1px;border-color:var(--rule)}
+.key small{color:var(--muted);font-size:12.5px;line-height:1.4}
+
+/* model sheet */
+.sheet{display:grid;grid-template-columns:1.25fr 1fr;gap:26px}
+@media (max-width:860px){.sheet{grid-template-columns:1fr}}
+.col{display:flex;flex-direction:column;gap:22px;min-width:0}
+.block{display:flex;flex-direction:column;gap:10px}
+.guides{position:absolute;inset:0;width:100%;height:100%}
+.guides line,.guides rect{stroke:var(--accent);stroke-width:3;fill:none}
+.guides text{font:600 30px var(--mono);fill:var(--accent)}
+dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px}
+dt{font:500 12px var(--mono);color:var(--accent)}
+dd{margin:0}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sw{display:flex;flex-direction:column;gap:5px;min-width:0}
+.sw i{display:block;height:54px;border:1.5px solid var(--fg)}
+.sw span{font:400 11.5px var(--mono);overflow-wrap:anywhere}
+.faces{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.faces figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-width:66ch}
+.ask{border:1.5px solid var(--fg);background:var(--panel);padding:18px;display:flex;flex-direction:column;gap:10px}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="label">Lil KC · animation 001 · key-pose review</span>
+    <h1>The Heart</h1>
+    <p>Six proposed key drawings for the first loop, shown against the archived master. Nothing here is canon. The master file is untouched and is only displayed for comparison.</p>
+    <span class="status"><i></i>Studies · awaiting your approval</span>
+  </header>
+
+  <section aria-labelledby="h-insp">
+    <div class="sec-head">
+      <span class="label">Light table</span>
+      <h2 id="h-insp">Inspect a drawing beside the original</h2>
+    </div>
+    <div class="controls">
+      <div class="ctl"><span class="label">Compare</span>
+        <div class="seg" id="mode">
+          <button data-v="side" aria-pressed="true">Side by side</button>
+          <button data-v="over">Over master</button>
+          <button data-v="onion">Onion skin</button>
+        </div></div>
+      <div class="ctl"><span class="label">Look at</span>
+        <div class="seg" id="zoom">
+          <button data-v="full" aria-pressed="true">Whole figure</button>
+          <button data-v="face">Face</button>
+          <button data-v="heart">Heart</button>
+          <button data-v="tails">Bandanna</button>
+          <button data-v="dagger">Dagger</button>
+        </div></div>
+      <div class="ctl"><span class="label">Ground</span>
+        <div class="seg" id="ground">
+          <button data-v="paper" aria-pressed="true">Paper</button>
+          <button data-v="clear">Transparent</button>
+          <button data-v="white">White</button>
+        </div></div>
+      <div class="ctl" id="mixwrap" hidden><label class="label" for="mix">Study opacity</label>
+        <input type="range" id="mix" min="0" max="100" value="60"></div>
+      <div class="ctl"><span class="label">Pose test</span>
+        <div class="seg"><button id="flip" aria-pressed="false">Flip through keys</button></div></div>
+    </div>
+    <div class="table" id="table">
+      <div class="pane pane-master">
+        <div class="pane-cap"><span class="label">Master · archived 2026-11-16 · reference only</span></div>
+        <div class="stage" id="st-master"><img id="im-master" alt="Lil KC master artwork: flying kick, dagger forward, heart held behind"></div>
+      </div>
+      <div class="pane">
+        <div class="pane-cap"><span class="label" id="cap-study">Study</span><span class="label" id="cap-hold"></span></div>
+        <div class="stage" id="st-study">
+          <img id="im-under" alt="" hidden>
+          <img id="im-study" alt="">
+        </div>
+      </div>
+    </div>
+    <p class="note" id="note"></p>
+  </section>
+
+  <section aria-labelledby="h-keys">
+    <div class="sec-head">
+      <span class="label">Shot plan · 12 drawings per second · about 2.5 seconds</span>
+      <h2 id="h-keys">The six keys</h2>
+      <p class="muted">Pick one to load it on the light table. Holds are a first guess at timing, counted in frames at 12 per second, before any in-betweens exist.</p>
+    </div>
+    <div class="keys" id="keys"></div>
+  </section>
+
+  <section aria-labelledby="h-sheet">
+    <div class="sec-head">
+      <span class="label">Model sheet · measured from the master</span>
+      <h2 id="h-sheet">What makes him him</h2>
+    </div>
+    <div class="sheet">
+      <div class="col">
+        <div class="block">
+          <h3>Proportions</h3>
+          <div class="stage" id="st-prop">
+            <img id="im-prop" alt="Key 01 tracing with proportion guides">
+            <svg class="guides" viewBox="0 0 1536 1024" aria-hidden="true">
+              <line x1="120" y1="44" x2="1010" y2="44"/><line x1="120" y1="600" x2="1010" y2="600"/><line x1="120" y1="994" x2="1010" y2="994"/>
+              <line x1="140" y1="44" x2="140" y2="994"/>
+              <text x="60" y="335">A</text><text x="60" y="810">B</text>
+              <line x1="339" y1="20" x2="339" y2="70"/><line x1="936" y1="20" x2="936" y2="70"/><text x="622" y="34">C</text>
+              <rect x="590" y="363" width="281" height="237"/><text x="884" y="590">D</text>
+              <rect x="706" y="434" width="72" height="84"/><text x="655" y="500">E</text>
+              <line x1="196" y1="700" x2="478" y2="700"/><line x1="196" y1="680" x2="196" y2="720"/><line x1="478" y1="680" x2="478" y2="720"/><text x="320" y="745">F</text>
+            </svg>
+          </div>
+          <dl>
+            <dt>A / B</dt><dd>Head, afro included, is about three fifths of his height (556 of 950 px). The body is the smaller part.</dd>
+            <dt>C</dt><dd>The afro is 2.1 times as wide as his face (597 px against 281 px), lumpy all round, never a circle.</dd>
+            <dt>D</dt><dd>The face is a small window low in the hair: forehead under the bandanna, cheek pushed forward, pointed little chin.</dd>
+            <dt>E</dt><dd>The near eye is a third of the face's height. The far eye is slimmer and open at its lower rim. They do not match, and should not.</dd>
+            <dt>F</dt><dd>Each bandanna tail trails about one face-width behind the knot, with a notched end.</dd>
+          </dl>
+        </div>
+        <div class="block">
+          <h3>Face studies for this shot</h3>
+          <div class="faces" id="faces"></div>
+          <p class="muted">Eyes are redrawn from his own traced eye outline: the pupil swings round inside it and the closed lid follows the lower rim. Brows, nose, mouth and ear keep their traced shapes.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="block">
+          <h3>Silhouette</h3>
+          <div class="pair">
+            <div class="stage" id="st-sil"><img id="im-sil" alt="Solid silhouette of key 01"></div>
+            <ul>
+              <li>Hair, tails, dagger and kicking foot all read in solid black.</li>
+              <li>The heart sits inside the outline, behind the body line of action.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="block">
+          <h3>Palette sampled from the master</h3>
+          <div class="swatches" id="swatches"></div>
+          <p class="muted">Median colour of each region. His gi is bare paper, not a separate white.</p>
+        </div>
+        <div class="block">
+          <h3>Ink</h3>
+          <ul>
+            <li id="inkline"></li>
+            <li>Edges are slightly dry and uneven. Hair and belt are solid ink masses, not outlines.</li>
+            <li>Colour is flat with paper grain. No shading, no highlights except the nick at the top of the heart.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h3>Held constant in every key</h3>
+          <ul>
+            <li>Head-to-body ratio, afro lumps, eye spacing and asymmetry.</li>
+            <li>Dagger arm stays brave and extended while the heart arm does the tender work.</li>
+            <li>Mouth stays a tiny "o". No grin, no frown, no angry brows.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-how">
+    <div class="sec-head">
+      <span class="label">Provenance</span>
+      <h2 id="h-how">How these drawings were made</h2>
+    </div>
+    <ul>
+      <li><b>Key 01</b> is a measured tracing of the master: ink centre-lines with their brush width, solid ink masses and flat colour shapes, re-inked by code. No pixels of the master are reused.</li>
+      <li><b>Keys 02 to 06</b> start from that tracing. The eyes are redrawn, brows and mouth are repositioned, the heart-and-hand is its own layer so it can be pulled in, and the body, head, afro, bandanna tails, dagger arm and kicking leg are bent by small hand-set amounts.</li>
+      <li>That makes these <b>traced-and-adjusted studies, not freehand drawings</b>. They stay very close to the master on purpose. If you want any key pushed further, or drawn by hand and dropped in as a replacement PNG, the pipeline accepts that.</li>
+      <li>Files: transparent PNGs at 1536 × 1024 in <code>storyboard/</code>, rebuilt by <code>project/build.py</code> from <code>project/keys.py</code>.</li>
+    </ul>
+    <div class="ask">
+      <h3>What I need from you before animating</h3>
+      <ul>
+        <li>Does every key still look like him? Check the face at Face zoom, over the master.</li>
+        <li>Is the acting right: glance down to the heart, blink, see the danger, pull the heart in, resolve?</li>
+        <li>How far should the heart travel in Protection, and should the poses be broader or stay this subtle?</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script src="keys.js"></script>
+<script>
+(function(){
+  var MASTER_SRC = '../../lil-kc-master-2026-11-16.png';
+  var KC = window.KC, W = KC.size[0], H = KC.size[1];
+  var ZOOM = {full:[110,10,1330,1014], face:[560,340,920,640], heart:[440,560,860,860], tails:[150,380,700,720], dagger:[820,290,1300,740]};
+  var state = {key:0, mode:'side', zoom:'full', ground:'paper', mix:60, flip:null};
+  var $ = function(id){return document.getElementById(id)};
+  var src = function(i){return 'storyboard/'+KC.keys[i].id+'.png'};
+
+  function place(stage, img, box){
+    var w=box[2]-box[0], h=box[3]-box[1];
+    stage.style.aspectRatio = w+' / '+h;
+    img.style.width = (W/w*100)+'%';
+    img.style.left = (-box[0]/w*100)+'%';
+    img.style.top = (-box[1]/h*100)+'%';
+  }
+  function seg(id, prop, after){
+    $(id).addEventListener('click', function(e){
+      var b=e.target.closest('button'); if(!b) return;
+      state[prop]=b.dataset.v;
+      [].forEach.call($(id).querySelectorAll('button'), function(x){x.setAttribute('aria-pressed', x===b)});
+      render();
+    });
+  }
+  function render(){
+    var k=KC.keys[state.key], box=ZOOM[state.zoom];
+    var study=$('st-study'), under=$('im-under'), top=$('im-study');
+    place($('st-master'), $('im-master'), box);
+    place(study, top, box); place(study, under, box);
+    top.src=src(state.key); top.alt='Key '+(state.key+1)+' study: '+k.title;
+    $('table').classList.toggle('single', state.mode!=='side');
+    $('mixwrap').hidden = state.mode==='side';
+    under.hidden = state.mode==='side';
+    top.style.opacity = 1;
+    study.className = 'stage g-'+state.ground;
+    $('st-master').className = 'stage';
+    if(state.mode==='over'){
+      under.src=MASTER_SRC; under.style.opacity=1; top.style.opacity=state.mix/100; study.className='stage';
+      $('cap-study').textContent='Key '+(state.key+1)+' · '+k.title+' · laid over the master';
+    } else if(state.mode==='onion'){
+      var prev=(state.key+KC.keys.length-1)%KC.keys.length;
+      under.src=src(prev); under.style.opacity=(100-state.mix)/100*0.7;
+      $('cap-study').textContent='Key '+(state.key+1)+' · '+k.title+' · ghost of key '+(prev+1);
+    } else {
+      $('cap-study').textContent='Study · key '+(state.key+1)+' · '+k.title;
+    }
+    $('cap-hold').textContent='hold '+k.hold+' fr';
+    $('note').innerHTML='<b>'+k.beat+'.</b> '+k.note;
+    [].forEach.call($('keys').children, function(b,i){b.setAttribute('aria-pressed', i===state.key)});
+  }
+
+  // key strip
+  KC.keys.forEach(function(k,i){
+    var b=document.createElement('button'); b.className='key'; b.type='button';
+    b.innerHTML='<span class="label">'+(i+1)+' · hold '+k.hold+'</span><div class="stage"><img alt="" src="'+src(i)+'"></div><h3>'+k.title+'</h3><small>'+k.note+'</small>';
+    place(b.querySelector('.stage'), b.querySelector('img'), ZOOM.full);
+    b.addEventListener('click', function(){stopFlip(); state.key=i; render()});
+    $('keys').appendChild(b);
+  });
+
+  // model sheet
+  $('im-master').src=MASTER_SRC;
+  $('im-prop').src=src(0); place($('st-prop'), $('im-prop'), [0,0,W,H]);
+  $('im-sil').src='storyboard/silhouette-home.png'; place($('st-sil'), $('im-sil'), ZOOM.full);
+  KC.keys.forEach(function(k,i){
+    var f=document.createElement('figure');
+    f.innerHTML='<div class="stage"><img alt="Face, key '+(i+1)+'" src="'+src(i)+'"></div><figcaption class="label">'+(i+1)+' · '+k.title+'</figcaption>';
+    place(f.querySelector('.stage'), f.querySelector('img'), [625,350,895,620]);
+    $('faces').appendChild(f);
+  });
+  var names={paper:'Paper / gi', ink:'Ink', red:'Bandanna / heart', skin:'Skin'};
+  Object.keys(names).forEach(function(n){
+    var c=KC.palette[n], hex='#'+c.map(function(v){return ('0'+v.toString(16)).slice(-2)}).join('');
+    var d=document.createElement('div'); d.className='sw';
+    d.innerHTML='<i style="background:'+hex+'"></i><b>'+names[n]+'</b><span>'+hex+'</span>';
+    $('swatches').appendChild(d);
+  });
+  $('inkline').textContent='Line weight runs from about '+KC.line_width_px[0]+' to '+KC.line_width_px[2]+' px at master size, typically '+KC.line_width_px[1]+' px. It swells and thins along a stroke.';
+
+  seg('mode','mode'); seg('zoom','zoom'); seg('ground','ground');
+  $('mix').addEventListener('input', function(e){state.mix=+e.target.value; render()});
+
+  function stopFlip(){ if(state.flip){clearTimeout(state.flip); state.flip=null; $('flip').setAttribute('aria-pressed','false'); $('flip').textContent='Flip through keys'} }
+  function step(){
+    state.key=(state.key+1)%KC.keys.length; render();
+    state.flip=setTimeout(step, Math.max(KC.keys[state.key].hold,3)/KC.fps*1000*1.6);
+  }
+  $('flip').addEventListener('click', function(){
+    if(state.flip){stopFlip(); return}
+    this.setAttribute('aria-pressed','true'); this.textContent='Stop';
+    state.flip=setTimeout(step, 250);
+  });
+  render();
+})();
+</script>
