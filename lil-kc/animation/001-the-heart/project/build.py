@@ -32,6 +32,8 @@ def paper(pal, size):
     return Image.fromarray(np.dstack([col, np.full(n.shape, 255.0)]).astype(np.uint8), "RGBA")
 
 def main():
+    if (SHOT / "PRESERVED.md").exists():
+        raise SystemExit("Study 001 is preserved. Copy this shot to a new numbered take before building.")
     for d in (STORY, FRAMES, EXPORTS): d.mkdir(exist_ok=True)
     frames = []
     for f in range(motion.N):
