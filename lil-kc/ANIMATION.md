@@ -2,7 +2,7 @@
 
 ## Status
 
-**Ready for production planning; no approved animation frames yet.** Key-pose studies for “The Heart” are in [animation/001-the-heart/](animation/001-the-heart/README.md), awaiting approval. Canonical image: [lil-kc-master-2026-11-16.png](lil-kc-master-2026-11-16.png). Overall Claude handoff: [CLAUDE.md](CLAUDE.md).
+**Ready for production planning; no approved animation frames yet.** A rough motion test for “The Heart” is in [animation/001-the-heart/](animation/001-the-heart/README.md), awaiting review. Canonical image: [lil-kc-master-2026-11-16.png](lil-kc-master-2026-11-16.png). Overall Claude handoff: [CLAUDE.md](CLAUDE.md).
 
 ## Animation principles
 

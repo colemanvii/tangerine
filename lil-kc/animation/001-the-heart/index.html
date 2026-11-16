@@ -44,6 +44,7 @@ section{display:flex;flex-direction:column;gap:16px}
 .seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
 .seg button:focus-visible,.key:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 input[type=range]{accent-color:var(--accent);width:170px;max-width:100%}
+.ctl.grow{flex:1 1 220px}.ctl.grow input{width:100%}
 
 /* stages */
 .table{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -92,16 +93,16 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-wid
 
 <div class="wrap">
   <header>
-    <span class="label">Lil KC · animation 001 · key-pose review</span>
+    <span class="label">Lil KC · animation 001 · rough motion test</span>
     <h1>The Heart</h1>
-    <p>Six proposed key drawings for the first loop, shown against the archived master. Nothing here is canon. The master file is untouched and is only displayed for comparison.</p>
-    <span class="status"><i></i>Studies · awaiting your approval</span>
+    <p>A three-second rough loop, 36 drawings at 12 per second, treated as a living illustration: he hovers, blinks, checks the heart, squeezes it close, and looks back up. Exploratory only. The master file is untouched and is shown for comparison.</p>
+    <span class="status"><i></i>Rough test · not an approved model</span>
   </header>
 
   <section aria-labelledby="h-insp">
     <div class="sec-head">
       <span class="label">Light table</span>
-      <h2 id="h-insp">Inspect a drawing beside the original</h2>
+      <h2 id="h-insp">Play it, or step through it beside the original</h2>
     </div>
     <div class="controls">
       <div class="ctl"><span class="label">Compare</span>
@@ -126,8 +127,14 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-wid
         </div></div>
       <div class="ctl" id="mixwrap" hidden><label class="label" for="mix">Study opacity</label>
         <input type="range" id="mix" min="0" max="100" value="60"></div>
-      <div class="ctl"><span class="label">Pose test</span>
-        <div class="seg"><button id="flip" aria-pressed="false">Flip through keys</button></div></div>
+    </div>
+    <div class="controls">
+      <div class="ctl"><span class="label">Playback</span>
+        <div class="seg"><button id="prev" aria-label="Previous drawing">◀</button><button id="play" aria-pressed="false">Play</button><button id="next" aria-label="Next drawing">▶</button></div></div>
+      <div class="ctl"><span class="label">Speed</span>
+        <div class="seg" id="speed"><button data-v="12" aria-pressed="true">12 fps</button><button data-v="6">6 fps</button><button data-v="3">3 fps</button></div></div>
+      <div class="ctl grow"><label class="label" for="scrub" id="scrublabel">Drawing 1 of 36</label>
+        <input type="range" id="scrub" min="0" max="35" value="0"></div>
     </div>
     <div class="table" id="table">
       <div class="pane pane-master">
@@ -147,9 +154,9 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-wid
 
   <section aria-labelledby="h-keys">
     <div class="sec-head">
-      <span class="label">Shot plan · 12 drawings per second · about 2.5 seconds</span>
+      <span class="label">Acting beats · 12 drawings per second · 3 seconds</span>
       <h2 id="h-keys">The six keys</h2>
-      <p class="muted">Pick one to load it on the light table. Holds are a first guess at timing, counted in frames at 12 per second, before any in-betweens exist.</p>
+      <p class="muted">Pick one to jump the light table to that drawing. Key 01 is kept as the reference. The rest are revised.</p>
     </div>
     <div class="keys" id="keys"></div>
   </section>
@@ -184,9 +191,9 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-wid
           </dl>
         </div>
         <div class="block">
-          <h3>Face studies for this shot</h3>
+          <h3>Faces in this test</h3>
           <div class="faces" id="faces"></div>
-          <p class="muted">Eyes are redrawn from his own traced eye outline: the pupil swings round inside it and the closed lid follows the lower rim. Brows, nose, mouth and ear keep their traced shapes.</p>
+          <p class="muted">Eyes are redrawn on his own traced eye outline: the pupil swings round inside it and the lid comes down over it. Brows, nose, mouth and ear keep their traced shapes.</p>
         </div>
       </div>
       <div class="col">
@@ -228,20 +235,21 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-wid
   <section aria-labelledby="h-how">
     <div class="sec-head">
       <span class="label">Provenance</span>
-      <h2 id="h-how">How these drawings were made</h2>
+      <h2 id="h-how">How this test was made</h2>
     </div>
     <ul>
-      <li><b>Key 01</b> is a measured tracing of the master: ink centre-lines with their brush width, solid ink masses and flat colour shapes, re-inked by code. No pixels of the master are reused.</li>
-      <li><b>Keys 02 to 06</b> start from that tracing. The eyes are redrawn, brows and mouth are repositioned, the heart-and-hand is its own layer so it can be pulled in, and the body, head, afro, bandanna tails, dagger arm and kicking leg are bent by small hand-set amounts.</li>
-      <li>That makes these <b>traced-and-adjusted studies, not freehand drawings</b>. They stay very close to the master on purpose. If you want any key pushed further, or drawn by hand and dropped in as a replacement PNG, the pipeline accepts that.</li>
-      <li>Files: transparent PNGs at 1536 × 1024 in <code>storyboard/</code>, rebuilt by <code>project/build.py</code> from <code>project/keys.py</code>.</li>
+      <li><b>Drawing 1</b> is the measured tracing of the master, re-inked by code. No pixels of the master are reused.</li>
+      <li><b>Newly drawn for this test:</b> the squeezed heart and the fist round it, the closed and half-closed lids, and the eyes looking down at the heart. The lids and pupils are built on his own traced eye outlines.</li>
+      <li><b>Still adjusted tracing:</b> body, head, limbs, afro and bandanna. Acting is keyed by hand; the afro and tails follow late, and the tails carry a travelling wave.</li>
+      <li>Every drawing is re-inked with fresh edge and grain, so the line boils slightly the way redrawn frames do.</li>
+      <li>Files: <code>frames/frame-0001.png</code> to <code>frame-0036.png</code> with <code>timing.json</code>; exports in <code>lil-kc/exports/</code> (transparent WebP, MP4 on paper).</li>
     </ul>
     <div class="ask">
-      <h3>What I need from you before animating</h3>
+      <h3>What to judge</h3>
       <ul>
-        <li>Does every key still look like him? Check the face at Face zoom, over the master.</li>
-        <li>Is the acting right: glance down to the heart, blink, see the danger, pull the heart in, resolve?</li>
-        <li>How far should the heart travel in Protection, and should the poses be broader or stay this subtle?</li>
+        <li>Does the squeeze feel protective and like him? The heart and fist there are my drawing, not the master's.</li>
+        <li>Are the half-closed lids too heavy? They can read sleepy or stern for a frame.</li>
+        <li>Is the bounce and bandanna the right size, or should it be calmer or bigger?</li>
       </ul>
     </div>
   </section>
@@ -251,11 +259,12 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-wid
 <script>
 (function(){
   var MASTER_SRC = '../../lil-kc-master-2026-11-16.png';
-  var KC = window.KC, W = KC.size[0], H = KC.size[1];
-  var ZOOM = {full:[110,10,1330,1014], face:[560,340,920,640], heart:[440,560,860,860], tails:[150,380,700,720], dagger:[820,290,1300,740]};
-  var state = {key:0, mode:'side', zoom:'full', ground:'paper', mix:60, flip:null};
+  var KC = window.KC, W = KC.size[0], H = KC.size[1], N = KC.frames;
+  var ZOOM = {full:[90,0,1340,1024], face:[540,330,930,650], heart:[440,540,880,860], tails:[130,360,720,740], dagger:[820,270,1320,740]};
+  var state = {frame:0, mode:'side', zoom:'full', ground:'paper', mix:60, speed:12, timer:null};
   var $ = function(id){return document.getElementById(id)};
-  var src = function(i){return 'storyboard/'+KC.keys[i].id+'.png'};
+  var src = function(f){return 'frames/frame-'+('000'+(f+1)).slice(-4)+'.png'};
+  var cache = []; for(var i=0;i<N;i++){ var im=new Image(); im.src=src(i); cache.push(im) }
 
   function place(stage, img, box){
     var w=box[2]-box[0], h=box[3]-box[1];
@@ -264,58 +273,61 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-wid
     img.style.left = (-box[0]/w*100)+'%';
     img.style.top = (-box[1]/h*100)+'%';
   }
-  function seg(id, prop, after){
+  function seg(id, prop, num){
     $(id).addEventListener('click', function(e){
       var b=e.target.closest('button'); if(!b) return;
-      state[prop]=b.dataset.v;
+      state[prop]=num? +b.dataset.v : b.dataset.v;
       [].forEach.call($(id).querySelectorAll('button'), function(x){x.setAttribute('aria-pressed', x===b)});
-      render();
+      layout(); show();
     });
   }
-  function render(){
-    var k=KC.keys[state.key], box=ZOOM[state.zoom];
-    var study=$('st-study'), under=$('im-under'), top=$('im-study');
+  function currentKey(){
+    var k=KC.keys[0];
+    KC.keys.forEach(function(x){ if(x.frame<=state.frame) k=x });
+    return k;
+  }
+  function layout(){
+    var box=ZOOM[state.zoom], study=$('st-study');
     place($('st-master'), $('im-master'), box);
-    place(study, top, box); place(study, under, box);
-    top.src=src(state.key); top.alt='Key '+(state.key+1)+' study: '+k.title;
+    place(study, $('im-study'), box); place(study, $('im-under'), box);
     $('table').classList.toggle('single', state.mode!=='side');
     $('mixwrap').hidden = state.mode==='side';
-    under.hidden = state.mode==='side';
-    top.style.opacity = 1;
-    study.className = 'stage g-'+state.ground;
-    $('st-master').className = 'stage';
-    if(state.mode==='over'){
-      under.src=MASTER_SRC; under.style.opacity=1; top.style.opacity=state.mix/100; study.className='stage';
-      $('cap-study').textContent='Key '+(state.key+1)+' · '+k.title+' · laid over the master';
-    } else if(state.mode==='onion'){
-      var prev=(state.key+KC.keys.length-1)%KC.keys.length;
-      under.src=src(prev); under.style.opacity=(100-state.mix)/100*0.7;
-      $('cap-study').textContent='Key '+(state.key+1)+' · '+k.title+' · ghost of key '+(prev+1);
-    } else {
-      $('cap-study').textContent='Study · key '+(state.key+1)+' · '+k.title;
-    }
-    $('cap-hold').textContent='hold '+k.hold+' fr';
-    $('note').innerHTML='<b>'+k.beat+'.</b> '+k.note;
-    [].forEach.call($('keys').children, function(b,i){b.setAttribute('aria-pressed', i===state.key)});
+    $('im-under').hidden = state.mode==='side';
+    study.className = 'stage'+(state.mode==='over' ? '' : ' g-'+state.ground);
+    if(state.mode==='over') $('im-under').src=MASTER_SRC;
   }
+  function show(){
+    var f=state.frame, k=currentKey(), top=$('im-study'), under=$('im-under');
+    top.src=src(f); top.alt='Drawing '+(f+1)+' of the rough loop';
+    top.style.opacity = state.mode==='over' ? state.mix/100 : 1;
+    if(state.mode==='over'){ under.style.opacity=1 }
+    else if(state.mode==='onion'){ under.src=src((f+N-1)%N); under.style.opacity=(100-state.mix)/100*0.7 }
+    $('cap-study').textContent='Rough test · drawing '+(f+1)+' of '+N+(state.mode==='over'?' · over the master':state.mode==='onion'?' · ghost of the one before':'');
+    $('cap-hold').textContent=k.title;
+    $('note').innerHTML='<b>'+k.beat+'.</b> '+k.note;
+    $('scrub').value=f; $('scrublabel').textContent='Drawing '+(f+1)+' of '+N;
+    [].forEach.call($('keys').children, function(b,i){b.setAttribute('aria-pressed', KC.keys[i]===k)});
+  }
+  function stop(){ if(state.timer){clearInterval(state.timer); state.timer=null} $('play').setAttribute('aria-pressed','false'); $('play').textContent='Play' }
+  function play(){ stop(); $('play').setAttribute('aria-pressed','true'); $('play').textContent='Pause';
+    state.timer=setInterval(function(){state.frame=(state.frame+1)%N; show()}, 1000/state.speed) }
+  function go(f){ stop(); state.frame=(f+N)%N; show() }
 
-  // key strip
   KC.keys.forEach(function(k,i){
     var b=document.createElement('button'); b.className='key'; b.type='button';
-    b.innerHTML='<span class="label">'+(i+1)+' · hold '+k.hold+'</span><div class="stage"><img alt="" src="'+src(i)+'"></div><h3>'+k.title+'</h3><small>'+k.note+'</small>';
+    b.innerHTML='<span class="label">'+(i+1)+' · drawing '+(k.frame+1)+'</span><div class="stage"><img alt="" src="'+src(k.frame)+'"></div><h3>'+k.title+'</h3><small>'+k.note+'</small>';
     place(b.querySelector('.stage'), b.querySelector('img'), ZOOM.full);
-    b.addEventListener('click', function(){stopFlip(); state.key=i; render()});
+    b.addEventListener('click', function(){go(k.frame)});
     $('keys').appendChild(b);
   });
 
-  // model sheet
   $('im-master').src=MASTER_SRC;
   $('im-prop').src=src(0); place($('st-prop'), $('im-prop'), [0,0,W,H]);
-  $('im-sil').src='storyboard/silhouette-home.png'; place($('st-sil'), $('im-sil'), ZOOM.full);
+  $('im-sil').src='storyboard/silhouette-home.png'; place($('st-sil'), $('im-sil'), [110,10,1330,1014]);
   KC.keys.forEach(function(k,i){
     var f=document.createElement('figure');
-    f.innerHTML='<div class="stage"><img alt="Face, key '+(i+1)+'" src="'+src(i)+'"></div><figcaption class="label">'+(i+1)+' · '+k.title+'</figcaption>';
-    place(f.querySelector('.stage'), f.querySelector('img'), [625,350,895,620]);
+    f.innerHTML='<div class="stage"><img alt="Face, '+k.title+'" src="'+src(k.frame)+'"></div><figcaption class="label">'+(i+1)+' · '+k.title+'</figcaption>';
+    place(f.querySelector('.stage'), f.querySelector('img'), [610,350,900,640]);
     $('faces').appendChild(f);
   });
   var names={paper:'Paper / gi', ink:'Ink', red:'Bandanna / heart', skin:'Skin'};
@@ -328,18 +340,17 @@ ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-wid
   $('inkline').textContent='Line weight runs from about '+KC.line_width_px[0]+' to '+KC.line_width_px[2]+' px at master size, typically '+KC.line_width_px[1]+' px. It swells and thins along a stroke.';
 
   seg('mode','mode'); seg('zoom','zoom'); seg('ground','ground');
-  $('mix').addEventListener('input', function(e){state.mix=+e.target.value; render()});
-
-  function stopFlip(){ if(state.flip){clearTimeout(state.flip); state.flip=null; $('flip').setAttribute('aria-pressed','false'); $('flip').textContent='Flip through keys'} }
-  function step(){
-    state.key=(state.key+1)%KC.keys.length; render();
-    state.flip=setTimeout(step, Math.max(KC.keys[state.key].hold,3)/KC.fps*1000*1.6);
-  }
-  $('flip').addEventListener('click', function(){
-    if(state.flip){stopFlip(); return}
-    this.setAttribute('aria-pressed','true'); this.textContent='Stop';
-    state.flip=setTimeout(step, 250);
+  $('speed').addEventListener('click', function(e){
+    var b=e.target.closest('button'); if(!b) return; state.speed=+b.dataset.v;
+    [].forEach.call(this.querySelectorAll('button'), function(x){x.setAttribute('aria-pressed', x===b)});
+    if(state.timer) play();
   });
-  render();
+  $('mix').addEventListener('input', function(e){state.mix=+e.target.value; show()});
+  $('scrub').addEventListener('input', function(e){go(+e.target.value)});
+  $('prev').addEventListener('click', function(){go(state.frame-1)});
+  $('next').addEventListener('click', function(){go(state.frame+1)});
+  $('play').addEventListener('click', function(){ state.timer ? stop() : play() });
+  layout(); show();
+  if(!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) play();
 })();
 </script>

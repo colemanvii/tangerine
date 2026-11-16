@@ -5,6 +5,7 @@ window.KC = {
   1024
  ],
  "fps": 12,
+ "frames": 36,
  "palette": {
   "paper": [
    252,
@@ -27,236 +28,54 @@ window.KC = {
    51
   ]
  },
- "figure_bbox": [
-  173,
-  44,
-  1257,
-  994
- ],
  "line_width_px": [
   10.8,
   15.2,
   18.2
  ],
- "landmarks": {
-  "box": {
-   "eyeL": [
-    700,
-    428,
-    785,
-    522
-   ],
-   "eyeR": [
-    805,
-    412,
-    856,
-    492
-   ],
-   "browL": [
-    690,
-    388,
-    744,
-    426
-   ],
-   "browR": [
-    806,
-    370,
-    846,
-    396
-   ],
-   "mouth": [
-    808,
-    528,
-    836,
-    552
-   ]
-  },
-  "neck": [
-   745,
-   615
-  ],
-  "knot": [
-   478,
-   458
-  ],
-  "shoulder": [
-   868,
-   600
-  ]
- },
- "status": "study \u2014 awaiting creator approval",
+ "status": "rough motion test \u2014 awaiting creator review",
  "keys": [
   {
    "id": "key-01-home",
+   "frame": 0,
    "title": "Home",
    "beat": "Start / loop point",
-   "note": "Measured tracing of the master pose. Brave arm out, heart tucked behind, eyes on the danger.",
-   "hold": 4,
-   "redrawn": [],
-   "warps": [],
-   "heart": []
+   "note": "The master pose, kept as the reference. Brave arm out, heart tucked behind, eyes on the danger."
   },
   {
-   "id": "key-02-anticipation",
-   "title": "Anticipation",
-   "beat": "1 \u00b7 Anticipation",
-   "note": "Weight sinks back. Eyes flick down to the heart to check on it. Afro and bandanna are late and ride high.",
-   "hold": 3,
-   "redrawn": [
-    "browL",
-    "browR",
-    "eyes",
-    "mouth"
-   ],
-   "warps": [
-    "all",
-    "head",
-    "afro",
-    "tail_up",
-    "tail_lo",
-    "arm",
-    "kick"
-   ],
-   "heart": [
-    {
-     "dx": -2,
-     "dy": 3,
-     "rot": 2,
-     "pivot": [
-      600,
-      690
-     ]
-    }
-   ]
+   "id": "key-02-lift",
+   "frame": 6,
+   "title": "Lift",
+   "beat": "Hover",
+   "note": "He floats up a touch. Brows rise, something tugs at his attention."
   },
   {
    "id": "key-03-blink",
+   "frame": 9,
    "title": "Blink",
-   "beat": "2 \u00b7 Recognition (blink)",
-   "note": "One blink as the head comes back up. Brows settle, mouth goes small.",
-   "hold": 2,
-   "redrawn": [
-    "browL",
-    "browR",
-    "eyes",
-    "mouth"
-   ],
-   "warps": [
-    "all",
-    "head",
-    "afro",
-    "tail_up",
-    "tail_lo",
-    "arm"
-   ],
-   "heart": [
-    {
-     "dx": 2,
-     "dy": 0,
-     "rot": 0,
-     "pivot": [
-      600,
-      690
-     ]
-    }
-   ]
+   "beat": "Blink",
+   "note": "A real blink: the lid comes down over his own eye shape, and his gaze changes behind it."
   },
   {
-   "id": "key-04-recognition",
-   "title": "Recognition",
-   "beat": "2 \u00b7 Recognition (sees it)",
-   "note": "Eyes open wide on the danger, brows lift, the little mouth opens. Head leans in; afro and tails drag behind.",
-   "hold": 4,
-   "redrawn": [
-    "browL",
-    "browR",
-    "eyes",
-    "mouth"
-   ],
-   "warps": [
-    "all",
-    "head",
-    "afro",
-    "tail_up",
-    "tail_lo",
-    "arm"
-   ],
-   "heart": [
-    {
-     "dx": 6,
-     "dy": -3,
-     "rot": -2,
-     "pivot": [
-      600,
-      690
-     ]
-    }
-   ]
+   "id": "key-04-glance",
+   "frame": 13,
+   "title": "Glance",
+   "beat": "Checks the heart",
+   "note": "Eyes drop to the heart. Head tips toward it, brows worried, mouth small. He sinks; hair and tails are late."
   },
   {
-   "id": "key-05-protection",
-   "title": "Protection",
-   "beat": "3 \u00b7 Protection",
-   "note": "The heart is drawn in against his chest. The dagger arm does not waver. Bandanna whips with the pull.",
-   "hold": 5,
-   "redrawn": [
-    "browL",
-    "browR",
-    "eyes",
-    "mouth"
-   ],
-   "warps": [
-    "all",
-    "head",
-    "afro",
-    "tail_up",
-    "tail_lo"
-   ],
-   "heart": [
-    {
-     "dx": 24,
-     "dy": -13,
-     "rot": -7,
-     "pivot": [
-      600,
-      690
-     ]
-    }
-   ]
+   "id": "key-05-squeeze",
+   "frame": 20,
+   "title": "Squeeze",
+   "beat": "Protects it",
+   "note": "New drawing: fist closed round the heart, pulled in tight, eyes shut, head tucked against it. Two little beats."
   },
   {
-   "id": "key-06-resolve",
-   "title": "Resolve",
-   "beat": "4 \u00b7 Resolve",
-   "note": "Small bounce up, chin lifts, dagger reaches a touch further. Heart stays close. Settles back to Home.",
-   "hold": 4,
-   "redrawn": [
-    "browL",
-    "browR",
-    "eyes",
-    "mouth"
-   ],
-   "warps": [
-    "all",
-    "head",
-    "afro",
-    "tail_up",
-    "tail_lo",
-    "arm_tip",
-    "arm",
-    "kick"
-   ],
-   "heart": [
-    {
-     "dx": 17,
-     "dy": -9,
-     "rot": -4,
-     "pivot": [
-      600,
-      690
-     ]
-    }
-   ]
+   "id": "key-06-brave",
+   "frame": 26,
+   "title": "Brave",
+   "beat": "Back to the danger",
+   "note": "Eyes snap open, chin up, dagger reaches, kick stretches. The bandanna cracks behind him. Then he settles home."
   }
  ]
 };
