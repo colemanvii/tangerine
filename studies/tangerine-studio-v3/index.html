@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tangerine Design No. 03</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f6f2">
+<meta name="description" content="Tangerine. We build brands. The studio of Cole Calfee, in Georgia. Design No. 03, a study.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IM+Fell+English:ital@0;1&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' shape-rendering='crispEdges'%3E%3Cpath fill='%234e6b43' d='M12 0h3v1h-3zM10 1h6v1h-6zM9 2h6v1H9z'/%3E%3Cpath fill='%23e15a22' d='M5 4h8v1H5zM3 5h12v1H3zM2 6h14v1H2zM1 7h16v5H1zM2 12h14v2H2zM3 14h12v1H3zM5 15h8v1H5zM7 16h4v1H7z'/%3E%3C/svg%3E">
+<style>
+/* Layout: one long sheet of bright paper. Type does the work; a small fruit lives in it.
+   90% restraint, 10% mischief — the mischief is a branding iron hanging on a nail. */
+:root{
+  color-scheme:light;
+  --paper:#f7f6f2;      /* bright, barely warm white */
+  --ink:#1c1b19;        /* graphite */
+  --muted:#76726a;
+  --rule:#d9d6cd;
+  --orange:#ee5a1c;     /* tangerine */
+  --orange-ink:#c4440f;
+  --leaf:#4e6b43;
+  --wood:#b07a46;
+  --card:#f0e6cf;       /* show-card stock */
+  --hide:#2a1d14;       /* hatter's brown */
+  --fm-paper:#fff9f1;   /* Freeman ivory (theirs, not ours) */
+  --fm-red:#f93822;     /* Freeman red */
+  --fell:'IM Fell English','Iowan Old Style',Georgia,'Times New Roman',serif;
+  --grot:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --gutter:clamp(18px,3.4vw,52px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 19px/1.45 var(--fell);-webkit-font-smoothing:antialiased;overflow-x:clip;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .33 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+::selection{background:var(--orange);color:var(--paper)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
+h1,h2,h3,p,ol,ul,figure,dl,dd{margin:0;padding:0}
+ol,ul{list-style:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{padding-inline:max(var(--gutter),env(safe-area-inset-left,0px)) max(var(--gutter),env(safe-area-inset-right,0px));max-width:1640px;margin-inline:auto}
+.skip{position:absolute;left:-999px;top:8px;z-index:50;background:var(--ink);color:var(--paper);padding:10px 14px;font:600 12px var(--grot)}
+.skip:focus{left:8px}
+
+/* the industrial voice: small, wide, exact */
+.cap{font:600 10.5px/1.4 var(--grot);font-stretch:125%;text-transform:uppercase;letter-spacing:.09em}
+.muted{color:var(--muted)}
+
+/* ——— masthead ——— */
+.mast{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:18px 16px;border-bottom:1px solid var(--ink)}
+.home{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 var(--grot);font-stretch:125%;text-transform:uppercase;letter-spacing:.14em}
+.home svg{width:26px;height:26px;color:var(--orange)}
+.nav{display:flex;gap:clamp(16px,3vw,40px)}
+.nav a{padding:8px 0;border-bottom:1px solid transparent}
+.nav a:hover{color:var(--orange);border-bottom-color:currentColor}
+
+/* ——— hero ——— */
+.hero{position:relative;padding-block:16px 0}
+.hero-meta{display:flex;justify-content:space-between;gap:20px}
+.title{font-weight:400;margin-top:clamp(18px,3vw,40px)}
+.title .w1{display:block;font:400 clamp(60px,22vw,370px)/.78 var(--fell);letter-spacing:-.045em;color:var(--orange);margin-left:-.04em;white-space:nowrap}
+.title .w2{display:block;font:italic 400 clamp(46px,8.6vw,146px)/.95 var(--fell);letter-spacing:-.02em;margin:.22em 0 0 .07em;white-space:nowrap}
+.title .w2 .u{position:relative;display:inline-block}
+.title .w2 .u svg{position:absolute;left:-1%;width:100%;bottom:-.2em;height:auto;overflow:visible;pointer-events:none}
+.title .w2 .u path{fill:none;stroke:var(--orange);stroke-width:7;stroke-linecap:round}
+
+/* the full stop is a tangerine */
+.tg{display:inline-block;position:relative;line-height:0}
+.tg>svg{display:block;width:100%;height:auto;overflow:visible}
+.tg-period{width:.36em;margin-left:.025em;vertical-align:-.155em}
+.tg-period>svg{width:100%}
+.tg .legs,.tg .mouth,.tg .sweat,.tg .zz,.tg .shut{visibility:hidden}
+.tg.air .legs{visibility:visible}
+.tg.oh .mouth{visibility:visible}
+.tg.nervous .sweat{visibility:visible}
+.tg.nervous>svg{animation:shiver .18s steps(2) infinite}
+.tg.asleep .eyes{visibility:hidden}
+.tg.asleep .shut,.tg.asleep .zz{visibility:visible}
+.tg .eye{transform-box:fill-box;transform-origin:center;transition:transform .07s}
+.tg.blink .eye{transform:scaleY(.08)}
+.tg .zz text{font:italic 22px var(--fell);fill:var(--ink)}
+.tg.asleep .zz text{animation:zz 3.2s linear infinite}
+.tg.asleep .zz text:nth-child(2){animation-delay:1.6s}
+@keyframes zz{0%{opacity:0;transform:translate(0,0)}20%{opacity:1}100%{opacity:0;transform:translate(10px,-26px)}}
+@keyframes shiver{0%{transform:translateX(-.6px)}100%{transform:translateX(.6px)}}
+.say{position:absolute;left:50%;bottom:108%;transform:translateX(-50%);font:italic 400 18px/1 var(--fell);letter-spacing:0;color:var(--ink);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s}
+.say.on{opacity:1}
+
+/* the rack: one nail, one tag, one iron */
+.rack{position:absolute;right:calc(max(var(--gutter),env(safe-area-inset-right,0px)) + clamp(0px,2vw,30px));top:52%;width:clamp(56px,5.2vw,76px);z-index:4}
+.nail{display:block;width:16px;height:16px;margin:0 auto;position:relative;z-index:2}
+.iron-btn{display:block;width:100%;margin-top:-12px;transform-origin:50% 0;cursor:grab;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.iron-btn svg{width:100%;height:auto;display:block;overflow:visible}
+.iron-btn:hover{transform:rotate(-4deg)}
+.iron-btn:active{cursor:grabbing}
+.rack.empty .iron-btn{visibility:hidden}
+.tag{position:absolute;top:2px;right:56%;transform-origin:100% 4px;transform:rotate(14deg);pointer-events:none}
+.rack:hover .tag{animation:swing 1.4s cubic-bezier(.4,0,.3,1)}
+@keyframes swing{0%{transform:rotate(14deg)}25%{transform:rotate(26deg)}55%{transform:rotate(8deg)}80%{transform:rotate(17deg)}100%{transform:rotate(14deg)}}
+.tag svg{display:block;width:clamp(96px,9vw,124px);height:auto;overflow:visible}
+.tag-text{position:absolute;left:6%;right:17%;top:50%;transform:translateY(-50%);font:700 8.5px/1.15 var(--grot);font-stretch:112%;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+
+.index{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(56px,7vw,110px);border-top:1px solid var(--ink)}
+.index a{display:flex;flex-direction:column;gap:6px;padding:14px 18px 18px 0}
+.index a+a{padding-left:18px;border-left:1px solid var(--rule)}
+.index b{font:400 clamp(21px,1.9vw,30px)/1.08 var(--fell)}
+.index a:hover b{color:var(--orange);font-style:italic}
+.index i{font-style:normal}
+
+/* ——— running heads ——— */
+.run{display:flex;justify-content:space-between;align-items:baseline;gap:20px;border-top:1px solid var(--ink);padding-top:12px}
+.run h2{font:italic 400 clamp(28px,2.6vw,40px)/1 var(--fell)}
+
+/* ——— the work ——— */
+.work{padding-top:clamp(90px,11vw,170px)}
+.plate{margin-top:clamp(36px,5vw,70px)}
+.plate+.plate{margin-top:clamp(110px,13vw,200px)}
+.numeral{font:400 clamp(70px,8vw,128px)/.8 var(--fell);color:var(--orange)}
+.who{font:400 clamp(40px,4.6vw,76px)/.95 var(--fell);letter-spacing:-.02em;text-wrap:balance}
+.what{margin-top:14px}
+.line{font-size:clamp(19px,1.5vw,23px);line-height:1.38;max-width:30ch;margin-top:20px}
+.facts{margin-top:22px;border-top:1px solid var(--rule)}
+.facts div{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--rule)}
+.facts dd{text-align:right}
+figcaption.cap{margin-top:10px;display:flex;justify-content:space-between;gap:16px}
+
+/* Plate I: Freeman's own paper and red, a real study */
+.fm{position:relative;background:var(--fm-paper);color:var(--fm-red);aspect-ratio:16/8.2;min-height:420px;display:grid;place-items:center;overflow:hidden}
+.fm canvas{width:min(62%,700px);height:auto;aspect-ratio:160/102;image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+.fm .cap{position:absolute;color:var(--fm-red)}
+.fm .tl{left:22px;top:20px}.fm .tr{right:22px;top:20px;text-align:right}.fm .bl{left:22px;bottom:18px}
+.fm .br{right:22px;bottom:16px;padding:6px 0}
+.fm .br:hover{text-decoration:underline}
+.p1-cap{display:grid;grid-template-columns:auto 1.3fr 1fr;gap:clamp(20px,4vw,64px);align-items:start;margin-top:26px}
+.p1-cap .numeral{margin-top:.05em}
+
+/* Plate II: a show-card on a dark table */
+.p2{display:grid;grid-template-columns:1fr 1.45fr;gap:clamp(24px,5vw,90px);align-items:end}
+.table{background:var(--ink);aspect-ratio:1/1.02;display:grid;place-items:center;overflow:hidden;position:relative}
+.card{container-type:inline-size;width:58%;aspect-ratio:5/7.2;background:var(--card);transform:rotate(-2.2deg);display:flex;flex-direction:column;padding:0;color:var(--ink);box-shadow:0 1px 0 rgba(0,0,0,.35)}
+.card .press{filter:url(#press);display:flex;flex-direction:column;height:100%;padding:7cqw 7cqw 6cqw}
+.card .stars{display:flex;justify-content:space-between;color:var(--orange);font:900 9cqw/1 var(--grot)}
+.card .k1{font:900 29cqw/.84 var(--grot);font-stretch:62%;letter-spacing:-.01em;margin-top:6cqw}
+.card .k2{font:900 19.5cqw/.84 var(--grot);font-stretch:62%;color:var(--orange);margin-top:1cqw;position:relative}
+.card .k2::after{content:"CULPEPPER";position:absolute;left:.6cqw;top:.5cqw;color:var(--ink);opacity:.14;mix-blend-mode:multiply}
+.card .bar{height:2.6cqw;background:var(--ink);margin:6cqw 0 4cqw}
+.card .k3{font:800 4.1cqw/1.2 var(--grot);font-stretch:125%;letter-spacing:.05em;white-space:nowrap;text-align:center}
+.card .orn{margin:auto;width:44cqw;color:var(--orange)}
+.card .k4{font:700 3.2cqw/1 var(--grot);font-stretch:125%;letter-spacing:.14em;text-align:center;margin-top:5cqw}
+.table .cap{position:absolute;left:20px;bottom:16px;color:#9a958b}
+
+/* Plate III: the hat, tall and quiet */
+.p3{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,90px);align-items:end}
+.hatbox{background:var(--hide);aspect-ratio:4/5;position:relative;display:grid;place-items:center;overflow:hidden}
+.hatbox svg{width:82%;height:auto}
+.hatbox .cap{position:absolute;left:20px;bottom:16px;color:#ab9878}
+.hatbox .hm{position:absolute;top:22px;left:0;right:0;text-align:center;color:#d8c3a0}
+.p3 .copy{padding-bottom:6px}
+
+/* Plate IV: the crate */
+.p4{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,90px);align-items:center}
+.crate{max-width:520px;width:100%;justify-self:center;position:relative}
+.crate>svg{width:100%;height:auto;display:block;overflow:visible}
+.crate .tg{position:absolute;left:52%;width:24%;bottom:68.5%}
+
+/* ——— the studio ——— */
+.studio{padding-top:clamp(110px,13vw,200px)}
+.manifesto{font:400 clamp(34px,4.5vw,74px)/1.04 var(--fell);letter-spacing:-.018em;margin-top:clamp(28px,4vw,56px);max-width:19.5em;text-wrap:pretty}
+.manifesto em{color:var(--orange)}
+.aside{display:inline-block;font:italic 400 clamp(19px,1.6vw,24px)/1.2 var(--fell);color:var(--orange-ink);transform:rotate(-3deg);margin:20px 0 0 clamp(0px,30vw,520px)}
+.affections{display:grid;grid-template-columns:1fr 1.6fr;gap:clamp(24px,5vw,90px);margin-top:clamp(64px,8vw,120px)}
+.affections h3{font:italic 400 clamp(26px,2.4vw,36px)/1.08 var(--fell);max-width:9em}
+.leaders li{display:flex;align-items:baseline;gap:10px;font-size:clamp(20px,1.75vw,26px);line-height:1.2;padding:9px 0}
+.leaders li::after{content:"";order:2;flex:1;border-bottom:2px dotted #b3afa5;transform:translateY(-.28em)}
+.leaders li span:last-child{order:3;font-style:italic}
+.leaders li.no span:last-child{color:var(--orange-ink)}
+
+/* ——— hello ——— */
+.hello{padding-top:clamp(110px,13vw,190px)}
+.big-hello{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;font:400 clamp(84px,15vw,250px)/.82 var(--fell);letter-spacing:-.04em;color:var(--orange);padding-block:22px 18px;border-bottom:1px solid var(--ink)}
+.big-hello:hover span{font-style:italic}
+.big-hello svg{width:clamp(36px,5vw,80px);flex:none;margin-bottom:.12em}
+.hello-foot{display:flex;justify-content:space-between;gap:24px;padding-top:14px}
+.clock{font:italic 400 clamp(19px,1.6vw,23px)/1.3 var(--fell);text-align:right;max-width:30ch}
+
+/* ——— footer ——— */
+.foot{margin-top:clamp(110px,12vw,170px);position:relative}
+.peek{position:absolute;left:50%;top:0;width:76px;height:62px;transform:translate(-50%,-100%);overflow:hidden}
+.peek .tg{position:absolute;left:0;top:0;width:76px;transition:transform .5s cubic-bezier(.3,1.5,.5,1)}
+.peek .tg{transform:translateY(4px)}
+.foot:hover .peek .tg{transform:translateY(0)}
+.colophon{border-top:1px solid var(--ink);display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:20px 40px;padding-block:16px 40px}
+.colophon>:last-child{text-align:right}
+.erase{border-bottom:1px solid currentColor;margin-left:8px}
+.erase[hidden]{display:none}
+
+/* ——— the iron, in hand ——— */
+.held,.held *{cursor:none!important}
+.hand{position:fixed;left:0;top:0;width:64px;pointer-events:none;z-index:60;display:none;will-change:transform}
+.hand svg{width:100%;height:auto;overflow:visible;display:block}
+.held .hand.fine{display:block}
+.hand.tap{display:block;opacity:0;transition:opacity .35s}
+.hand.tap.show{opacity:1;transition:none}
+.hangup{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:61;background:var(--ink);color:var(--paper);padding:13px 18px;display:none;white-space:nowrap}
+.held .hangup{display:block;cursor:pointer!important}
+.burns{position:absolute;left:0;top:0;width:100%;height:0;z-index:5;pointer-events:none}
+.burn{position:absolute;width:var(--bs,84px);height:var(--bs,84px);overflow:visible;mix-blend-mode:multiply}
+.ember{position:absolute;width:var(--bs,84px);height:var(--bs,84px);overflow:visible;animation:ember 1.5s ease-out forwards}
+@keyframes ember{0%{opacity:1}100%{opacity:0}}
+.smoke{position:absolute;width:90px;height:120px;overflow:visible}
+.smoke path{fill:none;stroke:#a19b91;stroke-width:3;stroke-linecap:round;opacity:0;animation:smoke 1.9s ease-out forwards}
+.smoke path:nth-child(2){animation-delay:.12s}.smoke path:nth-child(3){animation-delay:.26s}
+@keyframes smoke{0%{opacity:0;transform:translate(0,10px) scaleY(.6)}20%{opacity:.75}100%{opacity:0;transform:translate(6px,-70px) scaleY(1.3)}}
+.hand .hot{animation:hot 1.1s ease-in-out infinite alternate}
+@keyframes hot{0%{opacity:.75}100%{opacity:1}}
+.hand.press svg{transform:translateY(5px) scaleY(.97);transition:transform .06s}
+.hand svg{transition:transform .14s}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .ember{opacity:0}
+}
+
+/* ——— tablet ——— */
+@media (max-width:1000px){
+  .index{grid-template-columns:1fr 1fr}
+  .index a:nth-child(3){padding-left:0;border-left:0}
+  .index a:nth-child(n+3){border-top:1px solid var(--rule)}
+  .p1-cap{grid-template-columns:auto 1fr}
+  .p1-cap .facts{grid-column:2}
+  .p2,.p3,.p4,.affections{grid-template-columns:1fr}
+  .p2 .copy{order:2}
+  .p3 .hatbox{max-width:560px}
+  .colophon{grid-template-columns:1fr 1fr}
+  .colophon>:last-child{text-align:left}
+}
+/* ——— phone ——— */
+@media (max-width:640px){
+  body{font-size:18px}
+  .cap{font-size:9.5px}
+  .home span{display:none}
+  .hero-meta .cap:last-child{text-align:right}
+  .title .w1{font-size:21.3vw;margin-top:.1em}
+  .title .w2{font-size:13.4vw;white-space:normal;margin-top:.32em}
+  .title .w2 .wb{display:block}
+  .rack{width:50px;right:max(28px,env(safe-area-inset-right,0px))}
+  .tag svg{width:92px}
+  .index{grid-template-columns:1fr;margin-top:64px}
+  .index a,.index a+a{padding:12px 0 13px;border-left:0;flex-direction:row;align-items:baseline;gap:14px}
+  .index a+a{border-top:1px solid var(--rule)}
+  .index .cap{width:62px;flex:none;white-space:nowrap}
+  .index b{font-size:24px}
+  .fm{aspect-ratio:4/5;min-height:0}
+  .fm canvas{width:86%}
+  .fm .tr{display:none}
+  .p1-cap{grid-template-columns:1fr;gap:14px}
+  .p1-cap .facts{grid-column:auto}
+  .numeral{font-size:72px}
+  .card{width:56%}
+  .big-hello{font-size:19vw}
+  .studio .run .cap,.hello .run .cap:last-child{display:none}
+  .hello-foot{flex-direction:column}
+  .clock{text-align:left}
+  .colophon{grid-template-columns:1fr}
+  .aside{margin-left:22vw}
+  .hangup{font-size:10px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to the work</a>
+
+<!-- shared drawing materials -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- the studio's maker's mark: a tangerine with a T in it -->
+    <symbol id="mark" viewBox="0 0 100 100" overflow="visible">
+      <path d="M50 26 C69 25 82 39 82 57 C82 75 68 88 50 88 C32 88 18 75 18 57 C18 39 31 27 50 26Z"/>
+      <path d="M34 47 H66 M50 47 V77"/>
+      <path d="M51 25 C54 13 66 6 80 8 C76 20 65 26 51 25Z"/>
+    </symbol>
+    <!-- line boil: the drawing breathes a little, like an old cartoon -->
+    <filter id="boil" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="boil-noise" type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="1" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- letterpress: uneven ink and a soft bite -->
+    <filter id="press" x="-2%" y="-2%" width="104%" height="104%">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.5 0 0 0 1.62" result="voids"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="1" seed="3" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="1.6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feComposite in="d" in2="voids" operator="in"/>
+    </filter>
+    <!-- scorch: four irons are never quite the same press twice -->
+    <filter id="burn0" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="11" result="p"/><feColorMatrix in="p" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -.55" result="pm"/><feComposite in="d" in2="pm" operator="in"/></filter>
+    <filter id="burn1" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".08" numOctaves="2" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="23" result="p"/><feColorMatrix in="p" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -.5" result="pm"/><feComposite in="d" in2="pm" operator="in"/></filter>
+    <filter id="burn2" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".06" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="31" result="p"/><feColorMatrix in="p" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -.6" result="pm"/><feComposite in="d" in2="pm" operator="in"/></filter>
+    <filter id="burn3" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".075" numOctaves="2" seed="14" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".055" numOctaves="2" seed="41" result="p"/><feColorMatrix in="p" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -.45" result="pm"/><feComposite in="d" in2="pm" operator="in"/></filter>
+    <filter id="singe" x="-40%" y="-40%" width="180%" height="180%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.6"/></filter>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+</svg>
+
+<header class="wrap">
+  <div class="mast">
+    <a class="home" href="#top" aria-label="Tangerine, home">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Tangerine</span>
+    </a>
+    <nav class="nav cap" aria-label="Main">
+      <a href="#work">Work</a><a href="#studio">Studio</a><a href="#hello">Hello</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap" aria-labelledby="t">
+    <div class="hero-meta">
+      <span class="cap muted">Cole Calfee &amp; company<br>Georgia</span>
+      <span class="cap muted">Design No. 03<br>A study, unpublished</span>
+    </div>
+    <h1 class="title" id="t">
+      <span class="w1">Tangerine<span class="tg tg-period" data-tg="hero">.</span></span>
+      <span class="w2"><span class="wb">We build </span><span class="u">brands.<svg viewBox="0 0 300 26" aria-hidden="true"><path pathLength="1" d="M5 17 C60 11 130 8 190 12 C232 15 268 10 292 6"/></svg></span></span>
+    </h1>
+
+    <div class="rack" id="rack">
+      <svg class="nail" viewBox="0 0 16 16" aria-hidden="true"><circle cx="9" cy="9" r="6" fill="#000" opacity=".12"/><circle cx="8" cy="8" r="5.5" fill="#8d8a84" stroke="#1c1b19" stroke-width="1.6"/><circle cx="6.5" cy="6.5" r="1.6" fill="#d9d6cd"/></svg>
+      <div class="tag" aria-hidden="true">
+        <svg viewBox="0 0 120 54"><path d="M118 27 L104 2 H8 Q2 2 2 8 V46 Q2 52 8 52 H104 Z" fill="#f4ecd9" stroke="#1c1b19" stroke-width="1.6" transform="translate(0 0)"/><circle cx="104" cy="27" r="4" fill="#f7f6f2" stroke="#1c1b19" stroke-width="1.4"/><path d="M108 27 C113 22 116 12 119 0" fill="none" stroke="#1c1b19" stroke-width="1.2"/></svg>
+        <span class="tag-text" id="tag-text">Please do not touch</span>
+      </div>
+      <button class="iron-btn" id="iron-btn" type="button" aria-pressed="false" aria-label="Pick up the branding iron">
+        <svg viewBox="0 0 80 300" aria-hidden="true" data-iron></svg>
+      </button>
+    </div>
+
+    <nav class="index" aria-label="The work">
+      <a href="#freeman"><span class="cap muted">Plate <i>I</i></span><b>Freeman General Contracting</b></a>
+      <a href="#kashus"><span class="cap muted">Plate <i>II</i></span><b>Kashus Culpepper</b></a>
+      <a href="#joseph-martin"><span class="cap muted">Plate <i>III</i></span><b>Joseph Martin</b></a>
+      <a href="#crate"><span class="cap muted">Plate <i>IV</i></span><b>In the crate</b></a>
+    </nav>
+  </section>
+
+  <section class="work wrap" id="work" aria-labelledby="work-h">
+    <div class="run"><h2 id="work-h">The work, so far.</h2><span class="cap muted">Plates I–IV</span></div>
+
+    <!-- Plate I -->
+    <article class="plate" id="freeman" aria-labelledby="fm-h">
+      <figure>
+        <div class="fm">
+          <span class="cap tl">Freeman Globe<br>Motion study 001</span>
+          <span class="cap tr">Ivory #FFF9F1<br>Red #F93822</span>
+          <canvas id="globe" width="160" height="102" role="img" aria-label="The Freeman script held still in front of a slowly turning red wireframe globe, drawn in pixels."></canvas>
+          <span class="cap bl">One turn, 16 s</span>
+          <button class="cap br" id="globe-toggle" type="button">Pause</button>
+        </div>
+      </figure>
+      <div class="p1-cap">
+        <span class="numeral" aria-hidden="true">I.</span>
+        <div>
+          <h3 class="who" id="fm-h">Freeman General Contracting</h3>
+          <p class="line">The script holds perfectly still. Behind it, the world turns.</p>
+        </div>
+        <dl class="facts cap">
+          <div><dt class="muted">Field</dt><dd>Construction &amp; hospitality</dd></div>
+          <div><dt class="muted">Forms</dt><dd>Brand · Editorial · Film · Digital</dd></div>
+          <div><dt class="muted">Since</dt><dd>Ongoing</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <!-- Plate II -->
+    <article class="plate p2" id="kashus" aria-labelledby="kc-h">
+      <div class="copy">
+        <span class="numeral" aria-hidden="true">II.</span>
+        <h3 class="who" id="kc-h" style="margin-top:18px">Kashus Culpepper</h3>
+        <p class="line">A voice worth framing properly.</p>
+        <dl class="facts cap">
+          <div><dt class="muted">Field</dt><dd>Music &amp; storytelling</dd></div>
+          <div><dt class="muted">Forms</dt><dd>Creative direction</dd></div>
+        </dl>
+      </div>
+      <figure>
+        <div class="table">
+          <div class="card" aria-hidden="true">
+            <div class="press">
+              <div class="stars"><span>★</span><span>★</span><span>★</span></div>
+              <div class="k1">KASHUS</div>
+              <div class="k2">CULPEPPER</div>
+              <div class="bar"></div>
+              <div class="k3">MUSIC &amp; STORYTELLING</div>
+              <svg class="orn" viewBox="0 0 100 40"><path d="M2 20 H38 M62 20 H98" stroke="currentColor" stroke-width="3"/><path d="M50 4 L55 15 L67 15 L57 22 L61 34 L50 27 L39 34 L43 22 L33 15 L45 15Z" fill="currentColor"/></svg>
+              <div class="k4">SET BY HAND · TANGERINE</div>
+            </div>
+          </div>
+          <span class="cap">Show-card type study for this page</span>
+        </div>
+      </figure>
+    </article>
+
+    <!-- Plate III -->
+    <article class="plate p3" id="joseph-martin" aria-labelledby="jm-h">
+      <figure>
+        <div class="hatbox">
+          <span class="cap hm">Joseph Martin · Hatmaker</span>
+          <svg viewBox="0 0 680 410" aria-hidden="true"><g fill="none" stroke="#dac3a1" stroke-width="4" stroke-linecap="round" filter="url(#boil)" class="boiling">
+            <path d="M151 254 C100 240 50 268 65 296 C87 339 229 362 344 362 C478 362 599 347 620 301 C635 272 579 252 527 253"/>
+            <path d="M176 226 C208 200 205 106 245 78 C272 58 314 110 349 110 C382 110 415 60 446 91 C479 120 467 200 496 227"/>
+            <path d="M155 234C187 226 243 229 282 238 C342 253 418 252 489 228"/>
+            <path d="M163 253C264 313 431 313 522 251"/>
+            <path d="M204 204 C286 233 416 241 476 206"/>
+            <path d="M195 215 C284 245 418 255 484 218"/>
+            <path d="M245 78Q306 133 350 133Q410 130 445 91" stroke-width="2"/>
+            <path d="M64 300 C165 383 539 398 618 302" stroke-width="2"/>
+          </g></svg>
+          <span class="cap">Drawing from Design No. 02 · not product photography</span>
+        </div>
+      </figure>
+      <div class="copy">
+        <span class="numeral" aria-hidden="true">III.</span>
+        <h3 class="who" id="jm-h" style="margin-top:18px">Joseph Martin</h3>
+        <p class="line">A visual world built around the maker, his materials, and the character of the work.</p>
+        <dl class="facts cap">
+          <div><dt class="muted">Field</dt><dd>Western wear &amp; craft</dd></div>
+          <div><dt class="muted">Forms</dt><dd>Identity · Illustration · Art direction</dd></div>
+          <div><dt class="muted">Since</dt><dd>Developing, 2026</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <!-- Plate IV -->
+    <article class="plate p4" id="crate" aria-labelledby="cr-h">
+      <div class="copy">
+        <span class="numeral" aria-hidden="true">IV.</span>
+        <h3 class="who" id="cr-h" style="margin-top:18px">In the crate.</h3>
+        <p class="line">Things we can’t show you yet. The fruit is guarding them.</p>
+      </div>
+      <div class="crate">
+        <svg viewBox="0 0 360 230" aria-hidden="true">
+          <g stroke="#1c1b19" stroke-width="2.4" stroke-linejoin="round">
+            <path d="M14 58 H346 V220 H14Z" fill="#cfa274"/>
+            <path d="M14 58 H346 V104 H14Z" fill="#d8ae80"/>
+            <path d="M14 112 H346 V162 H14Z" fill="#d3a677"/>
+            <path d="M14 170 H346 V220 H14Z" fill="#cc9d6d"/>
+            <path d="M14 58 H40 V220 H14Z M320 58 H346 V220 H320Z" fill="#b98a5a"/>
+          </g>
+          <g stroke="#8a5f38" stroke-width="1.2" fill="none" opacity=".7">
+            <path d="M48 70 C120 66 200 74 312 68 M52 90 C150 86 230 94 310 88 M50 182 C140 178 220 186 314 180 M60 204 C160 200 240 208 306 202"/>
+          </g>
+          <g>
+            <rect x="96" y="100" width="170" height="74" fill="#ee5a1c" stroke="#1c1b19" stroke-width="2.4" transform="rotate(-1.4 181 137)"/>
+            <g transform="rotate(-1.4 181 137)" fill="#f7f6f2" font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+              <text x="181" y="124" font-size="10" font-weight="700" letter-spacing="2.4" style="font-stretch:125%">FANCY GRADE</text>
+              <text x="181" y="150" font-size="21" font-weight="900" style="font-stretch:62%" letter-spacing=".5">TANGERINE BRAND</text>
+              <text x="181" y="165" font-size="8.5" font-weight="700" letter-spacing="2" style="font-stretch:125%">PACKED IN GEORGIA</text>
+            </g>
+            <circle cx="104" cy="108" r="2" fill="#1c1b19"/><circle cx="258" cy="104" r="2" fill="#1c1b19"/><circle cx="106" cy="168" r="2" fill="#1c1b19"/><circle cx="259" cy="164" r="2" fill="#1c1b19"/>
+          </g>
+          <path d="M2 222 H358" stroke="#1c1b19" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="tg" data-tg="crate"></span>
+      </div>
+    </article>
+  </section>
+
+  <section class="studio wrap" id="studio" aria-labelledby="st-h">
+    <div class="run"><h2 id="st-h">The studio.</h2><span class="cap muted">Georgia · and wherever the work is</span></div>
+    <p class="manifesto">Tangerine is Cole Calfee and a few extraordinarily talented friends. We make names, marks, words, pictures and films for people building something <em>worth keeping.</em></p>
+    <p class="aside">…and the occasional painting.</p>
+
+    <div class="affections">
+      <h3>A table of particular affections.</h3>
+      <ul class="leaders">
+        <li><span>Beautiful typography</span><span>Always</span></li>
+        <li><span>Old illustrations</span><span>Always</span></li>
+        <li><span>Painting</span><span>Often</span></li>
+        <li><span>Photography</span><span>Often</span></li>
+        <li><span>Cartoons</span><span>Unashamedly</span></li>
+        <li><span>Craftsmanship</span><span>Non-negotiable</span></li>
+        <li><span>A good joke</span><span>Required</span></li>
+        <li class="no"><span>Agency jargon</span><span>Never</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="hello wrap" id="hello" aria-labelledby="hello-h">
+    <div class="run"><span class="cap muted">For projects, ideas, and people doing interesting things</span><span class="cap muted">Instagram, for now</span></div>
+    <a class="big-hello" id="hello-h" href="https://www.instagram.com/ex.tangerina/" target="_blank" rel="noopener noreferrer" aria-label="Say hello. Tangerine on Instagram, opens in a new tab"><span>Say hello.</span><svg viewBox="0 0 75 75" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8 67L67 8M17 8H67V58"/></svg></a>
+    <div class="hello-foot">
+      <span class="cap">@ex.tangerina</span>
+      <p class="clock" id="clock">Made in Georgia.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <div class="peek" aria-hidden="true"><span class="tg" data-tg="peek"></span></div>
+  <div class="colophon cap">
+    <span>© <span id="year">2026</span> Tangerine<br><span class="muted">Design No. 03 · a study</span></span>
+    <span class="muted">Set in the Fell Types, digitized by Igino Marini, and Archivo by Omnibus-Type. The tangerine is a resident, not a mascot.</span>
+    <span><span id="count" aria-live="polite">Brands built this visit: 0</span><button class="cap erase" id="erase" type="button" hidden>Erase the evidence</button></span>
+  </div>
+</footer>
+
+<div class="burns" id="burns" aria-hidden="true"></div>
+<div class="hand" id="hand" aria-hidden="true"><svg viewBox="0 0 80 300" data-iron data-hot></svg></div>
+<button class="hangup cap" id="hangup" type="button">Hang the iron back up · Esc</button>
+
+<!-- Freeman Globe 001: the original mark code, verbatim from motion/001-freeman-globe/assets/freeman-globe-mark.original.js
+     (SHA-256 a6e063f9…53d77c listed in that study's README). Read, never redrawn. -->
+<script type="text/plain" id="freeman-globe-src">const RUNS = [4,56,7,5,52,11,6,31,13,6,49,13,7,29,31,8,28,5,8,43,12,9,27,4,9,44,5,10,26,3,10,43,5,11,25,4,11,42,4,12,25,3,12,41,4,13,25,3,13,41,3,14,25,4,14,40,4,15,25,5,15,33,3,15,39,4,16,26,10,16,38,4,17,27,7,17,37,4,18,37,4,19,36,4,20,35,4,21,34,4,22,34,4,23,33,4,23,40,3,23,45,3,24,30,13,24,44,4,24,63,3,24,76,3,24,87,3,24,95,3,24,104,3,24,119,4,24,125,2,24,134,3,24,142,3,25,29,13,25,44,5,25,61,6,25,74,6,25,86,5,25,93,6,25,102,6,25,117,10,25,133,5,25,140,6,26,30,6,26,37,4,26,44,7,26,59,8,26,72,9,26,84,24,26,116,4,26,121,6,26,131,16,27,30,4,27,38,2,27,43,3,27,48,4,27,58,4,27,64,3,27,71,4,27,77,3,27,83,4,27,88,6,27,97,6,27,105,3,27,114,4,27,121,5,27,130,3,27,135,6,27,144,3,28,29,4,28,43,2,28,48,4,28,57,4,28,63,4,28,70,4,28,77,3,28,82,3,28,87,6,28,96,6,28,105,3,28,113,4,28,121,5,28,129,3,28,134,6,28,143,4,29,29,4,29,42,3,29,47,4,29,56,4,29,62,4,29,69,4,29,75,4,29,81,3,29,87,4,29,96,4,29,104,4,29,112,4,29,121,4,29,128,3,29,134,5,29,143,3,30,28,4,30,41,3,30,47,4,30,55,4,30,61,4,30,68,4,30,74,4,30,80,3,30,86,5,30,95,4,30,103,4,30,112,3,30,120,4,30,127,3,30,133,4,30,142,4,30,151,4,31,27,4,31,40,3,31,46,4,31,54,10,31,68,9,31,80,3,31,85,5,31,94,4,31,103,4,31,111,4,31,119,4,31,127,3,31,132,5,31,141,4,31,150,6,32,26,4,32,40,2,32,45,4,32,54,8,32,67,8,32,79,3,32,85,4,32,94,4,32,102,4,32,110,4,32,119,4,32,126,3,32,132,4,32,141,3,32,150,2,32,154,2,33,25,4,33,39,3,33,45,4,33,53,6,33,66,7,33,78,3,33,84,4,33,93,4,33,101,4,33,109,4,33,118,4,33,125,3,33,131,4,33,140,4,33,149,3,33,154,2,34,5,3,34,24,4,34,38,3,34,44,4,34,52,4,34,65,4,34,77,3,34,83,4,34,92,4,34,101,3,34,109,4,34,117,4,34,124,3,34,130,4,34,139,4,34,148,3,34,154,2,35,4,4,35,23,4,35,37,3,35,43,4,35,52,4,35,64,5,35,76,3,35,83,3,35,92,3,35,100,4,35,108,4,35,116,5,35,123,3,35,129,4,35,139,3,35,147,3,35,154,2,36,4,4,36,22,4,36,37,2,36,43,4,36,51,4,36,63,5,36,75,3,36,82,4,36,91,4,36,100,3,36,107,5,36,116,4,36,122,3,36,129,4,36,138,4,36,146,3,36,154,2,37,4,4,37,20,5,37,36,3,37,43,3,37,49,6,37,62,6,37,74,3,37,81,4,37,90,4,37,99,4,37,106,5,37,115,4,37,121,3,37,128,4,37,138,3,37,145,3,37,153,2,38,4,3,38,18,5,38,35,3,38,42,4,38,48,7,38,60,8,38,72,4,38,80,4,38,90,3,38,99,3,38,105,6,38,114,5,38,120,3,38,127,4,38,138,3,38,143,4,38,153,2,39,5,4,39,16,6,39,34,3,39,42,9,39,52,3,39,57,6,39,65,4,39,70,5,39,80,3,39,89,4,39,99,12,39,112,10,39,127,4,39,137,9,39,152,3,40,6,14,40,33,3,40,43,6,40,52,9,40,66,7,40,79,4,40,89,3,40,99,7,40,108,13,40,126,4,40,138,6,40,151,3,41,7,10,41,33,2,41,43,4,41,54,5,41,67,4,41,80,2,41,89,2,41,100,4,41,109,4,41,116,3,41,127,2,41,139,3,41,150,4,42,147,6,43,144,8,44,140,11,45,134,17,46,41,108,47,32,116,48,26,120,49,22,122,50,19,122,51,16,8,51,33,102,52,13,6,52,38,76,53,10,6,53,42,43,54,7,6,54,52,3,55,5,5,56,5,3];            // production script bitmap, 160x61, as [y, x, length] runs
+const SW = 160, SH = 61;
+/* ───────── the mark: still script, turning globe ───────── */
+const script = new Uint8Array(SW * SH);
+for (let i = 0; i < RUNS.length; i += 3) for (let k = 0; k < RUNS[i + 2]; k++) script[RUNS[i] * SW + RUNS[i + 1] + k] = 1;
+const halo = new Uint8Array(SW * SH);   // script grown by one pixel: the globe is cleared here so the signature reads
+for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
+  let on = 0;
+  for (let dy = -1; dy <= 1 && !on; dy++) for (let dx = -1; dx <= 1; dx++) {
+    const xx = x + dx, yy = y + dy;
+    if (xx >= 0 && yy >= 0 && xx < SW && yy < SH && script[yy * SW + xx]) { on = 1; break; }
+  }
+  halo[y * SW + x] = on;
+}
+const TILT = 12 * Math.PI / 180, ST = Math.sin(TILT), CT = Math.cos(TILT);
+const MER = 20, PAR = 20;          // degrees between meridians / parallels
+
+function globeMask(buf, W, H, D, rot) {
+  buf.fill(0);
+  const R = (D - 1) / 2, cx = (W - 1) / 2, cy = (H - 1) / 2;
+  const plot = (x, y) => { if (x >= 0 && y >= 0 && x < W && y < H) buf[y * W + x] = 1; };
+  const line = (x0, y0, x1, y1) => {
+    let dx = Math.abs(x1 - x0), dy = -Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1, e = dx + dy;
+    for (;;) { plot(x0, y0); if (x0 === x1 && y0 === y1) break; const e2 = 2 * e; if (e2 >= dy) { e += dy; x0 += sx; } if (e2 <= dx) { e += dx; y0 += sy; } }
+  };
+  let px, py, pv;
+  const to = (lon, lat) => {
+    const cl = Math.cos(lat), x = cl * Math.sin(lon), y = Math.sin(lat), z = cl * Math.cos(lon);
+    const y2 = y * CT - z * ST, z2 = y * ST + z * CT, sx = Math.round(cx + R * x), sy = Math.round(cy - R * y2), v = z2 > 0;
+    if (v && pv) line(px, py, sx, sy);
+    px = sx; py = sy; pv = v;
+  };
+  const d2r = Math.PI / 180, off = ((rot % MER) + MER) % MER;
+  for (let m = -180 + off; m < 180; m += MER) { pv = false; for (let la = -90; la <= 90; la += 3) to(m * d2r, la * d2r); }
+  for (let la = -80; la <= 80; la += PAR) { pv = false; for (let lo = -180; lo <= 180; lo += 3) to(lo * d2r, la * d2r); }
+  // limb
+  let fx = Math.round(cx + R), fy = Math.round(cy);
+  for (let a = 3; a <= 360; a += 3) { const nx = Math.round(cx + R * Math.cos(a * d2r)), ny = Math.round(cy + R * Math.sin(a * d2r)); line(fx, fy, nx, ny); fx = nx; fy = ny; }
+}</script>
+
+<script>
+(function(){
+  'use strict';
+  var doc=document, root=doc.documentElement;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var INK='#1c1b19';
+
+  /* ——— the resident ——— */
+  function tangerine(){
+    return '<svg viewBox="0 0 120 150" aria-hidden="true"><g class="boiling" filter="url(#boil)">'+
+      '<g class="legs" fill="none" stroke="'+INK+'" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M48 118 C47 128 44 136 40 142 H30"/><path d="M73 118 C74 128 78 136 82 142 H92"/></g>'+
+      '<path d="M58 41 C84 37 109 54 110 80 C111 106 90 125 61 125 C33 126 11 109 10 83 C9 58 31 43 58 41Z" fill="#f0661f" stroke="'+INK+'" stroke-width="3.6"/>'+
+      '<path d="M24 74 C25 62 33 53 44 49" fill="none" stroke="#ffd0a3" stroke-width="5" stroke-linecap="round"/>'+
+      '<g fill="#c84d14" opacity=".55"><circle cx="86" cy="96" r="1.6"/><circle cx="95" cy="78" r="1.4"/><circle cx="31" cy="99" r="1.6"/><circle cx="68" cy="112" r="1.4"/><circle cx="46" cy="106" r="1.3"/><circle cx="100" cy="94" r="1.2"/><circle cx="22" cy="88" r="1.2"/></g>'+
+      '<path d="M60 41 C63 27 77 17 96 18 C92 33 78 42 60 41Z" fill="#4e6b43" stroke="'+INK+'" stroke-width="3"/>'+
+      '<path d="M62 39 C72 32 82 25 93 20" fill="none" stroke="#2f4428" stroke-width="1.6"/>'+
+      '<circle cx="58" cy="42" r="3.4" fill="#5a4426" stroke="'+INK+'" stroke-width="1.6"/>'+
+      '<g class="eyes"><g class="eye"><ellipse cx="47" cy="78" rx="5.6" ry="8.6" fill="'+INK+'"/><circle cx="49" cy="74" r="1.9" fill="#fff"/></g>'+
+      '<g class="eye"><ellipse cx="72" cy="78" rx="5.6" ry="8.6" fill="'+INK+'"/><circle cx="74" cy="74" r="1.9" fill="#fff"/></g></g>'+
+      '<g class="shut" fill="none" stroke="'+INK+'" stroke-width="3" stroke-linecap="round"><path d="M40 80 C44 85 50 85 54 80"/><path d="M65 80 C69 85 75 85 79 80"/></g>'+
+      '<ellipse class="mouth" cx="60" cy="100" rx="4" ry="5.2" fill="'+INK+'"/>'+
+      '<path class="sweat" d="M104 46 C109 53 110 57 107 60 C104 62 100 60 101 55 C101 52 103 49 104 46Z" fill="#fff" stroke="'+INK+'" stroke-width="2"/>'+
+      '<g class="zz"><text x="98" y="38">z</text><text x="104" y="30">z</text></g>'+
+      '</g></svg>';
+  }
+  var tgs=[].slice.call(doc.querySelectorAll('.tg'));
+  tgs.forEach(function(el){
+    var hero=el.dataset.tg==='hero';
+    el.innerHTML=(hero?'<span class="sr">.</span>':'')+tangerine()+'<span class="say" aria-hidden="true"></span>';
+    el._x=0; el._side=1;
+  });
+
+  /* ——— the iron ——— */
+  function iron(hot){
+    return '<circle cx="40" cy="12" r="8.5" fill="none" stroke="'+INK+'" stroke-width="3.4"/>'+
+      '<path d="M31 22 C30 21 50 21 49 22 L51 92 C51 96 29 96 29 92Z" fill="#a8703f" stroke="'+INK+'" stroke-width="2.6" stroke-linejoin="round"/>'+
+      '<path d="M35 30 C36 50 34 70 36 88 M44 28 C43 46 45 68 43 90" fill="none" stroke="#6e4220" stroke-width="1.3"/>'+
+      '<path d="M31 94 H49 V106 H31Z" fill="#8d8a84" stroke="'+INK+'" stroke-width="2.4"/>'+
+      '<path d="M40 106 V214" stroke="#3a3834" stroke-width="5.5" stroke-linecap="round"/>'+
+      '<path d="M40 106 V214" stroke="'+INK+'" stroke-width="1.2" opacity=".4" transform="translate(-1.6 0)"/>'+
+      '<g transform="translate(6 200) scale(.68)"><use href="#mark" width="100" height="100" fill="none" stroke="#33312d" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>'+
+      (hot?'<use class="hot" href="#mark" width="100" height="100" fill="none" stroke="#ff5a14" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>':'<use href="#mark" width="100" height="100" fill="none" stroke="#6b6862" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".6"/>')+
+      '</g>';
+  }
+  doc.querySelectorAll('[data-iron]').forEach(function(s){s.innerHTML=iron(s.hasAttribute('data-hot'))});
+  /* hot spot: centre of the brand face, in 80×300 iron units */
+  var HOT_X=6+50*.68, HOT_Y=200+57*.68;
+
+  /* ——— line boil: redraw the noise ~9 times a second, only while something is on screen ——— */
+  var noise=doc.getElementById('boil-noise'), visible=new Set();
+  if('IntersectionObserver' in window){
+    var vo=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?visible.add(e.target):visible.delete(e.target)})});
+    doc.querySelectorAll('.tg,.boiling').forEach(function(el){vo.observe(el)});
+  } else tgs.forEach(function(t){visible.add(t)});
+  if(!reduce){
+    var seed=1;
+    setInterval(function(){ if(!doc.hidden && visible.size){ seed=seed%4+1; noise.setAttribute('seed',seed); } },115);
+  }
+
+  /* ——— eyes: look at the pointer, blink now and then ——— */
+  var px=innerWidth/2, py=innerHeight/3;
+  function look(){
+    tgs.forEach(function(t){
+      if(!visible.has(t))return;
+      var r=t.getBoundingClientRect(), cx=r.left+r.width*.5, cy=r.top+r.height*.52;
+      var dx=px-cx, dy=py-cy, d=Math.hypot(dx,dy)||1, k=Math.min(1,d/220);
+      var eyes=t.querySelector('.eyes');
+      eyes.setAttribute('transform','translate('+(dx/d*3.4*k).toFixed(2)+' '+(dy/d*3*k).toFixed(2)+')');
+      if(holding) t.classList.toggle('nervous', d<170 && !t.classList.contains('air'));
+    });
+  }
+  function blink(t){ if(!t||t.classList.contains('asleep'))return; t.classList.add('blink'); setTimeout(function(){t.classList.remove('blink')},120); }
+  (function wait(){ setTimeout(function(){ var v=tgs.filter(function(t){return visible.has(t)}); if(v.length&&!doc.hidden) blink(v[Math.random()*v.length|0]); wait(); }, 2600+Math.random()*4200); })();
+
+  /* ——— Georgia time: the clock in words, and bedtime ——— */
+  var asleep=false;
+  (function(){
+    try{
+      var parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date());
+      var h=+parts.find(function(p){return p.type==='hour'}).value%24, m=+parts.find(function(p){return p.type==='minute'}).value;
+      var names=['twelve','one','two','three','four','five','six','seven','eight','nine','ten','eleven'];
+      var steps=['','five past','ten past','a quarter past','twenty past','twenty-five past','half past','twenty-five to','twenty to','a quarter to','ten to','five to'];
+      var s=Math.round(m/5), hh=h; if(s===12){s=0;hh=(h+1)%24}
+      var shown=s>6?(hh+1)%24:hh;
+      var part=shown<5?'at night':shown<12?'in the morning':shown<17?'in the afternoon':shown<21?'in the evening':'at night';
+      var t=s===0?names[shown%12]+' o’clock':steps[s]+' '+names[shown%12];
+      if(s===0&&shown===12){t='noon';part=''} if(s===0&&shown===0){t='midnight';part=''}
+      asleep=(h>=22||h<6);
+      doc.getElementById('clock').textContent='It’s '+(m%5?'about ':'')+t+(part?' '+part:'')+' in Georgia.'+(asleep?' The tangerine is asleep.':'');
+    }catch(e){}
+  })();
+  function sleepAll(on){ tgs.forEach(function(t){t.classList.toggle('asleep',on)}) }
+  if(asleep) sleepAll(true);
+  tgs.forEach(function(t){ t.addEventListener('click',function(){ if(!holding&&t.classList.contains('asleep')){ t.classList.remove('asleep'); speak(t,'Mm?'); setTimeout(function(){ if(!holding) t.classList.add('asleep') },3500); } }); });
+
+  function speak(t,words){
+    var s=t.querySelector('.say'); if(!s)return;
+    s.textContent=words; s.classList.add('on'); clearTimeout(s._t);
+    s._t=setTimeout(function(){s.classList.remove('on')},1500);
+  }
+
+  /* ——— the hop: it has legs. Nobody knew. ——— */
+  function hop(t){
+    if(t._busy)return; t._busy=true;
+    var r=t.getBoundingClientRect(), w=r.width, svg=t.querySelector('svg'), step=w*.75;
+    var x0=t._off||0, side=t._side;
+    if(side>0&&r.right+step>innerWidth-8) side=-1; else if(side<0&&r.left-step<8) side=1;
+    var x1=x0+side*step; t._side=-side; t._off=x1;
+    t.classList.remove('nervous'); t.classList.add('oh');
+    speak(t,['Not me.','Hey!','Rude.','Not the fruit.'][Math.random()*4|0]);
+    if(reduce||!svg.animate){ svg.style.transform='translateX('+x1+'px)'; setTimeout(function(){t.classList.remove('oh');t._busy=false},900); return; }
+    t.classList.add('air');
+    var a=svg.animate([
+      {transform:'translate('+x0+'px,0) scale(1,1)'},
+      {transform:'translate('+x0+'px,4%) scale(1.14,.84)',offset:.12},
+      {transform:'translate('+((x0+x1)/2)+'px,-150%) scale(.9,1.12)',offset:.48},
+      {transform:'translate('+x1+'px,0) scale(1.16,.82)',offset:.82},
+      {transform:'translate('+x1+'px,0) scale(1,1)'}
+    ],{duration:720,easing:'cubic-bezier(.3,0,.4,1)'});
+    setTimeout(function(){t.classList.remove('air')},640);
+    a.onfinish=function(){ svg.style.transform='translate('+x1+'px,0)'; t.classList.remove('oh'); t._busy=false; };
+  }
+
+  /* ——— holding the iron ——— */
+  var rack=doc.getElementById('rack'), btn=doc.getElementById('iron-btn'), hand=doc.getElementById('hand'),
+      burns=doc.getElementById('burns'), tagText=doc.getElementById('tag-text'), count=doc.getElementById('count'),
+      erase=doc.getElementById('erase'), hangupBtn=doc.getElementById('hangup');
+  var holding=false, n=0, last=0, hx=0, hy=0, tilt=0, vx=0, raf=0;
+  if(fine) hand.classList.add('fine');
+
+  function take(){
+    holding=true; root.classList.add('held'); rack.classList.add('empty');
+    btn.setAttribute('aria-pressed','true');
+    if(asleep){ sleepAll(false); tgs.forEach(function(t){ if(visible.has(t)) speak(t,'!') }); }
+    place(); look();
+  }
+  function hang(){
+    holding=false; root.classList.remove('held'); rack.classList.remove('empty');
+    btn.setAttribute('aria-pressed','false');
+    tgs.forEach(function(t){t.classList.remove('nervous')});
+    if(asleep) setTimeout(function(){ if(!holding) sleepAll(true) },1800);
+    btn.focus({preventScroll:true});
+  }
+  function place(){
+    if(!fine)return;
+    vx*=.82; tilt+=(Math.max(-22,Math.min(22,-vx*1.1))-tilt)*.25;
+    var s=hand.offsetWidth/80;
+    hand.style.transform='translate('+(px-HOT_X*s)+'px,'+(py-HOT_Y*s)+'px) rotate('+tilt.toFixed(2)+'deg)';
+    hand.style.transformOrigin=(HOT_X*s)+'px '+(HOT_Y*s)+'px';
+    if(holding&&(Math.abs(tilt)>.05||Math.abs(vx)>.05)) raf=requestAnimationFrame(place); else raf=0;
+  }
+  addEventListener('pointermove',function(e){
+    vx+=(e.clientX-px)*.6; px=e.clientX; py=e.clientY; look();
+    if(holding&&fine&&!raf) raf=requestAnimationFrame(place);
+  },{passive:true});
+  addEventListener('scroll',function(){ if(holding) look() },{passive:true});
+
+  var messages=[[0,'Please do not touch'],[1,'Oh well.'],[4,'You’re a natural.'],[12,'That’s plenty.'],[24,'We should talk.']];
+  function stamp(cx,cy){
+    var now=Date.now(); if(now-last<220)return; last=now;
+    var pageX=cx+scrollX, pageY=cy+scrollY;
+    /* does it land on a resident? */
+    tgs.forEach(function(t){ var r=t.getBoundingClientRect(); if(cx>r.left-8&&cx<r.right+8&&cy>r.top-8&&cy<r.bottom+8) hop(t); });
+    var size=innerWidth<640?64:84, rot=(Math.random()*24-12).toFixed(1), f='burn'+(Math.random()*4|0);
+    var NS='http://www.w3.org/2000/svg';
+    function mk(cls){ var s=doc.createElementNS(NS,'svg'); s.setAttribute('viewBox','0 0 100 100'); s.setAttribute('class',cls);
+      s.style.cssText='--bs:'+size+'px;left:'+(pageX-size/2)+'px;top:'+(pageY-size*.57)+'px;transform:rotate('+rot+'deg)'; return s; }
+    var b=mk('burn');
+    b.innerHTML='<use href="#mark" fill="none" stroke="#7a3d16" stroke-opacity=".38" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" filter="url(#singe)"/>'+
+      '<use href="#mark" fill="none" stroke="#2a1a10" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#'+f+')"/>';
+    burns.appendChild(b);
+    if(!reduce){
+      var e=mk('ember'); e.innerHTML='<use href="#mark" fill="none" stroke="#ff6a1a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>';
+      burns.appendChild(e); setTimeout(function(){e.remove()},1600);
+      var sm=doc.createElementNS(NS,'svg'); sm.setAttribute('viewBox','0 0 90 120'); sm.setAttribute('class','smoke');
+      sm.style.left=(pageX-45)+'px'; sm.style.top=(pageY-120)+'px';
+      sm.innerHTML='<path d="M30 110 C22 92 38 80 30 62 C24 48 34 38 30 26"/><path d="M47 112 C55 94 40 82 48 64 C54 50 44 40 49 24"/><path d="M62 108 C56 92 68 82 62 66"/>';
+      burns.appendChild(sm); setTimeout(function(){sm.remove()},2300);
+    }
+    var all=burns.querySelectorAll('.burn'); if(all.length>80) all[0].remove();
+    n++; count.textContent='Brands built this visit: '+n; erase.hidden=false;
+    for(var i=messages.length-1;i>=0;i--) if(n>=messages[i][0]){ tagText.textContent=messages[i][1]; break; }
+    /* the press */
+    if(fine){ hand.classList.add('press'); setTimeout(function(){hand.classList.remove('press')},110); }
+    else { var s=hand.offsetWidth/80; hand.style.transform='translate('+(cx-HOT_X*s)+'px,'+(cy-HOT_Y*s)+'px)'; hand.classList.add('tap','show'); requestAnimationFrame(function(){requestAnimationFrame(function(){hand.classList.remove('show')})}); }
+  }
+
+  btn.addEventListener('click',function(e){ if(!holding){ e.stopPropagation(); e.preventDefault(); take(); } });
+  hangupBtn.addEventListener('click',function(e){ e.stopPropagation(); hang(); });
+  doc.addEventListener('click',function(e){
+    if(!holding)return;
+    if(e.target.closest('#hangup'))return;
+    e.preventDefault(); e.stopPropagation();
+    if(e.target.closest('.rack')){ hang(); return; }
+    if(e.detail===0){ /* keyboard: brand whatever has focus */
+      var r=(doc.activeElement&&doc.activeElement!==doc.body?doc.activeElement:hangupBtn).getBoundingClientRect();
+      stamp(r.left+r.width/2, r.top+r.height/2); return;
+    }
+    stamp(e.clientX,e.clientY);
+  },true);
+  addEventListener('keydown',function(e){ if(e.key==='Escape'&&holding) hang(); });
+  erase.addEventListener('click',function(e){
+    if(holding)return;
+    burns.querySelectorAll('.burn').forEach(function(b){b.remove()});
+    erase.hidden=true; n=0; count.textContent='Brands built this visit: 0'; tagText.textContent=messages[0][1];
+  });
+
+  /* ——— hang the rack beside the second line, and keep the index clear of it ——— */
+  var heroEl=doc.querySelector('.hero'), w2=doc.querySelector('.title .w2'), idx=doc.querySelector('.hero .index');
+  function hangRack(){
+    idx.style.marginTop='';
+    var top=w2.getBoundingClientRect().top-heroEl.getBoundingClientRect().top-(innerWidth<640?6:28);
+    rack.style.top=top+'px';
+    var need=top+rack.offsetHeight+28-idx.offsetTop;
+    if(need>0) idx.style.marginTop=(parseFloat(getComputedStyle(idx).marginTop)+need)+'px';
+  }
+  hangRack(); addEventListener('resize',hangRack);
+  if(doc.fonts&&doc.fonts.ready) doc.fonts.ready.then(hangRack);
+
+  /* ——— the hand-drawn underline arrives once ——— */
+  var u=doc.querySelector('.title .u path');
+  if(u&&!reduce&&u.animate){ u.style.strokeDasharray='1'; u.animate([{strokeDashoffset:1},{strokeDashoffset:0}],{duration:900,delay:500,easing:'cubic-bezier(.6,0,.2,1)',fill:'backwards'}); }
+
+  /* ——— Plate I: Freeman Globe, drawn live from the study's own code ——— */
+  (function(){
+    var cv=doc.getElementById('globe'), tog=doc.getElementById('globe-toggle');
+    try{
+      var src=doc.getElementById('freeman-globe-src').textContent;
+      var M=new Function(src+'\n;return { RUNS, SW, SH, halo, MER, globeMask };')();
+      var W=M.SW, H=Math.max(M.SH,102), oy=Math.floor((H-M.SH)/2), D=100;
+      cv.width=W; cv.height=H;
+      var ctx=cv.getContext('2d'), img=ctx.createImageData(W,H), buf=new Uint8Array(W*H);
+      var P=[255,249,241], R=[249,56,34];
+      var draw=function(rot){
+        M.globeMask(buf,W,H,D,rot);
+        var g=new Uint8Array(W*H);
+        for(var y=0;y<H;y++){ var sy=y-oy, inS=sy>=0&&sy<M.SH; for(var x=0;x<W;x++) g[y*W+x]=buf[y*W+x]&&!(inS&&M.halo[sy*M.SW+x])?1:0; }
+        for(var i=0;i<M.RUNS.length;i+=3) g.fill(1,(M.RUNS[i]+oy)*W+M.RUNS[i+1],(M.RUNS[i]+oy)*W+M.RUNS[i+1]+M.RUNS[i+2]);
+        var d=img.data; for(var k=0;k<g.length;k++){ var c=g[k]?R:P; d[k*4]=c[0]; d[k*4+1]=c[1]; d[k*4+2]=c[2]; d[k*4+3]=255; }
+        ctx.putImageData(img,0,0);
+      };
+      var playing=!reduce, onScreen=false, t0=performance.now(), rot=0, frame=-1;
+      tog.textContent=playing?'Pause':'Play';
+      draw(0);
+      new IntersectionObserver(function(es){ onScreen=es[0].isIntersecting; }).observe(cv);
+      (function tick(now){
+        if(playing&&onScreen&&!doc.hidden){
+          var f=Math.floor((now-t0)/1000*30); /* 30 fps, 22.5° a second: one turn in 16 s, as in the study */
+          if(f!==frame){ frame=f; rot=(f*180/240)%360; draw(rot); }
+        }
+        requestAnimationFrame(tick);
+      })(performance.now());
+      tog.addEventListener('click',function(){ playing=!playing; if(playing) t0=performance.now()-rot/22.5*1000; tog.textContent=playing?'Pause':'Play'; });
+    }catch(err){ cv.replaceWith(Object.assign(doc.createElement('p'),{className:'cap',textContent:'Freeman Globe, motion study 001'})); tog.remove(); }
+  })();
+
+  doc.getElementById('year').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
