@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f5ef">
+<meta name="description" content="A speculative 2030 vision for Tangerine, an independent creative studio. Long-term games with long-term people.">
+<meta property="og:title" content="Tangerine — A view from 2030">
+<meta property="og:description" content="An imagined future, not a public client roster.">
+<title>Tangerine / 2030 — A Future Study</title>
+<style>
+:root{--paper:#f7f5ef;--ink:#22211e;--orange:#ee5b1b;--line:#bcb9b1;--pale:#e9e6dc}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.35 "Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+::selection{background:var(--orange);color:white}a{color:inherit;text-decoration:none}a:hover{color:var(--orange)}a:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
+.wrap{max-width:1560px;margin:auto;padding-inline:clamp(23px,4vw,70px)}
+.meta,.mono{font:11px/1.5 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.075em;text-transform:uppercase}
+.topline{background:var(--ink);color:var(--paper);padding:9px 0}.topline .wrap{display:flex;justify-content:space-between;gap:15px}
+nav{display:flex;align-items:center;justify-content:space-between;gap:30px;border-bottom:1px solid var(--ink);min-height:102px}
+.brand{display:inline-flex;align-items:center;gap:12px;font-size:clamp(28px,3vw,44px);font-weight:650;letter-spacing:-.075em}.brand svg{width:31px;height:31px;flex:none}
+.navlinks{display:flex;gap:clamp(16px,3vw,48px)}
+.hero{position:relative;border-bottom:1px solid var(--ink);padding:clamp(72px,10vw,170px) 0 38px;min-height:690px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.hero h1{position:relative;z-index:2;max-width:1290px;margin:0;font-weight:500;letter-spacing:-.095em;line-height:.89;font-size:clamp(64px,10.9vw,180px)}
+.hero h1 i{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.09em;color:var(--orange);font-style:italic}
+.hero-base{position:relative;z-index:2;display:flex;justify-content:space-between;gap:25px;align-items:end;margin-top:120px}
+.hero-base p{max-width:420px;margin:0;font-size:clamp(18px,1.65vw,24px);letter-spacing:-.035em}
+.hero-fruit{position:absolute;right:0;top:6%;width:min(40vw,590px);opacity:.13;transform:rotate(-15deg)}
+.chapter{padding:25px 0 30px;border-bottom:1px solid var(--ink);display:flex;justify-content:space-between}
+.intro{max-width:1100px;font-size:clamp(33px,5.1vw,79px);font-weight:430;letter-spacing:-.063em;line-height:1.07;margin:100px 0 125px}
+.workrow{display:grid;grid-template-columns:60px minmax(150px,1.1fr) minmax(200px,1fr) 130px;gap:22px;padding:38px 0 54px;border-top:1px solid var(--line);align-items:start}
+.workrow:last-child{border-bottom:1px solid var(--line)}
+.workrow h3{font-size:clamp(35px,5.5vw,89px);font-weight:500;letter-spacing:-.074em;line-height:1;margin:0}
+.workrow p{max-width:390px;font-size:clamp(16px,1.5vw,22px);letter-spacing:-.025em;margin:3px 0 10px}
+.muted{color:#68665f}
+.section{padding-bottom:130px}
+.large{font-size:clamp(45px,7vw,112px);font-weight:500;letter-spacing:-.08em;line-height:.99;max-width:1050px;margin:110px 0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.ale{border-top:1px solid var(--line);padding-top:22px}
+.can-wrap{min-height:590px;background:#dedbd0;display:grid;place-items:center;padding:34px;position:relative;overflow:hidden}
+.can{height:440px;width:204px;background:#f7f5ef;border-radius:45px 45px 40px 40px / 18px 18px 18px 18px;border:2px solid #bdbbb2;box-shadow:20px 25px 0 rgba(0,0,0,.07);display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:26px 18px 28px;position:relative}
+.can:before,.can:after{content:"";position:absolute;left:9px;right:9px;height:12px;border:1px solid #bbb9b1;border-radius:50%}.can:before{top:-5px;background:#e5e2d9}.can:after{bottom:-6px}
+.can .fruitmini{font-size:68px;line-height:1;color:var(--orange)}.can .ale-word{font:600 44px/.85 Georgia,serif;letter-spacing:-.06em;text-align:center;color:var(--orange)}.can .small{font-size:11px;letter-spacing:.2em;text-align:center}
+.ale-desc{max-width:490px;padding:25px 0}.ale-desc h3{font-size:clamp(39px,5vw,74px);font-weight:500;letter-spacing:-.068em;line-height:1;margin:0 0 30px}
+.ale-desc p{font-size:20px;line-height:1.4}
+.filmstrip{padding:30px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.filmstrip .panel{min-height:230px;background:var(--pale);padding:20px;display:flex;flex-direction:column;justify-content:space-between}
+.filmstrip strong{font-size:clamp(24px,3vw,43px);letter-spacing:-.06em;font-weight:500}
+.statement{padding:110px 0 120px;display:grid;grid-template-columns:1fr 2fr;gap:60px}
+.statement p{font-size:clamp(30px,4.7vw,74px);letter-spacing:-.067em;line-height:1.05;margin:0}
+.footer{background:var(--orange);color:#22140f;padding:38px 0 26px}
+.footer h2{font-size:clamp(74px,16vw,260px);font-weight:500;letter-spacing:-.105em;line-height:.9;margin:90px 0 110px}
+.footer .bottom{border-top:1px solid #8e3517;padding-top:22px;display:flex;justify-content:space-between;gap:30px}
+.footer a:hover{color:white}
+@media(max-width:860px){nav{min-height:77px}.navlinks{gap:16px}.hero{min-height:570px}.hero-base{align-items:start;flex-direction:column}.hero-fruit{width:70vw;top:22%}.workrow{grid-template-columns:42px 1fr;gap:10px}.workrow h3{grid-column:2}.workrow p{grid-column:2}.workrow .status{grid-column:2}.split{grid-template-columns:1fr;gap:25px}.can-wrap{min-height:490px}.statement{grid-template-columns:1fr;gap:35px}.filmstrip{grid-template-columns:1fr}.filmstrip .panel{min-height:170px}}
+@media(max-width:480px){.topline .meta{font-size:9px}.navlinks{font-size:10px}.brand svg{width:23px;height:23px}.hero h1{font-size:clamp(57px,12.7vw,75px)}.intro{margin:70px 0 90px}.section{padding-bottom:85px}.large{margin:75px 0}.footer h2{margin:80px 0 100px}.footer .bottom{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="topline"><div class="wrap"><span class="meta">Tangerine / Future Study 001</span><span class="meta">An imagined 2030 — not a published client roster</span></div></div>
+<div class="wrap">
+<nav aria-label="Main navigation">
+<a class="brand" href="#top" aria-label="Tangerine, top"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#ee5b1b"><path d="M30 3A29 29 0 0 0 3 30h27z"/><path d="M34 3v27h27A29 29 0 0 0 34 3"/><path d="M3 34a29 29 0 0 0 27 27V34z"/><path d="M34 34v27a29 29 0 0 0 27-27z"/></g></svg>tangerine</a>
+<div class="navlinks mono"><a href="#relationships">People</a><a href="#experiments">Experiments</a><a href="#about">Studio</a></div>
+</nav>
+<main id="top">
+<section class="hero" aria-label="Introduction">
+<svg class="hero-fruit" viewBox="0 0 64 64" aria-hidden="true"><g fill="#ee5b1b"><path d="M30 3A29 29 0 0 0 3 30h27z"/><path d="M34 3v27h27A29 29 0 0 0 34 3"/><path d="M3 34a29 29 0 0 0 27 27V34z"/><path d="M34 34v27a29 29 0 0 0 27-27z"/></g></svg>
+<h1>Long-term<br>games with<br><i>long-term</i><br>people.</h1>
+<div class="hero-base"><p>A small creative studio making useful, beautiful, and occasionally ridiculous things with people we believe in.</p><span class="mono">Founded on a feeling / Built over time</span></div>
+</section>
+<section id="relationships" class="section">
+<div class="chapter"><span class="mono">01 / Relationships</span><span class="mono">Four slices / One fruit</span></div>
+<h2 class="intro">Construction. Music. Clothing. The open road. A few worlds worth spending a lifetime in.</h2>
+<div class="workrow"><span class="mono muted">01</span><h3>Freeman</h3><p>Helping remarkable people build remarkable places. Brand, documentary film, photography, culture, and the craft of construction.</p><span class="mono status">Existing relationship</span></div>
+<div class="workrow"><span class="mono muted">02</span><h3>Kashus<br>Culpepper</h3><p>Music, storytelling, illustration, and the imagined long life of Lil KC. Original characters deserve real worlds.</p><span class="mono status">Creative development</span></div>
+<div class="workrow"><span class="mono muted">03</span><h3>Joseph<br>Martin</h3><p>Western wear, art direction, the human hand, and good things made to last.</p><span class="mono status">Existing relationship</span></div>
+<div class="workrow"><span class="mono muted">04</span><h3>Scout<br>Motors</h3><p>Adventure, automobiles, and American craft. The kind of relationship we'd love to earn.</p><span class="mono status">Aspirational / Not a client</span></div>
+</section>
+<section id="experiments" class="section">
+<div class="chapter"><span class="mono">02 / Experiments</span><span class="mono">Made because we wanted to</span></div>
+<h2 class="large">The work is the work. The play is part of the work.</h2>
+<div class="split ale">
+<div class="can-wrap"><div class="can" aria-label="Concept rendering for Tangerine Ale, a nonalcoholic beverage exploration"><span class="small">TANGERINE / STUDIO EDITION</span><span class="fruitmini">✳</span><span class="ale-word">Tangerine<br>Ale</span><span class="small">A BRIGHT IDEA / No. 001</span></div></div>
+<div class="ale-desc"><span class="mono muted">A product study / Not for sale</span><h3>What if we made the juice?</h3><p>A citrus-forward, bitter, sparkling, alcohol-free ale. Conceived with Connor as a playful studio experiment.</p><p class="muted">“Tangerine THC Ale” is a working concept only. Any cannabinoid version would require a separate legal, regulatory, manufacturing, safety, and distribution review. Nothing here represents a product on the market.</p></div>
+</div>
+<div class="filmstrip">
+<div class="panel"><span class="mono muted">01 / Studio practice</span><strong>Paint some<br>tangerines.</strong><span class="mono">Art for its own sake</span></div>
+<div class="panel"><span class="mono muted">02 / Daily discipline</span><strong>Make some<br>music.</strong><span class="mono">Two hours protected</span></div>
+<div class="panel"><span class="mono muted">03 / Founding object</span><strong>Remember<br>the watch.</strong><span class="mono">A small orange / A long story</span></div>
+</div>
+</section>
+<section id="about">
+<div class="chapter"><span class="mono">03 / Studio</span><span class="mono">Independent by design</span></div>
+<div class="statement"><span class="mono">What we believe</span><p>Art is a way of life. We do brand, marketing, advertising, PR, social, film, photography, typography, illustration, and whatever the idea needs. We stay small. We choose our people. We make the thing.</p></div>
+</section>
+</main>
+</div>
+<footer class="footer"><div class="wrap"><div class="meta">Tangerine / A future worth working toward</div><h2>Make<br>good things.</h2><div class="bottom mono"><span>A speculative studio site for 2030</span><span>Long-term games. Long-term people.</span><a href="#top">Back to top ↑</a></div></div></footer>
+</body></html>
