@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tangerine Design No. 07</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<style>
+/* Comparison cover for three homepage directions. One deliberate light look: wall white, graphite, orange. */
+@font-face { font-family: "Mona Sans"; src: url(../tangerine-studio-v6/assets/fonts/MonaSans-latin-var.woff2) format("woff2"); font-weight: 200 900; font-stretch: 75% 125%; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url(../tangerine-studio-v6/assets/fonts/InstrumentSerif-Italic-latin.woff2) format("woff2"); font-style: italic; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url(../tangerine-studio-v6/assets/fonts/GeistMono-latin-var.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+:root { --wall: #EEECE6; --ink: #111110; --ink-2: #63635D; --line: rgba(17,17,16,.16); --orange: #FF5A1F; --navy: #12306b;
+  --sans: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; --serif: "Instrument Serif", "Times New Roman", serif; --mono: "Geist Mono", ui-monospace, Menlo, monospace; color-scheme: light; }
+body { background: var(--wall); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.5; margin: 0; -webkit-font-smoothing: antialiased; }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 72px; max-width: 1500px; margin: 0 auto; }
+@media (min-width: 900px) { .wrap { padding-left: max(40px, env(safe-area-inset-left, 0px)); padding-right: max(40px, env(safe-area-inset-right, 0px)); } }
+.mono { font-family: var(--mono); font-size: 11.5px; letter-spacing: .01em; text-transform: uppercase; }
+.muted { color: var(--ink-2); }
+.top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+h1 { margin: clamp(36px, 7vw, 100px) 0 0; font-size: clamp(54px, 11vw, 180px); font-stretch: 125%; font-weight: 860; letter-spacing: -.05em; line-height: .84; text-wrap: balance; }
+h1 i { display: inline-block; width: .2em; height: .2em; border-radius: 50%; background: var(--orange); margin-left: .03em; }
+.sub { font-family: var(--serif); font-style: italic; font-size: clamp(28px, 3.6vw, 56px); line-height: 1.02; margin: .3em 0 0; max-width: 18em; }
+.intro { display: grid; gap: 24px 40px; grid-template-columns: minmax(0, 1fr); margin-top: clamp(28px, 5vw, 64px); padding-top: 14px; border-top: 1px solid var(--line); }
+@media (min-width: 900px) { .intro { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
+.intro p { margin: 0; font-size: clamp(18px, 1.5vw, 23px); line-height: 1.3; letter-spacing: -.012em; max-width: 32em; }
+.refs { list-style: none; padding: 0; margin: 0; }
+.refs li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.4; }
+.refs li:first-child { border-top: 1px solid var(--line); }
+.refs li span:first-child { flex: 0 0 7.5em; }
+.dir { margin-top: clamp(64px, 10vw, 140px); padding-top: 14px; border-top: 1px solid var(--ink); }
+.dir-head { display: grid; gap: 18px 40px; grid-template-columns: minmax(0, 1fr); align-items: end; }
+@media (min-width: 900px) { .dir-head { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr) auto; } }
+.dir h2 { margin: 0; font-size: clamp(40px, 6vw, 96px); font-stretch: 118%; font-weight: 820; letter-spacing: -.045em; line-height: .9; }
+.dir h2 em { font-family: var(--serif); font-weight: 400; font-stretch: normal; letter-spacing: -.02em; }
+.dir-head p { margin: 0; max-width: 36em; font-size: 16px; line-height: 1.45; }
+.dir-head .verdict { font-weight: 600; margin-top: 8px; }
+.open { display: inline-flex; align-items: center; gap: 14px; padding: 16px 22px 16px 24px; background: var(--ink); color: var(--wall); text-decoration: none; font-weight: 640; font-stretch: 112%; font-size: 17px; white-space: nowrap; justify-self: start; }
+.open b { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--orange); color: var(--ink); transition: transform .4s cubic-bezier(.16,1,.3,1); }
+.open:hover b { transform: translateX(5px); }
+.open:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+.shots { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); margin-top: 28px; align-items: start; }
+@media (min-width: 900px) { .shots { grid-template-columns: minmax(0, 7fr) minmax(0, 2fr) minmax(0, 2fr); } }
+.shots .pair { display: grid; gap: 16px; }
+.phones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (min-width: 900px) { .phones { display: contents; } }
+figure { margin: 0; min-width: 0; }
+figure img { width: 100%; height: auto; display: block; box-shadow: 0 0 0 1px var(--line); background: #e2e0da; }
+figcaption { padding-top: 8px; }
+.long { max-height: 1100px; overflow: hidden; position: relative; }
+.long a { display: block; }
+.foot { margin-top: 80px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; gap: 16px; justify-content: space-between; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top mono"><span>Tangerine</span><span class="muted">Design No. 07 · three homepage directions · 17 November 2026</span></header>
+  <h1>Design No. 07<i aria-hidden="true"></i></h1>
+  <p class="sub">V6’s structure, with the citrus label’s richness and the painting’s light.</p>
+  <div class="intro">
+    <p>Three art directions for the homepage, all built on V6: the same type, grid and real work. Each takes a different route to colour, materiality and surprise. Visual language only; once a direction is chosen, it becomes the full site.</p>
+    <ul class="refs mono">
+      <li><span class="muted">Label</span><span>Foreground fruit, deep vista, lithographic colour, a bold navy sans</span></li>
+      <li><span class="muted">Painting</span><span>Light, scale, glow on a white wall, a reflection in the floor</span></li>
+      <li><span class="muted">Artwork</span><span>Paintings and botanicals drawn in code for this study. Not Cole’s work</span></li>
+      <li><span class="muted">Work</span><span>Freeman Globe, Lil KC, the Joseph Martin hat. Nothing invented</span></li>
+    </ul>
+  </div>
+
+  <section class="dir" aria-labelledby="h-a">
+    <div class="dir-head">
+      <h2 id="h-a">A · Gallery<br><em>The painting</em></h2>
+      <div><p>The home page is a room: a tall orange painting glowing on a white wall, reflected in a dark floor. The name is set on the wall. Its full stop has wandered off and is standing on the floor, looking at the painting. The work is hung in rooms with wall labels.</p><p class="verdict">Quietest, most sophisticated. Real atmosphere without gradients.</p></div>
+      <a class="open" href="a-gallery.html">Open Gallery <b aria-hidden="true">→</b></a>
+    </div>
+    <div class="shots">
+      <div class="pair">
+        <figure><img src="screens/a-1-desktop-hero.jpg" width="2880" height="1800" loading="lazy" alt="Direction A, Gallery: desktop, first screen."><figcaption class="mono muted">Desktop · first screen</figcaption></figure>
+        <figure><img src="screens/a-2-desktop-work.jpg" width="2880" height="1800" loading="lazy" alt="Direction A, Gallery: desktop, the work."><figcaption class="mono muted">Desktop · the work</figcaption></figure>
+      </div>
+      <div class="phones">
+        <figure><img src="screens/a-4-phone-hero.jpg" loading="lazy" alt="Direction A, Gallery: phone, first screen."><figcaption class="mono muted">Phone · first screen</figcaption></figure>
+        <figure class="long"><a href="screens/a-5-phone-full.jpg"><img src="screens/a-5-phone-full.jpg" loading="lazy" alt="Direction A, Gallery: phone, whole page."></a><figcaption class="mono muted">Phone · whole page</figcaption></figure>
+      </div>
+    </div>
+    <p class="mono" style="margin-top:12px"><a href="screens/a-3-desktop-full.jpg" style="color:inherit">Desktop · whole page ↗</a></p>
+  </section>
+
+  <section class="dir" aria-labelledby="h-b">
+    <div class="dir-head">
+      <h2 id="h-b">B · Splendid<br><em>The label</em></h2>
+      <div><p>The citrus label at contemporary scale. A painted turquoise sky, TANGERINE in navy extended Mona Sans, a heavy cluster of painted fruit and blossom crossing in front of the letters, a gold rule, and the label’s small print: Packed by Tangerine Studio, Georgia.</p><p class="verdict">Most surprising, most unmistakably Tangerine. Colour that is alive.</p></div>
+      <a class="open" href="b-splendid.html">Open Splendid <b aria-hidden="true">→</b></a>
+    </div>
+    <div class="shots">
+      <div class="pair">
+        <figure><img src="screens/b-1-desktop-hero.jpg" width="2880" height="1800" loading="lazy" alt="Direction B, Splendid: desktop, first screen."><figcaption class="mono muted">Desktop · first screen</figcaption></figure>
+        <figure><img src="screens/b-2-desktop-work.jpg" width="2880" height="1800" loading="lazy" alt="Direction B, Splendid: desktop, the work."><figcaption class="mono muted">Desktop · the work</figcaption></figure>
+      </div>
+      <div class="phones">
+        <figure><img src="screens/b-4-phone-hero.jpg" loading="lazy" alt="Direction B, Splendid: phone, first screen."><figcaption class="mono muted">Phone · first screen</figcaption></figure>
+        <figure class="long"><a href="screens/b-5-phone-full.jpg"><img src="screens/b-5-phone-full.jpg" loading="lazy" alt="Direction B, Splendid: phone, whole page."></a><figcaption class="mono muted">Phone · whole page</figcaption></figure>
+      </div>
+    </div>
+    <p class="mono" style="margin-top:12px"><a href="screens/b-3-desktop-full.jpg" style="color:inherit">Desktop · whole page ↗</a></p>
+  </section>
+
+  <section class="dir" aria-labelledby="h-c">
+    <div class="dir-head">
+      <h2 id="h-c">C · Mosaic<br><em>The work</em></h2>
+      <div><p>V6’s paper and type, then straight into a dense, saturated mosaic of the real work and studio artwork, each tile in its own world colour. A sprig hangs into the studio statement; the footer is painted.</p><p class="verdict">Most work-first. Most flexible for future campaigns and editorials.</p></div>
+      <a class="open" href="c-mosaic.html">Open Mosaic <b aria-hidden="true">→</b></a>
+    </div>
+    <div class="shots">
+      <div class="pair">
+        <figure><img src="screens/c-1-desktop-hero.jpg" width="2880" height="1800" loading="lazy" alt="Direction C, Mosaic: desktop, first screen."><figcaption class="mono muted">Desktop · first screen</figcaption></figure>
+        <figure><img src="screens/c-2-desktop-work.jpg" width="2880" height="1800" loading="lazy" alt="Direction C, Mosaic: desktop, the work."><figcaption class="mono muted">Desktop · the work</figcaption></figure>
+      </div>
+      <div class="phones">
+        <figure><img src="screens/c-4-phone-hero.jpg" loading="lazy" alt="Direction C, Mosaic: phone, first screen."><figcaption class="mono muted">Phone · first screen</figcaption></figure>
+        <figure class="long"><a href="screens/c-5-phone-full.jpg"><img src="screens/c-5-phone-full.jpg" loading="lazy" alt="Direction C, Mosaic: phone, whole page."></a><figcaption class="mono muted">Phone · whole page</figcaption></figure>
+      </div>
+    </div>
+    <p class="mono" style="margin-top:12px"><a href="screens/c-3-desktop-full.jpg" style="color:inherit">Desktop · whole page ↗</a></p>
+  </section>
+
+  <footer class="foot mono muted"><span>Homepage art direction only · V5 and V6 untouched</span><span>Film playback not verified in the test browser</span></footer>
+</div>
+</body>
+</html>
