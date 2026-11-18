@@ -307,7 +307,7 @@ void main(){
       sun, moon, cloud, illum,
       sources: [
         { ...sun, col: sc.c.map(v => v * sunI), soft: 0.0032 },
-        { ...moon, col: L('#b8c8ee').map(v => v * moonI * 0.85), soft: 0.0036 },
+        { ...moon, col: L('#b8c8ee').map(v => v * moonI * 0.5), soft: 0.0036 },
         { alt: -0.3, H: 0.55, az: 0.4, col: L('#ff9a4a').map(v => v * streetI), soft: 0.011 }
       ],
       amb: skyFill(sun.alt / rad),
