@@ -7,7 +7,7 @@
     <path id="face" fill="#8C3324" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
     <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
     <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-    <circle id="pupil-left" fill="#5E2016" cx="3.32" cy="3.1" r="0.3"/>
-    <circle id="pupil-right" fill="#5E2016" cx="5.32" cy="3.1" r="0.3"/>
+    <circle id="pupil-left" fill="#5E2016" cx="2.44" cy="3.16" r="0.18"/>
+    <circle id="pupil-right" fill="#5E2016" cx="4.4399999999999995" cy="3.16" r="0.18"/>
   </g>
 </svg>

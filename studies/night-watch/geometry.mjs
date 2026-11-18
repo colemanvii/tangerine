@@ -26,7 +26,9 @@ export const FACE =
 export const BUST = 'M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z';
 
 // One gaze: both pupils share a size and an offset from their eye's centre.
-export const PUPIL = { r: 0.3, dx: 0.32, dy: 0.1 };
+// Small, pressed to the left and a little low: the dry sideways look of the
+// earlier multicolour Night Watch sheet, measured from that sheet.
+export const PUPIL = { r: 0.18, dx: -0.56, dy: 0.16 };
 export const PUPILS = [
   { cx: 3 + PUPIL.dx, cy: 3 + PUPIL.dy, r: PUPIL.r },
   { cx: 5 + PUPIL.dx, cy: 3 + PUPIL.dy, r: PUPIL.r },
@@ -35,6 +37,6 @@ export const PUPILS = [
 // Interior points that sit inside each eye and clear of the pupils.
 // Used by the verifier to sample the fixed orange (canvas units).
 export const EYE_SAMPLES = {
-  left: [[2.25, 2.25], [2.6, 3.4], [2.35, 2.9]],
-  right: [[4.5, 2.6], [5.0, 2.2], [4.6, 3.5]],
+  left: [[2.25, 2.25], [3.3, 2.6], [3.4, 3.4]],
+  right: [[5.0, 2.2], [5.5, 3.0], [5.0, 3.7]],
 };
