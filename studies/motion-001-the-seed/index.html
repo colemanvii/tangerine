@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Seed — Motion Study 001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+/*
+  Tangerine Motion Study No. 001 — "The Seed"
+  Status: design study. Not an approved mark, not deployed.
+  One closed parametric curve, recomputed every frame. No video, no libraries.
+*/
+:root{
+  --white:#fcfcfa;
+  --ivory:#f4eee2;
+  --graphite:#1c1c1a;
+  --quiet:#77746c;
+  --rule:#d9d5cb;
+  --tangerine:#f26b21;
+  --hair:1.15px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--white);color:var(--graphite)}
+body{
+  font:11px/1.5 ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  letter-spacing:.04em;
+  -webkit-font-smoothing:antialiased;
+  padding:clamp(16px,4vw,56px);
+  min-height:100svh;
+  display:flex;flex-direction:column;
+}
+header,footer{
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  max-width:1240px;width:100%;margin:0 auto;
+}
+header{border-top:1px solid var(--graphite);padding:12px 0 0}
+header h1{margin:0;font:inherit;text-transform:uppercase;letter-spacing:.14em}
+header span,footer{color:var(--quiet)}
+footer{border-top:1px solid var(--rule);padding:12px 0 0;margin-top:auto}
+footer ol{list-style:none;margin:0;padding:0;display:flex;gap:18px}
+footer li{transition:color .6s ease}
+footer li.on{color:var(--tangerine)}
+
+main{
+  flex:1;width:100%;max-width:1240px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,24px);
+  padding:clamp(20px,4vw,48px) 0;
+  align-content:center;
+}
+figure{margin:0}
+.plate{
+  position:relative;overflow:hidden;
+  aspect-ratio:4/5;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.plate svg.seed{
+  width:clamp(84px,13vw,132px);height:auto;overflow:visible;display:block;
+}
+.plate svg.seed path{
+  fill:none;stroke:currentColor;stroke-width:var(--hair);
+  stroke-linejoin:round;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+}
+.plate p{
+  margin:clamp(14px,2.2vw,22px) 0 0;
+  font:italic 400 clamp(15px,1.45vw,18px)/1.2 "Instrument Serif",Georgia,"Times New Roman",serif;
+  letter-spacing:.005em;
+}
+figcaption{
+  display:flex;justify-content:space-between;gap:12px;
+  padding:10px 0 0;color:var(--quiet);
+}
+
+/* A — warm ivory, tangerine line */
+.ivory{background:var(--ivory);color:var(--tangerine)}
+.ivory p{color:var(--graphite);opacity:.82}
+
+/* B — painterly field, white line */
+.field{background:#e9a58c;color:#fff}
+.field p{color:#fff;opacity:.94;text-shadow:0 0 18px rgba(80,40,60,.12)}
+.field .paint,.field .grain{position:absolute;pointer-events:none}
+.field .paint{inset:-14%;width:128%;height:128%;animation:drift 48s ease-in-out infinite alternate;will-change:transform}
+.field .grain{inset:0;width:100%;height:100%;opacity:.16;mix-blend-mode:soft-light}
+.field svg.seed,.field p{position:relative}
+@keyframes drift{
+  0%  {transform:translate3d(0,0,0) scale(1)}
+  50% {transform:translate3d(-3%,2%,0) scale(1.04)}
+  100%{transform:translate3d(2%,-2.5%,0) scale(1.02)}
+}
+
+@media (max-width:720px){
+  header{flex-direction:column;gap:4px}
+  main{grid-template-columns:1fr}
+  .plate{aspect-ratio:1/1}
+  .plate svg.seed{width:96px}
+  footer{flex-direction:column;gap:6px}
+}
+@media (prefers-reduced-motion:reduce){
+  .field .paint{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Tangerine — Motion Study No. 001</h1>
+  <span>The Seed · design study</span>
+</header>
+
+<main>
+  <figure>
+    <div class="plate ivory">
+      <svg class="seed" viewBox="-160 -160 320 320" aria-hidden="true"><path/></svg>
+      <p>Something is growing.</p>
+    </div>
+    <figcaption><span>A — Ivory / Tangerine</span><span>#F4EEE2 · #F26B21</span></figcaption>
+  </figure>
+
+  <figure>
+    <div class="plate field">
+      <!-- Painterly colour field: blurred SVG pigment, slowly drifting (composited, not re-rendered). -->
+      <svg class="paint" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <!-- turbulence pushes the pigment around like a wet brush, then the wash softens it -->
+          <filter id="wash" x="-30%" y="-30%" width="160%" height="160%">
+            <feTurbulence type="fractalNoise" baseFrequency=".008 .012" numOctaves="3" seed="11" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="140" xChannelSelector="R" yChannelSelector="G" result="d"/>
+            <feGaussianBlur in="d" stdDeviation="30"/>
+          </filter>
+        </defs>
+        <rect width="400" height="500" fill="#efb39a"/>
+        <g filter="url(#wash)">
+          <ellipse cx="70"  cy="80"  rx="150" ry="120" fill="#2f3f8f"/>
+          <ellipse cx="330" cy="60"  rx="130" ry="110" fill="#c9a6c6"/>
+          <ellipse cx="360" cy="270" rx="110" ry="130" fill="#f4d7c8"/>
+          <ellipse cx="210" cy="260" rx="120" ry="100" fill="#d98a96" opacity=".7"/>
+          <ellipse cx="60"  cy="300" rx="110" ry="150" fill="#ff5a1f"/>
+          <ellipse cx="250" cy="430" rx="190" ry="110" fill="#f26b21"/>
+          <ellipse cx="380" cy="420" rx="90"  ry="90"  fill="#e2424a"/>
+          <ellipse cx="170" cy="170" rx="90"  ry="70"  fill="#8a86c4" opacity=".75"/>
+        </g>
+      </svg>
+      <svg class="grain" aria-hidden="true">
+        <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+        <rect width="100%" height="100%" filter="url(#grain)"/>
+      </svg>
+      <svg class="seed" viewBox="-160 -160 320 320" aria-hidden="true"><path/></svg>
+      <p>Something is growing.</p>
+    </div>
+    <figcaption><span>B — Field / White</span><span>pigment · grain · #FFFFFF</span></figcaption>
+  </figure>
+</main>
+
+<footer>
+  <ol aria-label="Phase">
+    <li data-k="seed">seed ○</li>
+    <li data-k="loop">infinity ∞</li>
+    <li data-k="fruit">fruit ✺</li>
+  </ol>
+  <span>one closed curve · θ ∈ [0, 2π) · 14.4 s cycle</span>
+</footer>
+
+<script>
+/*
+  THE SEED — a single closed curve p(θ), θ ∈ [0, 2π), drawn as one SVG path.
+
+  Every form shares the same parameter θ, so any two forms can be blended
+  point-for-point without the line ever breaking, jumping or re-ordering:
+
+    seed     c(θ) = R · (cos θ, sin θ)
+    infinity l(θ) = R · (1.42 cos θ, ±1.18 sin θ cos θ)      Gerono lemniscate
+    fruit    f(θ) = R · ρ(θ) · (1.03 cos θ, 0.97 sin θ)       citrus cross-section
+             ρ(θ) = core + (1 − core) · tanh(7 |sin 5(θ − α)|) / tanh 7
+                                                      ten segments around a pith
+
+  Seed → infinity: the vertical factor sin θ · ((1−e) + e·1.18 cos θ) changes sign
+  first at the far left, so a crossing is born at the edge and travels inward
+  until the circle has become an eight. Leaving, the mirrored (identical-looking)
+  lemniscate is used, so the crossing continues out the other side — one wave.
+
+  Seed → fruit: a purely radial blend. Ten membranes are drawn inward to the pith,
+  turning the seed into a citrus wheel without the rim ever leaving the circle.
+
+  Rhythm (14.4 s): seed → ∞ → seed → fruit → seed, each move a 3.6 s
+  smootherstep, with a slow breath (scale), a turning fruit and a lobe pulse.
+*/
+(() => {
+  const TAU = Math.PI * 2;
+  const N = 960;               // samples on the curve
+  const R = 100;               // seed radius in viewBox units
+  const MOVE = 3.6;            // seconds per transformation
+  const CYCLE = MOVE * 4;
+
+  const paths = [...document.querySelectorAll('svg.seed path')];
+  const phaseEls = [...document.querySelectorAll('footer li')];
+
+  const smoother = x => x * x * x * (x * (x * 6 - 15) + 10);  // C² ease, zero vel/acc at ends
+
+  // Non-uniform sampling: concentrate samples where the fruit's membranes meet the pith,
+  // so the sharp inner points stay crisp at a modest N. Harmless for the other forms.
+  function theta(u, alpha) {
+    return u - 0.82 * Math.sin(10 * (u - alpha)) / 10;
+  }
+
+  function point(th, s) {
+    const c = Math.cos(th), sn = Math.sin(th);
+
+    // fruit radius: ten segments, slightly irregular, around a small pith
+    const warp = th - s.alpha + 0.06 * Math.sin(2 * th + 0.7);
+    const core = 0.16;
+    const open = Math.abs(Math.sin(5 * warp));                 // 0 at each membrane
+    const seg = core + (1 - core) * Math.tanh(7 * open) / Math.tanh(7); // packed wedges, soft rim
+    const organic = 1 + 0.018 * Math.sin(3 * th + 1.1) + 0.01 * Math.sin(7 * th + 2.3);
+    const rFruit = 1.06 * seg * organic;
+
+    // blend seed ↔ fruit radially, seed ↔ infinity in its own coordinates
+    const r = 1 + s.fruit * (rFruit - 1);
+    let x = c * r * (1 + 0.03 * s.fruit);
+    let y = sn * r * (1 - 0.03 * s.fruit);
+
+    if (s.loop > 0) {
+      const lobe = 1 + 0.1 * s.pulse * c;                  // lobes gently trade weight
+      const lx = 1.42 * c;
+      const ly = s.dir * 1.18 * sn * c * lobe;
+      x += s.loop * (lx - x);
+      y += s.loop * (ly - y);
+    }
+    return [x * R * s.breath, y * R * s.breath];
+  }
+
+  function state(t) {
+    const k = Math.floor((t % CYCLE) / MOVE);              // 0..3
+    const e = smoother(((t % CYCLE) % MOVE) / MOVE);
+    const s = {
+      loop: 0, fruit: 0, dir: 1,
+      alpha: (t / 40) * TAU / 10,                          // fruit turns one segment / 40 s
+      pulse: Math.sin(t * TAU / 4.8),
+      breath: 1 + 0.022 * Math.sin(t * TAU / 7.2 - Math.PI / 2),
+      phase: 'seed'
+    };
+    if (k === 0) { s.loop = e;     s.dir = 1;  s.phase = e > .5 ? 'loop' : 'seed'; }
+    if (k === 1) { s.loop = 1 - e; s.dir = -1; s.phase = e < .5 ? 'loop' : 'seed'; }
+    if (k === 2) { s.fruit = e;                s.phase = e > .5 ? 'fruit' : 'seed'; }
+    if (k === 3) { s.fruit = 1 - e;            s.phase = e < .5 ? 'fruit' : 'seed'; }
+    return s;
+  }
+
+  function draw(t) {
+    const s = state(t);
+    let d = '';
+    for (let i = 0; i < N; i++) {
+      const [x, y] = point(theta(i / N * TAU, s.alpha), s);
+      d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2);
+    }
+    d += 'Z';
+    for (const p of paths) p.setAttribute('d', d);
+    for (const li of phaseEls) li.classList.toggle('on', li.dataset.k === s.phase);
+  }
+
+  // ?t=7.2 freezes a single frame (useful for stills and review).
+  const fixed = parseFloat(new URLSearchParams(location.search).get('t'));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (!Number.isNaN(fixed)) { draw(fixed); return; }
+
+  // Time only advances while visible, so returning to the tab resumes mid-breath.
+  let elapsed = 0, last = null, raf = 0;
+  function frame(now) {
+    if (last !== null) elapsed += Math.min(now - last, 100) / 1000;
+    last = now;
+    draw(elapsed);
+    raf = requestAnimationFrame(frame);
+  }
+  function run() {
+    cancelAnimationFrame(raf);
+    last = null;
+    if (reduce.matches) { draw(MOVE * 0.5); return; }   // a still: seed becoming ∞
+    raf = requestAnimationFrame(frame);
+  }
+  reduce.addEventListener?.('change', run);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(raf); else run();
+  });
+  run();
+})();
+</script>
+</body>
+</html>
