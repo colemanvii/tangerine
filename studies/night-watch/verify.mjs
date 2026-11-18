@@ -52,11 +52,15 @@ function eyeClearance(x, y) {
   const d = (cx, cy) => Math.hypot(x - cx, y - cy);
   const pupil = Math.min(...G.PUPILS.map((p) => d(p.cx, p.cy) - p.r));
   const right = G.RIGHT_EYE.r - d(G.RIGHT_EYE.cx, G.RIGHT_EYE.cy);
-  const disc = 1 - d(3, 3);
-  const square = Math.min(x - 2, y - 2, 3 - x, 3 - y);
+  const disc = G.LEFT_DISC.r - d(G.LEFT_DISC.cx, G.LEFT_DISC.cy);
+  const c = G.LEFT_CORNER;
+  const square = Math.min(x - c.x, y - c.y, c.x + c.w - x, c.y + c.h - y);
   const left = Math.max(disc, square); // union of the disc and the squared corner (conservative)
   return Math.min(Math.max(left, right), pupil);
 }
+
+// Bounding box of both eyes (canvas units).
+const EB = { x0: G.LEFT_CORNER.x, y0: G.LEFT_CORNER.y, x1: G.RIGHT_EYE.cx + G.RIGHT_EYE.r, y1: G.RIGHT_EYE.cy + G.RIGHT_EYE.r };
 
 let failures = 0;
 const fail = (msg) => { failures++; console.log(`  FAIL ${msg}`); };
@@ -77,8 +81,8 @@ for (const p of m.prints) {
   if (img.w !== 1600 || img.h !== 1600) fail(`${p.file}.png is ${img.w}×${img.h}`);
   if (!img.hasSRGB) fail(`${p.file}.png has no sRGB chunk`);
   let checked = 0, bad = 0;
-  for (let y = Math.floor(2 * scale); y < 4 * scale; y++) {
-    for (let x = Math.floor(2 * scale); x < 6 * scale; x++) {
+  for (let y = Math.floor(EB.y0 * scale); y < EB.y1 * scale; y++) {
+    for (let x = Math.floor(EB.x0 * scale); x < EB.x1 * scale; x++) {
       if (eyeClearance((x + 0.5) / scale, (y + 0.5) / scale) <= margin) continue;
       checked++;
       if (!same(img.at(x, y), EYE)) bad++;
@@ -103,7 +107,7 @@ const tiles = [...sheetSvg.matchAll(/<svg id="([^"]+)" x="(\d+)" y="(\d+)"[^>]*>
 if (tiles.length !== prints.length) fail(`sheet has ${tiles.length} tiles`);
 const norm = (s) => s.replace(/\s+/g, ' ').trim();
 // Points inside each shape, away from edges (canvas units).
-const probes = { outer: [0.4, 0.4], inner: [1.4, 6.5], face: [4, 5.3], bust: [4, 7.85], eyeL: [2.3, 2.3], eyeR: [4.6, 2.6], pupilL: [G.PUPILS[0].cx, G.PUPILS[0].cy], pupilR: [G.PUPILS[1].cx, G.PUPILS[1].cy], beak: [4, 4.15] };
+const probes = { outer: [0.4, 0.4], inner: [1.3, 6.5], face: [3, 5.2], bust: [4, 7.5], eyeL: [1.9, 2.2], eyeR: [5.6, 2.6], pupilL: [G.PUPILS[0].cx, G.PUPILS[0].cy], pupilR: [G.PUPILS[1].cx, G.PUPILS[1].cy], beak: [4, G.BEAK_Y + 0.15] };
 prints.forEach(({ p, svg, img }, i) => {
   const t = tiles[i];
   const want = norm(svg.replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').replace(/<title>.*?<\/title>/, ''));
@@ -114,7 +118,7 @@ prints.forEach(({ p, svg, img }, i) => {
     const a = sheet.at(Math.floor(ox + u * k), Math.floor(oy + v * k)), b = img.at(Math.floor(u * scale), Math.floor(v * scale));
     if (!same(a, b)) fail(`tile ${p.file} ${name}: sheet rgb(${a}) vs print rgb(${b})`);
   }
-  for (let y = oy + 2 * k; y < oy + 4 * k; y++) for (let x = ox + 2 * k; x < ox + 6 * k; x++) {
+  for (let y = Math.floor(oy + EB.y0 * k); y < oy + EB.y1 * k; y++) for (let x = Math.floor(ox + EB.x0 * k); x < ox + EB.x1 * k; x++) {
     if (eyeClearance((x - ox + 0.5) / k, (y - oy + 0.5) / k) > 2 / k && !same(sheet.at(x, y), EYE)) { fail(`tile ${p.file} eye pixel ${x},${y} = rgb(${sheet.at(x, y)})`); return; }
   }
 });

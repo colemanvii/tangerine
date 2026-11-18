@@ -8,11 +8,12 @@ export function owlSVG(p, { px = 1600, title, geo = G } = {}) {
     if (!HEX.test(p[k])) throw new Error(`${p.id ?? '?'}: ${k} must be #RRGGBB uppercase, got ${p[k]}`);
   }
   const I = geo.INNER;
-  const beakTip = 4 + geo.BEAK.depth;
+  const by = geo.BEAK_Y ?? 4;
+  const beakTip = by + geo.BEAK.depth;
   // When the beak colour differs from the inner field it is drawn as a wedge;
   // otherwise the cut-out in the face lets the inner field through.
   const beak = p.beak === p.inner ? '' :
-    `\n    <path id="beak" fill="${p.beak}" d="M${4 - geo.BEAK.half} 4L4 ${beakTip}L${4 + geo.BEAK.half} 4Z"/>`;
+    `\n    <path id="beak" fill="${p.beak}" d="M${4 - geo.BEAK.half} ${by}L4 ${beakTip}L${4 + geo.BEAK.half} ${by}Z"/>`;
   const pupils = geo.PUPILS.map((c, i) =>
     `\n    <circle id="pupil-${i ? 'right' : 'left'}" fill="${p.pupil}" cx="${c.cx}" cy="${c.cy}" r="${c.r}"/>`).join('');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${px}" height="${px}" viewBox="0 0 ${geo.SIZE} ${geo.SIZE}" shape-rendering="geometricPrecision">${title ? `

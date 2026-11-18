@@ -30,20 +30,20 @@ The renderer needs Node 22 and Playwright with Chromium. The PNGs are rasterised
 
 `verify.mjs` checks the following:
 
-- In every PNG, every eye pixel that is at least 2 px from an edge or a pupil (about 230,000 per print) is exactly rgb(244, 118, 40). It also checks named sample points in each eye.
+- In every PNG, every eye pixel that is at least 2 px from an edge or a pupil (about 355,000 per print) is exactly rgb(244, 118, 40). It also checks named sample points in each eye.
 - Both eyes are filled with `EYE`. No SVG contains opacity, a gradient, a filter or an external reference.
 - The contact sheet holds the same twenty drawings in the same order. Each tile's markup matches its SVG, and sample pixels from every shape match the individual PNG.
 
 ## The master owl
 
-The owl is built on the Opepen 8 × 8 schematic (`opepen-schematics.svg`, coordinates measured from the top left):
+The construction comes from the Opepen 8 × 8 schematic (`opepen-schematics.svg`): a left eye with a squared upper-left corner, a disc for the right eye, the two touching, a broad lower face with rounded lower corners, and a bust with rounded shoulders resting on the bottom edge. The proportions come from the earlier orange Night Watch sheet: a big head on hunched shoulders, with no neck. Coordinates are measured from the top left, and all of them are derived in `geometry.mjs`.
 
-- **Left eye:** schematic `2x2_tr-br-bl` at (2, 2). The upper-left corner is square. The rest is round.
-- **Right eye:** a disc centred at (5, 3), radius 1. The two eyes touch at (4, 3).
-- **Lower face:** the schematic mouth, x 2–6, y 4–6. The beak is a wedge cut out of its top edge, 0.56 wide and 0.55 deep. With the curved gap between the eyes, it reads as a beak.
-- **Bust:** the schematic torso, x 2–6, y 7–8, resting on the bottom edge.
-- **Gaze:** both pupils have radius 0.18 and sit 0.56 left and 0.16 down from each eye's centre. They press against the left edge of each eye. This gaze was measured from the earlier multicolour Night Watch sheet, to keep its dry, slightly strange sideways look.
-- **Fields:** an outer square field and an inner field 6 × 6 at (1, 1.5). The inner field is set low, like Homage to the Square, with bottom, side and top margins of 0.5, 1 and 1.5. The bust crosses the inner field's bottom edge. When the bust takes the outer colour, it rises out of the frame. When it takes the inner colour, it drops a tab into the frame.
+- **Eyes:** radius 1.2, which is 1.2 × the schematic's eyes. The left eye has its squared corner at (1.6, 1.9). The right eye is a disc centred at (5.2, 3.1). They touch at (4, 3.1).
+- **One column:** the eyes, face and bust all span x 1.6 to 6.4.
+- **Lower face:** a band 1.5 tall sitting tight under the eyes (y 4.3 to 5.8), with lower corners of radius 0.6. The beak is a wedge cut out of its top edge, 0.6 wide and 0.5 deep. With the curved gap between the eyes, it reads as a beak.
+- **Bust:** a heavy block from y 6.05 to the bottom edge, with shoulders of radius 0.8. It sits a quarter unit below the face.
+- **Gaze:** both pupils have a radius of 0.18 eye radii and sit 0.56 left and 0.16 down from each eye's centre (also in eye radii). They press against the left edge of each eye. This gaze was measured from the earlier Night Watch sheets, to keep their dry, slightly strange sideways look.
+- **Fields:** an outer square field and an inner field 6 × 6 at (1, 1.5). The inner field is set low, as in Homage to the Square, with bottom, side and top margins of 0.5, 1 and 1.5. The bust crosses the inner field's bottom edge. When the bust takes the outer colour, it rises into the frame as shoulders. When it takes the inner colour, the whole inner field becomes the owl's body and drops a tab to the canvas edge.
 
 The owl has no ears, feathers, wings, outlines or highlights. The colour of each part comes from the palette. If the face takes the inner colour, it disappears. If the beak takes the inner colour, the cut-out shows through.
 
@@ -69,17 +69,23 @@ The quiet place to land is the centre column (Bone, Soot and Dusk), with Signal 
 ## Colour notes
 
 - `EYE = #F47628` is defined once, in `geometry.mjs`, and fills both eyes in every print at 100%. In Lab it measures L\* 63.6, C\* 75.7, h 54°. The fields were mixed by eye against that value. The Lab helper only set the equal-lightness fields: Dusk, Raspberry and Pewter.
-- **Area:** the eyes cover about 5.9 of the 64 square units. The inner field covers about 36, and the outer frame covers 28. The colour touching the orange is roughly six times its area, and the frame is large enough to shift that colour in turn. Pair H depends on this.
-- **The badge problem:** in the earlier multicolour sheet, a cream lower face carried the same weight in every tile. Here the face disappears into the inner field in fifteen prints. In the other five, its weight ranges from barely there (Dusk, Apricot, Petrol) to dominant (Signal, Oxide). The bust varies the same way.
+- **Area:** the eyes cover about 9.1 of the 64 square units. The inner field covers 36, and the outer frame covers 28. The colour touching the orange is about four times its area, and the frame is large enough to shift that colour in turn. Pair H depends on this.
+- **The badge problem:** in the earlier multicolour sheet, a cream lower face carried the same weight in every tile. Here the face disappears into the inner field in fifteen prints. In the other five, its weight ranges from barely there (Dusk, Apricot, Petrol) to dominant (Signal, Oxide). The bust varies the same way. It rises as shoulders in the outer colour in nine prints, disappears into the inner field in nine, and continues the face as a body in two.
 
 ## References
 
 - Visualize Value, Opepen creator guide: <https://github.com/visualizevalue/opepen-app/blob/main/public/agents.md>
 - Opepen schematic SVG, the source of the eye paths, mouth and torso: <https://github.com/visualizevalue/opepen-api/blob/main/app/Services/OpepenSVG/opepen-schematics.svg>
-- Josef Albers, *Interaction of Color*, 1963. Example museum records: the [Hood Museum of Art](https://hoodmuseum.dartmouth.edu/objects/pr.981.91) and the [National Gallery of Art](https://www.nga.gov/artworks/55903-interaction-color). The study used the exercise in which one colour appears as two. A small patch of one colour sits on two large grounds. Each ground surrounds the patch on every side and is many times its area. The ground pulls the patch away from itself: a lighter ground darkens it, and a ground in more of the patch's own hue takes that hue away. This set the inner field's role and its six-to-one area.
+- Josef Albers, *Interaction of Color*, 1963. Example museum records: the [Hood Museum of Art](https://hoodmuseum.dartmouth.edu/objects/pr.981.91) and the [National Gallery of Art](https://www.nga.gov/artworks/55903-interaction-color). The study used the exercise in which one colour appears as two. A small patch of one colour sits on two large grounds. Each ground surrounds the patch on every side and is many times its area. The ground pulls the patch away from itself: a lighter ground darkens it, and a ground in more of the patch's own hue takes that hue away. This set the inner field's role and its large area relative to the eyes.
 - Josef Albers, *Homage to the Square*, from 1950. For example, [*Nacre* from *Homage to the Square: Soft Edge—Hard Edge*](https://www.nga.gov/artworks/61037-nacre-homage-square-soft-edge-hard-edge) at the National Gallery of Art. The nested squares sit low, with a narrow bottom margin, wider sides and the widest top. Each colour touches only its immediate neighbours, so the inner colour is always seen through the one around it. This set the low inner field and its margins.
 
-The museum pages could not be opened from the build environment because the network blocked them. The Albers notes come from these well-documented works, not from new image analysis. The multicolour reference sheet arrived after the first build. The gaze was then measured from it and adopted. Its orange beak was tested against the cut-out and not used: the cut-out is lighter, and pair J needs a beak that can disappear. The sheet also confirms the badge problem, with the same cream face in all twenty tiles. The orange Night Watch sheet has not been seen.
+The museum pages could not be opened from the build environment because the network blocked them. The Albers notes come from these well-documented works, not from new image analysis.
+
+**The two earlier Night Watch sheets**, which arrived after the first build:
+
+- **Multicolour sheet:** the gaze was measured from it and adopted. It also confirms the badge problem, with the same cream face in all twenty tiles.
+- **Orange sheet:** the proportions were measured from it. Its owl has eyes about 1.25 × the schematic's, a face 1.5 tall tight under them, and a wide bust after a gap of about 0.2. The master adopts these, except that the bust is held to the same width as the face so that the inner field closes cleanly around it.
+- **The beak:** both sheets use an orange beak. That was tested against the cut-out and not used. The cut-out is lighter, an orange beak would put the experiment's orange outside the eyes, and pair J needs a beak that can disappear.
 
 ## Restraints kept
 

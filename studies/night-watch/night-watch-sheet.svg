@@ -5,13 +5,13 @@
     <rect id="outer-field" fill="#FFE08A" width="8" height="8"/>
     <rect id="inner-field" fill="#FFA81A" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#FFE08A" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#FFA81A" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#FFF0C8" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#FFF0C8" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#FFF0C8" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#FFA81A" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#FFA81A" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#FFF0C8" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#FFF0C8" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#FFF0C8" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-02-midnight" x="8" y="0" width="8" height="8" viewBox="0 0 8 8">
@@ -19,13 +19,13 @@
     <rect id="outer-field" fill="#1B2A40" width="8" height="8"/>
     <rect id="inner-field" fill="#101828" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#1B2A40" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#101828" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#1B2A40" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#101828" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#101828" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#101828" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#101828" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#1B2A40" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#101828" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#101828" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-03-bone" x="16" y="0" width="8" height="8" viewBox="0 0 8 8">
@@ -33,13 +33,13 @@
     <rect id="outer-field" fill="#BFB2A2" width="8" height="8"/>
     <rect id="inner-field" fill="#93846F" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#BFB2A2" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#93846F" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#F4F1EA" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#F4F1EA" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#F4F1EA" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#BFB2A2" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#93846F" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#F4F1EA" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#F4F1EA" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#F4F1EA" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-04-apricot" x="24" y="0" width="8" height="8" viewBox="0 0 8 8">
@@ -47,12 +47,12 @@
     <rect id="outer-field" fill="#C99A7E" width="8" height="8"/>
     <rect id="inner-field" fill="#FAD0AE" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#F2BC97" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#F2BC97" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#8A5A40" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#8A5A40" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#F2BC97" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#F2BC97" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#8A5A40" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#8A5A40" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-05-petrol" x="32" y="0" width="8" height="8" viewBox="0 0 8 8">
@@ -60,12 +60,12 @@
     <rect id="outer-field" fill="#0F3038" width="8" height="8"/>
     <rect id="inner-field" fill="#1E5560" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#276570" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#276570" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#0F3038" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#0F3038" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#276570" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#276570" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#0F3038" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#0F3038" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-06-vermilion" x="0" y="8" width="8" height="8" viewBox="0 0 8 8">
@@ -73,13 +73,13 @@
     <rect id="outer-field" fill="#8C2A1E" width="8" height="8"/>
     <rect id="inner-field" fill="#E8402A" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#8C2A1E" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#E8402A" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#5A160F" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#5A160F" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#5A160F" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#E8402A" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#E8402A" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#5A160F" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#5A160F" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#5A160F" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-07-ochre" x="8" y="8" width="8" height="8" viewBox="0 0 8 8">
@@ -87,13 +87,13 @@
     <rect id="outer-field" fill="#5E4A12" width="8" height="8"/>
     <rect id="inner-field" fill="#D9A21E" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#5E4A12" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#D9A21E" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#3E300A" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#3E300A" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#3E300A" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#D9A21E" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#D9A21E" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#3E300A" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#3E300A" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#3E300A" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-08-soot" x="16" y="8" width="8" height="8" viewBox="0 0 8 8">
@@ -101,13 +101,13 @@
     <rect id="outer-field" fill="#BFB2A2" width="8" height="8"/>
     <rect id="inner-field" fill="#93846F" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#BFB2A2" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#93846F" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#1A1714" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#1A1714" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#1A1714" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#BFB2A2" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#93846F" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#1A1714" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#1A1714" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#1A1714" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-09-slate" x="24" y="8" width="8" height="8" viewBox="0 0 8 8">
@@ -115,13 +115,13 @@
     <rect id="outer-field" fill="#C8D19A" width="8" height="8"/>
     <rect id="inner-field" fill="#5F6B78" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#C8D19A" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#5F6B78" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#C8D19A" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#2C333B" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#2C333B" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#C8D19A" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#5F6B78" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#C8D19A" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#2C333B" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#2C333B" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-10-celery" x="32" y="8" width="8" height="8" viewBox="0 0 8 8">
@@ -129,13 +129,13 @@
     <rect id="outer-field" fill="#5F6B78" width="8" height="8"/>
     <rect id="inner-field" fill="#C8D19A" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#5F6B78" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#C8D19A" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#5F6B78" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#2C333B" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#2C333B" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#5F6B78" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#C8D19A" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#5F6B78" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#2C333B" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#2C333B" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-11-persimmon" x="0" y="16" width="8" height="8" viewBox="0 0 8 8">
@@ -143,13 +143,13 @@
     <rect id="outer-field" fill="#4A3222" width="8" height="8"/>
     <rect id="inner-field" fill="#EE7A33" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#4A3222" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#EE7A33" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#4A3222" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#2E1F14" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#2E1F14" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#4A3222" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#EE7A33" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#4A3222" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#2E1F14" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#2E1F14" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-12-tobacco" x="8" y="16" width="8" height="8" viewBox="0 0 8 8">
@@ -157,13 +157,13 @@
     <rect id="outer-field" fill="#EE7A33" width="8" height="8"/>
     <rect id="inner-field" fill="#3A281B" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#EE7A33" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#3A281B" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#EE7A33" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#1E140D" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#1E140D" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#EE7A33" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#3A281B" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#EE7A33" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#1E140D" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#1E140D" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-13-dusk" x="16" y="16" width="8" height="8" viewBox="0 0 8 8">
@@ -171,12 +171,12 @@
     <rect id="outer-field" fill="#B98C7E" width="8" height="8"/>
     <rect id="inner-field" fill="#C98C8A" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#B98C7E" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#C4917A" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#A87878" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#A87878" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#B98C7E" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#C4917A" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#A87878" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#A87878" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-14-butter" x="24" y="16" width="8" height="8" viewBox="0 0 8 8">
@@ -184,13 +184,13 @@
     <rect id="outer-field" fill="#F2D86A" width="8" height="8"/>
     <rect id="inner-field" fill="#B9A7CC" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#B9A7CC" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#B9A7CC" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#3B1F3A" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#3B1F3A" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#3B1F3A" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#B9A7CC" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#B9A7CC" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#3B1F3A" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#3B1F3A" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#3B1F3A" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-15-cobalt" x="32" y="16" width="8" height="8" viewBox="0 0 8 8">
@@ -198,13 +198,13 @@
     <rect id="outer-field" fill="#1C3A8C" width="8" height="8"/>
     <rect id="inner-field" fill="#B9A7CC" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#B9A7CC" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#B9A7CC" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#3B1F3A" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#3B1F3A" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#3B1F3A" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#B9A7CC" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#B9A7CC" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#3B1F3A" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#3B1F3A" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#3B1F3A" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-16-raspberry" x="0" y="24" width="8" height="8" viewBox="0 0 8 8">
@@ -212,13 +212,13 @@
     <rect id="outer-field" fill="#8E1F4E" width="8" height="8"/>
     <rect id="inner-field" fill="#FF62A0" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#8E1F4E" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#FF62A0" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#5A0F30" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#5A0F30" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#5A0F30" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#FF62A0" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#FF62A0" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#5A0F30" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#5A0F30" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#5A0F30" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-17-pewter" x="8" y="24" width="8" height="8" viewBox="0 0 8 8">
@@ -226,13 +226,13 @@
     <rect id="outer-field" fill="#4F4F52" width="8" height="8"/>
     <rect id="inner-field" fill="#9A9A9A" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#4F4F52" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#9A9A9A" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="beak" fill="#303033" d="M3.7199999999999998 4L4 4.55L4.28 4Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#303033" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#303033" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#9A9A9A" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#9A9A9A" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="beak" fill="#303033" d="M3.7 4.3L4 4.8L4.3 4.3Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#303033" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#303033" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-18-signal" x="16" y="24" width="8" height="8" viewBox="0 0 8 8">
@@ -240,12 +240,12 @@
     <rect id="outer-field" fill="#F4F3EF" width="8" height="8"/>
     <rect id="inner-field" fill="#141414" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#141414" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#F4F3EF" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#141414" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#141414" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#141414" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#F4F3EF" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#141414" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#141414" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-19-rose" x="24" y="24" width="8" height="8" viewBox="0 0 8 8">
@@ -253,12 +253,12 @@
     <rect id="outer-field" fill="#8C3324" width="8" height="8"/>
     <rect id="inner-field" fill="#D9A69A" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#8C3324" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#D9A69A" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#5E2016" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#5E2016" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#8C3324" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#D9A69A" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#5E2016" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#5E2016" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
   <svg id="night-watch-20-oxide" x="32" y="24" width="8" height="8" viewBox="0 0 8 8">
@@ -266,12 +266,12 @@
     <rect id="outer-field" fill="#8C3324" width="8" height="8"/>
     <rect id="inner-field" fill="#D9A69A" x="1" y="1.5" width="6" height="6"/>
     <g id="owl">
-      <path id="bust" fill="#8C3324" d="M2 8A1 1 0 0 1 3 7L5 7A1 1 0 0 1 6 8Z"/>
-      <path id="face" fill="#8C3324" d="M3 6A1 1 0 0 1 2 5L2 4L3.7199999999999998 4L4 4.55L4.28 4L6 4L6 5A1 1 0 0 1 5 6Z"/>
-      <path id="eye-left" fill="#F47628" d="M3 2A1 1 0 1 1 2 3L2 2Z"/>
-      <circle id="eye-right" fill="#F47628" cx="5" cy="3" r="1"/>
-      <circle id="pupil-left" fill="#5E2016" cx="2.44" cy="3.16" r="0.18"/>
-      <circle id="pupil-right" fill="#5E2016" cx="4.4399999999999995" cy="3.16" r="0.18"/>
+      <path id="bust" fill="#8C3324" d="M1.6 8L1.6 6.85A0.8 0.8 0 0 1 2.4 6.05L5.6 6.05A0.8 0.8 0 0 1 6.4 6.85L6.4 8Z"/>
+      <path id="face" fill="#8C3324" d="M2.2 5.8A0.6 0.6 0 0 1 1.6 5.2L1.6 4.3L3.7 4.3L4 4.8L4.3 4.3L6.4 4.3L6.4 5.2A0.6 0.6 0 0 1 5.8 5.8Z"/>
+      <path id="eye-left" fill="#F47628" d="M2.8 1.9A1.2 1.2 0 1 1 1.6 3.1L1.6 1.9Z"/>
+      <circle id="eye-right" fill="#F47628" cx="5.2" cy="3.1" r="1.2"/>
+      <circle id="pupil-left" fill="#5E2016" cx="2.128" cy="3.292" r="0.216"/>
+      <circle id="pupil-right" fill="#5E2016" cx="4.528" cy="3.292" r="0.216"/>
     </g>
   </svg>
 </svg>
