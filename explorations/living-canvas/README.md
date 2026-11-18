@@ -2,9 +2,25 @@
 
 **Status: design exploration on a review branch.** Not deployed, not approved, and not a replacement for the current site (`website/`, the smartscreen). Nothing in `website/`, `vercel.json` or routing was changed.
 
-Tangerine as an exploration of colour, light, time and perception: a work of art that happens to be a website. Two studies remain in development. Each is a small set of rules that produces an endless series.
+Tangerine as an exploration of colour, light, time and perception: a work of art that happens to be a website. Color Field V2 and Living Light are in development; Color Field V1 is kept as the painted collection. Each is a small set of rules that produces an endless series.
 
-## 01 Living Light — `living-light.html`
+## Color Field V2 — `color-field-v2.html`
+
+Colour as light rather than paint. A light pass renders every field as emitted light with its own depth of field, then rolls highlights off through a filmic curve, so bright colour burns toward white the way film does. A lens pass adds slight colour separation toward the corners and grain.
+
+**The rules**
+
+1. Colour is light. Every field emits; some burn, most glow, a few only breathe.
+2. Three moods, in turn: **joyful** (high key, saturated, complementary), **mysterious** (chromatic blacks such as blue-, green-, red- and violet-black, deep colour, one ember), **spiritual** (pale, close values, one line of light).
+3. Eight ways to stand: veil, eclipse, stack, aperture, diptych, horizon, nest, drift. Three moods against eight forms means no pairing repeats for twenty-four days.
+4. Every field has its own depth. Most are near and nearly sharp; cores, halos and what lies behind are out of focus. Focus racks slowly, and the field your cursor rests on comes toward focus.
+5. Tangerine is always there: the whole field, an ember, or a line on the horizon.
+6. On a pale ground an opening must be deep to be seen.
+7. One work a day, numbered from No. 001. The first twelve are hung together; ← → or a swipe walks through them. `?no=` opens any number.
+
+Each work is titled like a wall label, from its colours: *No. 002 · Ember on blue-black*.
+
+## Living Light — `living-light.html`
 
 WebGL. One pass lights a limewashed plaster wall; a second adds dust in the beam and photographic grain.
 
@@ -30,7 +46,7 @@ Each local day is an edition: **No. 001 is 18 November 2026.** The top-left labe
 
 Review: `?hour=17.5`, `?date=2026-06-21`, `?pigment=1…10`, `?no=` (edition).
 
-## 02 Color Field — `color-field.html`
+## Color Field V1 — `color-field.html` (kept as is)
 
 WebGL. Painted fields at reduced resolution, then canvas tooth and grain at full resolution.
 
@@ -55,7 +71,7 @@ A painting a day, deterministic from its number, so everyone sees the same one o
 
 ## Archive
 
-- `archive/the-grove-2026-11-18/` — The Grove, stopped 18 Nov 2026 as too decorative, literal and illustrative. Frozen, self-contained snapshot.
+The Grove is abandoned. Its last state remains in `archive/the-grove-2026-11-18/` and in git history, unlinked.
 
 ## Sources
 
