@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#f1e6d0">
-<title>Tangerine</title>
+<title>The Grove (archived)</title>
 <meta name="description" content="Tangerine. We build brands.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='30' cy='36' r='22' fill='%23f0762b'/%3E%3Cpath d='M30 14C34 4 48 2 56 8C48 18 38 18 30 14Z' fill='%232f6b45'/%3E%3C/svg%3E">
-<link rel="preload" href="fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="shared.css">
 <style>
 /* The Grove — cut paper and printers' ink: a citrus branch in the afternoon. */
@@ -332,7 +332,7 @@ body{background:#f1e6d0}
   setMotion();
   document.body.classList.add('is-ready');
 
-  T.room({ trigger: document.getElementById('enter'), onEnter() { loop.fps(24); }, onLeave() { loop.fps(60); } });
+  T.room({ feed: '../../work.json', base: '../../', trigger: document.getElementById('enter'), onEnter() { loop.fps(24); }, onLeave() { loop.fps(60); } });
 })();
 </script>
 </body>

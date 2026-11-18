@@ -34,6 +34,17 @@
     return { index: pick, seed: (Math.random() * 2 ** 31) | 0 };
   };
 
+  /* ---------- Editions ----------
+     Both studies are dated works. No. 1 is 18 November 2026, the day the series
+     began; each local day after that is the next number. */
+  T.edition = (date = new Date()) => {
+    const day = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+    return Math.max(1, Math.round((day - Date.UTC(2026, 10, 18)) / 864e5) + 1);
+  };
+  T.pad3 = n => String(n).padStart(3, '0');
+  // Small integer hash, for rules that should hold for a whole day.
+  T.hash = n => { n = Math.imul(n ^ 0x9e3779b9, 0x85ebca6b); n ^= n >>> 13; n = Math.imul(n, 0xc2b2ae35); return ((n ^ (n >>> 16)) >>> 0) / 4294967296; };
+
   // The hour where the visitor is, as a fraction of the day (0..1).
   T.dayPhase = () => { const d = new Date(); return (d.getHours() + d.getMinutes() / 60 + d.getSeconds() / 3600) / 24; };
 

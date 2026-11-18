@@ -1,38 +1,65 @@
-# Living Canvas — three landing-page explorations
+# Living Canvas — Tangerine landing-page studies
 
-**Status: design exploration on a review branch.** Created 18 November 2026. Not deployed, not approved, and not a replacement for the current site (`website/`, the smartscreen). Nothing in `website/`, `vercel.json` or routing was changed.
+**Status: design exploration on a review branch.** Not deployed, not approved, and not a replacement for the current site (`website/`, the smartscreen). Nothing in `website/`, `vercel.json` or routing was changed.
 
-Brief: *Painterly on the surface. Intelligent underneath.* A landing page that feels like a living canvas, using only **tangerine**, **We build brands.** and **Enter Tangerine**.
+Tangerine as an exploration of colour, light, time and perception: a work of art that happens to be a website. Two studies remain in development. Each is a small set of rules that produces an endless series.
 
-| Study | File | Medium | What changes from visit to visit |
-| --- | --- | --- | --- |
-| 01 Color Field | `color-field.html` | WebGL, two passes: a painted field at reduced resolution, then canvas tooth and photographic grain at full resolution | One of nine colour studies (stacked, nested, drifting, horizon), never the same as the visitor's last one. Edges, pigment and hue drift over minutes. The paint leans toward the cursor. |
-| 02 Living Light | `living-light.html` | WebGL, two passes: light on a plaster wall, then dust in the beam and grain | The light follows the visitor's own clock: pink dawn, pale midday, tangerine late afternoon, vermilion dusk, a blue moonlit wall with a lamp on at night. The wordmark exists only as a shadow cast by lettering on the studio window. A curtain moves, clouds pass, dust stirs where the hand moves. |
-| 03 The Grove | `the-grove.html` | Canvas 2D: cut-paper shapes printed as three overprinting inks with ink texture and paper shadow | One of four arrangements (bough, rising, canopy, crossing), often mirrored, regrown on every visit. The sun's ink changes with the hour. Leaves rustle on springs in a slow breeze and when the cursor or a finger passes. |
+## 01 Living Light — `living-light.html`
 
-`index.html` lists the three for review.
+WebGL. One pass lights a limewashed plaster wall; a second adds dust in the beam and photographic grain.
 
-## Enter Tangerine
+**The rules**
 
-In every study the link opens a room: a sheet laid over the living canvas, which stays visible at the edges. It shows the work already published in `website/work.json` (copied here as `work.json`), one piece at a time, newest first. ← → or swipe to page, Esc / Return / browser Back to leave. `#work` links straight to it. This is the hook for the future archive; nothing new is published by it.
+1. One wall, one window, one light.
+2. The light is the sun where you are, now: your clock, today's date, your hemisphere.
+3. The lower the sun, the longer its path through the air, the warmer its colour.
+4. Low light climbs the wall and leans; high light falls and straightens. It crosses the wall at the speed of the day.
+5. The sky fills the shadows: blue at noon, rose at sunset, ink at night.
+6. Each day the wall is painted one pigment. The same light falls differently on each.
+7. Grazing light shows the plaster; high light flattens it.
+8. At night the moon takes over, as bright as tonight's real moon. When there is no moon, the streetlight.
+9. Our name is lettered on the glass. It appears only where the light does.
 
-## Review controls
+Everything else that moves is what moves in a room: dust in the beam, and on some days a passing cloud.
 
-- `?study=1…9` pins a Color Field study (1–6 for Living Light, 1–7 for The Grove).
-- `?hour=0…24` sets the clock for Living Light and The Grove.
+The sun is computed from the visitor's clock and date (declination, equation of time, hour angle). The visitor is never asked for their location. Latitude comes only from the time zone's hemisphere (40°N, 34°S, or near the equator), and longitude from its standard UTC offset. The moon's phase and position are approximate. Between sunset and night there is a stretch with no direct light at all: the blue hour, only the wall and the sky.
 
-To preview locally: `python3 -m http.server` from this folder, then open `http://localhost:8000/`.
+Each local day is an edition: **No. 001 is 18 November 2026.** The top-left label reads as a wall label: number, the day's pigment, the time. The ten pigments are lime white, Naples yellow, rose madder, terre verte, ultramarine ash, yellow ochre, Venetian red, bone, tangerine and lamp black. No two days in a row share a pigment.
 
-## Accessibility and performance
+**Play:** drag across the wall (or press ← →) to move through the day; let go and the light eases back to now.
 
-- `prefers-reduced-motion`: each study renders one still frame and does not respond to the pointer (Living Light updates its still once a minute to follow the clock). Room transitions become instant.
-- Text is real HTML (the canvas is `aria-hidden`); the room keeps focus inside, returns focus to the link, and every control is at least 44 px.
-- Rendering stops when the tab is hidden. If a device can't hold 60 fps it settles at 30. Color Field runs at 30 fps by design (its motion is far slower than a frame), and the shader skips fields that can't reach a pixel. The painted pass is capped at about 1,000 px on its long side; grain is added at full resolution so the print stays sharp. Device pixel ratio is capped at 2 (1.5 for The Grove on large screens).
-- No libraries and no build step. Without WebGL the Color Field and Living Light pages fall back to their flat ground with the type.
+Review: `?hour=17.5`, `?date=2026-06-21`, `?pigment=1…10`, `?no=` (edition).
+
+## 02 Color Field — `color-field.html`
+
+WebGL. Painted fields at reduced resolution, then canvas tooth and grain at full resolution.
+
+**The rules**
+
+1. A ground and three fields. Nothing else.
+2. Tangerine is always present, and always large.
+3. Four ways to stand: stacked, nested, drifting, horizon. Every four days, each once.
+4. Most days, one field is a counterweight: a deep note (green, plum, ultramarine, ink, graphite) or a cool one (sky, sage, mist).
+5. Neighbours never come from the same family.
+6. One day in nine the ground is dark.
+7. The paint keeps moving: edges wander, hues drift, it leans toward you.
+
+A painting a day, deterministic from its number, so everyone sees the same one on the same day. The label names it: *No. 001 · Tangerine, scarlet and ultramarine on cream*. ← → or a horizontal swipe walks back through earlier days in the collection. Review any number with `?no=`.
+
+## Shared
+
+- **Enter Tangerine** opens a sheet over the living canvas showing the work already published in `website/work.json` (copied here as `work.json`): ← → or swipe, Esc / Return / Back to leave, `#work` links straight to it.
+- **Reduced motion:** one still frame, no pointer response, instant transitions. Living Light updates its still once a minute; dragging still moves the time on request.
+- **Performance:** rendering stops when the tab is hidden; frame rate settles at 30 fps on devices that can't hold 60 (Color Field runs at 30 by design). The light and paint passes are capped near 1,000–1,150 px; grain is full resolution. Device pixel ratio is capped at 2. No libraries, no build step.
+- `index.html` lists the studies for review. Local preview: `python3 -m http.server` here, then `http://localhost:8000/`.
+
+## Archive
+
+- `archive/the-grove-2026-11-18/` — The Grove, stopped 18 Nov 2026 as too decorative, literal and illustrative. Frozen, self-contained snapshot.
 
 ## Sources
 
-- **Wordmark:** the lowercase geometric wordmark selected 17 Nov 2026 (`design/geometric-wordmark-2026-11-17`, `tangerine-geometric-wordmark-original.png`, SHA-256 `13a67519…3db3b12`), traced to vector with potrace for this study. It is a working trace, not the redrawn production master that branch calls for; the original PNG was not modified or copied here.
-- **Type:** Instrument Serif, regular and italic, SIL Open Font License (`fonts/OFL.txt`), latin subset from Google Fonts, self-hosted.
-- **Work in the room:** byte-identical copies of `website/media/lil-kc-2026-11-16.webp` and `website/media/orange-study-001.svg`, both already published on the production site. Masters are untouched.
-- Influences named in the brief (Albers, colour-field painting, LoveFrom, cut-paper and riso printing) are approached as sensibility; no artwork is reproduced.
+- **Wordmark:** the lowercase geometric wordmark selected 17 Nov 2026 (`design/geometric-wordmark-2026-11-17`, SHA-256 `13a67519…3db3b12`), traced to vector with potrace for these studies. A working trace, not the redrawn production master; the original PNG is untouched.
+- **Type:** Instrument Serif, regular and italic, SIL Open Font License (`fonts/OFL.txt`), self-hosted latin subset.
+- **Work in the room:** byte-identical copies of `website/media/lil-kc-2026-11-16.webp` and `website/media/orange-study-001.svg`, already public on the production site.
+- Influences (Albers, colour-field painting, Turrell, LoveFrom, Jack Butcher's rule-based series) are sensibility; no artwork is reproduced.
