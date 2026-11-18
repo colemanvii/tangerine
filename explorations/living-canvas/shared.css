@@ -28,7 +28,7 @@ a{color:inherit}
 .wordmark{display:block;fill:currentColor;overflow:visible}
 
 /* The entry: a line of italic serif, an arrow that travels a little. */
-.enter{display:inline-flex;align-items:baseline;gap:.5em;min-height:44px;align-items:center;text-decoration:none;font-style:italic;font-size:clamp(19px,1.55vw,25px);letter-spacing:-.005em;line-height:1;position:relative}
+.enter{display:inline-flex;align-items:baseline;gap:.5em;min-height:44px;align-items:center;text-decoration:none;font-style:italic;font-size:clamp(19px,max(1.55vw,2.15vmin),26px);letter-spacing:-.005em;line-height:1;position:relative}
 .enter .arrow{display:inline-block;font-style:normal;transition:transform .7s var(--ease)}
 .enter::after{content:"";position:absolute;left:0;right:1.6em;bottom:9px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease);opacity:.7}
 .enter:focus-visible .arrow{transform:translateX(.3em)}
