@@ -25,4 +25,11 @@ Served `website/` from a local static server and drove it with Playwright:
 - Failure: with the feed returning 503, the lamp turns grey and labels itself offline, and the current artwork stays on screen.
 - Reduced motion: no lamp animation.
 
-**Not yet verified:** the Vercel deployment, the `/screen/` redirect, and the public domain. The working environment could not reach `ex-tangerina.com` or `*.vercel.app`. Production deploys when `main` is updated.
+## Production push
+
+- The owner approved pushing Refinement 002 to `main` on November 18, 2026.
+- Before the push, `origin/main` was still the baseline `1557f76`. It had no commits of its own, so `main` was fast-forwarded with no merge and no conflicts.
+- Archive check: `archive/studio-website-2026-11-17/index.html` is git blob `945d851152152e00b5550ab33f72eeb0a65b4199`. That is identical to the homepage `main` served before the push. The Lil KC master's blob is also unchanged.
+- The refinement is commit `87a28e2`. This deployment record follows it on `main`, and that later commit is the one Vercel builds for production.
+
+**Not verified from this environment:** the Vercel build, the `/screen/` redirect, and the public domain. The working environment cannot reach `ex-tangerina.com` or `*.vercel.app`. The owner is verifying the public deployment independently.
