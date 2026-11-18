@@ -13,7 +13,7 @@ The artwork is preserved **unchanged, byte for byte** from the image supplied fo
 
 ## Web derivative
 
-`website/media/lil-kc-2026-11-16.webp` is the copy served on https://ex-tangerina.com/. It was encoded from the master above (WebP, quality 88, 1536 × 1024, alpha channel removed because the master is fully opaque, metadata stripped): 140,490 bytes instead of 3,161,670.
+`archive/smartscreen-2026-11-18/media/lil-kc-2026-11-16.webp` is the web copy that ex-tangerina.com served from 18 November 2026 until the smartscreen was archived. It was encoded from the master above (WebP, quality 88, 1536 × 1024, alpha channel removed because the master is fully opaque, metadata stripped): 140,490 bytes instead of 3,161,670.
 SHA-256: `a24235ed9889d76aff9c606c14390a46f872ad708ca6be12a3a9008ee3a174ac`.
 The master remains unchanged; regenerate the derivative from it rather than editing the derivative.
 

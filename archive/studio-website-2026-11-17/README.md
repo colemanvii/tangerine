@@ -6,4 +6,4 @@ It is preserved unchanged here, byte for byte (git blob `945d851152152e00b5550ab
 
 It is an archive, not a deployed page: the Vercel project serves only `website/`. To view it, open the file locally in a browser.
 
-Its Orange Study No. 001 drawing continues on the homepage as a static image, `website/media/orange-study-001.svg`, extracted unchanged from this file's markup in its closed state.
+Its Orange Study No. 001 drawing was extracted unchanged from this file's markup, in its closed state, and shown on the smartscreen. That copy is now archived as `archive/smartscreen-2026-11-18/media/orange-study-001.svg`.

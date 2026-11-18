@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fcfcfa">
+<meta name="description" content="Tangerine is the independent creative practice of Cole Calfee. Recent work, newest first.">
+<meta property="og:title" content="Tangerine">
+<meta property="og:description" content="An independent creative practice. Recent work, newest first.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ex-tangerina.com/">
+<title>Tangerine</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='34' r='23' fill='%23ed5925'/%3E%3Cpath d='M31 12Q39 1 53 8Q44 19 31 12Z' fill='%232d5034'/%3E%3C/svg%3E">
+<style>
+:root{
+  --white:#fcfcfa;--graphite:#1c1c1a;--quiet:#6c6c67;--lamp:#f26b21;--off:#cfcfca;
+  --gutter:clamp(18px,3.4vw,48px);
+  --label:500 11px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;
+  --readout:400 11px/1 ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--white);color:var(--graphite);-webkit-font-smoothing:antialiased;
+  display:grid;grid-template-rows:minmax(0,1fr) auto;height:100svh;overflow:hidden}
+button{font:inherit;color:inherit;text-transform:inherit;letter-spacing:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus{outline:none}
+:focus-visible{outline:1px solid var(--lamp);outline-offset:6px}
+[hidden]{display:none!important}
+
+/* The artwork */
+main{position:relative;min-height:0;touch-action:pinch-zoom}
+#art{position:absolute;top:calc(var(--gutter) + env(safe-area-inset-top));right:var(--gutter);bottom:0;left:var(--gutter);display:block;width:calc(100% - 2 * var(--gutter));height:calc(100% - var(--gutter) - env(safe-area-inset-top));object-fit:contain;opacity:0;transition:opacity .28s ease-out;user-select:none;-webkit-user-drag:none}
+#art.is-shown{opacity:1}
+#notice{position:absolute;inset:0;display:grid;place-items:center;margin:0;font:var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--quiet)}
+
+/* The instrument */
+.bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:24px;
+  min-height:72px;padding:0 var(--gutter) env(safe-area-inset-bottom);
+  font:var(--label);letter-spacing:.16em;text-transform:uppercase}
+.bar button{min-height:44px;display:inline-flex;align-items:center;touch-action:manipulation}
+.brand{justify-self:start;gap:11px}
+.lamp{width:7px;height:7px;border-radius:50%;background:var(--off);flex:none;transition:background .4s}
+.lamp.is-live{background:var(--lamp)}
+.lamp.is-blinking{animation:blink .9s ease-in-out}
+@keyframes blink{0%,100%{opacity:1}40%{opacity:.12}}
+
+.readout{display:flex;align-items:baseline;gap:22px;white-space:nowrap;min-width:0}
+#title::before,#title::after{content:'"'}
+#project,.readout time{color:var(--quiet)}
+time,#count{font:var(--readout);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+
+.controls{justify-self:end;display:flex;align-items:center;gap:22px}
+.paging{display:flex;align-items:center;gap:2px;color:var(--quiet)}
+.paging button{width:34px;justify-content:center;color:var(--graphite);font:400 15px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:0}
+#count{min-width:7ch;text-align:center;white-space:nowrap}
+.paging button:disabled{color:var(--off);cursor:default}
+.bar button:hover:not(.brand):not(:disabled){color:var(--lamp)}
+
+/* Retrieval */
+dialog{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;
+  padding:calc(var(--gutter) + env(safe-area-inset-top)) var(--gutter) var(--gutter);background:var(--white);color:var(--graphite);
+  font:var(--label);letter-spacing:.16em;text-transform:uppercase}
+dialog::backdrop{background:var(--white)}
+.query{display:flex;align-items:center;gap:24px;max-width:760px;margin:0 auto;border-bottom:1px solid var(--graphite)}
+.query input{flex:1;min-width:0;border:0;border-radius:0;background:none;color:inherit;padding:14px 0;
+  font:400 clamp(22px,3vw,30px)/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:-.01em;text-transform:none;-webkit-appearance:none;appearance:none}
+.query input:focus-visible{outline:none}
+.query:focus-within{border-bottom-color:var(--lamp)}
+.query input::placeholder{color:var(--off)}
+.query input::-webkit-search-cancel-button{display:none}
+.query button{min-height:44px;color:var(--quiet)}
+#matches{max-width:760px;margin:18px auto 0;overflow:auto;max-height:calc(100% - 90px)}
+#matches button{display:grid;grid-template-columns:1fr auto;gap:6px 24px;width:100%;text-align:left;padding:15px 0;align-items:baseline}
+#matches button:hover .t,#matches button:focus-visible .t{color:var(--lamp)}
+#matches button:focus-visible{outline-offset:2px}
+#matches small{grid-column:1;font:inherit;color:var(--quiet)}
+#matches time{grid-row:1;grid-column:2;color:var(--quiet)}
+#matches p{margin:15px 0;color:var(--quiet)}
+
+@media (max-width:960px){
+  .bar{grid-template-columns:1fr auto;grid-template-areas:"readout readout" "brand controls";row-gap:2px;padding-top:14px}
+  .brand{grid-area:brand}.controls{grid-area:controls;gap:14px}.readout{grid-area:readout;flex-wrap:wrap;row-gap:9px;column-gap:16px;white-space:normal}
+  #title{flex-basis:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  #art,.lamp{transition:none}
+  .lamp.is-blinking{animation:none}
+}
+</style>
+</head>
+<body>
+<main aria-label="Artwork">
+  <img id="art" alt="" decoding="async" draggable="false">
+  <p id="notice" role="status">Loading</p>
+</main>
+<footer class="bar">
+  <button class="brand" id="latest" title="Latest work"><span class="lamp" id="lamp" role="img" aria-label="Feed status: connecting"></span>Tangerine</button>
+  <p class="readout" aria-live="polite" style="margin:0"><span id="title"></span><span id="project"></span><time></time></p>
+  <div class="controls">
+    <button id="find" aria-haspopup="dialog" aria-keyshortcuts="/" hidden>Retrieve</button>
+    <span class="paging" id="paging" hidden><button id="prev" aria-label="Newer piece" aria-keyshortcuts="ArrowLeft">←</button><span id="count"></span><button id="next" aria-label="Older piece" aria-keyshortcuts="ArrowRight">→</button></span>
+  </div>
+</footer>
+<dialog aria-label="Retrieve work">
+  <div class="query"><input type="search" aria-label="Search the work" placeholder="Title, project or year" autocomplete="off" spellcheck="false" enterkeyhint="go"><button id="close" aria-label="Close">Esc</button></div>
+  <div id="matches"></div>
+</dialog>
+<noscript><p style="position:fixed;inset:0;display:grid;place-items:center;margin:0;font:11px Helvetica,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase">Tangerine needs JavaScript to show the work.</p></noscript>
+<script src="screen.js" defer></script>
+</body>
+</html>
