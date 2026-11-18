@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#e9dccb">
+<title>Tangerine</title>
+<meta name="description" content="Tangerine. We build brands.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23e9dccb'/%3E%3Cpath d='M18 8h38l-8 48H10z' fill='%23ffc27a'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* Living Light — afternoon on a studio wall. The name is a shadow the sun casts. */
+:root{--mx:48px;--text:#2b231d}
+body{background:#e9dccb}
+.words{position:fixed;left:var(--mx);right:var(--mx);bottom:var(--mx);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;z-index:2;
+  color:var(--text);mix-blend-mode:multiply;opacity:0;transition:opacity 2.6s ease .4s}
+.is-night .words{mix-blend-mode:normal}
+.is-ready .words{opacity:1}
+.statement{margin:0;font-weight:400;font-size:clamp(30px,3.4vw,54px);line-height:1;letter-spacing:-.018em}
+.words .enter{margin-bottom:-6px}
+.is-in-room .words{opacity:0;transition:opacity .5s ease}
+@media (max-width:640px){
+  .words{flex-direction:column;align-items:flex-start;gap:14px}
+  .statement{font-size:34px}
+  .words .enter{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){.words{transition:none}}
+</style>
+</head>
+<body>
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" focusable="false"><symbol id="wm" viewBox="0 0 1393 295"><path fill-rule="evenodd" d="M502 290.7C499.9 290.7 498 290.5 497.8 290.3C496.6 289.3 498 276.1 500 268C502.8 256.9 507.9 247.9 514.5 242.3C519.9 237.7 524.9 235.2 531.9 233.6C534.8 232.9 536.1 232.9 542.8 232.9C550.6 232.9 552.3 233 566.7 234.8C589.2 237.7 603.8 237.2 613.8 233.3C617.9 231.7 619.9 230.5 622.8 227.7C627.2 223.5 629.3 219.4 630 213.5C630.4 210.1 630.3 210 627.6 212.4C623.2 216.4 617 220.2 611.5 222.3C608.2 223.6 600.6 225.5 596.2 226.2C590.7 227 582.3 227.2 576.3 226.5C565.6 225.4 558.2 223.6 550 220.1C539.8 215.8 533.3 211.3 525 203C520.8 198.8 519.6 197.4 516.6 192.8C513.4 187.9 509 179.8 509 178.6C509 178.4 508.9 178 508.7 177.8C508.2 177.3 506.2 171 505.2 167C503.9 161.6 503.1 155.8 502.6 148.5C502 137.6 503.2 126.3 506.1 116.8C508.3 109.7 511.1 103.1 514 98.3C514.3 97.7 514.8 96.9 514.9 96.7C515.6 95.2 519.4 89.8 521.5 87.3C532.9 73.9 547 65.1 565 60.4C570.7 58.9 575.8 58.1 582.9 57.6C588.4 57.3 590.1 57.3 595.8 57.8C599.4 58.1 603.1 58.5 604.1 58.7C612.1 60.4 615.5 61.3 620.8 63.2C626.5 65.3 633.7 69.2 637.3 72C639.9 74.1 640 74 640 69.3L640 65.3 L663.1 65.3C679.6 65.3 686.4 65.4 686.5 65.7C686.6 65.9 686.7 99.9 686.7 141.3C686.7 208.2 686.7 217 686.2 221.3C685.9 223.9 685.5 226.6 685.4 227.4C683.6 235.6 683.3 236.5 680.8 242.5C679.6 245.4 677.6 249.5 675.8 252.7C672.9 257.7 664.7 266.7 659.3 270.8C644.6 281.9 624.9 288.8 603.2 290.3C598.7 290.6 512.5 291 502 290.7ZM766.8 230.6C756.3 229.8 747 227.6 737.2 223.7C728.4 220.2 716.9 212.4 710.5 205.6C704.9 199.6 699.3 191.1 696 183.5C695.6 182.6 695.1 181.5 695 181C694.8 180.5 694.4 179.3 694 178.3C693.3 176.5 692.8 174.6 691.6 169.8C691.3 168.4 690.8 166.6 690.6 165.9C690.3 164.7 690 162.3 689.3 156.2C688.7 150.6 688.9 138.1 689.6 132.3C691.1 121.3 692.3 115.9 695 109C695.4 108 695.8 106.9 695.9 106.6C696.1 105.8 699.1 100 700.1 98.4C700.5 97.7 701 96.9 701.1 96.7C702.7 93.4 709.5 84.8 713.5 81C727.7 67.7 745.6 59.9 767 57.8C773.4 57.2 776.4 57.2 784.1 57.8C795.7 58.8 807.5 61.7 816.2 65.9C819.8 67.6 827 71.7 829.6 73.5C835.2 77.5 842.1 84.2 845.9 89.2C851.2 96.3 855.6 104.4 857.9 111.7C860.8 120.8 861.4 124.1 862.2 134.2C862.7 141.4 862.7 151.4 862.1 156.3L861.8 158.2 L805.2 158.3C756 158.3 748.6 158.4 748.5 158.8C748.2 159.5 749.2 163.5 750.2 165.5C751.3 167.8 753.8 171.2 756 173.1C759.5 176.2 763 178 768.5 179.4C772.5 180.5 780.7 180.4 784.6 179.4C786.1 179 787.6 178.5 787.9 178.3C788.2 178.2 789.2 177.7 790.2 177.3C792.5 176.3 795.9 174 797.5 172.4L798.8 171 L829.2 171C849 171 859.7 171.1 859.8 171.3C860.2 171.9 857.7 179.8 855.2 185.5C852 193.1 847 200.4 840.7 206.7C835.6 211.7 832.2 214.4 826.4 217.9C816.1 224 804.9 228 792.8 229.8C785.4 230.9 774.6 231.3 766.8 230.6ZM1292.2 230.6C1276.1 229.2 1262.8 225.1 1250.3 217.4C1244.7 214 1241.4 211.5 1236.3 206.3C1231.3 201.3 1228.6 198 1225.4 192.7C1219.4 182.7 1216.2 173.6 1214.1 159.7C1213.2 154.2 1213.3 136.4 1214.1 130.3C1215.6 119.6 1217.7 112.7 1222.6 102.7C1226.6 94.5 1231.4 87.9 1238.2 81.4C1244.4 75.4 1250.1 71.5 1258.7 67.2C1264.2 64.4 1267.9 63 1273.7 61.4C1286.1 57.9 1297 56.8 1308.2 57.7C1328.5 59.4 1342.9 64.5 1357.3 75.3C1362.8 79.4 1370.4 87.1 1374 92.3C1382.9 105 1387.2 117.9 1388.4 135.3C1388.7 141 1388.6 152.6 1388.1 156.5L1387.8 158.2 L1330.9 158.3C1276.7 158.3 1274 158.4 1273.9 158.9C1273.6 159.8 1274.5 163.2 1275.7 165.5C1278.9 172.1 1285.5 177.3 1293.3 179.4C1297.1 180.4 1305.6 180.5 1309 179.5C1315.6 177.8 1318.4 176.3 1322.6 172.6L1324.4 171 L1348.3 170.9C1371 170.8 1385.4 170.9 1385.6 171.2C1385.8 171.4 1384.6 176.3 1383.5 179.9C1382.3 183.4 1377.9 192.4 1375.6 195.8C1373.5 198.8 1368.1 205.2 1365.3 207.8C1359.7 213.2 1354.7 216.7 1347.2 220.5C1337 225.8 1326.8 228.8 1314.7 230.2C1309 230.8 1297 231.1 1292.2 230.6ZM220.8 230.4C203.7 229 187.9 222.9 175.7 213.1C165.5 204.9 157.9 194.9 153.1 183.4C148.1 171.4 146.4 162.6 146.1 147.3C145.7 128.4 148 116.6 154.7 102.8C156.9 98.1 161.3 91.4 164.5 87.3C167.2 84.1 174 77.5 177.9 74.6C184.9 69.2 193.4 64.8 201.7 62.1C210.3 59.4 214.6 58.5 223.5 57.8C229 57.4 231.1 57.3 235.3 57.7C252 58.9 264.8 62.8 276 70C277.7 71.2 279.9 72.7 280.7 73.4C281.6 74.1 282.4 74.7 282.6 74.7C282.9 74.7 283 73.2 283 69.9C283 66.3 283.1 65 283.4 64.7C283.8 64.5 290.7 64.4 307.5 64.4L331.2 64.5 L331.4 89.2C331.8 137.8 331.7 226.2 331.3 226.6C330.7 227.2 277.6 227.2 277.1 226.6C276.8 226.3 276.7 223.6 276.6 219.4C276.6 214.3 276.5 212.6 276.2 212.4C275.9 212.4 275 213 274.1 213.9C270.6 217.3 262.4 222.8 257.8 224.8C252.2 227.3 244.5 229.4 237.7 230.2C234.2 230.6 224.4 230.7 220.8 230.4ZM90 228.7C84.5 228.2 76.5 226.6 71.2 224.8C67.4 223.6 60.7 220.3 56.8 217.8C52.8 215.1 46.4 208.8 43.7 204.8C38.5 197.1 35.4 188.8 33.7 177.9C33.3 175.1 33.2 169.7 33.1 146.1C33 123.5 32.9 117.6 32.5 117.4C32.3 117.1 27.4 117 18.1 116.9L4.2 116.8 L4.1 91C4 75.3 4.1 65.1 4.3 64.9C4.5 64.6 8.7 64.5 18.6 64.4C26.2 64.3 32.6 64.2 32.7 64C32.9 63.9 33 55.5 33.1 45.3L33.2 26.8 L62 26.8L90.8 26.8 L90.9 45.6L91 64.3 L116.9 64.4C131.2 64.4 143.2 64.4 143.6 64.4C145.4 64.2 145.3 63 145.3 90.9C145.3 106.1 145.2 116.7 145 116.8C144.9 116.9 132.8 117 118.3 117C100.3 117 91.7 117.2 91.4 117.4C91.1 117.7 91 121.6 91 135.9C91 152.8 91 154.3 91.7 156.8C92 158.3 92.8 160.4 93.3 161.5C95.1 165.2 98.8 168.6 102.7 170.1C106.1 171.5 108.7 171.7 127 171.7C140.2 171.7 144.6 171.8 144.9 172.1C145.5 172.7 145.5 228.1 144.9 228.6C144.4 229 95.2 229.1 90 228.7ZM443.3 226.6C443 226.5 442.9 212.4 442.8 183.1C442.6 138.9 442.6 137.1 441.4 134C440.2 130.9 439.7 129.9 438.4 127.9C437.6 126.6 435.9 124.6 434.7 123.3C427.5 116.2 414.5 114.9 405.4 120.4C398.3 124.7 394.3 131.1 393.4 140C393.2 141.6 393.1 160.4 393.2 184.1C393.3 212 393.2 225.6 393 226C392.7 226.6 391.9 226.7 365.2 226.7C350 226.7 337.7 226.6 337.6 226.6C337.6 226.5 337.5 205.8 337.5 180.5C337.3 132.7 337.4 128.6 338.7 120.3C339.9 112.4 341.9 106.2 345.2 99.6C348.5 92.9 350.5 90 355.2 84.5C368.4 69 389 59.4 412.7 57.7C420.6 57.1 431.8 58.2 441.1 60.5C459.9 65.1 476.4 76.5 486.5 91.8C493.2 102 496.5 111.1 498.2 123.8C498.7 127.3 498.8 134 498.9 176.5C499 203.3 498.9 225.5 498.8 225.9L498.7 226.7 L471.1 226.7C456 226.8 443.4 226.7 443.3 226.6ZM1150.8 226.2C1150.4 225.9 1150.3 217.9 1150.2 181.7C1150.1 137.9 1150.1 137.5 1149.4 135.3C1145.6 123.6 1136.9 117 1125.1 117C1118.4 117 1112.6 119.2 1108 123.5C1105.2 126.2 1103.6 128.5 1102.2 132.2C1100.1 137.4 1100.2 134.1 1100 182.2L1099.8 226.2 L1071.4 226.3C1055.7 226.3 1042.7 226.2 1042.6 226.1C1042.2 225.7 1042.3 133.6 1042.7 128.4C1043.3 120.2 1045.3 111.8 1048.2 104.7C1052.7 93.4 1061.3 82.2 1071.3 74.7C1076.6 70.8 1087.2 65.1 1092.4 63.3C1102.1 60.1 1110.5 58.3 1119.7 57.7C1127.5 57.1 1139.4 58.2 1148.2 60.3C1157.4 62.6 1164.1 65.3 1172.2 70.1C1182.7 76.3 1191.6 85.1 1197.7 95.2C1201.5 101.6 1203.8 107.1 1205.8 115.3C1207.4 121.7 1207.6 122.8 1208 130.1C1208.5 138.5 1208.3 225.5 1207.8 226C1207.4 226.4 1151.4 226.6 1150.8 226.2ZM866.2 225.6C866.1 225.2 866 202.1 866.1 174.3C866.2 129.4 866.3 123.4 866.8 120.2C867.8 113.2 868.8 108.6 870 105.2C870.4 104.1 870.8 102.7 871 102.2C872 98.6 875 92.4 877.8 88.2C881.3 82.8 887 76.7 892 72.8C896.2 69.6 903.8 65.4 909 63.4C915.1 61.1 920.6 59.7 927.8 58.7C932.3 58 933.7 57.9 940.7 58.1C948.9 58.3 952.3 58.7 959.5 60.5C963.3 61.4 968.6 63.1 970 63.9L970.9 64.3 L971.1 78.7C971.2 86.7 971.2 98.7 971.1 105.5L970.9 117.7 L967.9 117.5C966.2 117.4 961.1 117.2 956.4 117.1C949.4 116.9 947.6 117 944.8 117.5C941 118.1 938.4 119 936.1 120.2C929.9 123.6 927 127.6 924.7 135.7C924.3 137.3 924.2 143.2 924 181.8L923.8 226.2 L895.1 226.3L866.3 226.3 L866.2 225.6ZM977.6 226.1C977.4 226 977.3 191.1 977.3 148.7C977.3 89.1 977.4 71.4 977.7 71.1C978.4 70.4 1034.4 70.5 1035 71.1C1035.2 71.5 1035.3 92 1035.3 148.9L1035.2 226.2 L1006.5 226.3C990.7 226.3 977.7 226.2 977.6 226.1ZM243.3 175.2C247.6 174.6 249.9 173.9 253.9 172C260.4 168.9 265.9 163.5 268.9 157.3C271.2 152.7 271.8 150.3 271.9 145C272 140.9 271.9 139.7 271.4 137.3C269 127.5 262.8 120.1 253.2 115.3C236.2 107 215.2 113.8 207 130.2C204.8 134.7 203.8 140 204.1 145.8C204.6 155.2 209.6 164.3 217.4 169.4C225.2 174.6 234 176.5 243.3 175.2ZM603.2 174.4C606.8 173.5 608.8 172.8 611.6 171.3C619.1 167.3 624.7 160.9 627.3 153.5C628.7 149.3 629.1 146.5 628.9 142.4C628.6 136.1 627 131.3 623.8 126.7C618.7 119.5 611.1 114.5 602.4 112.5C598.7 111.6 589.9 111.6 586.2 112.5C575.1 115 566.2 122.4 562.4 132.2C560.7 136.6 560.3 138.8 560.3 143.3C560.3 149.2 561.2 152.9 564 158.4C568.6 167 578.6 173.7 589 175C592.5 175.4 600.3 175.1 603.2 174.4ZM804.4 129.2C804.3 127.1 803 123.1 801.8 121.1C800.6 119 796.3 114.6 794.2 113.2C788.6 109.5 783.6 108 776.8 108C772 108 769.1 108.5 764.8 110.1C760.9 111.6 758.5 113.2 755.2 116.4C752.6 119 751.9 119.9 750.7 122.3C749.1 125.8 747.8 129.7 748.1 130.5C748.3 131 750.7 131 776.4 130.9L804.5 130.8 L804.4 129.2ZM1329.9 130.5C1330.2 129.6 1329 124.9 1327.7 122.3C1326.8 120.3 1325.9 119.2 1323 116.3C1320 113.3 1319.1 112.6 1316.6 111.4C1311.6 109 1308.6 108.3 1302.9 108.1C1296.2 107.9 1292.8 108.6 1287.2 111.4C1281.8 114 1276.9 119.2 1275 124.3C1274.1 126.5 1273.3 130.3 1273.5 130.7C1273.6 130.9 1286.3 131 1301.7 131C1326.2 131 1329.7 130.9 1329.9 130.5ZM999.7 64.3C995.3 63.4 993.6 62.9 990.7 61.4C984.4 58.2 979.4 53.4 976.5 47.8C972.8 40.4 972.4 33.4 975.1 25.3C976.4 21.4 977.8 19.1 980.6 15.8C985.9 9.5 993 5.8 1002.1 4.5C1010.2 3.3 1019.2 5.2 1025.7 9.5C1029.2 11.8 1033.8 16.6 1035.8 19.9C1036.7 21.4 1037.9 24 1038.4 25.6C1039.5 28.4 1039.5 28.6 1039.5 34.7C1039.5 40.5 1039.5 41 1038.6 43.4C1036.9 48.2 1033 53.8 1029.2 57C1024.6 60.7 1019.4 63.2 1012.9 64.5C1009.5 65.2 1003.3 65.1 999.7 64.3Z"/></symbol></svg>
+<canvas class="stage" id="light" aria-hidden="true"></canvas>
+<main class="words">
+  <h1 class="sr">tangerine</h1>
+  <p class="statement">We build brands.</p>
+  <a class="enter" id="enter" href="#work">Enter Tangerine <span class="arrow" aria-hidden="true">→</span></a>
+</main>
+
+<section id="room" tabindex="-1" aria-label="Work" hidden>
+  <header>
+    <button data-leave aria-label="Return to the light"><svg class="wordmark" viewBox="0 0 1393 295" aria-hidden="true"><use href="#wm"/></svg></button>
+    <button class="room-return" data-leave>Return</button>
+  </header>
+  <figure><img alt="" decoding="async" draggable="false"><p data-status role="status"></p></figure>
+  <footer>
+    <p class="caption"><span data-title></span><span class="meta"><span data-project></span> · <time></time></span></p>
+    <div class="paging"><button data-prev aria-label="Previous piece">←</button><span data-count></span><button data-next aria-label="Next piece">→</button></div>
+  </footer>
+</section>
+
+<noscript><style>.words{opacity:1}</style></noscript>
+<script src="shared.js"></script>
+<script>
+(function () {
+  'use strict';
+  const T = Tangerine, canvas = document.getElementById('light');
+  const visit = T.visit('living-light', 6);
+  const rnd = T.rng(visit.seed);
+  const params = new URLSearchParams(location.search);
+
+  /* ----- The hour decides the light -----
+     Dawn is pink and low, midday pale and high, late afternoon tangerine,
+     dusk vermilion, night a pale moon on a blue wall with a lamp still on. */
+  const L = T.hexToLin;
+  const keys = [
+    { h: 0,    sun: L('#aebfe0'), si: 0.42, amb: L('#25324a'), ai: 0.55, lamp: 0.9, alt: 0.55, prism: 0 },
+    { h: 5,    sun: L('#aebfe0'), si: 0.40, amb: L('#2c3650'), ai: 0.6,  lamp: 0.8, alt: 0.5,  prism: 0 },
+    { h: 6.5,  sun: L('#ffbca6'), si: 1.45, amb: L('#b5abc4'), ai: 0.56, lamp: 0.1, alt: 0.25, prism: 0.6 },
+    { h: 9,    sun: L('#ffe3c2'), si: 1.6,  amb: L('#cfc6ba'), ai: 0.62, lamp: 0,   alt: 0.55, prism: 1 },
+    { h: 13,   sun: L('#fff0dc'), si: 1.7,  amb: L('#d5cfc3'), ai: 0.66, lamp: 0,   alt: 0.85, prism: 1 },
+    { h: 16,   sun: L('#ffc386'), si: 1.85, amb: L('#cdb7a2'), ai: 0.6,  lamp: 0,   alt: 0.5,  prism: 1 },
+    { h: 18,   sun: L('#ffa060'), si: 1.75, amb: L('#bb9d8a'), ai: 0.52, lamp: 0.05,alt: 0.28, prism: 0.7 },
+    { h: 19.5, sun: L('#ff7a58'), si: 1.25, amb: L('#7f7290'), ai: 0.46, lamp: 0.45,alt: 0.18, prism: 0 },
+    { h: 21,   sun: L('#aebfe0'), si: 0.42, amb: L('#2a3550'), ai: 0.55, lamp: 0.9, alt: 0.55, prism: 0 },
+    { h: 24,   sun: L('#aebfe0'), si: 0.42, amb: L('#25324a'), ai: 0.55, lamp: 0.9, alt: 0.55, prism: 0 }
+  ];
+  function lightAt(hour) {
+    let i = 0; while (i < keys.length - 2 && keys[i + 1].h <= hour) i++;
+    const a = keys[i], b = keys[i + 1], k = Math.min(1, Math.max(0, (hour - a.h) / (b.h - a.h)));
+    const s = k * k * (3 - 2 * k), mix = (x, y) => x + (y - x) * s, mix3 = (x, y) => x.map((v, j) => mix(v, y[j]));
+    return { sun: mix3(a.sun, b.sun), si: mix(a.si, b.si), amb: mix3(a.amb, b.amb), ai: mix(a.ai, b.ai), lamp: mix(a.lamp, b.lamp), alt: mix(a.alt, b.alt), prism: mix(a.prism, b.prism) };
+  }
+  const hourNow = () => (params.has('hour') ? parseFloat(params.get('hour')) : T.dayPhase() * 24);
+
+  /* ----- This visit's window ----- */
+  const win = {
+    transom: [3, 4, 4, 5][Math.floor(rnd() * 4)],
+    curtain: rnd() < 0.6,
+    side: rnd() < 0.5 ? -1 : 1,          // which way the light leans
+    prismAt: [0.07 + rnd() * 0.1, 0.42 + rnd() * 0.2],
+    glass: rnd() * 100
+  };
+
+  /* ----- Lettering on the glass, as a texture ----- */
+  function letteringTexture(gl) {
+    const c = document.createElement('canvas'); c.width = 2048; c.height = 512;
+    const g = c.getContext('2d');
+    g.fillStyle = '#000'; g.fillRect(0, 0, 2048, 512);
+    const path = new Path2D(document.querySelector('#wm path').getAttribute('d'));
+    const s = 1840 / 1393;
+    g.translate((2048 - 1393 * s) / 2, (512 - 295 * s) / 2);
+    g.scale(s, s);
+    g.fillStyle = '#fff'; g.fill(path, 'evenodd');
+    const tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, gl.LUMINANCE, gl.UNSIGNED_BYTE, c);
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    return tex;
+  }
+
+  const gl = T.gl(canvas);
+  if (!gl) { document.body.classList.add('is-ready'); return; }
+
+  const WALL = T.glslNoise + `
+uniform vec2 uRes; uniform float uTime, uSeed;
+uniform vec3 uO; uniform vec4 uInv;     // wall -> window: uv = inv * (p - O)
+uniform vec2 uLen;                      // window edge lengths on the wall
+uniform vec3 uSun; uniform vec3 uAmb; uniform float uLamp, uCloud, uSoft, uPrism, uCurtain, uSide;
+uniform float uTransom; uniform vec2 uPrismAt; uniform float uGlass;
+uniform sampler2D uWord;
+varying vec2 vUv;
+
+// signed distance (wall units, + inside) to the panes of a shopfront window:
+// a row of small transom lights over one large plate of glass.
+float panes(vec2 uv){
+  float dx=min(uv.x,1.-uv.x)*uLen.x, dy=min(uv.y,1.-uv.y)*uLen.y;
+  float d=min(dx,dy);
+  float vt=.24;                                           // transom bar position (from top)
+  float bar=abs(uv.y-vt)*uLen.y-.013;
+  d=min(d,bar);
+  if(uv.y<vt){
+    float cell=uv.x*uTransom; float m=abs(fract(cell+.5)-.5)/uTransom*uLen.x-.0062;
+    d=min(d,m);
+  }
+  return d;
+}
+
+void main(){
+  float asp=uRes.x/uRes.y;
+  vec2 p=vec2(vUv.x*asp,vUv.y);
+  float t=uTime;
+
+  // plaster: uneven albedo and a little relief
+  float pl=fbm(p*5.+uSeed), pl2=fbm3(p*23.-uSeed);
+  vec3 albedo=vec3(.92,.86,.78)*(.955+.06*pl+.03*pl2);
+
+  // where on the window does this bit of wall look back to?
+  vec2 q=p-uO.xy;
+  vec2 uv=vec2(dot(uInv.xy,q),dot(uInv.zw,q));
+
+  // penumbra widens with distance from the sill and when a cloud thins the sun
+  float soft=uSoft*(.65+.7*uv.y)*(1.+uCloud*2.2);
+  float d=panes(uv);
+  float lit=smoothstep(-soft,soft,d);
+
+  // old glass is never flat: the light ripples a little
+  float wav=fbm3(vec2(uv.x*3.,uv.y*11.)+uGlass+t*.002);
+  lit*=1.+(wav-.5)*.12;
+  lit*=1.06-.14*clamp(uv.y,0.,1.);                       // brighter nearer the window
+
+  // the lettering on the large pane casts its shadow
+  float wordW=.8, wordH=wordW*(512./2048.)*uLen.x/uLen.y;
+  vec2 wv=vec2((uv.x-(1.-wordW)*.5)/wordW,(uv.y-.5)/wordH);
+  float blur=log2(1.+soft*900.)-.6;
+  float letters=0.;
+  if(wv.x>0.&&wv.x<1.&&wv.y>0.&&wv.y<1.) letters=texture2D(uWord,vec2(wv.x,wv.y),blur).r;
+  lit*=1.-letters*.9;
+
+  // a sheer curtain drawn to one side, moving in the air from the open window
+  float edgeU=uSide>0.?uv.x:1.-uv.x;
+  float cEdge=.2+.035*sin(uv.y*3.1+t*.21)+.02*sin(uv.y*7.3-t*.33);
+  float inCurtain=(1.-smoothstep(cEdge-.03,cEdge+.03,edgeU))*uCurtain;
+  float folds=.5+.5*sin(edgeU*70.+sin(t*.27+uv.y*4.)*1.6+sin(t*.13)*2.);
+  lit*=1.-inCurtain*(.38+.22*folds);
+
+  // a passing cloud
+  lit*=1.-uCloud*.55;
+
+  // the halo the bright patch spreads around itself
+  float glow=smoothstep(-soft*14.-.05,soft*10.+.07,d)*(1.-uCloud*.5);
+
+  vec3 light=uAmb*(.8+.28*vUv.y)              // sky fill, stronger toward the ceiling
+            +uSun*.075                            // sun bounced around the room
+            +uSun*lit
+            +uSun*glow*.09;
+  // a lamp left on, low in the room
+  vec2 lp=vec2(-.15,-.25);
+  float ld=length((p-lp)*vec2(.8,1.));
+  light+=vec3(1.,.48,.16)*uLamp*.55*exp(-ld*ld*1.6);
+
+  // raking light picks up the plaster relief inside the patch
+  float bump=(fbm3(p*40.+3.)-.5);
+  light*=1.+bump*lit*.06;
+
+  // a small rainbow thrown by a glass on the sill
+  vec2 pr=p-vec2(uPrismAt.x*asp,uPrismAt.y);
+  pr=mat2(.94,-.34,.34,.94)*pr;
+  float band=exp(-pow(pr.y/.05,2.))*exp(-pow(pr.x/.11,2.));
+  pr.y+=pr.x*pr.x*.6;
+  float along=clamp(pr.y/.1+.5,0.,1.);
+  vec3 spec=clamp(vec3(1.5-abs(along*4.-3.2),1.5-abs(along*4.-2.),1.5-abs(along*4.-.8))-.5,0.,1.);
+  light+=spec*band*uPrism*.45*(1.-uCloud)*(1.-smoothstep(-.02,.0,d));
+
+  vec3 col=albedo*light;
+  col=1.-exp(-col*1.55);                       // highlights roll off like film
+  gl_FragColor=vec4(toSrgb(col),clamp(lit*(1.-letters),0.,1.));
+}`;
+
+  const LENS = T.glslNoise + T.glslGrain + `
+uniform sampler2D uTex; uniform vec2 uRes; uniform float uTime, uDpr, uSeed, uMotes;
+uniform vec4 uAir;           // cursor px (x,y) and its velocity (px/s)
+varying vec2 vUv;
+
+// one layer of dust: one mote at most per cell, wandering, glinting in the sun
+float motes(vec2 px,float cell,float speed,float seed){
+  vec2 dpx=uAir.xy-px; float near=exp(-dot(dpx,dpx)/(160.*160.*uDpr*uDpr));
+  px-=uAir.zw*near*.35;                                    // the air a hand moves
+  vec2 drift=vec2(sin(uTime*.05+seed)*30.,uTime*speed);
+  vec2 g=(px+drift)/cell; vec2 id=floor(g); vec2 f=fract(g);
+  float h=h21(id+seed);
+  if(h>.2) return 0.;
+  float h2=h21(id+seed+7.1), h3=h21(id+seed+3.3);
+  vec2 c=vec2(.3+.4*h2,.3+.4*h3)+.12*vec2(sin(uTime*(.2+h2*.3)+h*30.),cos(uTime*(.17+h3*.3)+h*20.));
+  float r=(.5+h2*1.1)*uDpr/cell;
+  float dd=length(f-c);
+  float glint=.35+.65*pow(.5+.5*sin(uTime*(.6+h3*1.4)+h*50.),4.);
+  return smoothstep(r,r*.15,dd)*glint;
+}
+
+void main(){
+  vec2 px=gl_FragCoord.xy;
+  vec4 s=texture2D(uTex,vUv);
+  vec3 c=s.rgb;
+  float beam=smoothstep(.15,.8,s.a);
+  float m=motes(px,46.*uDpr,9.*uDpr,uSeed)*.9+motes(px,83.*uDpr,14.*uDpr,uSeed+11.)*.6;
+  c+=vec3(1.,.95,.86)*m*beam*.32*uMotes;
+  c=applyGrain(c,px,uSeed,.06);
+  gl_FragColor=vec4(c,1.);
+}`;
+
+  const wall = T.program(gl, WALL), lens = T.program(gl, LENS);
+  const word = letteringTexture(gl);
+  let W = 0, H = 0, dpr = 1, lowW = 0, lowH = 0, target = null, loop = null, geo = null;
+
+  /* The window's footprint on the wall: a parallelogram that leans with the sun
+     and creeps across the wall as the afternoon goes on. */
+  function geometry(W, H, t, light) {
+    const asp = W / H, portrait = asp < 0.9;
+    const w = portrait ? asp * 1.04 : Math.min(asp * 0.74, 1.3);
+    const h = portrait ? 0.64 : 0.98 + (light.alt - 0.5) * 0.2;
+    const lean = win.side * (0.32 - light.alt * 0.18) + Math.sin(t / 380) * 0.02;
+    const creep = Math.sin(t / 520 + win.glass) * 0.025;
+    const cx = (portrait ? asp * 0.5 : asp * (win.side > 0 ? 0.6 : 0.52)) + creep, cy = portrait ? 0.62 : 0.62;
+    // U runs along the top of the window, V down its side (sheared by the lean)
+    const U = [w, 0.0], V = [lean * h, -h];
+    const O = [cx - U[0] / 2 - V[0] / 2, cy - U[1] / 2 - V[1] / 2];
+    const det = U[0] * V[1] - U[1] * V[0];
+    const inv = [V[1] / det, -V[0] / det, -U[1] / det, U[0] / det];
+    return { O, inv, len: [Math.hypot(U[0], U[1]), Math.hypot(V[0], V[1])] };
+  }
+
+  T.onResize((w, h, d) => {
+    W = w; H = h; dpr = d;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    const s = Math.min(1, 1150 / Math.max(W, H));
+    lowW = Math.round(W * s); lowH = Math.round(H * s);
+    target = T.target(gl, lowW, lowH, target);
+    document.documentElement.style.setProperty('--mx', Math.round(Math.max(22, Math.min(W * 0.05, 72))) + 'px');
+    if (loop) render(loop.time, 0);
+  });
+
+  let air = [0, 0, 0, 0], night = null;
+  function render(t) {
+    const light = lightAt(hourNow());
+    const isNight = light.si < 0.7;
+    if (isNight !== night) {
+      night = isNight;
+      document.body.classList.toggle('is-night', night);
+      document.documentElement.style.setProperty('--text', night ? '#e9e1d4' : '#2b231d');
+      document.querySelector('meta[name=theme-color]').content = night ? '#1f2636' : '#e9dccb';
+      document.body.style.background = night ? '#1f2636' : '#e9dccb';
+    }
+    const g = geometry(W, H, t, light);
+    // clouds: rare, slow, partial
+    const n = Math.sin(t * 0.021 + visit.seed) * 0.5 + Math.sin(t * 0.0131 + 2.1) * 0.35 + Math.sin(t * 0.0057) * 0.15;
+    const cloud = T.reduced() ? 0 : Math.max(0, Math.min(1, (n - 0.45) / 0.3)) * 0.85;
+
+    gl.useProgram(wall);
+    gl.uniform2f(wall.u('uRes'), lowW, lowH);
+    gl.uniform1f(wall.u('uTime'), t);
+    gl.uniform1f(wall.u('uSeed'), (visit.seed % 1000) / 41);
+    gl.uniform3f(wall.u('uO'), g.O[0], g.O[1], 0);
+    gl.uniform4f(wall.u('uInv'), g.inv[0], g.inv[1], g.inv[2], g.inv[3]);
+    gl.uniform2f(wall.u('uLen'), g.len[0], g.len[1]);
+    gl.uniform3fv(wall.u('uSun'), light.sun.map(v => v * light.si));
+    gl.uniform3fv(wall.u('uAmb'), light.amb.map(v => v * light.ai));
+    gl.uniform1f(wall.u('uLamp'), light.lamp);
+    gl.uniform1f(wall.u('uCloud'), cloud);
+    gl.uniform1f(wall.u('uSoft'), 0.0035);
+    gl.uniform1f(wall.u('uPrism'), light.prism * (visit.index % 2 === 0 ? 1 : 0));
+    gl.uniform1f(wall.u('uCurtain'), win.curtain ? 1 : 0);
+    gl.uniform1f(wall.u('uSide'), win.side);
+    gl.uniform1f(wall.u('uTransom'), win.transom);
+    gl.uniform2f(wall.u('uPrismAt'), win.prismAt[0], win.prismAt[1]);
+    gl.uniform1f(wall.u('uGlass'), win.glass);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, word);
+    gl.uniform1i(wall.u('uWord'), 1);
+    T.draw(gl, wall, target, lowW, lowH);
+
+    gl.useProgram(lens);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, target.tex);
+    gl.uniform1i(lens.u('uTex'), 0);
+    gl.uniform2f(lens.u('uRes'), canvas.width, canvas.height);
+    gl.uniform1f(lens.u('uTime'), t);
+    gl.uniform1f(lens.u('uDpr'), dpr);
+    gl.uniform1f(lens.u('uSeed'), (visit.seed % 89) + 0.5);
+    gl.uniform1f(lens.u('uMotes'), T.reduced() || night ? 0 : 1);
+    gl.uniform4f(lens.u('uAir'), air[0], air[1], air[2], air[3]);
+    T.draw(gl, lens, null, canvas.width, canvas.height);
+  }
+
+  const startAt = rnd() * 2000;
+  loop = T.loop((t, dt) => {
+    const P = T.pointer;
+    P.step(dt, 0.6);
+    air = [P.sx * canvas.width, (1 - P.sy) * canvas.height, P.vx * canvas.width * 0.6, -P.vy * canvas.height * 0.6];
+    render(t);
+  }, { offset: startAt, maxFps: 60 });
+
+  let still = 0;
+  function setMotion() {
+    clearInterval(still);
+    if (T.reduced()) { loop.stop(); render(loop.time); still = setInterval(() => render(loop.time), 60000); }
+    else loop.start();
+  }
+  T.onMotionChange(setMotion);
+  setMotion();
+  render(loop.time);
+  document.body.classList.add('is-ready');
+
+  T.room({ trigger: document.getElementById('enter'), onEnter() { loop.fps(24); }, onLeave() { loop.fps(60); } });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<!-- Extracted unchanged from archive/studio-website-2026-11-17/index.html (Study No. 001). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" width="1260" height="1260"><title>Open something. Study No. 001</title><desc>A tangerine with a green sprig. Static, closed state of the interactive study first published on ex-tangerina.com, 17 November 2026.</desc>
+<g class="inner-orange"><circle cx="210" cy="220" r="136" fill="#ffdc99"/><circle cx="210" cy="220" r="121" fill="#fff5d9"/>
+<g fill="#ffa445" stroke="#fff1cf" stroke-width="5" stroke-linejoin="round">
+<path d="M210 220L210 110 A110 110 0 0 1 287.8 142.2Z"/><path d="M210 220L287.8 142.2 A110 110 0 0 1 320 220Z"/><path d="M210 220L320 220 A110 110 0 0 1 287.8 297.8Z"/><path d="M210 220L287.8 297.8 A110 110 0 0 1 210 330Z"/><path d="M210 220L210 330 A110 110 0 0 1 132.2 297.8Z"/><path d="M210 220L132.2 297.8 A110 110 0 0 1 100 220Z"/><path d="M210 220L100 220 A110 110 0 0 1 132.2 142.2Z"/><path d="M210 220L132.2 142.2 A110 110 0 0 1 210 110Z"/>
+</g><circle cx="210" cy="220" r="16" fill="#fff3d9"/>
+</g>
+<g class="peel left"><path d="M210 83A137 137 0 0 0 210 357Z" fill="#ffae63"/><path d="M210 91A129 129 0 0 0 210 349Z" fill="#ff782b"/><path d="M183 108Q125 131 111 191" fill="none" stroke="#ffc477" stroke-width="4" stroke-linecap="round" opacity=".65"/></g>
+<g class="peel right"><path d="M210 83A137 137 0 0 1 210 357Z" fill="#ffae63"/><path d="M210 91A129 129 0 0 1 210 349Z" fill="#ff782b"/><path d="M235 109Q289 127 314 185" fill="none" stroke="#ffc477" stroke-width="4" stroke-linecap="round" opacity=".65"/></g>
+<g class="sprig"><path d="M210 89Q215 68 209 54" stroke="#4b6d3b" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M210 66Q251 17 297 50Q271 87 210 66Z" fill="#335d3c"/><path d="M210 66Q256 47 281 50" stroke="#8bb06b" stroke-width="2" fill="none"/></g>
+</svg>

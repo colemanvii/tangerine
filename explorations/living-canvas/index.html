@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#f1e8d8">
+<title>Living Canvas</title>
+<meta name="description" content="Three explorations for the Tangerine landing page. Design study, not deployed.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='34' r='23' fill='%23ee7a2c'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="shared.css">
+<style>
+:root{--edge:clamp(22px,5vw,72px)}
+html,body{height:auto;min-height:100%}
+body{overflow:auto;background:#f1e8d8;color:#1d1a16;padding:var(--edge);display:flex;flex-direction:column;min-height:100svh}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:20px;font-size:clamp(15px,1.2vw,18px)}
+header p{margin:0;color:#7a7064}
+h1{margin:0;font-weight:400;font-style:italic;font-size:clamp(17px,1.3vw,20px)}
+ol{list-style:none;margin:auto 0;padding:clamp(48px,10vh,120px) 0;display:grid;gap:clamp(26px,5vh,54px)}
+li a{display:grid;grid-template-columns:clamp(34px,4vw,64px) 1fr;column-gap:12px;text-decoration:none;align-items:baseline}
+li .n{font-size:clamp(15px,1.2vw,18px);color:#7a7064}
+li .t{font-size:clamp(46px,8.4vw,128px);line-height:.92;letter-spacing:-.025em;transition:color .5s ease}
+li .d{grid-column:2;margin-top:10px;font-size:clamp(16px,1.35vw,21px);color:#7a7064;font-style:italic;max-width:46ch}
+li a:hover .t,li a:focus-visible .t{color:#e4612a}
+footer{font-size:clamp(14px,1.05vw,16px);color:#7a7064;max-width:62ch;line-height:1.45}
+@media (max-width:640px){header{flex-direction:column;gap:6px}}
+@media (prefers-reduced-motion:reduce){li .t{transition:none}}
+</style>
+</head>
+<body>
+<header><h1>Living Canvas</h1><p>Three explorations for the Tangerine landing page · November 2026</p></header>
+<ol>
+  <li><a href="color-field.html"><span class="n">01</span><span class="t">Color Field</span><span class="d">Painted fields that drift, bleed and never settle the same way twice. A new study on every visit.</span></a></li>
+  <li><a href="living-light.html"><span class="n">02</span><span class="t">Living Light</span><span class="d">Sun through a studio window, lettered with our name. It follows your time of day.</span></a></li>
+  <li><a href="the-grove.html"><span class="n">03</span><span class="t">The Grove</span><span class="d">Cut paper and printers’ ink. A citrus branch in a breeze you can stir.</span></a></li>
+</ol>
+<footer>A design study on a review branch. Not deployed, not approved, and not a replacement for the current site.</footer>
+</body>
+</html>
