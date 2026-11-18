@@ -2,177 +2,110 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f7f4ed">
-<meta name="description" content="Tangerine is an independent creative practice. We build brands, make images, and tell stories.">
-<meta property="og:title" content="Tangerine — We build brands.">
-<meta property="og:description" content="An independent creative practice by Cole Calfee.">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fcfcfa">
+<meta name="description" content="Tangerine is the independent creative practice of Cole Calfee. Recent work, newest first.">
+<meta property="og:title" content="Tangerine">
+<meta property="og:description" content="An independent creative practice. Recent work, newest first.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ex-tangerina.com/">
-<title>Tangerine — We build brands.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<title>Tangerine</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='34' r='23' fill='%23ed5925'/%3E%3Cpath d='M31 12Q39 1 53 8Q44 19 31 12Z' fill='%232d5034'/%3E%3C/svg%3E">
 <style>
-:root{--paper:#f7f4ed;--ink:#24221e;--orange:#ee5925;--quiet:#767066;--rule:#cac5b9;--sans:"DM Sans",Helvetica,Arial,sans-serif;--serif:"Instrument Serif",Georgia,serif}
+:root{
+  --white:#fcfcfa;--graphite:#1c1c1a;--quiet:#6c6c67;--lamp:#f26b21;--off:#cfcfca;
+  --gutter:clamp(18px,3.4vw,48px);
+  --label:500 11px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;
+  --readout:400 11px/1 ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
-button,a{color:inherit}a{text-decoration:none}
-a:focus-visible,button:focus-visible{outline:2px solid var(--orange);outline-offset:5px}
-::selection{background:var(--orange);color:white}
-.wrap{max-width:1700px;margin:0 auto;padding-left:clamp(22px,4.5vw,76px);padding-right:clamp(22px,4.5vw,76px)}
-header{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;min-height:76px;border-bottom:1px solid var(--rule)}
-.logo{font-family:var(--serif);font-size:35px;line-height:1;letter-spacing:-.035em}.logo span{color:var(--orange)}
-nav{display:flex;align-items:center;gap:clamp(17px,2.8vw,42px)}
-nav a,.small,.index,.number{font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
-nav a:hover,.foot-links a:hover,.contact:hover{color:var(--orange)}
-.hero{min-height:calc(100svh - 76px);max-height:1080px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.hero-top{display:flex;justify-content:space-between;gap:20px;padding-top:30px;color:var(--quiet)}
-.hero-top p{margin:0;font-size:11px;letter-spacing:.09em;text-transform:uppercase;line-height:1.55}
-.hero-top p:last-child{text-align:right}
-.hero-center{position:relative;min-height:400px;flex:1;display:flex;flex-direction:column;justify-content:center}
-.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(85px,16.6vw,280px);letter-spacing:-.073em;line-height:.72;margin:0 0 .2em -.045em;position:relative;z-index:2;white-space:nowrap;pointer-events:none}
-.hero h1 i{font-weight:400;font-style:normal;color:var(--orange)}
-.orange-stage{position:absolute;right:-7%;top:47%;width:clamp(300px,41vw,620px);aspect-ratio:1;transform:translateY(-50%);z-index:1;pointer-events:none}
-.orange-stage svg{display:block;width:100%;height:100%;filter:drop-shadow(8px 19px 0px rgba(44,27,7,.035))}
-.hero-bottom{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid var(--rule);padding:28px 0 40px;gap:25px}
-.tagline{font-family:var(--serif);font-size:clamp(46px,5.7vw,94px);letter-spacing:-.035em;line-height:.91;margin:0;font-weight:400}
-.tagline em{color:var(--orange);font-weight:400}
-.hero-bottom aside{max-width:210px;font-size:12px;color:var(--quiet);line-height:1.65}
-.section{border-top:1px solid var(--ink);padding-top:36px;padding-bottom:120px}
-.section-heading{display:grid;grid-template-columns:25% 1fr;gap:25px;margin-bottom:80px}
-.kicker{color:var(--orange);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
-.section-heading h2{font-family:var(--serif);font-weight:400;letter-spacing:-.035em;font-size:clamp(42px,5vw,82px);line-height:.99;margin:-9px 0 0;max-width:900px}
-.work-list{border-top:1px solid var(--rule)}
-.work-row{padding:29px 0;display:grid;grid-template-columns:7% 1fr 27% 14%;gap:18px;align-items:baseline;border-bottom:1px solid var(--rule)}
-.work-row h3{font:400 clamp(35px,5vw,76px)/.9 var(--serif);letter-spacing:-.03em;margin:0}
-.work-row p{margin:0;font-size:12px;line-height:1.6;color:var(--quiet)}
-.number{color:var(--orange)}
-.status{text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--quiet)}
-.section-note{margin:18px 0 0;font-size:11px;color:var(--quiet);line-height:1.6}
-.lab{background:#ed5925;color:#fffaf0;padding:34px 0 70px}
-.lab .kicker{color:#fffaf0}
-.lab-heading{display:flex;justify-content:space-between;align-items:end;gap:30px;border-bottom:1px solid rgba(255,250,240,.55);padding:0 0 25px}
-.lab-heading h2{font:400 clamp(68px,10.5vw,168px)/.84 var(--serif);letter-spacing:-.06em;margin:20px 0 0}
-.lab-heading p{font-size:12px;max-width:230px;line-height:1.55}
-.experiment{min-height:570px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
-.exp-copy{max-width:430px}
-.exp-copy h3{font:400 clamp(50px,6.4vw,100px)/.94 var(--serif);letter-spacing:-.03em;margin:20px 0}
-.exp-copy p{line-height:1.7;font-size:14px;max-width:300px}
-.exp-copy .index{opacity:.8}
-.open-button{appearance:none;background:transparent;border:1px solid rgba(255,250,240,.8);font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#fffaf0;padding:15px 20px;cursor:pointer;margin-top:20px;transition:background .2s,color .2s}
-.open-button:hover{background:#fffaf0;color:#ee5925}
-.citrus{width:min(100%,480px);margin:0 auto;display:block;overflow:visible;filter:drop-shadow(8px 14px 0 rgba(68,30,13,.08))}
-.inner-orange{opacity:1}.peel{transition:transform .9s cubic-bezier(.2,.8,.18,1)}.peel.left{transform-origin:205px 224px}.peel.right{transform-origin:215px 224px}
-.is-open .peel.left{transform:translate(-98px,25px) rotate(-23deg)}
-.is-open .peel.right{transform:translate(98px,25px) rotate(23deg)}
-.sprig{transition:transform .9s cubic-bezier(.2,.8,.18,1);transform-origin:210px 87px}.is-open .sprig{transform:translate(-100px,25px) rotate(-23deg)}
-.reveal-word{font:italic 400 29px var(--serif);text-anchor:middle;fill:#29201b}
-.about{padding-top:120px;padding-bottom:100px}
-.about-layout{display:grid;grid-template-columns:25% 1fr;gap:25px}
-.about p{font:400 clamp(36px,4.75vw,76px)/1.03 var(--serif);letter-spacing:-.025em;margin:0;max-width:980px}
-.about p em{color:var(--orange)}
-.about .detail{font:400 13px/1.8 var(--sans);color:var(--quiet);max-width:490px;margin-top:42px;letter-spacing:0}
-footer{border-top:1px solid var(--ink);padding-top:28px;padding-bottom:42px}
-.footer-head{display:flex;align-items:end;justify-content:space-between;gap:20px}
-.contact{font:400 clamp(58px,10vw,170px)/.85 var(--serif);letter-spacing:-.055em}
-.footer-head>p{font-size:11px;line-height:1.6;max-width:150px;text-transform:uppercase;letter-spacing:.06em}
-.foot-links{display:flex;justify-content:space-between;gap:25px;border-top:1px solid var(--rule);margin-top:80px;padding-top:20px;color:var(--quiet);font-size:11px}
-@media(max-width:900px){
-.hero-center{min-height:360px}.orange-stage{width:50vw;right:-11%}
-.section-heading{grid-template-columns:23% 1fr}
-.experiment{min-height:520px}
+html,body{height:100%}
+body{margin:0;background:var(--white);color:var(--graphite);-webkit-font-smoothing:antialiased;
+  display:grid;grid-template-rows:minmax(0,1fr) auto;height:100svh;overflow:hidden}
+button{font:inherit;color:inherit;text-transform:inherit;letter-spacing:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus{outline:none}
+:focus-visible{outline:1px solid var(--lamp);outline-offset:6px}
+[hidden]{display:none!important}
+
+/* The artwork */
+main{position:relative;min-height:0;touch-action:pinch-zoom}
+#art{position:absolute;top:calc(var(--gutter) + env(safe-area-inset-top));right:var(--gutter);bottom:0;left:var(--gutter);display:block;width:calc(100% - 2 * var(--gutter));height:calc(100% - var(--gutter) - env(safe-area-inset-top));object-fit:contain;opacity:0;transition:opacity .28s ease-out;user-select:none;-webkit-user-drag:none}
+#art.is-shown{opacity:1}
+#notice{position:absolute;inset:0;display:grid;place-items:center;margin:0;font:var(--label);letter-spacing:.16em;text-transform:uppercase;color:var(--quiet)}
+
+/* The instrument */
+.bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:24px;
+  min-height:72px;padding:0 var(--gutter) env(safe-area-inset-bottom);
+  font:var(--label);letter-spacing:.16em;text-transform:uppercase}
+.bar button{min-height:44px;display:inline-flex;align-items:center;touch-action:manipulation}
+.brand{justify-self:start;gap:11px}
+.lamp{width:7px;height:7px;border-radius:50%;background:var(--off);flex:none;transition:background .4s}
+.lamp.is-live{background:var(--lamp)}
+.lamp.is-blinking{animation:blink .9s ease-in-out}
+@keyframes blink{0%,100%{opacity:1}40%{opacity:.12}}
+
+.readout{display:flex;align-items:baseline;gap:22px;white-space:nowrap;min-width:0}
+#title::before,#title::after{content:'"'}
+#project,.readout time{color:var(--quiet)}
+time,#count{font:var(--readout);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+
+.controls{justify-self:end;display:flex;align-items:center;gap:22px}
+.paging{display:flex;align-items:center;gap:2px;color:var(--quiet)}
+.paging button{width:34px;justify-content:center;color:var(--graphite);font:400 15px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:0}
+#count{min-width:7ch;text-align:center;white-space:nowrap}
+.paging button:disabled{color:var(--off);cursor:default}
+.bar button:hover:not(.brand):not(:disabled){color:var(--lamp)}
+
+/* Retrieval */
+dialog{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;
+  padding:calc(var(--gutter) + env(safe-area-inset-top)) var(--gutter) var(--gutter);background:var(--white);color:var(--graphite);
+  font:var(--label);letter-spacing:.16em;text-transform:uppercase}
+dialog::backdrop{background:var(--white)}
+.query{display:flex;align-items:center;gap:24px;max-width:760px;margin:0 auto;border-bottom:1px solid var(--graphite)}
+.query input{flex:1;min-width:0;border:0;border-radius:0;background:none;color:inherit;padding:14px 0;
+  font:400 clamp(22px,3vw,30px)/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:-.01em;text-transform:none;-webkit-appearance:none;appearance:none}
+.query input:focus-visible{outline:none}
+.query:focus-within{border-bottom-color:var(--lamp)}
+.query input::placeholder{color:var(--off)}
+.query input::-webkit-search-cancel-button{display:none}
+.query button{min-height:44px;color:var(--quiet)}
+#matches{max-width:760px;margin:18px auto 0;overflow:auto;max-height:calc(100% - 90px)}
+#matches button{display:grid;grid-template-columns:1fr auto;gap:6px 24px;width:100%;text-align:left;padding:15px 0;align-items:baseline}
+#matches button:hover .t,#matches button:focus-visible .t{color:var(--lamp)}
+#matches button:focus-visible{outline-offset:2px}
+#matches small{grid-column:1;font:inherit;color:var(--quiet)}
+#matches time{grid-row:1;grid-column:2;color:var(--quiet)}
+#matches p{margin:15px 0;color:var(--quiet)}
+
+@media (max-width:960px){
+  .bar{grid-template-columns:1fr auto;grid-template-areas:"readout readout" "brand controls";row-gap:2px;padding-top:14px}
+  .brand{grid-area:brand}.controls{grid-area:controls;gap:14px}.readout{grid-area:readout;flex-wrap:wrap;row-gap:9px;column-gap:16px;white-space:normal}
+  #title{flex-basis:100%}
 }
-@media(max-width:680px){
-header{min-height:69px}.logo{font-size:32px}nav{gap:15px}nav a{font-size:10px}nav a:nth-child(2){display:none}
-.hero{min-height:690px;height:calc(100svh - 69px);max-height:850px}
-.hero-top{padding-top:24px}.hero-top p{font-size:9px}
-.hero-center{min-height:260px}
-.hero h1{font-size:clamp(67px,18.2vw,122px);margin-left:-.06em}
-.orange-stage{width:87vw;right:-35%;top:41%}
-.hero-bottom{display:block;padding:25px 0 27px}
-.tagline{font-size:54px}.hero-bottom aside{font-size:11px;max-width:260px;margin-top:25px}
-.section{padding:30px 0 84px}.section-heading{display:block;margin-bottom:46px}.section-heading h2{margin:25px 0 0;font-size:46px}
-.work-row{grid-template-columns:30px 1fr;gap:6px 16px;padding:26px 0}
-.work-row h3{font-size:43px}.work-row p{grid-column:2}.work-row .status{grid-column:2;text-align:left}
-.lab{padding-top:28px;padding-bottom:35px}.lab-heading{display:block}.lab-heading h2{font-size:80px}.lab-heading p{font-size:11px;margin-top:22px}
-.experiment{min-height:0;display:flex;flex-direction:column-reverse;gap:5px;padding:25px 0}
-.citrus{width:min(100%,350px)}.exp-copy{align-self:stretch}.exp-copy h3{font-size:52px;margin:12px 0}.exp-copy p{font-size:12px}
-.about{padding-top:80px;padding-bottom:90px}.about-layout{display:block}.about p{font-size:43px;margin-top:28px}.about .detail{font-size:12px;margin-top:27px}
-.footer-head{display:block}.contact{font-size:clamp(65px,16vw,100px)}.footer-head>p{margin-top:25px}.foot-links{margin-top:55px;flex-wrap:wrap;font-size:10px}
+@media (prefers-reduced-motion:reduce){
+  #art,.lamp{transition:none}
+  .lamp.is-blinking{animation:none}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
-<header class="wrap">
-  <a class="logo" href="#top" aria-label="Tangerine home">tangerine<span>.</span></a>
-  <nav aria-label="Main"><a href="#work">Work</a><a href="#experiments">Experiments</a><a href="#about">About</a><a href="https://www.instagram.com/ex.tangerina/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></nav>
-</header>
-<main id="top">
-  <section class="hero wrap" aria-labelledby="hero-title">
-    <div class="hero-top"><p>Independent creative practice<br>Georgia &amp; everywhere</p><p>Established in curiosity<br>Made with intention</p></div>
-    <div class="hero-center">
-      <div class="orange-stage" aria-hidden="true">
-        <svg viewBox="0 0 420 420"><circle cx="210" cy="220" r="137" fill="#f4b368"/><circle cx="210" cy="220" r="120" fill="#f9cf91"/>
-        <g fill="#ef662d" stroke="#f8d8a9" stroke-width="4">
-          <path d="M210 220L210 111 A109 109 0 0 1 287.1 142.9Z"/><path d="M210 220L287.1 142.9 A109 109 0 0 1 319 220Z"/><path d="M210 220L319 220 A109 109 0 0 1 287.1 297.1Z"/><path d="M210 220L287.1 297.1 A109 109 0 0 1 210 329Z"/><path d="M210 220L210 329 A109 109 0 0 1 132.9 297.1Z"/><path d="M210 220L132.9 297.1 A109 109 0 0 1 101 220Z"/><path d="M210 220L101 220 A109 109 0 0 1 132.9 142.9Z"/><path d="M210 220L132.9 142.9 A109 109 0 0 1 210 111Z"/>
-        </g><circle cx="210" cy="220" r="16" fill="#f8d8a9"/>
-        <g fill="#ee5925"><path d="M210 83 A137 137 0 0 0 210 357Z"/><path d="M210 83 A137 137 0 0 1 210 357Z"/></g>
-        <path d="M210 84Q213 69 209 57" fill="none" stroke="#4f5936" stroke-width="7" stroke-linecap="round"/><path d="M210 68Q251 15 292 46Q275 85 210 68Z" fill="#3c633b"/><path d="M210 68Q247 49 278 49" fill="none" stroke="#88a05f" stroke-width="2"/>
-        </svg>
-      </div>
-      <h1 id="hero-title">tangerine<i>.</i></h1>
-    </div>
-    <div class="hero-bottom"><h2 class="tagline">We build <em>brands.</em></h2><aside>Ideas, images, identities, stories and the beautiful things in between.</aside></div>
-  </section>
-  <section id="work" class="section wrap">
-    <div class="section-heading"><span class="kicker">01 / The work</span><h2>Good work, with good people. Built to mean something.</h2></div>
-    <div class="work-list">
-      <div class="work-row"><span class="number">01</span><h3>Freeman</h3><p>Brand, storytelling &amp; digital</p><span class="status">Ongoing</span></div>
-      <div class="work-row"><span class="number">02</span><h3>Joseph Martin</h3><p>Illustration &amp; creative direction</p><span class="status">Ongoing</span></div>
-      <div class="work-row"><span class="number">03</span><h3>Independent studies</h3><p>Images, symbols, motion &amp; play</p><span class="status">Always in progress</span></div>
-    </div>
-    <p class="section-note">More projects and selected case studies will appear here as they're ready to share.</p>
-  </section>
-  <section id="experiments" class="lab">
-    <div class="wrap">
-      <div class="lab-heading"><div><span class="kicker">02 / The laboratory</span><h2>Play is serious.</h2></div><p>Little experiments in the spirit of making things for the pleasure of making them.</p></div>
-      <div class="experiment">
-        <div class="exp-copy"><span class="index">Study No. 001 / 2026</span><h3>Open<br>something.</h3><p>An orange is a beautiful little object. Click to open it. Close it. Start again.</p><button class="open-button" id="openOrange" type="button" aria-pressed="false">Open the orange ↗</button></div>
-        <svg class="citrus" viewBox="0 0 420 420" role="img" aria-labelledby="fruitTitle fruitDesc"><title id="fruitTitle">Interactive tangerine drawing</title><desc id="fruitDesc">An orange that opens into two halves to reveal eight segments.</desc>
-          <g class="inner-orange"><circle cx="210" cy="220" r="136" fill="#ffdc99"/><circle cx="210" cy="220" r="121" fill="#fff5d9"/>
-            <g fill="#ffa445" stroke="#fff1cf" stroke-width="5" stroke-linejoin="round">
-              <path d="M210 220L210 110 A110 110 0 0 1 287.8 142.2Z"/><path d="M210 220L287.8 142.2 A110 110 0 0 1 320 220Z"/><path d="M210 220L320 220 A110 110 0 0 1 287.8 297.8Z"/><path d="M210 220L287.8 297.8 A110 110 0 0 1 210 330Z"/><path d="M210 220L210 330 A110 110 0 0 1 132.2 297.8Z"/><path d="M210 220L132.2 297.8 A110 110 0 0 1 100 220Z"/><path d="M210 220L100 220 A110 110 0 0 1 132.2 142.2Z"/><path d="M210 220L132.2 142.2 A110 110 0 0 1 210 110Z"/>
-            </g><circle cx="210" cy="220" r="16" fill="#fff3d9"/>
-          </g>
-          <g class="peel left"><path d="M210 83A137 137 0 0 0 210 357Z" fill="#ffae63"/><path d="M210 91A129 129 0 0 0 210 349Z" fill="#ff782b"/><path d="M183 108Q125 131 111 191" fill="none" stroke="#ffc477" stroke-width="4" stroke-linecap="round" opacity=".65"/></g>
-          <g class="peel right"><path d="M210 83A137 137 0 0 1 210 357Z" fill="#ffae63"/><path d="M210 91A129 129 0 0 1 210 349Z" fill="#ff782b"/><path d="M235 109Q289 127 314 185" fill="none" stroke="#ffc477" stroke-width="4" stroke-linecap="round" opacity=".65"/></g>
-          <g class="sprig"><path d="M210 89Q215 68 209 54" stroke="#4b6d3b" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M210 66Q251 17 297 50Q271 87 210 66Z" fill="#335d3c"/><path d="M210 66Q256 47 281 50" stroke="#8bb06b" stroke-width="2" fill="none"/></g>
-        </svg>
-      </div>
-    </div>
-  </section>
-  <section class="about wrap" id="about">
-    <div class="about-layout"><span class="kicker">03 / The studio</span><div><p>Tangerine is the independent creative practice of Cole Calfee. A place for <em>making things worth caring about.</em></p><p class="detail">Brand building, creative direction, design, illustration, photography, film and whatever else the idea needs. Rooted in the American South, with an eye on the world.<br><br>Art is a way of life.</p></div></div>
-  </section>
+<main aria-label="Artwork">
+  <img id="art" alt="" decoding="async" draggable="false">
+  <p id="notice" role="status">Loading</p>
 </main>
-<footer class="wrap">
-  <div class="footer-head"><a class="contact" href="https://www.instagram.com/ex.tangerina/" target="_blank" rel="noopener noreferrer">Say hello.</a><p>For new conversations<br>and old friends.</p></div>
-  <div class="foot-links"><span>© <span id="year">2026</span> Tangerine</span><span>Made with care.</span><a href="https://www.instagram.com/ex.tangerina/" target="_blank" rel="noopener noreferrer">@ex.tangerina ↗</a><a href="#top">Back to top ↑</a></div>
+<footer class="bar">
+  <button class="brand" id="latest" title="Latest work"><span class="lamp" id="lamp" role="img" aria-label="Feed status: connecting"></span>Tangerine</button>
+  <p class="readout" aria-live="polite" style="margin:0"><span id="title"></span><span id="project"></span><time></time></p>
+  <div class="controls">
+    <button id="find" aria-haspopup="dialog" aria-keyshortcuts="/" hidden>Retrieve</button>
+    <span class="paging" id="paging" hidden><button id="prev" aria-label="Newer piece" aria-keyshortcuts="ArrowLeft">←</button><span id="count"></span><button id="next" aria-label="Older piece" aria-keyshortcuts="ArrowRight">→</button></span>
+  </div>
 </footer>
-<script>
-(function(){
-  var button=document.getElementById('openOrange'),fruit=document.querySelector('.citrus');
-  if(button&&fruit){button.addEventListener('click',function(){
-    var opened=fruit.classList.toggle('is-open');
-    button.setAttribute('aria-pressed',String(opened));
-    button.textContent=opened?'Close the orange ↙':'Open the orange ↗';
-  });}
-  var year=document.getElementById('year');if(year)year.textContent=String(new Date().getFullYear());
-})();
-</script>
+<dialog aria-label="Retrieve work">
+  <div class="query"><input type="search" aria-label="Search the work" placeholder="Title, project or year" autocomplete="off" spellcheck="false" enterkeyhint="go"><button id="close" aria-label="Close">Esc</button></div>
+  <div id="matches"></div>
+</dialog>
+<noscript><p style="position:fixed;inset:0;display:grid;place-items:center;margin:0;font:11px Helvetica,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase">Tangerine needs JavaScript to show the work.</p></noscript>
+<script src="screen.js" defer></script>
 </body>
 </html>
