@@ -1,0 +1,40 @@
+{
+  "title": "Night Watch",
+  "artist": "Cole Calfee",
+  "grid": { "cols": 5, "rows": 4 },
+  "note": "Order is sheet reading order. The eye colour is not listed here: it is the EYE constant in geometry.mjs. Colours are hand-mixed #RRGGBB.",
+  "pairs": {
+    "A": "Can a lighter, more saturated amber turn the orange almost brown, while midnight makes the same orange glow?",
+    "B": "Can the smallest areas, two pupils and a beak, change the orange and the stare?",
+    "C": "Can pale apricot and deep petrol make the orange look markedly darker and lighter?",
+    "D": "Can vermilion and ochre make the orange lean yellow in one and red in the other?",
+    "E": "With exactly the same two colours, does swapping which one touches the orange change the orange?",
+    "F": "Can a neighbouring persimmon swallow the left eye's squared edge while dark tobacco makes the same edge unmistakable?",
+    "G": "Can one owl surface slowly while its partner reads across the room?",
+    "H": "With the orange and the lilac inner field identical, can a change of outer field alone make two different pictures?",
+    "I": "At the orange's own lightness, can a hot raspberry make it look faded while a neutral grey makes it look vivid?",
+    "J": "Can one changed shape turn a pair of eyes into a bird?"
+  },
+  "prints": [
+    { "id": "amber", "title": "Amber", "pair": "A", "outer": "#FFE08A", "inner": "#FFA81A", "face": "#FFA81A", "bust": "#FFE08A", "pupil": "#FFF0C8", "beak": "#FFF0C8" },
+    { "id": "midnight", "title": "Midnight", "pair": "A", "outer": "#1B2A40", "inner": "#101828", "face": "#101828", "bust": "#1B2A40", "pupil": "#101828", "beak": "#1B2A40" },
+    { "id": "bone", "title": "Bone", "pair": "B", "outer": "#BFB2A2", "inner": "#93846F", "face": "#93846F", "bust": "#BFB2A2", "pupil": "#F4F1EA", "beak": "#F4F1EA" },
+    { "id": "apricot", "title": "Apricot", "pair": "C", "outer": "#C99A7E", "inner": "#FAD0AE", "face": "#F2BC97", "bust": "#F2BC97", "pupil": "#8A5A40", "beak": "#FAD0AE" },
+    { "id": "petrol", "title": "Petrol", "pair": "C", "outer": "#0F3038", "inner": "#1E5560", "face": "#276570", "bust": "#276570", "pupil": "#0F3038", "beak": "#1E5560" },
+    { "id": "vermilion", "title": "Vermilion", "pair": "D", "outer": "#8C2A1E", "inner": "#E8402A", "face": "#E8402A", "bust": "#8C2A1E", "pupil": "#5A160F", "beak": "#5A160F" },
+    { "id": "ochre", "title": "Ochre", "pair": "D", "outer": "#5E4A12", "inner": "#D9A21E", "face": "#D9A21E", "bust": "#5E4A12", "pupil": "#3E300A", "beak": "#3E300A" },
+    { "id": "soot", "title": "Soot", "pair": "B", "outer": "#BFB2A2", "inner": "#93846F", "face": "#93846F", "bust": "#BFB2A2", "pupil": "#1A1714", "beak": "#1A1714" },
+    { "id": "slate", "title": "Slate", "pair": "E", "outer": "#C8D19A", "inner": "#5F6B78", "face": "#5F6B78", "bust": "#C8D19A", "pupil": "#2C333B", "beak": "#C8D19A" },
+    { "id": "celery", "title": "Celery", "pair": "E", "outer": "#5F6B78", "inner": "#C8D19A", "face": "#C8D19A", "bust": "#5F6B78", "pupil": "#2C333B", "beak": "#5F6B78" },
+    { "id": "persimmon", "title": "Persimmon", "pair": "F", "outer": "#4A3222", "inner": "#EE7A33", "face": "#EE7A33", "bust": "#4A3222", "pupil": "#2E1F14", "beak": "#4A3222" },
+    { "id": "tobacco", "title": "Tobacco", "pair": "F", "outer": "#EE7A33", "inner": "#3A281B", "face": "#3A281B", "bust": "#EE7A33", "pupil": "#1E140D", "beak": "#EE7A33" },
+    { "id": "dusk", "title": "Dusk", "pair": "G", "outer": "#B98C7E", "inner": "#C98C8A", "face": "#C4917A", "bust": "#B98C7E", "pupil": "#A87878", "beak": "#C98C8A" },
+    { "id": "butter", "title": "Butter", "pair": "H", "outer": "#F2D86A", "inner": "#B9A7CC", "face": "#B9A7CC", "bust": "#B9A7CC", "pupil": "#3B1F3A", "beak": "#3B1F3A" },
+    { "id": "cobalt", "title": "Cobalt", "pair": "H", "outer": "#1C3A8C", "inner": "#B9A7CC", "face": "#B9A7CC", "bust": "#B9A7CC", "pupil": "#3B1F3A", "beak": "#3B1F3A" },
+    { "id": "raspberry", "title": "Raspberry", "pair": "I", "outer": "#8E1F4E", "inner": "#FF62A0", "face": "#FF62A0", "bust": "#8E1F4E", "pupil": "#5A0F30", "beak": "#5A0F30" },
+    { "id": "pewter", "title": "Pewter", "pair": "I", "outer": "#4F4F52", "inner": "#9A9A9A", "face": "#9A9A9A", "bust": "#4F4F52", "pupil": "#303033", "beak": "#303033" },
+    { "id": "signal", "title": "Signal", "pair": "G", "outer": "#F4F3EF", "inner": "#141414", "face": "#F4F3EF", "bust": "#141414", "pupil": "#141414", "beak": "#141414" },
+    { "id": "rose", "title": "Rose", "pair": "J", "outer": "#8C3324", "inner": "#D9A69A", "face": "#D9A69A", "bust": "#8C3324", "pupil": "#5E2016", "beak": "#D9A69A" },
+    { "id": "oxide", "title": "Oxide", "pair": "J", "outer": "#8C3324", "inner": "#D9A69A", "face": "#8C3324", "bust": "#8C3324", "pupil": "#5E2016", "beak": "#D9A69A" }
+  ]
+}

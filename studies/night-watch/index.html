@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Night Watch</title>
+<meta name="description" content="Night Watch — twenty Tangerine owl studies. Local preview.">
+<style>
+  :root {
+    --ground: #141414;
+    --ink: #F4F3EF;
+    --mute: #8E8E8A;
+    --tangerine: #F47628;
+    --bar: 52px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--ground); color: var(--ink); }
+  body {
+    font: 500 13px/1.2 ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--tangerine); outline-offset: 2px; }
+
+  /* Sheet: edge to edge, no gutters, as large as the window allows. */
+  #sheet { min-height: 100%; display: grid; place-items: center; }
+  .grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+    width: min(100vw, calc(100dvh * 5 / 4));
+  }
+  .grid button { display: block; aspect-ratio: 1; position: relative; }
+  .grid img { display: block; width: 100%; height: 100%; }
+  .grid button:focus-visible { outline-offset: -3px; z-index: 1; }
+
+  /* Single print */
+  #print { position: fixed; inset: 0; background: var(--ground); display: none; grid-template-rows: var(--bar) 1fr var(--bar); }
+  #print.open { display: grid; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 max(16px, env(safe-area-inset-left)) 0 max(16px, env(safe-area-inset-right)); }
+  .bar .label { color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar .label b { color: var(--ink); font-weight: 600; }
+  #back { display: inline-flex; align-items: center; gap: 10px; height: 36px; padding: 0 14px 0 10px; border: 1px solid var(--ink); }
+  #back svg { width: 18px; height: 18px; }
+  .stage { display: grid; place-items: center; min-height: 0; padding: 0 16px; }
+  .stage img { display: block; width: min(100%, calc(100dvh - var(--bar) * 2 - 16px)); aspect-ratio: 1; height: auto; }
+  .bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .nav { display: flex; gap: 8px; }
+  .nav button { width: 44px; height: 36px; border: 1px solid #3a3a38; display: grid; place-items: center; }
+  .nav svg { width: 18px; height: 18px; }
+  .files a { color: var(--mute); text-decoration: none; margin-left: 14px; }
+  .files a:hover { color: var(--ink); }
+  .hint { color: #5d5d5a; }
+  @media (max-width: 600px) { .hint { display: none; } }
+</style>
+</head>
+<body>
+<main id="sheet" aria-label="Night Watch — contact sheet">
+  <div class="grid" id="grid"></div>
+</main>
+
+<section id="print" aria-modal="true" role="dialog" aria-label="Print">
+  <div class="bar">
+    <button id="back" type="button" aria-label="Back to the sheet">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><rect x="1" y="1" width="7" height="7" fill="currentColor"/><rect x="10" y="1" width="7" height="7" fill="currentColor"/><rect x="1" y="10" width="7" height="7" fill="currentColor"/><rect x="10" y="10" width="7" height="7" fill="currentColor"/></svg>
+      Sheet
+    </button>
+    <span class="label" id="label"></span>
+  </div>
+  <div class="stage"><img id="big" alt=""></div>
+  <div class="bar bottom">
+    <span class="hint">← → move · Esc sheet</span>
+    <span class="files" id="files"></span>
+    <div class="nav">
+      <button id="prev" type="button" aria-label="Previous print"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3 5 9l6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      <button id="next" type="button" aria-label="Next print"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="m7 3 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<script>
+const PRINTS = [{"n":"01","title":"Amber","file":"night-watch-01-amber","pair":"A"},{"n":"02","title":"Midnight","file":"night-watch-02-midnight","pair":"A"},{"n":"03","title":"Bone","file":"night-watch-03-bone","pair":"B"},{"n":"04","title":"Apricot","file":"night-watch-04-apricot","pair":"C"},{"n":"05","title":"Petrol","file":"night-watch-05-petrol","pair":"C"},{"n":"06","title":"Vermilion","file":"night-watch-06-vermilion","pair":"D"},{"n":"07","title":"Ochre","file":"night-watch-07-ochre","pair":"D"},{"n":"08","title":"Soot","file":"night-watch-08-soot","pair":"B"},{"n":"09","title":"Slate","file":"night-watch-09-slate","pair":"E"},{"n":"10","title":"Celery","file":"night-watch-10-celery","pair":"E"},{"n":"11","title":"Persimmon","file":"night-watch-11-persimmon","pair":"F"},{"n":"12","title":"Tobacco","file":"night-watch-12-tobacco","pair":"F"},{"n":"13","title":"Dusk","file":"night-watch-13-dusk","pair":"G"},{"n":"14","title":"Butter","file":"night-watch-14-butter","pair":"H"},{"n":"15","title":"Cobalt","file":"night-watch-15-cobalt","pair":"H"},{"n":"16","title":"Raspberry","file":"night-watch-16-raspberry","pair":"I"},{"n":"17","title":"Pewter","file":"night-watch-17-pewter","pair":"I"},{"n":"18","title":"Signal","file":"night-watch-18-signal","pair":"G"},{"n":"19","title":"Rose","file":"night-watch-19-rose","pair":"J"},{"n":"20","title":"Oxide","file":"night-watch-20-oxide","pair":"J"}];
+const COLS = 5;
+const grid = document.getElementById('grid');
+const view = document.getElementById('print');
+const big = document.getElementById('big');
+const label = document.getElementById('label');
+const files = document.getElementById('files');
+let current = -1;
+
+PRINTS.forEach((p, i) => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.setAttribute('aria-label', `${p.n} ${p.title}`);
+  b.dataset.i = i;
+  const img = document.createElement('img');
+  img.src = `svg/${p.file}.svg`;
+  img.alt = '';
+  b.append(img);
+  b.addEventListener('click', () => go(i));
+  grid.append(b);
+});
+
+function render() {
+  if (current < 0) {
+    view.classList.remove('open');
+    document.title = 'Night Watch';
+    return;
+  }
+  const p = PRINTS[current];
+  big.src = `svg/${p.file}.svg`;
+  big.alt = `Night Watch ${p.n}, ${p.title}`;
+  label.innerHTML = `<b>${p.n}</b> / ${PRINTS.length} · ${p.title}`;
+  files.innerHTML = `<a href="svg/${p.file}.svg" download>SVG</a><a href="png/${p.file}.png" download>PNG</a>`;
+  view.classList.add('open');
+  document.title = `Night Watch ${p.n} — ${p.title}`;
+}
+
+function fromHash() {
+  const n = parseInt(location.hash.slice(1), 10);
+  current = n >= 1 && n <= PRINTS.length ? n - 1 : -1;
+  render();
+}
+
+function go(i) {
+  const n = String(i + 1).padStart(2, '0');
+  if (current < 0) history.pushState({ nw: 1 }, '', `#${n}`); // sheet → print: browser Back returns to the sheet
+  else history.replaceState(history.state, '', `#${n}`);
+  fromHash();
+  document.getElementById('back').focus({ preventScroll: true });
+}
+
+function toSheet() {
+  const was = current;
+  if (current < 0) return;
+  if (history.state?.nw) history.back(); // popstate re-renders the sheet
+  else history.replaceState(null, '', location.pathname + location.search);
+  current = -1;
+  render();
+  grid.children[was]?.focus({ preventScroll: true });
+}
+
+const step = (d) => go((current + d + PRINTS.length) % PRINTS.length);
+document.getElementById('back').addEventListener('click', toSheet);
+document.getElementById('prev').addEventListener('click', () => step(-1));
+document.getElementById('next').addEventListener('click', () => step(1));
+window.addEventListener('popstate', fromHash);
+
+document.addEventListener('keydown', (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (current < 0) {
+    const f = document.activeElement?.dataset?.i;
+    if (f === undefined) return;
+    const i = +f, map = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: COLS, ArrowUp: -COLS };
+    if (map[e.key] !== undefined) { e.preventDefault(); grid.children[Math.min(PRINTS.length - 1, Math.max(0, i + map[e.key]))].focus(); }
+    return;
+  }
+  if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+  else if (e.key === 'Escape') { e.preventDefault(); toSheet(); }
+});
+
+// Swipe between prints on touch screens; swipe down returns to the sheet.
+let t0 = null;
+view.addEventListener('touchstart', (e) => { const t = e.touches[0]; t0 = { x: t.clientX, y: t.clientY }; }, { passive: true });
+view.addEventListener('touchend', (e) => {
+  if (!t0) return;
+  const t = e.changedTouches[0], dx = t.clientX - t0.x, dy = t.clientY - t0.y;
+  t0 = null;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+  else if (dy > 80 && Math.abs(dy) > Math.abs(dx)) toSheet();
+});
+
+fromHash();
+</script>
+</body>
+</html>
