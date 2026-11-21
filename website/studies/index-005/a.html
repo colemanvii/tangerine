@@ -1,0 +1,87 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Index 005 · Study A — Fig. 1, Transverse section</title>
+<link rel="stylesheet" href="base.css">
+<style>
+.page{height:100svh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:clamp(20px,3vw,44px) clamp(20px,3.4vw,52px)}
+header,footer{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end;gap:20px}
+header .wm{font-size:clamp(20px,2vw,30px)}
+header .mid,footer .mid{justify-self:center}
+header .fig,footer .r{justify-self:end;text-align:right;color:var(--grey)}
+footer{color:var(--grey);align-items:start}
+footer a{color:var(--ink)}
+main{min-height:0;display:grid;place-items:center;position:relative}
+.comp{position:relative;height:100%;max-width:100%;aspect-ratio:1.8;max-height:min(100%,calc(100vw/1.8))}
+.comp svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.peel{fill:none;stroke:var(--ink);stroke-width:1.1;vector-effect:non-scaling-stroke}
+.lobe{fill:var(--white);stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+.lobe.w{fill:var(--orange);stroke:none;transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+.lead{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+.dot{fill:var(--ink)}
+.num-in{font:600 22px Archivo;fill:#fff;font-feature-settings:"tnum";letter-spacing:.02em}
+.lab{position:absolute;transform:translateY(-50%);display:grid;gap:6px;width:22%}
+.lab.l{text-align:right;transform:translate(-100%,-50%)}
+.lab .n{color:var(--grey)}
+.lab .nm{font-stretch:118%;font-weight:620;font-size:clamp(17px,1.75vw,28px);letter-spacing:-.025em;line-height:.98}
+.lab .m{color:var(--grey)}
+.lab:hover .nm,.lab:focus-visible .nm{color:var(--orange)}
+@media (max-width:760px){
+  header{grid-template-columns:1fr auto}header .mid{display:none}
+  .comp{aspect-ratio:auto;width:100%;height:100%;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:18px}
+  .comp svg{position:relative;inset:auto}
+  .labs{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
+  .lab,.lab.l{position:static;transform:none;text-align:left;width:auto}
+  .lead,.dot{display:none}
+}
+@media (prefers-reduced-motion:reduce){.lobe.w{transition:none}}
+</style></head><body>
+<div class="page">
+<header><a href="/" class="wm">Tangerine</a><p class="sys mid">We build brands.</p><p class="sys fig">Fig. 1 — Transverse section<br>Four relationships, eleven segments</p></header>
+<main><div class="comp" id="comp"><svg id="svg" aria-hidden="true"></svg><nav class="labs" id="labs" aria-label="Selected work"></nav></div></main>
+<footer><p class="sys">Ars longa, vita brevis.</p><p class="sys mid">Index 005</p><a class="sys r" href="https://www.instagram.com/ex.tangerina/">Instagram</a></footer>
+</div>
+<p class="study-tag">Study A · Fig. 1</p>
+<script type="module">
+import { section } from '../../tools/citrus.mjs';
+const work = [
+  { lobe: 10, n: '01', name: 'Freeman', m: 'FGC · 2023— · Ongoing', href: '/freeman-general-contracting/', side: 'l' },
+  { lobe: 1, n: '02', name: 'Joseph Martin', m: 'JM · 2024— · Developing', href: '/joseph-martin/', side: 'r' },
+  { lobe: 4, n: '03', name: 'Kashus Culpepper', m: 'KC · 2024— · Ongoing', href: '/kashus-culpepper/', side: 'r' },
+  { lobe: 7, n: '04', name: 'Scout Motors', m: 'SM · 2026 · Independent study', href: '/scout-motors/', side: 'l' },
+];
+const spans = [34,31,35,30,33,36,31,32,35,29,34];
+let a = -97; const cuts = spans.map(s => (a += s) - s);
+const svg = document.getElementById('svg'), labs = document.getElementById('labs');
+function draw() {
+  const mobile = matchMedia('(max-width:760px)').matches;
+  const W = mobile ? 1000 : 1800, H = 1000, cx = W / 2;
+  const s = section({ cuts, R: 440, rind: 40, gap: 0, hollow: 34, bow: 0.06, shoulder: 26, c: 500, core: [-6, 5] });
+  const dx = cx - 500;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const byLobe = Object.fromEntries(work.map((w, i) => [w.lobe, i]));
+  let out = `<g transform="translate(${dx} 0)"><circle class="peel" cx="500" cy="500" r="${s.R}"/><circle class="peel" cx="500" cy="500" r="${s.R - 12}"/>`;
+  s.lobes.forEach((l, i) => {
+    const k = byLobe[i];
+    if (k === undefined) { out += `<path class="lobe" d="${l.d}"/>`; return; }
+    const [ux, uy] = [Math.cos(l.mid * Math.PI / 180), Math.sin(l.mid * Math.PI / 180)];
+    out += `<a href="${work[k].href}" tabindex="-1" data-k="${k}"><path class="lobe w" data-k="${k}" style="--x:${(ux * 18).toFixed(1)}px;--y:${(uy * 18).toFixed(1)}px" d="${l.d}"/></a>`;
+    const [nx, ny] = l.anchor(s.Rs - 70);
+    out += `<text class="num-in" x="${nx}" y="${ny}" text-anchor="middle" dominant-baseline="central">${work[k].n}</text>`;
+  });
+  out += '</g>';
+  if (!mobile) {
+    work.forEach((w, k) => {
+      const l = s.lobes[w.lobe];
+      const [px, py] = l.anchor(s.Rs - 140), [qx, qy] = l.anchor(s.R + 40);
+      const ex = w.side === 'l' ? 380 : W - 380;
+      out += `<path class="lead" d="M${px + dx} ${py}L${qx + dx} ${qy}H${ex}"/><circle class="dot" cx="${px + dx}" cy="${py}" r="4"/>`;
+      w.pos = [((w.side === 'l' ? ex - 24 : ex + 24) / W) * 100, (qy / H) * 100];
+    });
+  }
+  svg.innerHTML = out;
+  labs.innerHTML = work.map((w, k) => `<a class="lab ${w.side}" data-k="${k}" href="${w.href}"${w.pos && !mobile ? ` style="left:${w.pos[0]}%;top:${w.pos[1]}%"` : ''}><span class="sys n">${w.n}</span><span class="nm">${w.name}</span><span class="sys m">${w.m}</span></a>`).join('');
+}
+draw(); matchMedia('(max-width:760px)').addEventListener('change', draw);
+const css = work.map((_, k) => `body:has([data-k="${k}"]:hover) .lobe.w[data-k="${k}"],body:has(.lab[data-k="${k}"]:focus-visible) .lobe.w[data-k="${k}"]{transform:translate(var(--x),var(--y))}body:has(.lab[data-k="${k}"]:hover) .lab[data-k="${k}"] .nm{color:var(--orange)}`).join('');
+document.head.insertAdjacentHTML('beforeend', `<style>${css}</style>`);
+</script>
+</body></html>

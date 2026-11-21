@@ -1,11 +1,78 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffffff"><title>Tangerine — Selected Work</title><meta name="description" content="Tangerine. We build brands. An index of selected work."><link rel="canonical" href="https://ex-tangerina.com/"><style>
-@font-face{font-family:Instrument;src:url('/fonts/instrument-serif-regular.woff2') format('woff2');font-display:swap}
-:root{--ink:#1b2a2d;--orange:#d95728;--pale:#fff7f2}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#fff;color:var(--ink);-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a:focus-visible{outline:2px solid var(--orange);outline-offset:5px}
-.page{height:100svh;overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:clamp(22px,3.8vw,55px) clamp(24px,4.8vw,75px)}.header,.footer{display:flex;justify-content:space-between;align-items:center;gap:20px}.brand{font:500 15px/1 Arial,Helvetica,sans-serif;letter-spacing:-.06em}.tag,.footer{font:10px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#89989b;letter-spacing:.025em}.tag{text-align:right}.footer a{text-decoration:underline;text-underline-offset:4px}.footer a:hover{color:var(--orange)}
-main{min-height:0;display:flex;align-items:center;justify-content:center}.composition{width:min(100%,calc(100svh - 155px),760px);aspect-ratio:1;position:relative;flex:none}.fruit{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.fruit .ring{fill:none;stroke:var(--orange);stroke-width:1.15}.fruit .spoke{stroke:var(--orange);stroke-width:1.15}.fruit .core{fill:#fff;stroke:var(--orange);stroke-width:1.15}
-.slice{position:absolute;width:42%;height:42%;display:flex;align-items:center;justify-content:center;text-align:center;isolation:isolate}.slice::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--pale);opacity:0;transition:opacity .2s;z-index:-1}.slice:hover::before,.slice:focus-visible::before{opacity:1}.slice:hover .name{color:var(--orange)}.slice .name{font:clamp(18px,2.25vw,35px)/1.06 Instrument,Georgia,serif;letter-spacing:-.025em;transition:color .2s;max-width:90%}
-.nw{left:7%;top:7%;padding:8% 1% 0 7%}.ne{right:7%;top:7%;padding:8% 7% 0 1%}.sw{left:7%;bottom:7%;padding:0 1% 8% 7%}.se{right:7%;bottom:7%;padding:0 7% 8% 1%}
-@media(max-width:650px){.page{padding:25px 24px 22px}.brand{font-size:14px}.tag{font-size:9px}.composition{width:min(100%,calc(100svh - 150px),560px)}.slice .name{font-size:clamp(17px,4.8vw,29px)}}
-@media(max-height:540px){.composition{width:min(100%,calc(100svh - 90px),480px)}.page{padding-top:14px;padding-bottom:14px}.slice .name{font-size:clamp(14px,3vh,23px)}}
-@media(prefers-reduced-motion:reduce){.slice::before,.slice .name{transition:none}}
-</style></head><body><div class="page"><header class="header"><a class="brand" href="/" aria-label="Tangerine home">tangerine</a><span class="tag">We build brands.</span></header><main><div class="composition" aria-label="Four selected projects within a tangerine"><svg class="fruit" viewBox="0 0 600 600" aria-hidden="true"><circle class="ring" cx="300" cy="300" r="283"/><circle class="ring" cx="300" cy="300" r="265"/><path class="spoke" d="M300 35V565M35 300H565"/><circle class="core" cx="300" cy="300" r="21"/></svg><a class="slice nw" href="/freeman-general-contracting/"><span class="name">Freeman</span></a><a class="slice ne" href="/joseph-martin/"><span class="name">Joseph<br>Martin</span></a><a class="slice sw" href="/kashus-culpepper/"><span class="name">Kashus<br>Culpepper</span></a><a class="slice se" href="/scout-motors/"><span class="name">Scout<br>Motors</span></a></div></main><footer class="footer"><span>Ars longa, vita brevis.</span><a href="https://www.instagram.com/ex.tangerina/" target="_blank" rel="noopener noreferrer">Instagram</a></footer></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tangerine — We build brands.</title>
+<meta name="description" content="Tangerine. We build brands. An index of four creative relationships: Freeman, Joseph Martin, Kashus Culpepper and Scout Motors.">
+<link rel="canonical" href="https://ex-tangerina.com/">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:site_name" content="Tangerine">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tangerine — We build brands.">
+<meta property="og:description" content="An index of four creative relationships.">
+<meta property="og:url" content="https://ex-tangerina.com/">
+<meta property="og:image" content="https://ex-tangerina.com/media/brand/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/archivo-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Archivo;src:url(/fonts/archivo-variable-latin.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:block}
+:root{--white:#fff;--ink:#121518;--grey:#868d92;--orange:#f05323}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:geometricPrecision}
+body{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;overflow:hidden}
+a{color:inherit;text-decoration:none}
+.page{height:100vh;height:100svh;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr) auto;padding:max(env(safe-area-inset-top),clamp(18px,2.9vw,42px)) clamp(18px,3.3vw,48px) max(env(safe-area-inset-bottom),clamp(18px,2.9vw,42px))}
+.wm{font-size:clamp(19px,1.75vw,27px);font-weight:800;font-stretch:125%;letter-spacing:-.02em;line-height:.74;text-transform:uppercase}
+.sys{font-size:clamp(11px,.85vw,12.5px);line-height:1.3;font-weight:450;letter-spacing:.012em}
+.tag{justify-self:end;align-self:start;text-align:right}
+.stage{grid-column:1/-1;position:relative;min-height:0;margin:clamp(12px,2.6vh,30px) 0}
+.fruit{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+footer{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;color:var(--grey)}
+footer a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+footer a:hover{color:var(--orange)}
+footer a:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
+.peel{fill:var(--orange)}
+.seg{fill:var(--orange)}
+.study .seg{fill:var(--white);stroke:var(--orange);stroke-width:4.5}
+.nm{font-weight:700;letter-spacing:-0.015em;fill:var(--white)}
+.td .nm{font-stretch:118%}.tm .nm{font-stretch:90%}
+.nt{font-weight:500;letter-spacing:.012em;fill:var(--orange)}
+.study .nm{fill:var(--orange)}
+.tm{display:none}
+.fruit a{outline:none;cursor:pointer}
+.fruit a:hover .seg,.fruit a:focus-visible .seg{fill:var(--ink);stroke:var(--ink)}
+.fruit a:hover text,.fruit a:focus-visible text{fill:var(--white)}
+.fruit a:focus-visible .seg{stroke:var(--ink);stroke-width:10;paint-order:stroke}
+@media (max-width:640px),(max-height:600px){.td{display:none}.tm{display:inline}}
+@media (max-width:640px){
+  .page{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto}
+  .wm{font-size:calc((100vw - 2 * clamp(18px,3.3vw,48px)) / 7.5)}
+  .tag{justify-self:start;text-align:left;margin-top:12px}
+  .stage{margin:20px 0 22px;display:flex;align-items:flex-end}
+  .fruit{position:static;height:auto;max-height:100%}
+}
+@media (forced-colors:active){.seg,.peel{fill:CanvasText}.study .seg{fill:Canvas;stroke:CanvasText}.nm,.nt{fill:Canvas}.study .nm,.nt{fill:CanvasText}.fruit a:focus-visible .seg{stroke:Highlight}}
+</style>
+</head>
+<body>
+<div class="page">
+<h1 class="wm">Tangerine</h1>
+<p class="tag sys">We build brands.</p>
+<nav class="stage" aria-label="Selected work">
+<svg class="fruit" viewBox="0 0 1000 1000" aria-labelledby="fruit-t">
+<title id="fruit-t">A tangerine in cross-section. Each of its four segments is a relationship.</title>
+<defs><path id="d00" d="M20.4 500C172.3 487.2 324.1 484.1 476 500"/><path id="d10" d="M544.9 20.6C558.9 186.7 562.4 352.9 544.9 519"/><path id="d11" d="M495 20.6C509 186.7 512.4 352.9 495 519"/><path id="d20" d="M476 575.4C643.9 593.1 811.7 589.5 979.6 575.4"/><path id="d21" d="M476 625.4C643.9 643 811.7 639.5 979.6 625.4"/><path id="d30" d="M373.8 979.4C360.9 825.9 357.7 672.5 373.8 519"/><path id="d31" d="M423.8 979.4C410.9 825.9 407.6 672.5 423.8 519"/><path id="d32" d="M457 979.4C444.1 825.9 440.9 672.5 457 519"/><path id="m00" d="M20.4 500C172.3 487.2 324.1 484.1 476 500"/><path id="m10" d="M560.3 20.6C574.2 186.7 577.7 352.9 560.3 519"/><path id="m11" d="M495 20.6C509 186.7 512.4 352.9 495 519"/><path id="m20" d="M476 587C643.9 604.6 811.7 601.1 979.6 587"/><path id="m21" d="M476 652.2C643.9 669.9 811.7 666.3 979.6 652.2"/><path id="m30" d="M332.2 979.4C319.3 825.9 316.1 672.5 332.2 519"/><path id="m31" d="M397.5 979.4C384.6 825.9 381.4 672.5 397.5 519"/><path id="m32" d="M457 979.4C444.1 825.9 440.9 672.5 457 519"/></defs>
+<path class="peel" fill-rule="evenodd" d="M500 20a480 480 0 1 0 .01 0ZM500 37a463 463 0 1 0 .01 0Z"/>
+<a href="/freeman-general-contracting/" aria-label="Freeman General Contracting"><path class="seg" d="M454.9 509.9C349.8 500.1 244.6 499.2 139.6 504.1Q57.1 509.1 63 427.4A443 443 0 0 1 391 70.6Q471.9 57.9 477.1 140.2C483.1 259 482.4 377.7 471.2 496.5Q463 503.2 454.9 509.9Z"/><g class="td"><text class="nm" font-size="52"><textPath href="#d00" startOffset="410.6" text-anchor="end">Freeman</textPath></text></g><g class="tm"><text class="nm" font-size="68"><textPath href="#m00" startOffset="410.6" text-anchor="end">Freeman</textPath></text></g></a>
+<a href="/joseph-martin/" aria-label="Joseph Martin"><path class="seg" d="M485.1 497.9C496.4 378.5 497 259.1 491.1 139.8Q485.9 57.2 567.7 62.2A443 443 0 0 1 937.9 433.2Q942.7 514.9 860.5 520.1C739.8 526.2 619.2 525.6 498.5 514.2Q491.8 506 485.1 497.9Z"/><g class="td"><text class="nm" font-size="52"><textPath href="#d10" startOffset="453.4" text-anchor="end">Joseph</textPath></text><text class="nm" font-size="52"><textPath href="#d11" startOffset="453.4" text-anchor="end">Martin</textPath></text></g><g class="tm"><text class="nm" font-size="68"><textPath href="#m10" startOffset="453.4" text-anchor="end">Joseph</textPath></text><text class="nm" font-size="68"><textPath href="#m11" startOffset="453.4" text-anchor="end">Martin</textPath></text></g></a>
+<a href="/kashus-culpepper/" aria-label="Kashus Culpepper"><path class="seg" d="M497.1 528.1C618 539.5 739 540.2 859.8 534.1Q942.1 529 929.2 609.9A443 443 0 0 1 561.9 938.7Q480.1 942.6 475.1 860.3C470.1 754 470.9 647.8 480.8 541.5Q489 534.8 497.1 528.1Z"/><g class="td"><text class="nm" font-size="52"><textPath href="#d20" startOffset="45">Kashus</textPath></text><text class="nm" font-size="52"><textPath href="#d21" startOffset="45">Culpepper</textPath></text></g><g class="tm"><text class="nm" font-size="68"><textPath href="#m20" startOffset="45">Kashus</textPath></text><text class="nm" font-size="68"><textPath href="#m21" startOffset="45">Culpepper</textPath></text></g></a>
+<a href="/scout-motors/" aria-label="Scout Motors, independent study" class="study"><path class="seg" d="M466.9 540.1C457 646.5 456.1 753 461.1 859.4Q466 941.7 385.3 927.9A443 443 0 0 1 69.4 604.1Q57.6 523.1 139.8 518.1C244.4 513.2 348.9 514.1 453.5 523.8Q460.2 532 466.9 540.1Z"/><g class="td"><text class="nm" font-size="52"><textPath href="#d30" startOffset="415.4" text-anchor="end">Scout</textPath></text><text class="nm" font-size="52"><textPath href="#d31" startOffset="415.4" text-anchor="end">Motors</textPath></text><text class="nt" font-size="19"><textPath href="#d32" startOffset="415.4" text-anchor="end">Independent study</textPath></text></g><g class="tm"><text class="nm" font-size="68"><textPath href="#m30" startOffset="415.4" text-anchor="end">Scout</textPath></text><text class="nm" font-size="68"><textPath href="#m31" startOffset="415.4" text-anchor="end">Motors</textPath></text><text class="nt" font-size="34"><textPath href="#m32" startOffset="415.4" text-anchor="end">Independent study</textPath></text></g></a>
+</svg>
+</nav>
+<footer class="sys"><span>Ars longa, vita brevis.</span><a href="https://www.instagram.com/ex.tangerina/" target="_blank" rel="noopener noreferrer">Instagram</a></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Index 005 · Study D — Membranes (B refined)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+.page{height:100svh;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr) auto;padding:clamp(20px,3vw,44px) clamp(20px,3.4vw,52px);gap:0 24px}
+.wm{font-size:clamp(26px,3vw,46px)}
+.tag{justify-self:end;text-align:right;color:var(--grey)}
+.tag b{font-weight:450;color:var(--ink)}
+.fruit{grid-column:1/3;min-height:0;position:relative;margin:14px 0}
+.fruit svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;display:block}
+footer{grid-column:1/3;display:flex;justify-content:space-between;color:var(--grey)}
+footer a{color:var(--ink)}
+.peel{fill:var(--orange)}
+.lobe{fill:var(--orange);transition:fill .18s}
+.lobe.st{fill:var(--white);stroke:var(--orange);stroke-width:2;vector-effect:non-scaling-stroke}
+.nm{font-family:Archivo;font-stretch:var(--wd,118%);font-weight:var(--wt,700);letter-spacing:-.015em;fill:#fff}
+.nm.st{fill:var(--orange)}
+.nt{font-family:Archivo;font-weight:500;font-stretch:100%;fill:var(--orange);letter-spacing:.01em}
+a.seg:hover .lobe:not(.st),a.seg:focus-visible .lobe:not(.st){fill:var(--ink)}
+a.seg:hover .lobe.st,a.seg:focus-visible .lobe.st{fill:var(--ink);stroke:var(--ink)}
+a.seg:hover .nm.st,a.seg:focus-visible .nm.st,a.seg:hover .nt,a.seg:focus-visible .nt{fill:#fff}
+a.seg{outline:none}
+</style></head><body>
+<div class="page">
+<a href="/" class="wm">Tangerine</a><p class="sys tag"><b>We build brands.</b><br>Four relationships, one fruit.</p>
+<div class="fruit"><svg id="svg" viewBox="0 0 1000 1000" role="group" aria-label="Tangerine: four segments, four relationships"></svg></div>
+<footer class="sys"><span>Ars longa, vita brevis.</span><a href="https://www.instagram.com/ex.tangerina/">Instagram</a></footer>
+</div>
+<p class="study-tag">Study D · Membranes</p>
+<script type="module">
+import { section, pathOf } from '../../tools/citrus.mjs';
+const q = new URLSearchParams(location.search);
+const work = [
+  { lines: ['Freeman'], href: '/freeman-general-contracting/', label: 'Freeman General Contracting' },
+  { lines: ['Joseph', 'Martin'], href: '/joseph-martin/', label: 'Joseph Martin' },
+  { lines: ['Kashus', 'Culpepper'], href: '/kashus-culpepper/', label: 'Kashus Culpepper', flip: true },
+  { lines: ['Scout', 'Motors'], href: '/scout-motors/', label: 'Scout Motors, independent study', st: true, note: 'Independent study' },
+];
+const R = 480, core = [-12, 10];
+const deg = r => r * 180 / Math.PI;
+const cuts = [180 - deg(Math.asin(core[1] / R)), -90 + deg(Math.asin(core[0] / R)), deg(Math.asin(core[1] / R)), 90 - deg(Math.asin(core[0] / R))]
+  .map(a => (a > 180 ? a - 360 : a)).sort((a, b) => a - b);
+cuts.unshift(cuts.pop() - 360);
+const gap = +(q.get('gap') || 16), pad = 12, hollow = +(q.get('hollow') || 26);
+const s = section({ cuts, R, rind: 36, gap, hollow, bow: +(q.get('bow') || 0.035), shoulder: +(q.get('sh') || 80), core, tip: 'arc' });
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1]], L = v => Math.hypot(...v);
+const svg = document.getElementById('svg');
+if (q.get('wd')) document.documentElement.style.setProperty('--wd', q.get('wd') + '%');
+if (q.get('wt')) document.documentElement.style.setProperty('--wt', q.get('wt'));
+
+async function draw() {
+  await document.fonts.ready;
+  // Measure every line at 100 units, then choose one size for all names.
+  const start = hollow + 22, room = s.Rs - start - 96;
+  svg.innerHTML = work.flatMap(w => w.lines).map(t => `<text class="nm" font-size="100">${t}</text>`).join('');
+  const widths = [...svg.querySelectorAll('text')].map(t => t.getComputedTextLength());
+  const fs = Math.min(+(q.get('fs') || 99), Math.floor(100 * room / Math.max(...widths)));
+  const cap = fs * 0.72, lh = fs * 0.96;
+  let defs = '', out = `<path class="peel" fill-rule="evenodd" d="M500 ${500 - R}a${R} ${R} 0 1 0 .01 0ZM500 ${500 - R + 13}a${R - 13} ${R - 13} 0 1 0 .01 0Z"/>`;
+  s.lobes.forEach((l, i) => {
+    const w = work[i], m = s.membranes[i];
+    const u = sub(m[3], m[0]), n = [-u[1] / L(u), u[0] / L(u)];
+    // Baselines run parallel to the membrane; flipped names hang their cap height toward it.
+    const k0 = gap / 2 + pad + (w.flip ? cap : 0);
+    // Glyph 'down' points toward the membrane on unflipped names, so their lines stack inward from the last.
+    const ns = Math.round(fs * 0.34), noteGap = w.note ? ns * 1.9 : 0;
+    const n0 = w.lines.length;
+    const rows = w.lines.map((t, j) => ({ t, k: w.flip ? k0 + j * lh : k0 + noteGap + (n0 - 1 - j) * lh, cls: 'nm', size: fs }));
+    if (w.note) rows.push({ t: w.note, k: w.flip ? rows.at(-1).k + ns * 1.9 : k0, cls: 'nt', size: ns });
+    let body = '';
+    rows.forEach((r, j) => {
+      const P = m.map(p => [p[0] + n[0] * r.k, p[1] + n[1] * r.k]);
+      const d = w.flip ? pathOf(P) : pathOf([P[3], P[2], P[1], P[0]]);
+      const id = `m${i}-${j}`; defs += `<path id="${id}" d="${d}"/>`;
+      const anchor = w.flip ? `startOffset="${start}" text-anchor="start"` : `startOffset="${(L(sub(P[3], P[0])) - start).toFixed(1)}" text-anchor="end"`;
+      body += `<text class="${r.cls}${w.st ? ' st' : ''}" font-size="${r.size}"><textPath href="#${id}" ${anchor}>${r.t}</textPath></text>`;
+    });
+    out += `<a class="seg" href="${w.href}" aria-label="${w.label}"><path class="lobe${w.st ? ' st' : ''}" d="${l.d}"/>${body}</a>`;
+  });
+  svg.innerHTML = `<defs>${defs}</defs>${out}`;
+  document.title += ` · fs ${fs}`;
+}
+draw();
+</script>
+</body></html>

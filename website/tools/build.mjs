@@ -5,8 +5,9 @@
  *
  * Reads website/content/site.json, one JSON file per relationship and the media
  * manifest (website/content/media.json, written by tools/media.py), then writes
- * website/index.html, website/<slug>/index.html, website/404.html,
- * website/sitemap.xml and website/robots.txt. See website/README.md.
+ * website/<slug>/index.html, website/404.html,
+ * website/sitemap.xml and website/robots.txt. The homepage (website/index.html)
+ * is written by tools/home.mjs. See website/README.md.
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -330,7 +331,7 @@ function archiveData() {
 /* ———————————————————————— Write */
 const out = (p, s) => { mkdirSync(dirname(join(ROOT, p)), { recursive: true }); writeFileSync(join(ROOT, p), s); console.log('wrote', p); };
 out('data/archive.json', JSON.stringify(archiveData()));
-out('index.html', home());
+// The homepage is Index 005, written by tools/home.mjs. home() above is the Index 002 track index, kept for reference.
 rels.forEach((r, i) => {
   if (!existsSync(join(ROOT, 'media', r.slug, 'og.jpg'))) console.warn(`  note: media/${r.slug}/og.jpg missing (run tools/og.mjs)`);
   out(`${r.slug}/index.html`, archive(r, i));

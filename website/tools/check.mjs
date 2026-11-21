@@ -5,8 +5,9 @@
  *   node website/tools/check.mjs http://127.0.0.1:4175
  *
  * Checks every page at desktop, tablet and phone sizes: no console errors, no failed or 4xx/5xx
- * requests, no horizontal page scroll, one h1, alt text on every image, every image decodes; then
- * drives the viewer (open, arrows, Escape, deep link) and the discipline filter.
+ * requests, no horizontal page scroll, one h1, alt text on every image, every image decodes; checks
+ * the Index 005 homepage (one screen, four segment links, lettering size); then drives the viewer
+ * (open, arrows, Escape, deep link) and the discipline filter.
  */
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -60,44 +61,35 @@ for (const [name, opts] of Object.entries(contexts)) {
     await p.close();
   }
 
-  /* The index: tracks, cursor, keyboard, deep links, viewer, Studio. */
+  /* The index: one screen, four segments, four links, legible lettering. */
   {
     const p = await ctx.newPage();
     const errors = []; p.on('pageerror', e => errors.push(e.message));
     const where = `${name} index`;
     await p.goto(`${BASE}/`, { waitUntil: 'networkidle' });
-    const code = () => p.locator('.r-code').textContent();
-    if ((await code()) !== 'FGC 01.01') fail(where, `initial readout ${await code()}`);
-    if (name !== 'phone') {
-      await p.keyboard.press('ArrowRight');
-      if ((await code()) !== 'FGC 01.02') fail(where, 'ArrowRight did not move the cursor');
-      await p.keyboard.press('ArrowDown');
-      if (!(await p.locator('#joseph-martin.on').count())) fail(where, 'ArrowDown did not open the next track');
-      await p.keyboard.press('4');
-      if ((await code()) !== 'SM 04.01') fail(where, `key 4 gave ${await code()}`);
-      await p.keyboard.press('Enter');
-      if (!(await p.waitForSelector('dialog.viewer[open]', { timeout: 3000 }).catch(() => null))) fail(where, 'Enter did not open the viewer');
-      await p.keyboard.press('ArrowLeft');
-      await p.keyboard.press('Escape');
-      await p.waitForFunction(() => !document.querySelector('dialog.viewer[open]'), null, { timeout: 2000 }).catch(() => null);
-      await p.waitForTimeout(150);
-      if ((await code()) !== 'KC 03.09') fail(where, `viewer did not carry the cursor (${await code()})`);
-    } else {
-      await p.locator('#kashus-culpepper .pl').nth(1).locator('a').tap();
-      if ((await code()) !== 'KC 03.02') fail(where, `tap did not select (${await code()})`);
-      await p.locator('#kashus-culpepper .pl').nth(1).locator('a').tap();
-      if (!(await p.waitForSelector('dialog.viewer[open]', { timeout: 3000 }).catch(() => null))) fail(where, 'second tap did not open the viewer');
-      await p.locator('.viewer .close').tap();
-      await p.waitForFunction(() => !document.querySelector('dialog.viewer[open]'), null, { timeout: 2000 }).catch(() => null);
-      await p.waitForTimeout(150);
-    }
-    await p.goto(`${BASE}/#cowboy-george`, { waitUntil: 'networkidle' });
-    await p.reload({ waitUntil: 'networkidle' });
-    if ((await code()) !== 'JM 02.04') fail(where, `deep link gave ${await code()}`);
-    await p.locator('[data-studio]').first().click();
-    if (!(await p.locator('#studio.open').count())) fail(where, 'Studio did not open');
-    await p.keyboard.press('Escape');
-    if (await p.locator('#studio.open').count()) fail(where, 'Escape did not close Studio');
+    const r = await p.evaluate(() => {
+      const svg = document.querySelector('svg.fruit'), box = svg.getBoundingClientRect();
+      const scale = Math.min(box.width, box.height) / 1000;
+      const names = [...svg.querySelectorAll('.td,.tm')].filter(g => getComputedStyle(g).display !== 'none').flatMap(g => [...g.querySelectorAll('.nm')]);
+      const peel = svg.querySelector('.peel').getBoundingClientRect();
+      return {
+        scroll: document.documentElement.scrollHeight - innerHeight,
+        links: [...svg.querySelectorAll('a')].map(a => a.getAttribute('href')),
+        px: names.length ? Math.min(...names.map(t => +t.getAttribute('font-size'))) * scale : 0,
+        visible: names.map(t => t.textContent).join(' '),
+        inside: peel.left >= -1 && peel.top >= -1 && peel.right <= innerWidth + 1 && peel.bottom <= innerHeight + 1,
+      };
+    });
+    const want = site.relationships.map(s => `/${s}/`);
+    if (r.scroll > 0) fail(where, `page scrolls ${r.scroll}px`);
+    if (r.links.join() !== want.join()) fail(where, `segment links ${r.links.join(', ')}`);
+    if (r.px < 18.7) fail(where, `names render at ${r.px.toFixed(1)}px (large-text minimum is 18.7px bold)`);
+    if (r.visible !== 'Freeman Joseph Martin Kashus Culpepper Scout Motors') fail(where, `visible names "${r.visible}"`);
+    if (!r.inside) fail(where, 'the fruit is cut off by the viewport');
+    await p.keyboard.press('Tab');
+    if ((await p.evaluate(() => document.activeElement.getAttribute('href'))) !== want[0]) fail(where, 'first Tab does not reach Freeman');
+    await p.locator(`svg.fruit a[href="${want[3]}"]`).click({ position: { x: 40, y: 40 } }).catch(() => p.locator(`svg.fruit a[href="${want[3]}"] .seg`).click());
+    await p.waitForURL(`**${want[3]}`, { timeout: 3000 }).catch(() => fail(where, 'clicking the Scout segment did not navigate'));
     errors.forEach(e => fail(where, e));
     await p.close();
   }

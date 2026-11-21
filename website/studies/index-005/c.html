@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Index 005 · Study C — Lettered rind</title>
+<link rel="stylesheet" href="base.css">
+<style>
+.page{height:100svh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:clamp(20px,3vw,44px) clamp(20px,3.4vw,52px);gap:12px}
+header,footer{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+header .wm{font-size:clamp(18px,1.6vw,24px)}
+footer{color:var(--grey)}footer a{color:var(--ink)}
+main{min-height:0;position:relative}
+main svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ring{fill:none;stroke:var(--ink);stroke-width:1.1;vector-effect:non-scaling-stroke}
+.lobe{fill:var(--pith);stroke:var(--orange);stroke-width:1;vector-effect:non-scaling-stroke;transition:fill .2s}
+.core{fill:var(--orange)}
+.rt{font-family:Archivo;font-stretch:125%;font-weight:700;font-size:40px;letter-spacing:.06em;fill:var(--ink);text-transform:uppercase;transition:fill .2s}
+.rn{font-family:Instrument;font-size:150px;fill:var(--orange);opacity:0;transition:opacity .2s}
+a.seg:hover .lobe,a.seg:focus-visible .lobe{fill:var(--orange)}
+a.seg:hover .rt,a.seg:focus-visible .rt{fill:var(--orange)}
+a.seg:focus-visible{outline:none}
+.tick{stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+</style></head><body>
+<div class="page">
+<header><a href="/" class="wm">Tangerine</a><span class="sys">We build brands.</span></header>
+<main><svg id="svg" viewBox="0 0 1000 1000" role="group" aria-label="Tangerine: four relationships lettered around the rind"></svg></main>
+<footer class="sys"><span>Ars longa, vita brevis.</span><a href="https://www.instagram.com/ex.tangerina/">Instagram</a></footer>
+</div>
+<p class="study-tag">Study C · Lettered rind</p>
+<script type="module">
+import { section } from '../../tools/citrus.mjs';
+const work = [
+  { name: 'Freeman', href: '/freeman-general-contracting/' },
+  { name: 'Joseph Martin', href: '/joseph-martin/' },
+  { name: 'Kashus Culpepper', href: '/kashus-culpepper/' },
+  { name: 'Scout Motors', href: '/scout-motors/', note: 'Independent study' },
+];
+const cuts = [-180, -90, 0, 90].map((a, i) => a + [6, -4, 3, -5][i]);
+const s = section({ cuts, R: 480, rind: 92, gap: 12, hollow: 18, bow: 0.06, shoulder: 70, core: [-8, 6] });
+const P = (r, d) => s.polar([500, 500], r, d).map(v => v.toFixed(1)).join(' ');
+let defs = '', out = `<circle class="ring" cx="500" cy="500" r="${s.R}"/><circle class="ring" cx="500" cy="500" r="${s.Rs + 12}"/>`;
+s.cuts = cuts;
+s.lobes.forEach((l, i) => {
+  const w = work[i], top = l.mid > 180 || l.mid < 0;
+  const a0 = l.a0 + 3, a1 = l.a1 - 3;
+  const r = top ? s.Rs + 32 : s.R - 26;
+  defs += top
+    ? `<path id="arc${i}" d="M${P(r, a0)}A${r} ${r} 0 0 1 ${P(r, a1)}"/>`
+    : `<path id="arc${i}" d="M${P(r, a1)}A${r} ${r} 0 0 0 ${P(r, a0)}"/>`;
+  const [mx, my] = l.anchor(s.Rs * 0.55);
+  out += `<a class="seg" href="${w.href}" aria-label="${w.name}${w.note ? ', ' + w.note.toLowerCase() : ''}"><path class="lobe" d="${l.d}"/>` +
+    `<text class="rt"><textPath href="#arc${i}" startOffset="50%" text-anchor="middle">${w.name}</textPath></text></a>`;
+});
+cuts.forEach(c => out += `<path class="tick" d="M${P(s.Rs + 12, c)}L${P(s.R, c)}"/>`);
+out += `<circle class="core" cx="${500 - 8}" cy="${506}" r="6"/>`;
+document.getElementById('svg').innerHTML = `<defs>${defs}</defs>${out}`;
+</script>
+</body></html>
