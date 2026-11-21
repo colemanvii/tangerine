@@ -60,6 +60,48 @@ for (const [name, opts] of Object.entries(contexts)) {
     await p.close();
   }
 
+  /* The index: tracks, cursor, keyboard, deep links, viewer, Studio. */
+  {
+    const p = await ctx.newPage();
+    const errors = []; p.on('pageerror', e => errors.push(e.message));
+    const where = `${name} index`;
+    await p.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+    const code = () => p.locator('.r-code').textContent();
+    if ((await code()) !== 'FGC 01.01') fail(where, `initial readout ${await code()}`);
+    if (name !== 'phone') {
+      await p.keyboard.press('ArrowRight');
+      if ((await code()) !== 'FGC 01.02') fail(where, 'ArrowRight did not move the cursor');
+      await p.keyboard.press('ArrowDown');
+      if (!(await p.locator('#joseph-martin.on').count())) fail(where, 'ArrowDown did not open the next track');
+      await p.keyboard.press('4');
+      if ((await code()) !== 'SM 04.01') fail(where, `key 4 gave ${await code()}`);
+      await p.keyboard.press('Enter');
+      if (!(await p.waitForSelector('dialog.viewer[open]', { timeout: 3000 }).catch(() => null))) fail(where, 'Enter did not open the viewer');
+      await p.keyboard.press('ArrowLeft');
+      await p.keyboard.press('Escape');
+      await p.waitForFunction(() => !document.querySelector('dialog.viewer[open]'), null, { timeout: 2000 }).catch(() => null);
+      await p.waitForTimeout(150);
+      if ((await code()) !== 'KC 03.09') fail(where, `viewer did not carry the cursor (${await code()})`);
+    } else {
+      await p.locator('#kashus-culpepper .pl').nth(1).locator('a').tap();
+      if ((await code()) !== 'KC 03.02') fail(where, `tap did not select (${await code()})`);
+      await p.locator('#kashus-culpepper .pl').nth(1).locator('a').tap();
+      if (!(await p.waitForSelector('dialog.viewer[open]', { timeout: 3000 }).catch(() => null))) fail(where, 'second tap did not open the viewer');
+      await p.locator('.viewer .close').tap();
+      await p.waitForFunction(() => !document.querySelector('dialog.viewer[open]'), null, { timeout: 2000 }).catch(() => null);
+      await p.waitForTimeout(150);
+    }
+    await p.goto(`${BASE}/#cowboy-george`, { waitUntil: 'networkidle' });
+    await p.reload({ waitUntil: 'networkidle' });
+    if ((await code()) !== 'JM 02.04') fail(where, `deep link gave ${await code()}`);
+    await p.locator('[data-studio]').first().click();
+    if (!(await p.locator('#studio.open').count())) fail(where, 'Studio did not open');
+    await p.keyboard.press('Escape');
+    if (await p.locator('#studio.open').count()) fail(where, 'Escape did not close Studio');
+    errors.forEach(e => fail(where, e));
+    await p.close();
+  }
+
   /* Viewer + filter on the first archive. */
   const slug = site.relationships[0];
   const p = await ctx.newPage();
@@ -75,7 +117,8 @@ for (const [name, opts] of Object.entries(contexts)) {
   if (!c2.startsWith('02')) fail(where, `next did not advance ("${c2}")`);
   if (!p.url().includes('#')) fail(where, 'hash not set');
   await p.keyboard.press('Escape');
-  if (await p.locator('dialog.viewer[open]').count()) fail(where, 'Escape did not close');
+  if (!(await p.waitForFunction(() => !document.querySelector('dialog.viewer[open]'), null, { timeout: 2000 }).catch(() => null))) fail(where, 'Escape did not close');
+  await p.waitForTimeout(150);
   const id = await p.locator('.art[data-id]').nth(2).getAttribute('data-id');
   await p.goto(`${BASE}/${slug}/#${id}`, { waitUntil: 'networkidle' });
   if (!(await p.waitForSelector('dialog.viewer[open]', { timeout: 3000 }).catch(() => null))) fail(where, 'deep link did not open viewer');

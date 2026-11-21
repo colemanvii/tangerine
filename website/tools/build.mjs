@@ -19,7 +19,7 @@ const site = read('content/site.json');
 const manifest = read('content/media.json');
 const rels = site.relationships.map(slug => ({ slug, ...read(`content/${slug}.json`) }));
 const ORIGIN = site.origin.replace(/\/$/, '');
-const VERSION = createHash('sha1').update(readFileSync(join(ROOT, 'assets/site.css'))).update(readFileSync(join(ROOT, 'assets/site.js'))).digest('hex').slice(0, 10);
+const VERSION = createHash('sha1').update(readFileSync(join(ROOT, 'assets/site.css'))).update(readFileSync(join(ROOT, 'assets/site.js'))).update(readFileSync(join(ROOT, 'assets/index.js'))).digest('hex').slice(0, 10);
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 /* Inline text: escape, then allow *italic* and [label](href). */
@@ -61,7 +61,7 @@ function img(key, { sizes, cls = '', alt, eager = false, w = 1280 }) {
 }
 
 /* ———————————————————————— Shared chrome */
-function head({ title, description, path, image, imageAlt }) {
+function head({ title, description, path, image, imageAlt, extra = '' }) {
   const url = ORIGIN + path;
   const og = image ? `${ORIGIN}${image}` : `${ORIGIN}/media/brand/og.jpg`;
   return `<!doctype html>
@@ -88,112 +88,108 @@ function head({ title, description, path, image, imageAlt }) {
 <link rel="preload" href="/fonts/archivo-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css?v=${VERSION}">
-<script src="/assets/site.js?v=${VERSION}" defer></script>
+<script src="/assets/site.js?v=${VERSION}" defer></script>${extra}
 </head>`;
 }
 
-function header({ current = '', crumb = '' } = {}) {
-  const nav = [['/#index', 'Index', 'index'], ['/#studio', 'Studio', 'studio'], ['/#contact', 'Contact', 'contact']]
-    .map(([h, t, k]) => `<a href="${h}"${current === k ? ' aria-current="page"' : ''}>${t}</a>`).join('');
+const total = () => rels.reduce((n, r) => n + count(r), 0);
+const signal = () => `<span class="signal" aria-hidden="true"></span>`;
+
+/* One bar for every page: the mark, a middle register, the way out. */
+function header({ mid = '', current = '' } = {}) {
   return `<a class="skip" href="#main">Skip to content</a>
-<header class="head wrap">
+<header class="bar">
 <a class="mark" href="/" aria-label="Tangerine — index"><img src="/media/brand/tangerine-script-480.webp" width="480" height="200" alt="Tangerine"></a>
-<div class="crumb label">${crumb}</div>
-<nav class="nav label" aria-label="Primary">${nav}</nav>
+<div class="bar-mid">${mid}</div>
+<nav class="bar-end sys" aria-label="Site">${current ? `<a href="/#${current}">Index</a>` : `<span class="mute">${pad(total())} entries · ${fmtDate(site.updated)}${signal()}</span>`}<a href="#studio" data-studio>Studio</a></nav>
 </header>`;
 }
 
-const footer = () => `<footer class="foot wrap">
+/* Studio: everything the site says about itself, kept out of the way of the work. */
+const studio = () => `<section id="studio" class="studio" aria-labelledby="studio-title">
+<div class="studio-in">
+<div class="studio-top sys"><h2 id="studio-title" class="sys">Studio</h2><button class="studio-close" type="button" data-studio-close>Close <span aria-hidden="true">×</span></button></div>
+<p class="studio-lede">${inline(site.lede)}</p>
+${site.studio.copy.map(p => `<p class="studio-p">${inline(p)}</p>`).join('\n')}
+<h3 class="sys mute">Practice</h3>
+<ol class="studio-list">${site.studio.practice.map((p, i) => `<li><span class="sys mute">${pad(i + 1)}</span>${esc(p)}</li>`).join('')}</ol>
+<h3 class="sys mute">Log</h3>
+<ol class="studio-list log" reversed>${site.log.map(l => `<li><time class="sys mute" datetime="${l.date}">${fmtDate(l.date)}</time>${inline(l.text)}</li>`).join('')}</ol>
+<h3 class="sys mute">Contact</h3>
+<p class="studio-contact">${inline(site.contact.note)} <a href="${site.contact.href}" target="_blank" rel="noopener noreferrer">${esc(site.contact.handle)}&#8202;↗</a></p>
+</div>
+</section>`;
+
+const footer = () => `<footer class="foot sys">
 <span>Tangerine — We build brands.</span>
-<span>Index updated <time datetime="${site.updated}">${fmtDate(site.updated)}</time></span>
+<span class="mute">Index updated <time datetime="${site.updated}">${fmtDate(site.updated)}</time></span>
 <a href="${site.contact.href}" target="_blank" rel="noopener noreferrer">${esc(site.contact.label)}&#8202;↗</a>
 </footer>`;
+
+const viewerMarkup = where => `<dialog class="viewer" aria-label="Artifact viewer">
+<div class="v-top sys">
+<span class="where">${where}</span>
+<span class="counter" aria-live="polite"></span>
+<button class="close v-btn sys" type="button">Close <span aria-hidden="true">×</span></button>
+</div>
+<div class="v-stage">
+<button class="v-arrow" type="button" data-step="-1" aria-label="Previous artifact">←</button>
+<div class="v-media"></div>
+<button class="v-arrow" type="button" data-step="1" aria-label="Next artifact">→</button>
+</div>
+<div class="v-bottom">
+<span class="v-cap-num sys"></span>
+<p class="v-cap-title"></p>
+<p class="v-cap-facts sys"></p>
+<p class="v-cap-d"></p>
+<div class="v-nav-mobile sys"><button class="v-btn" type="button" data-step="-1">← Previous</button><button class="v-btn" type="button" data-step="1">Next →</button></div>
+</div>
+</dialog>`;
 
 const count = r => r.chapters.reduce((n, c) => n + c.artifacts.length, 0);
 const allArtifacts = r => r.chapters.flatMap(c => c.artifacts);
 
-/* ———————————————————————— Home */
+/* ———————————————————————— Home: the index as four tracks. */
 function home() {
-  const total = rels.reduce((n, r) => n + count(r), 0);
-  const entries = rels.map((r, i) => {
-    const byId = Object.fromEntries(allArtifacts(r).map(a => [a.id, a]));
-    const strip = r.index.map(id => {
-      const a = byId[id];
-      if (!a) throw new Error(`${r.slug}: index id "${id}" not found`);
-      const key = a.kind === 'video' ? a.poster : a.media;
-      const m = media(key), ratio = m.w / m.h;
-      return `<figure>${img(key, { sizes: `(max-width:720px) ${Math.round(150 * ratio)}px, ${Math.round(260 * ratio)}px`, w: 640, alt: '' })}</figure>`;
+  const data = archiveData();
+  const dims = a => a.kind === 'quote' ? 'Text' : `${a.w} × ${a.h}`;
+  const tracks = rels.map((r, k) => {
+    const items = data.artifacts.filter(a => a.rel === r.slug);
+    const plates = items.map(a => {
+      const ratio = a.w / a.h;
+      const inner = a.kind === 'quote'
+        ? `<span class="pl-q${a.style === 'sans' ? ' sans' : ''}">${esc(a.quote)}</span>`
+        : `<img src="${a.thumb}" srcset="${a.srcset}" sizes="${k === 0 ? `${Math.round(64 * ratio)}vh` : `${Math.round(56 * ratio)}px`}" width="${a.w}" height="${a.h}" alt="${esc(a.alt)}"${k === 0 && a.g < 1 ? ' fetchpriority="high"' : k === 0 && a.g < 3 ? '' : ' loading="lazy"'} decoding="async">`;
+      return `<li class="pl${a.kind === 'quote' ? ' is-q' : ''}" data-id="${a.id}" data-g="${a.g}"${a.kind === 'quote' ? '' : ` style="aspect-ratio:${a.w}/${a.h}"`}><a href="${a.dossier}" aria-label="${a.n}, ${esc(a.text)}">${inner}</a><span class="tag sys" aria-hidden="true">${a.n}</span></li>`;
     }).join('');
-    return `<li class="entry">
-<a href="/${r.slug}/">
-<span class="no">${r.number}</span>
-<h3 class="name display">${esc(r.name)}</h3>
-<span class="since label">${esc(r.since)}</span>
-<span class="status label">${esc(r.status)}</span>
-<span class="n label">${pad(count(r))}<span class="arrow" aria-hidden="true">→</span></span>
-<p class="summary">${inline(r.summary)}</p>
-<p class="disc label">${r.disciplines.map(esc).join(' · ')}</p>
-<div class="strip" aria-hidden="true">${strip}</div>
-</a>
-</li>`;
+    return `<section class="tr${k === 0 ? ' on' : ''}" id="${r.slug}" data-k="${k}" aria-labelledby="nm-${k}">
+<div class="lab">
+<span class="lab-no sys">${r.number}</span><span class="lab-ct sys">${pad(count(r))}</span>
+<h2 class="lab-nm" id="nm-${k}"><button type="button" data-k="${k}" aria-expanded="${k === 0}" aria-controls="strip-${k}">${esc(r.name)}</button></h2>
+<div class="lab-more"><p class="lab-sum">${inline(r.summary)}</p><p class="lab-meta sys">${esc(r.since)} · ${esc(r.status)}</p><a class="lab-go sys" href="/${r.slug}/">Dossier <span aria-hidden="true">→</span></a></div>
+</div>
+<ol class="strip" id="strip-${k}" aria-label="${esc(r.name)}, ${count(r)} entries">${plates}</ol>
+</section>`;
   }).join('\n');
+  const a0 = data.artifacts[0];
+  const facts = a => [a.disc.join(', '), a.date, a.status].filter(Boolean).join(' · ');
 
-  const practice = site.studio.practice.map((p, i) => `<li><span>${pad(i + 1)}</span>${esc(p)}</li>`).join('');
-  const log = site.log.map(l => `<li><time class="label" datetime="${l.date}">${fmtDate(l.date)}</time><span>${inline(l.text)}</span></li>`).join('');
-
-  return `${head({ title: site.title, description: site.description, path: '/', imageAlt: 'The Tangerine script wordmark in orange on warm paper' })}
-<body class="home">
-${header({ crumb: '' })}
-<main id="main">
-<section class="opening wrap grid" aria-labelledby="hello">
-<h1 id="hello" class="display">We build brands<span class="o">.</span></h1>
-<dl class="masthead label">
-<dt>Practice</dt><dd>Independent</dd>
-<dt>Relationships</dt><dd>${pad(rels.length)}</dd>
-<dt>Artifacts</dt><dd>${pad(total)}</dd>
-<dt>Updated</dt><dd><time datetime="${site.updated}">${fmtDate(site.updated)}</time></dd>
-</dl>
-<p class="lede-label label muted">Tangerine</p>
-<p class="lede">${inline(site.lede)}</p>
-</section>
-
-<section id="index" class="wrap" aria-labelledby="index-title">
-<div class="index-head label">
-<h2 id="index-title" class="c1" style="margin:0;font:inherit">Index</h2>
-<span class="c2 muted">${rels.length} relationships · ${total} artifacts</span>
-<span class="c3 muted">Since</span>
-<span class="c4 muted">Status</span>
-<span class="c5 muted">Artifacts</span>
-</div>
-<ol class="entries">
-${entries}
-</ol>
-</section>
-
-<section id="studio" class="section studio wrap grid" aria-labelledby="studio-title">
-<h2 id="studio-title" class="label">Studio</h2>
-<div class="copy">
-${site.studio.copy.map((p, i) => `<p${i > 0 ? ' class="small"' : ''}>${inline(p)}</p>`).join('\n')}
-</div>
-<ul class="practice" aria-label="Practice">${practice}</ul>
-</section>
-
-<section class="section wrap grid" aria-labelledby="log-title">
-<h2 id="log-title" class="label">Archive log</h2>
-<ol class="log" reversed>${log}</ol>
-</section>
-
-<section id="contact" class="section contact wrap grid" aria-labelledby="contact-title">
-<h2 id="contact-title" class="label">Contact</h2>
-<div class="copy">
-<p>${inline(site.contact.note)}</p>
-<a class="big display" href="${site.contact.href}" target="_blank" rel="noopener noreferrer">${esc(site.contact.handle)}</a>
-</div>
-</section>
-
-<div class="signature wrap"><img src="/media/brand/tangerine-script-1640.webp" width="1640" height="684" loading="lazy" decoding="async" alt="Tangerine"></div>
+  return `${head({ title: site.title, description: site.description, path: '/', imageAlt: 'The Tangerine script wordmark in orange on warm paper', extra: `\n<script src="/assets/index.js?v=${VERSION}" defer></script>` })}
+<body class="idx">
+${header({ mid: `<p class="decl">We build brands.</p>` })}
+<main id="main" class="tracks">
+<h1 class="visually-hidden">Tangerine — an index of work</h1>
+${tracks}
 </main>
-${footer()}
+<footer class="readout" aria-live="polite">
+<span class="r-code sys">${a0.code} ${a0.no}.${a0.n}</span>
+<p class="r-title"><span class="r-t">${a0.title}</span><span class="r-f sys">${esc(facts(a0))}</span></p>
+<span class="r-dim sys">${dims(a0)}</span>
+<span class="r-keys sys" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd> work <kbd>↑</kbd><kbd>↓</kbd> relationship <kbd>↵</kbd> view</span>
+</footer>
+${studio()}
+${viewerMarkup('Index')}
+<script type="application/json" id="archive-data">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>
 </body>
 </html>
 `;
@@ -205,7 +201,9 @@ function artifact(a, n, r) {
   const sizeKey = layout.replace(/-[abc]$/, '').replace(/^side.*/, 'side');
   const cls = layout.startsWith('side') ? `l-side${layout === 'side-flip' ? ' flip' : ''}` : `l-${layout}`;
   const disc = a.discipline.map(slugify).join(' ');
-  const facts = [a.discipline.join(', '), a.date, a.status].filter(Boolean).map(f => `<span>${esc(f)}</span>`).join('');
+  const m = a.kind === 'quote' ? null : media(a.kind === 'video' ? a.poster : a.media);
+  const dim = a.kind === 'video' ? `${a.w} × ${a.h} · film` : m ? `${m.w} × ${m.h}` : '';
+  const facts = [a.discipline.join(', '), a.date, a.status].filter(Boolean).map(f => `<span>${esc(f)}</span>`).join('') + (dim ? `<span class="dim">${dim}</span>` : '');
   const title = a.title;
   const frameCls = ['frame', a.frame || 'bare'].join(' ');
   let body;
@@ -221,7 +219,7 @@ function artifact(a, n, r) {
   }
   return `<figure class="art ${cls}${a.kind === 'quote' ? ' quote' : ''}" id="${a.id}" data-id="${a.id}" data-n="${pad(n)}" data-kind="${a.kind || 'image'}" data-disc="${disc}">
 ${body}
-<figcaption class="caption"><span class="num">${pad(n)}</span><h3 class="t">${inline(title)}</h3><span class="facts">${facts}</span>${a.note ? `<p class="d">${inline(a.note)}</p>` : ''}</figcaption>
+<figcaption class="caption"><span class="num">${r.code} ${pad(n)}</span><h3 class="t">${inline(title)}</h3><span class="facts">${facts}</span>${a.note ? `<p class="d">${inline(a.note)}</p>` : ''}</figcaption>
 </figure>`;
 }
 
@@ -242,22 +240,22 @@ ${c.artifacts.map(a => artifact(a, ++n, r)).join('\n')}
 </div>
 </section>`).join('\n');
 
-  const meta = [['Since', esc(r.since)], ['Status', esc(r.status)], ['Disciplines', r.disciplines.map(esc).join(', ')], ['Artifacts', pad(total)]]
-    .concat((r.links || []).map(l => [l.label, `<a href="${l.href}" target="_blank" rel="noopener noreferrer">${esc(l.text)}&#8202;↗</a>`]))
-    .map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
-  const crumb = `<a href="/#index">Index</a><span class="muted">${r.number} / ${pad(rels.length)}</span>`;
-  const cover = media(r.og || allArtifacts(r).find(a => a.id === r.index[0]).media);
-
+  const meta = [esc(r.since), esc(r.status), `${pad(total)} entries`]
+    .concat((r.links || []).map(l => `${esc(l.label)} <a href="${l.href}" target="_blank" rel="noopener noreferrer">${esc(l.text)}&#8202;↗</a>`)).join('<span class="sep">·</span>');
+  let cn = 0;
+  const contents = allArtifacts(r).map(a => `<a href="#${a.id}"><sup>${pad(++cn)}</sup>${esc(a.title.replace(/\*/g, ''))}</a>`).join('<span class="sep">/</span>');
+  const relsNav = rels.map(x => `<a href="/${x.slug}/"${x.slug === r.slug ? ' aria-current="page"' : ''}><span class="o">${x.number}</span> ${x.code}</a>`).join('');
   return `${head({ title: `${r.name} — Tangerine`, description: r.description, path: `/${r.slug}/`, image: `/media/${r.slug}/og.jpg`, imageAlt: r.ogAlt || r.name })}
 <body class="archive-page">
-${header({ current: 'index', crumb })}
+${header({ current: r.slug, mid: `<nav class="rels-nav sys" aria-label="Relationships">${relsNav}</nav>` })}
 <main id="main">
 <section class="title wrap grid" aria-labelledby="t">
-<span class="no">${r.number}</span>
+<span class="no sys">${r.number}</span>
 <h1 id="t" class="display">${esc(r.name)}</h1>
+<p class="meta sys">${meta}</p>
 <div class="intro">${r.intro.map(p => `<p>${inline(p)}</p>`).join('')}</div>
-<dl class="meta label-list">${meta}</dl>
-${r.notice ? `<p class="note-status"><span class="label">Note</span><span>${inline(r.notice)}</span></p>` : ''}
+${r.notice ? `<p class="note-status"><span class="sys o">Note</span><span>${inline(r.notice)}</span></p>` : ''}
+<nav class="contents" aria-label="Contents"><span class="sys mute">Contents</span><p>${contents}</p></nav>
 </section>
 
 <div class="toolbar wrap" role="region" aria-label="Filter the archive by discipline">
@@ -272,29 +270,12 @@ ${chapters}
 <nav class="next wrap" aria-label="Next relationship">
 <a href="/${next.slug}/"><span class="label">Next relationship</span><span class="no">${next.number}</span><span class="name display">${esc(next.name)}</span></a>
 </nav>
-<p class="wrap label" style="margin:0 0 40px"><a href="/#index">← Back to the index</a> &nbsp;·&nbsp; <a href="/${prev.slug}/">Previous: ${esc(prev.name)}</a></p>
+<p class="back sys"><a href="/#${r.slug}">← Index</a><a href="/${prev.slug}/">Previous: ${esc(prev.name)}</a></p>
 </main>
 ${footer()}
 
-<dialog class="viewer" aria-label="Artifact viewer">
-<div class="v-top label">
-<span class="where">${esc(r.name)}</span>
-<span class="counter" aria-live="polite"></span>
-<button class="close v-btn label" type="button">Close <span aria-hidden="true">×</span></button>
-</div>
-<div class="v-stage">
-<button class="v-arrow" type="button" data-step="-1" aria-label="Previous artifact">←</button>
-<div class="v-media"></div>
-<button class="v-arrow" type="button" data-step="1" aria-label="Next artifact">→</button>
-</div>
-<div class="v-bottom">
-<span class="v-cap-num"></span>
-<p class="v-cap-title"></p>
-<p class="v-cap-facts label" style="margin:0"></p>
-<p class="v-cap-d"></p>
-<div class="v-nav-mobile label"><button class="v-btn" type="button" data-step="-1">← Previous</button><button class="v-btn" type="button" data-step="1">Next →</button></div>
-</div>
-</dialog>
+${studio()}
+${viewerMarkup(esc(r.name))}
 </body>
 </html>
 `;
@@ -307,16 +288,48 @@ ${header()}
 <main id="main" class="wrap lost">
 <p class="label o">404</p>
 <h1 class="display">Not in the archive<span class="o">.</span></h1>
-<p class="label"><a href="/">Return to the index</a></p>
+<p class="sys"><a href="/">Return to the index</a></p>
 </main>
 ${footer()}
+${studio()}
 </body>
 </html>
 `;
 }
 
+/* ———————————————————————— Archive data: one flat, ordered record of every artifact. */
+function archiveData() {
+  let g = 0;
+  const artifacts = rels.flatMap(r => {
+    let n = 0;
+    return r.chapters.flatMap(c => c.artifacts.map(a => {
+      const kind = a.kind || 'image';
+      const rec = {
+        id: a.id, g: g++, rel: r.slug, code: r.code, no: r.number, n: pad(++n), chapter: c.title.replace(/\*/g, ''),
+        title: inline(a.title), text: a.title.replace(/\*/g, ''), disc: a.discipline, date: a.date || '', status: a.status || '',
+        note: a.note ? inline(a.note) : '', kind, dossier: `/${r.slug}/#${a.id}`,
+      };
+      if (kind === 'image' || kind === 'video') {
+        const m = media(kind === 'video' ? a.poster : a.media);
+        rec.w = kind === 'video' ? a.w : m.w; rec.h = kind === 'video' ? a.h : m.h;
+        rec.thumb = m.src(640); rec.src = m.src(1280); rec.srcset = m.srcset; rec.alt = a.alt; rec.frame = a.frame || '';
+        if (kind === 'video') rec.video = `/media/${a.src}`;
+      } else {
+        rec.quote = a.text; rec.style = a.style || 'serif'; rec.source = a.source || ''; rec.w = 16; rec.h = 9;
+      }
+      return rec;
+    }));
+  });
+  return {
+    updated: site.updated,
+    rels: rels.map(r => ({ slug: r.slug, code: r.code, no: r.number, name: r.name, since: r.since, status: r.status, summary: inline(r.summary), notice: r.notice ? inline(r.notice) : '', count: count(r), disciplines: r.disciplines })),
+    artifacts,
+  };
+}
+
 /* ———————————————————————— Write */
 const out = (p, s) => { mkdirSync(dirname(join(ROOT, p)), { recursive: true }); writeFileSync(join(ROOT, p), s); console.log('wrote', p); };
+out('data/archive.json', JSON.stringify(archiveData()));
 out('index.html', home());
 rels.forEach((r, i) => {
   if (!existsSync(join(ROOT, 'media', r.slug, 'og.jpg'))) console.warn(`  note: media/${r.slug}/og.jpg missing (run tools/og.mjs)`);

@@ -1,4 +1,5 @@
 {
+ "code": "SM",
  "number": "04",
  "name": "Scout Motors",
  "since": "2026",
@@ -10,7 +11,6 @@
  ],
  "notice": "Independent exploration. No commission or endorsement by Scout Motors is implied.",
  "disciplines": ["Illustration", "Painting"],
- "index": ["scout-desert", "scout-painting", "scout-riders"],
  "og": "scout-motors/scout-desert",
  "ogAlt": "Framed Scout illustration of a vehicle crossing a desert",
  "chapters": [

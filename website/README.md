@@ -1,6 +1,6 @@
-# Tangerine — Website V2
+# Tangerine — Index 002
 
-The source of https://ex-tangerina.com. A living index of work across a small group of relationships.
+The source of https://ex-tangerina.com: an instrument for exploring the work. The homepage is four tracks, one per relationship, holding every artifact; each relationship also has a dossier page.
 
 Vercel project `ex-tangerina` serves this directory as-is. There is no build step on Vercel: the HTML is generated here and committed, so what is in Git is exactly what is served.
 
@@ -11,10 +11,14 @@ website/
   content/media.json           image manifest (written by tools/media.py)
   media/<relationship>/        web derivatives (WebP 640 / 1280 / 2200) and og.jpg
   media/brand/                 the approved script wordmark (PNG byte-identical to the approved homepage) and derivatives
-  assets/site.css, site.js     one stylesheet, one small script (pages work without it)
+  assets/site.css              one stylesheet
+  assets/site.js               shared behaviour: Studio panel, viewer, dossier filters (pages work without it)
+  assets/index.js              the homepage tracks: cursor, keyboard, deep links
+  data/archive.json            generated: every artifact, flat and ordered (also embedded in the homepage)
+  studies/index-002/           the three design studies that led to Index 002 (not deployed)
   fonts/                       Archivo (variable width + weight) and Instrument Serif, both SIL OFL
   tools/                       build.mjs, media.py, og.mjs (not deployed, see .vercelignore)
-  index.html, <slug>/index.html, 404.html, sitemap.xml, robots.txt   generated — do not edit by hand
+  index.html, <slug>/index.html, 404.html, data/, sitemap.xml, robots.txt   generated — do not edit by hand
 ```
 
 ## Add new work
@@ -52,7 +56,7 @@ website/
    - Video: `"kind": "video", "src": "<relationship>/<file>.mp4", "poster": "<media key>", "w": …, "h": …`. Keep loops short and silent (H.264, `-movflags +faststart`).
    - Words as the artifact (a published line, a tagline): `"kind": "quote", "text": "…", "style": "serif" | "sans", "source": "where it ran"`.
 
-3. **Optionally** add the id to the relationship's `index` list to show it in the homepage strip, and add a line to `log` in `content/site.json`. Bump `updated` there.
+3. The homepage picks it up automatically: every artifact appears on its relationship's track, in the order of the JSON. Add a line to `log` in `content/site.json` and bump `updated` there.
 
 4. **Build and check:**
 

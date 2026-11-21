@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Study C — The Tracks</title>
+<link rel="stylesheet" href="base.css">
+<style>
+body{height:100svh;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto}
+.top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px 28px 14px}
+.top img{width:132px}
+.top .decl{font:italic 400 16px/1 var(--serif);color:var(--ink-2)}
+.top .clock{justify-self:end;color:var(--ink-2)}
+.tracks{display:flex;flex-direction:column;border-top:1px solid var(--ink);min-height:0}
+.tr{display:grid;grid-template-columns:clamp(170px,15vw,240px) 1fr;border-bottom:1px solid var(--rule);flex:0 0 64px;transition:flex-basis .24s var(--ease);min-height:0}
+.tr.on{flex:1 1 auto}
+.lab{padding:12px 18px 12px 28px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:6px;cursor:pointer;min-width:0}
+.lab .row{display:flex;justify-content:space-between}
+.lab .nm{font:400 15px/1.15 var(--sans);font-stretch:104%;color:var(--ink-2)}
+.tr.on .lab .nm{color:var(--ink);font-size:19px}
+.lab .sum{font:400 15px/1.25 var(--serif);color:var(--ink-2);display:none}
+.tr.on .lab .sum{display:block;margin-top:auto}
+.strip{display:flex;gap:10px;align-items:stretch;padding:10px 28px 10px 14px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;min-width:0}
+.strip::-webkit-scrollbar{display:none}
+.tr.on .strip{padding:22px 40vw 22px 22px;gap:22px}
+.pl{position:relative;flex:none;height:100%;cursor:pointer;background:var(--plate)}
+.pl img{height:100%;width:auto;display:block}
+.pl.q{display:flex;align-items:center;padding:0 1.2em;font:400 15px/1 var(--serif);background:var(--paper);border:1px solid var(--rule);white-space:nowrap}
+.tr.on .pl.q{font-size:clamp(24px,3vw,44px);padding:0 1.4em}
+.pl::after{content:"";position:absolute;inset:-6px;border:1px solid var(--orange);opacity:0;transform:scale(1.02);transition:opacity .12s,transform .16s var(--ease);pointer-events:none}
+.pl.cur::after{opacity:1;transform:none}
+.pl .tag{position:absolute;left:0;top:-17px;color:var(--orange-ink);opacity:0}
+.pl.cur .tag{opacity:1}
+.tr:not(.on) .pl::after,.tr:not(.on) .pl .tag{display:none}
+.read{display:grid;grid-template-columns:clamp(170px,15vw,240px) minmax(0,1fr) auto;align-items:baseline;border-top:1px solid var(--ink);padding:12px 28px 16px}
+.read .n{color:var(--orange-ink)}
+.read h2{margin:0;font:400 22px/1.1 var(--serif);display:inline}
+.read .f{margin-left:16px;color:var(--ink-2)}
+.read .keys{color:var(--ink-3)}
+@media(max-width:860px){
+ body{height:100svh}
+ .top{grid-template-columns:auto 1fr;padding:14px 16px 10px}.top .decl{display:none}.top img{width:112px}
+ .tr{grid-template-columns:1fr;grid-template-rows:auto 1fr;flex-basis:84px}
+ .lab{flex-direction:row;justify-content:space-between;border-right:0;padding:8px 16px 0}
+ .lab .sum,.tr.on .lab .sum{display:none}
+ .strip{padding:6px 16px 10px}.tr.on .strip{padding:14px 30vw 14px 16px;gap:14px}
+ .read{grid-template-columns:1fr;padding:10px 16px 14px}.read .keys{display:none}.read .f{display:block;margin:4px 0 0}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<header class="top"><img src="/media/brand/tangerine-script-480.webp" alt="Tangerine"><span class="decl">We build brands.</span><span class="clock sys" id="clock"></span></header>
+<main class="tracks" id="tracks"></main>
+<footer class="read" aria-live="polite"><span class="n sys" id="rn"></span><div><h2 id="rt"></h2><span class="f sys" id="rf"></span></div><span class="keys sys">← → work · ↑ ↓ track · ↵ view</span></footer>
+<script>
+(async () => {
+ const D = await (await fetch('/data/archive.json')).json();
+ const A = D.artifacts, R = D.rels;
+ const by = R.map(x => A.filter(a => a.rel === x.slug));
+ let r = 0, i = 0;
+ const T = document.getElementById('tracks');
+ T.innerHTML = R.map((x, k) => `<section class="tr" data-k="${k}"><div class="lab" data-k="${k}"><div class="row"><span class="sys o">${x.no}</span><span class="sys mute">${String(x.count).padStart(2,'0')}</span></div><span class="nm">${x.name}</span><span class="sum">${x.summary}</span></div>
+ <div class="strip">${by[k].map((a, j) => a.kind === 'quote' ? `<div class="pl q" data-j="${j}"><span class="tag sys">${a.n}</span>${a.quote}</div>` : `<div class="pl" data-j="${j}" style="aspect-ratio:${a.w}/${a.h}"><span class="tag sys">${a.n}</span><img src="${a.thumb}" srcset="${a.srcset}" sizes="40vw" alt="${a.alt}" loading="lazy"></div>`).join('')}</div></section>`).join('');
+ const tracks = [...T.children];
+ function show(smooth = true) {
+  tracks.forEach((t, k) => t.classList.toggle('on', k === r));
+  tracks.forEach((t, k) => t.querySelectorAll('.pl').forEach((p, j) => p.classList.toggle('cur', k === r && j === i)));
+  const a = by[r][i], p = tracks[r].querySelectorAll('.pl')[i], s = p.parentElement;
+  setTimeout(() => s.scrollTo({ left: p.offsetLeft - 22, behavior: smooth && !matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto' }), 30);
+  rn.textContent = `${a.code} ${a.no}.${a.n}`; rt.innerHTML = a.title; rf.textContent = [a.disc.join(', '), a.date, a.status].filter(Boolean).join(' · ');
+ }
+ T.addEventListener('click', e => {
+  const p = e.target.closest('.pl'), l = e.target.closest('.lab');
+  const k = +(e.target.closest('.tr').dataset.k);
+  if (p) { r = k; i = +p.dataset.j; } else if (l && k !== r) { r = k; i = 0; } else return;
+  show();
+ });
+ addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') i = Math.min(i + 1, by[r].length - 1);
+  else if (e.key === 'ArrowLeft') i = Math.max(i - 1, 0);
+  else if (e.key === 'ArrowDown') { r = Math.min(r + 1, 3); i = 0; }
+  else if (e.key === 'ArrowUp') { r = Math.max(r - 1, 0); i = 0; }
+  else return;
+  e.preventDefault(); show();
+ });
+ const clock = document.getElementById('clock');
+ const tick = () => { const d = new Date(); clock.textContent = d.toLocaleTimeString('en-GB', { hour12: false }) + ' ' + (Intl.DateTimeFormat().resolvedOptions().timeZone.split('/').pop().replace('_', ' ')); };
+ tick(); setInterval(tick, 1000);
+ show(false);
+})();
+</script>
+</body></html>

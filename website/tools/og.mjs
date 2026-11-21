@@ -26,8 +26,8 @@ const shell = body => `<!doctype html><html><head><meta charset="utf-8"><base hr
 .pic{background:#efebe1;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .pic img{max-width:100%;max-height:100%;object-fit:contain}
 .txt{padding:48px 52px;display:flex;flex-direction:column;justify-content:space-between;border-left:1px solid #191714}
-.no{font:700 22px/1 Archivo;font-stretch:125%;color:#df4900}
-.nm{font:780 76px/.92 Archivo;font-stretch:125%;letter-spacing:-.035em;color:#191714;margin:0}
+.no{font:500 15px/1 Archivo;font-stretch:112%;letter-spacing:.07em;color:#bf3d00}
+.nm{font:400 84px/.95 'Instrument Serif';letter-spacing:-.018em;color:#191714;margin:0}
 .ft{display:flex;justify-content:space-between;align-items:end}
 .ft img{width:190px}
 .lb{font:560 14px/1.3 Archivo;font-stretch:115%;letter-spacing:.075em;text-transform:uppercase;color:#5f5a51}

@@ -1,4 +1,5 @@
 {
+ "code": "FGC",
  "number": "01",
  "name": "Freeman General Contracting",
  "since": "2023—",
@@ -12,7 +13,6 @@
  "disciplines": ["Website", "Identity", "Art direction", "Film", "Case studies", "Messaging"],
  "filters": ["Website", "Identity", "Art direction", "Film", "Case studies", "Messaging"],
  "links": [{ "label": "Live", "text": "freemangc.com", "href": "https://www.freemangc.com/" }],
- "index": ["freemangc-home", "signature", "map", "stamp-eagle", "brand-film-003", "built-record-muchacho"],
  "og": "freeman-general-contracting/home-freeman",
  "ogAlt": "The Freeman General Contracting homepage: a red script signature on sand",
  "chapters": [

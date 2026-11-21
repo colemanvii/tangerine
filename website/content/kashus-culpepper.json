@@ -1,4 +1,5 @@
 {
+ "code": "KC",
  "number": "03",
  "name": "Kashus Culpepper",
  "since": "2024—",
@@ -12,7 +13,6 @@
  "disciplines": ["Release artwork", "Illustration", "Character development", "Animation"],
  "filters": ["Release artwork", "Illustration", "Typography", "Character development", "Animation"],
  "links": [{ "label": "Listen", "text": "Act I: Summer Nights", "href": "https://open.spotify.com/album/3RPDh3A283D7F4DuJO95kD" }],
- "index": ["act-i-summer-nights", "who-hurt-you", "lil-kc", "out-of-my-mind", "harvest-moon-tour", "after-me"],
  "og": "kashus-culpepper/act-i-summer-nights",
  "ogAlt": "Act I: Summer Nights EP artwork for Kashus Culpepper",
  "chapters": [

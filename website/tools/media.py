@@ -5,7 +5,7 @@ Make web derivatives of an original image and record them in the manifest.
 
     python3 website/tools/media.py <relationship> <id> <original> [--source "repo@sha:path"] [--crop l,t,r,b]
 
-Writes website/media/<relationship>/<id>-{640,1280,2200}.webp (never larger
+Writes website/media/<relationship>/<id>-{320,640,1280,2200}.webp (never larger
 than the original) and records width, height, sizes and provenance in
 website/content/media.json. Originals are never modified or copied here.
 Requires Pillow (pip install pillow) and, for WebP/AVIF inputs, ffmpeg.
@@ -15,7 +15,7 @@ from PIL import Image
 
 Image.MAX_IMAGE_PIXELS = None
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-WIDTHS = (640, 1280, 2200)
+WIDTHS = (320, 640, 1280, 2200)
 
 
 def load(path):
