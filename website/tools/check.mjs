@@ -66,7 +66,7 @@ for (const [name, opts] of Object.entries(contexts)) {
   await p.goto(`${BASE}/${slug}/`, { waitUntil: 'networkidle' });
   const where = `${name} viewer /${slug}/`;
   await p.locator('.art .frame[href]').first().click();
-  if (!(await p.locator('dialog.viewer[open]').count())) fail(where, 'viewer did not open');
+  if (!(await p.waitForSelector('dialog.viewer[open]', { timeout: 3000 }).catch(() => null))) fail(where, 'viewer did not open');
   const c1 = await p.locator('.viewer .counter').textContent();
   if (!/^01 \/ \d\d$/.test(c1)) fail(where, `counter "${c1}"`);
   if (name === 'phone') await p.locator('.v-nav-mobile [data-step="1"]').click();
@@ -78,7 +78,7 @@ for (const [name, opts] of Object.entries(contexts)) {
   if (await p.locator('dialog.viewer[open]').count()) fail(where, 'Escape did not close');
   const id = await p.locator('.art[data-id]').nth(2).getAttribute('data-id');
   await p.goto(`${BASE}/${slug}/#${id}`, { waitUntil: 'networkidle' });
-  if (!(await p.locator('dialog.viewer[open]').count())) fail(where, 'deep link did not open viewer');
+  if (!(await p.waitForSelector('dialog.viewer[open]', { timeout: 3000 }).catch(() => null))) fail(where, 'deep link did not open viewer');
   await p.keyboard.press('Escape');
   const btn = p.locator('.filter button').nth(1);
   const key = await btn.getAttribute('data-filter');

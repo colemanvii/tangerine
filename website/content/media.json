@@ -1,4 +1,172 @@
 {
+ "freeman-general-contracting/beetlecat-page": {
+  "w": 2880,
+  "h": 1800,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@release/approved-v5-2026-10-18:v5/project-beetlecat.html, 2x (photograph: Jared Swafford)"
+ },
+ "freeman-general-contracting/brand-film-003-poster": {
+  "w": 720,
+  "h": 1280,
+  "sizes": [
+   720
+  ],
+  "alpha": false,
+  "source": "frame 11.6 s of brand-film-003.mp4 (lockup)"
+ },
+ "freeman-general-contracting/brand-system-001": {
+  "w": 1440,
+  "h": 1500,
+  "sizes": [
+   640,
+   1440
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@study/brand-system-001"
+ },
+ "freeman-general-contracting/brand-system-001-signage": {
+  "w": 1440,
+  "h": 1400,
+  "sizes": [
+   640,
+   1440
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@study/brand-system-001"
+ },
+ "freeman-general-contracting/built-for-generations-002": {
+  "w": 1440,
+  "h": 900,
+  "sizes": [
+   640,
+   1440
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@study/built-for-generations (study 002)"
+ },
+ "freeman-general-contracting/built-record-muchacho": {
+  "w": 1440,
+  "h": 1100,
+  "sizes": [
+   640,
+   1440
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@claude/freeman-case-study-system-273x7a (Built Record study 001)"
+ },
+ "freeman-general-contracting/eagle-mark": {
+  "w": 2700,
+  "h": 845,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": true,
+  "source": "colemanvii/freeman@release/approved-v5-2026-10-18:v5/intro-eagle.svg (= colemanvii/personal site/assets/freeman-eagle.svg), rendered"
+ },
+ "freeman-general-contracting/freemanai-film-001-poster": {
+  "w": 1920,
+  "h": 1080,
+  "sizes": [
+   640,
+   1280,
+   1920
+  ],
+  "alpha": false,
+  "source": "colemanvii/freeman@study/freemanai-film-001 still"
+ },
+ "freeman-general-contracting/home-dark": {
+  "w": 2880,
+  "h": 1800,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@release/approved-v5-2026-10-18:v5/index.html (dark colorway), 2x"
+ },
+ "freeman-general-contracting/home-freeman": {
+  "w": 2880,
+  "h": 1800,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@release/approved-v5-2026-10-18:v5/index.html (Freeman colorway), 2x"
+ },
+ "freeman-general-contracting/home-light": {
+  "w": 2880,
+  "h": 1800,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@release/approved-v5-2026-10-18:v5/index.html (light colorway), 2x"
+ },
+ "freeman-general-contracting/map": {
+  "w": 2880,
+  "h": 1800,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@release/approved-v5-2026-10-18:v5/map.html, 2x"
+ },
+ "freeman-general-contracting/phone-home": {
+  "w": 1170,
+  "h": 1992,
+  "sizes": [
+   640,
+   1170
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@release/approved-v5-2026-10-18:v5/index.html, iPhone 13"
+ },
+ "freeman-general-contracting/phone-map": {
+  "w": 1170,
+  "h": 1992,
+  "sizes": [
+   640,
+   1170
+  ],
+  "alpha": false,
+  "source": "capture of colemanvii/freeman@release/approved-v5-2026-10-18:v5/map.html, iPhone 13"
+ },
+ "freeman-general-contracting/signature": {
+  "w": 2208,
+  "h": 1020,
+  "sizes": [
+   640,
+   1280,
+   2208
+  ],
+  "alpha": false,
+  "source": "colemanvii/freeman@release/approved-v5-2026-10-18:v5/pixel-mark.js, drawn at 12x"
+ },
+ "freeman-general-contracting/stamp-eagle": {
+  "w": 2160,
+  "h": 840,
+  "sizes": [
+   640,
+   1280,
+   2160
+  ],
+  "alpha": false,
+  "source": "colemanvii/freeman@release/approved-v5-2026-10-18:v5/eagle/stamp.pbm, drawn at 10x"
+ },
  "joseph-martin/cowboy-george": {
   "w": 1800,
   "h": 1800,

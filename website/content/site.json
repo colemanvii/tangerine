@@ -4,7 +4,12 @@
  "description": "Tangerine is an independent creative practice working alongside ambitious people and companies to develop their brands over time.",
  "updated": "2026-11-21",
  "lede": "An independent creative practice working alongside ambitious people and companies to develop their brands over time.",
- "relationships": ["freeman-general-contracting", "joseph-martin", "kashus-culpepper", "scout-motors"],
+ "relationships": [
+  "freeman-general-contracting",
+  "joseph-martin",
+  "kashus-culpepper",
+  "scout-motors"
+ ],
  "studio": {
   "copy": [
    "Tangerine is built around long-term relationships, not transactional projects. A small group of brands, developed over years.",
@@ -27,7 +32,13 @@
   "href": "https://www.instagram.com/ex.tangerina/"
  },
  "log": [
-  { "date": "2026-11-21", "text": "Website V2. The index opens with four relationships." },
-  { "date": "2026-11-17", "text": "ex-tangerina.com goes live." }
+  {
+   "date": "2026-11-21",
+   "text": "Website V2. The index opens with four relationships and 35 artifacts."
+  },
+  {
+   "date": "2026-11-17",
+   "text": "ex-tangerina.com goes live."
+  }
  ]
 }

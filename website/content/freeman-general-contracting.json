@@ -1,0 +1,67 @@
+{
+ "number": "01",
+ "name": "Freeman General Contracting",
+ "since": "2023—",
+ "status": "Ongoing",
+ "summary": "A North Georgia builder of hospitality and commercial places. Website, identity, film, case studies and the words the company uses to describe itself.",
+ "description": "Freeman General Contracting and Tangerine: the freemangc.com website, the Freeman signature and eagle, brand films, case-study systems and public messaging. An ongoing creative relationship.",
+ "intro": [
+  "Freeman General Contracting builds hospitality and commercial places across North Georgia. Built for Generations.",
+  "The relationship began with an eagle and has grown into the company's website, signature, colorways, films, case studies and public language: one body of work, still being added to."
+ ],
+ "disciplines": ["Website", "Identity", "Art direction", "Film", "Case studies", "Messaging"],
+ "filters": ["Website", "Identity", "Art direction", "Film", "Case studies", "Messaging"],
+ "links": [{ "label": "Live", "text": "freemangc.com", "href": "https://www.freemangc.com/" }],
+ "index": ["freemangc-home", "signature", "map", "stamp-eagle", "brand-film-003", "built-record-muchacho"],
+ "og": "freeman-general-contracting/home-freeman",
+ "ogAlt": "The Freeman General Contracting homepage: a red script signature on sand",
+ "chapters": [
+  {
+   "title": "freemangc.com",
+   "note": "Design and development of the company website. Project photography on the site is by Jared Swafford and Freeman General Contracting and appears here only as part of the site.",
+   "artifacts": [
+    { "id": "freemangc-home", "title": "freemangc.com, home", "media": "freeman-general-contracting/home-freeman", "alt": "The Freeman homepage in its sand colorway: a red pixel script signature reading Freeman centered above a small navigation line", "discipline": ["Website", "Identity"], "date": "2026", "status": "Live", "layout": "full", "frame": "ruled", "note": "One screen, no scroll. The signature writes itself on arrival, then the four rooms of the site: Company, Projects, Photographs, Contact. [freemangc.com](https://www.freemangc.com/)" },
+    { "id": "colorway-light", "title": "Light colorway", "media": "freeman-general-contracting/home-light", "alt": "The Freeman homepage on white with the signature in dark umber", "discipline": ["Website", "Identity"], "date": "2026", "status": "Live", "layout": "half-a", "frame": "ruled", "note": "Three colorways, chosen by the visitor: white, sand and umber." },
+    { "id": "colorway-dark", "title": "Dark colorway", "media": "freeman-general-contracting/home-dark", "alt": "The Freeman homepage on dark umber with the signature in cream", "discipline": ["Website", "Identity"], "date": "2026", "status": "Live", "layout": "half-b", "frame": "ruled", "note": "Freeman red is kept for the current place and the things that matter." },
+    { "id": "map", "title": "*Places we've built*", "media": "freeman-general-contracting/map", "alt": "A full-screen line map of North Georgia with Freeman projects marked in red and a project register down the right side", "discipline": ["Website"], "date": "2026", "status": "Live", "layout": "full", "frame": "ruled", "note": "Projects as a map of North Georgia: every mark opens its project, and the register on the right lists all of them." },
+    { "id": "beetlecat-page", "title": "Project page, *Beetlecat*", "media": "freeman-general-contracting/beetlecat-page", "alt": "A Freeman project page for Beetlecat in Atlanta: a photograph of a red-and-plaid restaurant bar beside a narrow column of project credits", "discipline": ["Website", "Art direction"], "date": "2026", "status": "Live", "layout": "side", "frame": "ruled", "note": "Each project as a quiet plate: one photograph, its credits, nothing else. Photograph by Jared Swafford." },
+    { "id": "phone-home", "title": "Home, on a phone", "media": "freeman-general-contracting/phone-home", "alt": "The Freeman homepage on a phone: the red signature on sand with the navigation stacked beneath", "discipline": ["Website"], "date": "2026", "status": "Live", "layout": "offset-a", "frame": "ruled" },
+    { "id": "phone-map", "title": "The map, on a phone", "media": "freeman-general-contracting/phone-map", "alt": "The Freeman project map on a phone with zoom controls and a project search field", "discipline": ["Website"], "date": "2026", "status": "Live", "layout": "offset-b", "frame": "ruled", "note": "The same composure at phone size; nothing is cut down into a lesser version." }
+   ]
+  },
+  {
+   "title": "Identity",
+   "note": "A signature, a stamp and an eagle, each drawn to work at every size from a favicon to a jobsite sign.",
+   "artifacts": [
+    { "id": "signature", "title": "The Freeman signature", "media": "freeman-general-contracting/signature", "alt": "The Freeman pixel script signature in red on sand, drawn from a 160 by 61 bitmap", "discipline": ["Identity"], "date": "October 2026", "status": "Live", "layout": "full", "note": "A script signature drawn as a 160 × 61 bitmap, so it can write itself on screen and stay exact at any size." },
+    { "id": "stamp-eagle", "title": "The stamp eagle", "media": "freeman-general-contracting/stamp-eagle", "alt": "A bitmap spread eagle in Freeman red on sand, like an ink stamp", "discipline": ["Identity"], "date": "October 2026", "status": "Live", "layout": "half-a", "note": "The eagle as an ink stamp, used where Freeman signs off: the contact page, approvals, the end of a film." },
+    { "id": "eagle-mark", "title": "The eagle", "media": "freeman-general-contracting/eagle-mark", "alt": "A line drawing of a spread eagle with an F monogram on its chest, in Freeman red", "discipline": ["Identity"], "date": "2023", "status": "Live", "layout": "half-b", "frame": "plate", "note": "Where the relationship started: a spread eagle carrying the F." },
+    { "id": "brand-system-001", "title": "Brand system 001", "media": "freeman-general-contracting/brand-system-001", "alt": "A brand system study sheet: the Freeman script, the eagle, the tagline Built for Generations and a row of colour swatches", "discipline": ["Identity", "Art direction"], "date": "October 2026", "status": "Study", "layout": "side-flip", "frame": "ruled", "note": "Three directions, each tested across the same six everyday uses, from business cards to a jobsite sign." },
+    { "id": "jobsite-sign", "title": "Jobsite sign, *Little Rey*", "media": "freeman-general-contracting/brand-system-001-signage", "alt": "A jobsite sign study: LITTLE REY in heavy black letters beside a red panel with a white eagle and Freeman contact details", "discipline": ["Identity", "Art direction"], "date": "October 2026", "status": "Study", "layout": "wide", "frame": "ruled", "note": "The system on a fence line: project, place, type and status, with the eagle in a field of Freeman red." }
+   ]
+  },
+  {
+   "title": "Film",
+   "artifacts": [
+    { "id": "brand-film-003", "kind": "video", "title": "*Built for Generations*, brand film 003", "src": "freeman-general-contracting/brand-film-003.mp4", "poster": "freeman-general-contracting/brand-film-003-poster", "w": 720, "h": 1280, "alt": "A vertical film: the Freeman signature writes itself, the colorways change, the map opens on Beetlecat, the eagle stamps and the lockup reads Built for Generations", "discipline": ["Film", "Identity"], "date": "October 2026", "status": "Study", "layout": "narrow", "note": "Twelve seconds, vertical, for Reels and Stories: signature, colorways, the map, one photograph opening to full frame, the stamp, the lockup. Built from footage of the live site. Photograph by Jared Swafford. Shown here without sound." },
+    { "id": "freemanai-film-001", "kind": "video", "title": "*What's happening at Freeman?*, concept film", "src": "freeman-general-contracting/freemanai-film-001.mp4", "poster": "freeman-general-contracting/freemanai-film-001-poster", "w": 1280, "h": 720, "alt": "A concept film of a quiet question-and-answer interface for Freeman, ending on a red APPROVED eagle stamp", "discipline": ["Film", "Art direction"], "date": "October 2026", "status": "Concept, illustrative data", "layout": "wide", "note": "Thirty seconds on how a builder might ask its own record a question. The interface and its data are illustrative." }
+   ]
+  },
+  {
+   "title": "Case studies and editorial",
+   "note": "Systems for telling the story of a building, and of the company.",
+   "artifacts": [
+    { "id": "built-record-muchacho", "title": "The Built Record, *Muchacho Decatur*", "media": "freeman-general-contracting/built-record-muchacho", "alt": "A case-study page: a line-drawn front elevation of a 1940 house turned restaurant, split down the middle with a photograph of the real porch", "discipline": ["Case studies", "Art direction", "Website"], "date": "November 2026", "status": "Study", "layout": "full", "frame": "ruled", "note": "A case-study system for architectural work: record drawings traced from photographs, set against the finished building, with only what is known about the project." },
+    { "id": "built-for-generations-002", "title": "*Built for Generations*, conversations", "media": "freeman-general-contracting/built-for-generations-002", "alt": "An editorial index titled Built for Generations listing a series of conversations, set in monospace on paper", "discipline": ["Messaging", "Case studies"], "date": "October 2026", "status": "Study", "layout": "wide", "frame": "ruled", "note": "An editorial series of conversations, built around the tagline. Content shown is example only." }
+   ]
+  },
+  {
+   "title": "Words",
+   "note": "Public language, as it reads on freemangc.com.",
+   "artifacts": [
+    { "id": "tagline", "kind": "quote", "title": "Tagline", "text": "Built for Generations.", "style": "serif", "source": "Tagline, freemangc.com", "discipline": ["Messaging"], "status": "Live", "layout": "full" },
+    { "id": "philosophy", "kind": "quote", "title": "Company philosophy", "text": "Good construction is a relationship, not a transaction.", "style": "sans", "source": "Company, freemangc.com", "discipline": ["Messaging"], "status": "Live", "layout": "full" }
+   ]
+  }
+ ]
+}
