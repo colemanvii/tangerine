@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ex-tangerina.com/sitemap.xml

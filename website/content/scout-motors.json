@@ -1,0 +1,33 @@
+{
+ "number": "04",
+ "name": "Scout Motors",
+ "since": "2026",
+ "status": "Independent study",
+ "summary": "Independent illustration and painting around the Scout name. Presented as exploration, not commission.",
+ "description": "Independent illustration and painting studies around the Scout name. Presented as exploration; no commission or endorsement is implied.",
+ "intro": [
+  "Independent creative exploration around the Scout name: wide country, working vehicles and the people who drive them."
+ ],
+ "notice": "Independent exploration. No commission or endorsement by Scout Motors is implied.",
+ "disciplines": ["Illustration", "Painting"],
+ "index": ["scout-desert", "scout-painting", "scout-riders"],
+ "og": "scout-motors/scout-desert",
+ "ogAlt": "Framed Scout illustration of a vehicle crossing a desert",
+ "chapters": [
+  {
+   "title": "Illustration",
+   "note": "Two studies, shown framed.",
+   "artifacts": [
+    { "id": "scout-desert", "title": "Desert crossing", "media": "scout-motors/scout-desert", "alt": "Framed illustration of a small vehicle trailing dust across a wide tan desert, the Scout script lettered below", "discipline": ["Illustration"], "date": "2026", "status": "Independent study", "layout": "half-a", "note": "A single vehicle and a long trail of dust in a lot of empty ground." },
+    { "id": "scout-riders", "title": "Riders", "media": "scout-motors/scout-riders", "alt": "Framed illustration of a vehicle running alongside riders on horseback beneath a pale sky, with the Scout script above", "discipline": ["Illustration"], "date": "2026", "status": "Independent study", "layout": "half-b", "note": "Vehicle and horses moving together across the same country." }
+   ]
+  },
+  {
+   "title": "Painting",
+   "artifacts": [
+    { "id": "scout-painting", "title": "*Scout*", "media": "scout-motors/scout-painting", "alt": "Oil painting of a pale blue vintage Scout with an orange-lit roof rack parked on a grey street", "discipline": ["Painting"], "status": "Independent work", "layout": "center", "note": "Oil on canvas, 30 × 30 in." },
+    { "id": "scout-painting-studio", "title": "*Scout*, on the studio wall", "media": "scout-motors/scout-painting-studio", "alt": "The Scout painting hanging alone on a bare plaster studio wall", "discipline": ["Painting"], "status": "Independent work", "layout": "narrow", "note": "The same canvas in place, for scale." }
+   ]
+  }
+ ]
+}

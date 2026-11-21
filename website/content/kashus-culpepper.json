@@ -1,0 +1,46 @@
+{
+ "number": "03",
+ "name": "Kashus Culpepper",
+ "since": "2024—",
+ "status": "Ongoing",
+ "summary": "Record artwork, tour graphics and *Lil KC*, an original character in development.",
+ "description": "Kashus Culpepper and Tangerine: record artwork, tour graphics, and Lil KC, an original character in development.",
+ "intro": [
+  "A creative relationship centered on music, character and visual storytelling.",
+  "Single and EP artwork, a tour poster, and *Lil KC*: a small, brave boy who charges toward danger while keeping his heart close."
+ ],
+ "disciplines": ["Release artwork", "Illustration", "Character development", "Animation"],
+ "filters": ["Release artwork", "Illustration", "Typography", "Character development", "Animation"],
+ "links": [{ "label": "Listen", "text": "Act I: Summer Nights", "href": "https://open.spotify.com/album/3RPDh3A283D7F4DuJO95kD" }],
+ "index": ["act-i-summer-nights", "who-hurt-you", "lil-kc", "out-of-my-mind", "harvest-moon-tour", "after-me"],
+ "og": "kashus-culpepper/act-i-summer-nights",
+ "ogAlt": "Act I: Summer Nights EP artwork for Kashus Culpepper",
+ "chapters": [
+  {
+   "title": "Records",
+   "note": "Artwork for singles and an EP. Each one links to the release.",
+   "artifacts": [
+    { "id": "act-i-summer-nights", "title": "*Act I: Summer Nights*", "media": "kashus-culpepper/act-i-summer-nights", "alt": "A small boy with a large afro lifts a boombox overhead, with Act I: Summer Nights lettered in an arc and Kashus Culpepper in red script", "discipline": ["Release artwork", "Illustration", "Character development"], "date": "2026", "status": "Released", "layout": "side", "frame": "plate", "note": "EP artwork: a hand-drawn boy, a boombox held high, lettering set around him. [Listen](https://open.spotify.com/album/3RPDh3A283D7F4DuJO95kD)" },
+    { "id": "who-hurt-you", "title": "*Who Hurt You*", "media": "kashus-culpepper/who-hurt-you", "alt": "Woodcut-style illustration of a boy in a cowboy hat playing guitar at a window, under the line It ain't the man in the looking glass who hurt you", "discipline": ["Release artwork", "Illustration", "Typography"], "status": "Released", "layout": "half-a", "note": "Single cover. [Listen](https://open.spotify.com/album/2EY46Rynp99lMD9mAZcjHm)" },
+    { "id": "after-me", "title": "*After Me?*", "media": "kashus-culpepper/after-me", "alt": "Woodcut-style illustration of a white country church under oaks, with After Me? in red script across cream paper", "discipline": ["Release artwork", "Illustration", "Typography"], "status": "Released", "layout": "half-b", "note": "Single cover. [Listen](https://open.spotify.com/album/2uXVVL02SJGNLxy1tGdGKP)" },
+    { "id": "out-of-my-mind", "title": "*Out of My Mind*", "media": "kashus-culpepper/out-of-my-mind", "alt": "A ring of red birds circling a pale moon on cream paper, Kashus Culpepper set small beneath", "discipline": ["Release artwork", "Illustration"], "status": "Released", "layout": "wide", "note": "Single cover. [Listen](https://open.spotify.com/album/7H2YIxloUqfVuRJCPIXtg8)" },
+    { "id": "jenni", "title": "*Jenni*", "media": "kashus-culpepper/jenni", "alt": "Red printed lips on worn cream paper beneath Kashus Culpepper in red block letters, Jenni signed in script", "discipline": ["Release artwork", "Typography"], "status": "Released", "layout": "offset-a", "note": "Single cover. [Listen](https://open.spotify.com/album/7yAh8gTk7oykUml3DThvdc)" },
+    { "id": "pour-me-out", "title": "*Pour Me Out*", "media": "kashus-culpepper/pour-me-out", "alt": "Red duotone photograph of Kashus Culpepper in a cowboy hat playing guitar, with Pour Me Out in hand-drawn white letters", "discipline": ["Release artwork", "Typography"], "date": "2024", "status": "Released", "layout": "offset-b", "note": "Release artwork. [Listen](https://open.spotify.com/track/4J6jZp2wdRIprg7Ya0QBLM)" }
+   ]
+  },
+  {
+   "title": "On the road",
+   "artifacts": [
+    { "id": "harvest-moon-tour", "title": "*Howlin' Under the Harvest Moon* tour poster", "media": "kashus-culpepper/harvest-moon-tour", "alt": "Tour poster with a wolf howling at an orange harvest moon above a list of tour dates and venues", "discipline": ["Illustration", "Typography"], "layout": "side-flip", "frame": "plate", "note": "Tour poster: illustration, lettering and the full run of dates on one sheet." }
+   ]
+  },
+  {
+   "title": "Lil KC",
+   "note": "An original character in development. The master drawing is the reference for every new pose, scene and motion test.",
+   "artifacts": [
+    { "id": "lil-kc", "title": "*Lil KC*, master drawing", "media": "kashus-culpepper/lil-kc", "alt": "Lil KC, a small boy with a huge afro and red bandanna, leaps forward in a white gi with a dagger outstretched while holding a red heart close", "discipline": ["Character development", "Illustration"], "status": "Canonical reference", "layout": "full", "frame": "plate", "note": "He charges toward danger with his dagger out and keeps a small red heart protected behind him. Courage and tenderness in one pose." },
+    { "id": "lil-kc-motion-001", "kind": "video", "title": "Motion study 001, *The Heart*", "src": "kashus-culpepper/lil-kc-motion-001.mp4", "poster": "kashus-culpepper/lil-kc-motion-001-poster", "w": 1152, "h": 768, "alt": "Lil KC blinks, glances down at the red heart and draws it closer in a short looping animation", "discipline": ["Animation", "Character development"], "date": "2026", "status": "Rough test, in development", "layout": "wide", "note": "Three seconds at twelve drawings a second: a blink, a glance at the heart, a protective squeeze. A computer-assisted rough measured against the master drawing, not finished animation." }
+   ]
+  }
+ ]
+}

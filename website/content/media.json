@@ -1,0 +1,183 @@
+{
+ "joseph-martin/cowboy-george": {
+  "w": 1800,
+  "h": 1800,
+  "sizes": [
+   640,
+   1280,
+   1800
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@claude/gifted-hypatia-3nv2kf:study/next-chapter/media/l/jm-cowboy.webp (from site/assets/cg.png)"
+ },
+ "joseph-martin/dont-call-it-luck": {
+  "w": 1100,
+  "h": 1375,
+  "sizes": [
+   640,
+   1100
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/joseph-martin-02.webp"
+ },
+ "joseph-martin/hatmaker-double-decker": {
+  "w": 1339,
+  "h": 1841,
+  "sizes": [
+   640,
+   1339
+  ],
+  "alpha": true,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/jm3.png"
+ },
+ "joseph-martin/martin-survives": {
+  "w": 1100,
+  "h": 1375,
+  "sizes": [
+   640,
+   1100
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/joseph-martin-01.webp"
+ },
+ "kashus-culpepper/act-i-summer-nights": {
+  "w": 2250,
+  "h": 2250,
+  "sizes": [
+   640,
+   1280,
+   2250
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/IMG_2786.JPG"
+ },
+ "kashus-culpepper/after-me": {
+  "w": 2018,
+  "h": 2018,
+  "sizes": [
+   640,
+   1280,
+   2018
+  ],
+  "alpha": true,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/Kashus Culpepper After Me 1.png"
+ },
+ "kashus-culpepper/harvest-moon-tour": {
+  "w": 2038,
+  "h": 2546,
+  "sizes": [
+   640,
+   1280,
+   2038
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/admat.jpg"
+ },
+ "kashus-culpepper/jenni": {
+  "w": 2560,
+  "h": 2560,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/KC_Jenni_Artwork_1x1-scaled.jpg"
+ },
+ "kashus-culpepper/lil-kc": {
+  "w": 1536,
+  "h": 1024,
+  "sizes": [
+   640,
+   1280,
+   1536
+  ],
+  "alpha": false,
+  "source": "colemanvii/tangerine:lil-kc/lil-kc-master-2026-11-16.png (SHA-256 9b9687e5\u20266690)"
+ },
+ "kashus-culpepper/lil-kc-motion-001-poster": {
+  "w": 1152,
+  "h": 768,
+  "sizes": [
+   640,
+   1152
+  ],
+  "alpha": false,
+  "source": "first frame of lil-kc-motion-001.mp4 (from colemanvii/tangerine@claude/compassionate-dirac-tkqr4d:lil-kc/exports/lil-kc-the-heart-rough-v01.mp4)"
+ },
+ "kashus-culpepper/out-of-my-mind": {
+  "w": 2018,
+  "h": 2018,
+  "sizes": [
+   640,
+   1280,
+   2018
+  ],
+  "alpha": true,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/Kashus Culpepper Out of My Mind 1.png"
+ },
+ "kashus-culpepper/pour-me-out": {
+  "w": 2409,
+  "h": 2500,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/pmo.jpg"
+ },
+ "kashus-culpepper/who-hurt-you": {
+  "w": 2018,
+  "h": 2018,
+  "sizes": [
+   640,
+   1280,
+   2018
+  ],
+  "alpha": true,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/Kashus Culpepper Who Hurt You 1.png"
+ },
+ "scout-motors/scout-desert": {
+  "w": 6762,
+  "h": 8452,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/s1.jpeg"
+ },
+ "scout-motors/scout-painting": {
+  "w": 959,
+  "h": 966,
+  "sizes": [
+   640,
+   959
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@claude/gifted-hypatia-3nv2kf:study/next-chapter/media/l/scout-painting.webp (Shopify CFC1.jpg crop)"
+ },
+ "scout-motors/scout-painting-studio": {
+  "w": 1440,
+  "h": 1800,
+  "sizes": [
+   640,
+   1440
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@claude/gifted-hypatia-3nv2kf:study/next-chapter/media/l/scout-painting-studio.webp"
+ },
+ "scout-motors/scout-riders": {
+  "w": 7101,
+  "h": 8876,
+  "sizes": [
+   640,
+   1280,
+   2200
+  ],
+  "alpha": false,
+  "source": "colemanvii/personal@9d9aeaa:site/assets/s2.jpeg"
+ }
+}

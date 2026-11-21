@@ -1,0 +1,32 @@
+{
+ "number": "02",
+ "name": "Joseph Martin",
+ "since": "2024—",
+ "status": "Developing",
+ "summary": "Posters and original drawings for a hatmaker and independent American brand.",
+ "description": "Joseph Martin and Tangerine: event posters and original drawings for a hatmaker and independent American brand.",
+ "intro": [
+  "A developing relationship with Joseph Martin, a hatmaker and independent American brand.",
+  "So far: event posters and original drawings. Red ink, open country, and a sense of humor about all of it."
+ ],
+ "disciplines": ["Posters", "Illustration", "Typography"],
+ "index": ["hatmaker-double-decker", "martin-survives", "cowboy-george", "dont-call-it-luck"],
+ "og": "joseph-martin/hatmaker-double-decker",
+ "ogAlt": "Joseph Martin Hatmaker poster for the Double Decker Arts Festival",
+ "chapters": [
+  {
+   "title": "Posters",
+   "artifacts": [
+    { "id": "hatmaker-double-decker", "title": "Joseph Martin Hatmaker at the Double Decker Arts Festival", "media": "joseph-martin/hatmaker-double-decker", "alt": "Purple and violet poster: JOSEPH MARTIN HATMAKER in heavy white slab letters over a field at dusk, a red double-decker bus on the horizon and a cowboy on horseback in the foreground", "discipline": ["Posters", "Illustration", "Typography"], "date": "April 2024", "layout": "side", "frame": "plate", "note": "Festival poster for Oxford, Mississippi: slab lettering over a violet field, a red double-decker bus on the horizon and a rider in the grass." },
+    { "id": "martin-survives", "title": "*Martin Survives!*", "media": "joseph-martin/martin-survives", "alt": "Framed red-ink event poster titled Martin Survives! with a drawing of a horse and rider", "discipline": ["Posters", "Illustration"], "date": "2024", "layout": "half-a", "note": "Event poster in red ink, shown framed." },
+    { "id": "dont-call-it-luck", "title": "*Don't Call It Luck!*", "media": "joseph-martin/dont-call-it-luck", "alt": "Framed red-ink event poster titled Don't Call It Luck! with a cowboy riding a bucking horse", "discipline": ["Posters", "Illustration"], "date": "2024", "layout": "half-b", "note": "Companion poster, same hand and the same red." }
+   ]
+  },
+  {
+   "title": "Drawings",
+   "artifacts": [
+    { "id": "cowboy-george", "title": "*Cowboy George*", "media": "joseph-martin/cowboy-george", "alt": "Loose red ink drawing of a long-eared dog in a wide-brimmed hat with a cigarette", "discipline": ["Illustration"], "layout": "center", "note": "Original red ink drawing made for Joseph Martin." }
+   ]
+  }
+ ]
+}
