@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lil KC Studio</title>
+<link rel="stylesheet" href="studio.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><b>Lil KC</b> <span>Studio</span></div>
+  <div class="proj" id="projTitle">—</div>
+  <nav id="tabs" role="tablist">
+    <button data-tab="model" role="tab">Model</button>
+    <button data-tab="board" role="tab">Storyboard</button>
+    <button data-tab="anim" role="tab">Timeline</button>
+    <button data-tab="compare" role="tab">Compare</button>
+    <button data-tab="export" role="tab">Export</button>
+  </nav>
+  <div class="mode" id="mode">private · local</div>
+</header>
+<div id="status" class="status"></div>
+
+<!-- MODEL -->
+<section id="tab-model" class="tab">
+  <div class="lockbar" id="lockbar"></div>
+  <div class="refs" id="refs"></div>
+  <div class="cols3">
+    <div><h3>Invariants</h3><ol id="invariants"></ol></div>
+    <div><h3>Proportions</h3><ul id="proportions"></ul><h3>Palette <small>sampled from Reference 01</small></h3><div id="palette" class="palette"></div></div>
+    <div><h3>Where the references differ</h3><table id="diffs" class="tbl"></table></div>
+  </div>
+</section>
+
+<!-- STORYBOARD -->
+<section id="tab-board" class="tab">
+  <div class="boardhead">
+    <p class="lede" id="boardLede"></p>
+    <label>Timing from <select id="boardRev"></select></label>
+  </div>
+  <div class="board" id="board"></div>
+  <h3>Approval log</h3>
+  <table class="tbl" id="approvals"></table>
+</section>
+
+<!-- TIMELINE / VIEWER -->
+<section id="tab-anim" class="tab">
+  <div class="animgrid">
+    <div class="stage-wrap">
+      <div class="stage" id="stage"><canvas id="view"></canvas></div>
+      <div class="transport">
+        <button id="bFirst" title="First frame (Home)">⏮</button>
+        <button id="bPrevD" title="Previous drawing ( , )">◀◀</button>
+        <button id="bPrev" title="Previous frame (←)">◀</button>
+        <button id="bPlay" class="primary" title="Play / pause (Space)">Play</button>
+        <button id="bNext" title="Next frame (→)">▶</button>
+        <button id="bNextD" title="Next drawing ( . )">▶▶</button>
+        <label class="chk"><input type="checkbox" id="loop" checked> Loop</label>
+        <span class="tc" id="tc">—</span>
+      </div>
+      <input type="range" id="scrub" min="0" value="0" class="scrub" aria-label="Scrub">
+    </div>
+    <aside class="panel">
+      <label>Revision <select id="revSel"></select></label>
+      <div class="revmeta" id="revMeta"></div>
+      <fieldset><legend>Onion skin <small>(O)</small></legend>
+        <label class="chk"><input type="checkbox" id="onion"> On</label>
+        <label>Before <input type="number" id="onB" min="0" max="4" value="2"></label>
+        <label>After <input type="number" id="onA" min="0" max="4" value="1"></label>
+        <label>Opacity <input type="range" id="onOp" min="5" max="80" value="35"></label>
+        <label class="chk"><input type="checkbox" id="onTint" checked> Tint (before red · after green)</label>
+      </fieldset>
+      <fieldset><legend>Reference overlay <small>(R)</small></legend>
+        <select id="refSel"><option value="">None</option></select>
+        <label>Opacity <input type="range" id="refOp" min="5" max="100" value="35"></label>
+      </fieldset>
+      <fieldset><legend>Stage</legend>
+        <label>Ground <select id="bg"><option value="paper">Paper</option><option value="white">White</option><option value="checker">Transparent</option></select></label>
+        <label>Guides <select id="guides"><option value="">None</option><option value="safe">Title safe</option><option value="square">1:1 crop</option><option value="vertical">9:16 crop</option></select></label>
+        <label>Playback <select id="pfps"><option>6</option><option>8</option><option selected>12</option><option>24</option></select> fps</label>
+      </fieldset>
+    </aside>
+  </div>
+  <div class="xsheet-head">
+    <h3>Exposure sheet <small id="xsumm"></small></h3>
+    <div class="xtools">
+      <span id="selInfo"></span>
+      <button id="xMinus" title="Shorter (−)">−1</button>
+      <input type="number" id="xVal" min="1" max="96" aria-label="Exposure in frames">
+      <button id="xPlus" title="Longer (+)">+1</button>
+      <button id="xOnes">All on 1s</button>
+      <button id="xTwos">All on 2s</button>
+      <button id="xRevert">Revert</button>
+      <button id="xSave" class="primary">Save timing</button>
+      <button id="xSaveAs">Save as new revision…</button>
+    </div>
+  </div>
+  <div class="xsheet" id="xsheet"></div>
+  <p class="hint">Space play · ←/→ frame · , / . drawing · +/− exposure of selected drawing · O onion · R reference. At 12 fps a drawing on 2s is held for 2 frames (1/6 s).</p>
+</section>
+
+<!-- COMPARE -->
+<section id="tab-compare" class="tab">
+  <div class="cmpbar">
+    <label>A <select id="cmpA"></select></label>
+    <label>B <select id="cmpB"></select></label>
+    <label>View <select id="cmpMode"><option value="side">Side by side</option><option value="overlay">Overlay (B over A, 50%)</option><option value="diff">Difference</option></select></label>
+    <button id="cPlay" class="primary">Play</button>
+    <button id="cPrev">◀</button><button id="cNext">▶</button>
+    <span class="tc" id="ctc"></span>
+  </div>
+  <input type="range" id="cscrub" min="0" value="0" class="scrub" aria-label="Scrub comparison">
+  <div class="cmp" id="cmpStages">
+    <figure><canvas id="cvA"></canvas><figcaption id="capA"></figcaption></figure>
+    <figure><canvas id="cvB"></canvas><figcaption id="capB"></figcaption></figure>
+  </div>
+  <h3>Timing</h3>
+  <div id="cmpSheets"></div>
+</section>
+
+<!-- EXPORT -->
+<section id="tab-export" class="tab">
+  <div class="exportgrid">
+    <div>
+      <label>Revision <select id="exRev"></select></label>
+      <fieldset><legend>Formats</legend>
+        <label class="chk"><input type="checkbox" name="fmt" value="mp4" checked> MP4 (H.264, paper)</label>
+        <label class="chk"><input type="checkbox" name="fmt" value="gif" checked> GIF (palette, loops)</label>
+        <label class="chk"><input type="checkbox" name="fmt" value="png" checked> PNG sequence + timing.json (zip)</label>
+        <label class="chk"><input type="checkbox" name="fmt" value="webm"> WebM VP9 (alpha if transparent)</label>
+      </fieldset>
+      <label>Background <select id="exBg"><option value="paper">Paper</option><option value="transparent">Transparent (PNG/GIF/WebM)</option></select></label>
+      <label>Scale <select id="exScale"><option value="1">1× (full canvas)</option><option value="0.5">½×</option><option value="0.25">¼×</option></select></label>
+      <button id="exGo" class="primary">Export with FFmpeg</button>
+      <p class="hint">Each drawing is written once per exposed frame, then encoded at the project rate. Nothing is interpolated. Exports land in the project’s private <code>exports/</code> folder and are logged in <code>export-log.jsonl</code>.</p>
+    </div>
+    <div><h3>Results</h3><div id="exOut" class="exout"><p class="hint">No exports yet in this session.</p></div></div>
+  </div>
+</section>
+
+<script src="studio.js"></script>
+</body>
+</html>
