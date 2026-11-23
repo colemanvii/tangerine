@@ -1,3 +1,4 @@
 # Lil KC private production workspace: client artwork, unapproved drawings,
 # storyboards and exports. Never commit — this repository is public.
 private/
+__pycache__/
