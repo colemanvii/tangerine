@@ -15,6 +15,8 @@
   --accent:#E94D01; --accent-text:#B83B00; --accent-dim:rgba(233,77,1,.22);
   /* fixed brand colors for objects and mockups; they do not change with theme */
   --b-white:#F5F6F3; --b-graphite:#17181A; --b-orange:#E94D01; --b-led:#2A2B2E; --b-grey:#8A8D91; --b-orange-dim:rgba(233,77,1,.22);
+  /* print palette (Plate 7): fixed spot inks on cream stock */
+  --g-paper:#F2EBDC; --g-orange:#F2862A; --g-red:#B5281A; --g-leaf:#3E8A44; --g-deep:#1E4A2B;
   --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
   --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
   --w:1200px;
@@ -147,6 +149,22 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--b
 .pattern.on-orange{border-color:var(--b-orange)}
 @media (max-width:900px){.loader-states{grid-template-columns:minmax(0,1fr)}.ls-cell + .ls-cell{border-left:0;border-top:1px solid var(--rule)}}
 
+/* print plate */
+.grove{background:var(--g-paper);border-color:var(--g-paper)}
+.pair-stage{padding:40px 24px}
+.pair-bar{display:flex;gap:16px;justify-content:space-between;align-items:start}
+.pair-bar button{flex:none}
+.seps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.seps figure{gap:6px}
+.sep{padding:10px;display:grid;place-items:center;overflow:hidden}
+.inks{display:grid;border:1px solid var(--rule)}
+.ink{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 12px;font:11px var(--mono);letter-spacing:.06em}
+.ink + .ink{border-top:1px solid var(--rule)}
+.ink i{display:block;width:28px;height:20px;border:1px solid var(--rule)}
+.ink span:last-child{color:var(--ink-2)}
+@media (max-width:900px){.seps{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.seps{grid-template-columns:repeat(2,minmax(0,1fr))}.pair-bar{flex-direction:column}}
+
 /* situations */
 .sit{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px}
 .sit > figure{grid-column:span 3}
@@ -230,7 +248,7 @@ footer{border-top:1px solid var(--ink);padding-block:18px 40px;display:flex;just
   <div class="hero-stage"><canvas id="hero" aria-label="The wide bitmap wordmark TANGERINE being plotted column by column, followed by an orange signal stripe" role="img"></canvas></div>
   <div class="hero-foot">
     <div style="display:grid;gap:14px">
-      <p>Tangerine drawn on the pixel grid. A wide wordmark cut from square pixels, the approved script translated to one bit, three pixel symbols, a citrus-wheel system, seven motion tests and the marks placed where they would actually live.</p>
+      <p>Tangerine drawn on the pixel grid. A wide wordmark cut from square pixels, the approved script translated to one bit, three pixel symbols, a citrus-wheel system, a stippled print study, seven motion tests and the marks placed where they would actually live.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" id="replay-hero">Replay plot</button><button type="button" id="play-all">Play all motion</button></div>
     </div>
     <dl class="spec">
@@ -442,9 +460,47 @@ Creative practice</textarea></label>
 </section>
 
 <!-- PLATE 7 -->
+<section class="plate" id="print" aria-labelledby="p7p">
+  <div class="plate-head">
+    <h2 id="p7p"><span class="label"><b>Plate 7</b> · Print</span><canvas data-text="STIPPLE" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Stipple</span></h2>
+    <p>Prompted by a mid-century printed illustration of two oranges: coarse stippled dots, a few spot inks, shadows rolling to red, and a leaf shadow knocked out of register. On the grid every ink is its own one-bit plate, so the drawing is printed rather than painted. The plate adds a cream stock, a lighter orange, a red and two greens. It sits alongside white, graphite and tangerine and doesn't replace them.</p>
+  </div>
+
+  <figure>
+    <div class="panel grove pair-stage"><canvas id="g-pair" role="img" aria-label="Two pixel-stippled tangerines on a forked stem with three leaves, printed in orange, tangerine, red and two greens on cream"></canvas></div>
+    <div class="pair-bar"><figcaption><strong>The pair · 176 × 132 px</strong>Drawn from geometry: two oblate spheres lit from the upper left, three curved leaves, a forked stem. Each pixel picks one ink from a tone ladder, and noise decides where the dots fall, so the shading is stipple, not smooth tone. The blossom-end star sits on the back fruit.</figcaption><button type="button" id="g-run">Print it again</button></div>
+  </figure>
+
+  <figure>
+    <div class="seps" id="g-seps"></div>
+    <figcaption><strong>Separations</strong>The five plates, each one bit, in printing order. Overprinted in register they make the pair. <em>Print it again</em> runs them in order, each landing slightly off register and settling.</figcaption>
+  </figure>
+
+  <div class="cols c3">
+    <figure>
+      <div class="panel grove"><div class="wheel-row bottom" id="g-fruit"></div></div>
+      <figcaption><strong>Fruit, printed · 64 and 32 px</strong>The symbol in stipple. 64 px carries the texture well. At 32 px the dots start to read as dirt, so the flat fruit stays the small-size mark.</figcaption>
+    </figure>
+    <figure>
+      <div class="panel grove"><canvas id="g-wheel" data-fit="1" aria-hidden="true"></canvas></div>
+      <figcaption><strong>Wheel, printed · 128 px</strong>The citrus wheel with the same inks. Segments are lighter at the core, the rind darkens away from the light, and the pith stays bare paper.</figcaption>
+    </figure>
+    <figure>
+      <div class="inks" id="g-inks"></div>
+      <figcaption><strong>Print palette</strong>Five inks on cream stock. Tangerine is the core brand orange. The others exist only for print-style illustration.</figcaption>
+    </figure>
+  </div>
+
+  <figure>
+    <div class="panel grove"><canvas id="g-label" role="img" aria-label="A fruit-crate-style label: the wide wordmark in red over the stippled pair, framed in deep green, with CREATIVE PRACTICE and NO. 001 below"></canvas></div>
+    <figcaption><strong>Crate label · 240 × 160 px at 3×</strong>A situation for the print palette: the wide wordmark in red over the pair, framed in deep green, with the 16 px wheel in the corners. Packaging, a project box or the back of a folder.</figcaption>
+  </figure>
+</section>
+
+<!-- PLATE 8 -->
 <section class="plate" id="situations" aria-labelledby="p6">
   <div class="plate-head">
-    <h2 id="p6"><span class="label"><b>Plate 7</b> · Situations</span><canvas data-text="IN USE" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">In use</span></h2>
+    <h2 id="p6"><span class="label"><b>Plate 8</b> · Situations</span><canvas data-text="IN USE" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">In use</span></h2>
     <p>The marks placed where Tangerine would actually use them. Every project, name and field is a placeholder. No client work is shown.</p>
   </div>
   <div class="sit">
@@ -524,10 +580,10 @@ Creative practice</textarea></label>
   </div>
 </section>
 
-<!-- PLATE 8 -->
+<!-- PLATE 9 -->
 <section class="plate" id="notes" aria-labelledby="p7">
   <div class="plate-head">
-    <h2 id="p7"><span class="label"><b>Plate 8</b> · Findings</span><canvas data-text="FINDINGS" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Findings</span></h2>
+    <h2 id="p7"><span class="label"><b>Plate 9</b> · Findings</span><canvas data-text="FINDINGS" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Findings</span></h2>
     <p>What the grid shows about Tangerine's identity, and what to test next before any of it is used.</p>
   </div>
   <div class="findings">
@@ -537,6 +593,7 @@ Creative practice</textarea></label>
         <li>The wide cut is a good fit for the grid. Industrial 004's broad, square proportion comes out of 2 px strokes naturally, so the wordmark feels drawn rather than converted.</li>
         <li>At 96 px wide the script turns into something like stitched lettering. It stays warm and still reads as Tangerine.</li>
         <li>The 16 px fruit is the most legible symbol at favicon size. Orange and a dark leaf are enough.</li>
+        <li>Stipple turns the pixel grid warm. Five one-bit inks give the pair real volume, and the print run explains how it is made.</li>
         <li>The citrus wheel is the most versatile piece. It works as a symbol, a progress indicator and a pattern, and its ten segments map exactly onto percent.</li>
         <li>Motion that shows how the mark is built (plotting, resolving, reassembling) suits the material and says something true about the practice.</li>
       </ul>
@@ -548,6 +605,7 @@ Creative practice</textarea></label>
         <li>The signal T is distinctive but could belong to any industrial company. It needs Tangerine-specific evidence before going further.</li>
         <li>Below 96 px the rasterised script loses its hairlines. A hand-cleaned 64 px version should be drawn and compared before using it small.</li>
         <li>Diagonals in N, M, W and K step at 45° only, so W is the weakest glyph.</li>
+        <li>The print palette adds five colours to a three-colour identity. It needs a rule for where it is allowed, such as packaging and illustration only.</li>
       </ul>
     </section>
     <section>
@@ -1376,6 +1434,149 @@ const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.
   if (e.isIntersecting) { const d = motionDefs.find(m => m.fig === e.target); if (d) d.mo.play(); io.unobserve(e.target); }
 }), { threshold: .55 }) : null;
 if (io) motionDefs.forEach(d => io.observe(d.fig));
+
+/* ------------------------------------------------------------ plate 7: print (stipple, spot inks) */
+const GROVE = [null, '--g-orange', '--b-orange', '--g-red', '--g-leaf', '--g-deep', '--g-paper'];
+const INK_NAMES = { 1: 'Orange', 2: 'Tangerine', 3: 'Red', 4: 'Leaf', 5: 'Deep green' };
+const stip = (x, y, s = 0) => .55 * hash(x + s * 131, y + s * 71) + .45 * hash((x >> 1) + 977 + s, (y >> 1) + 613);
+function pick(ladder, pos, x, y, s) {
+  pos = clamp(pos, 0, ladder.length - 1); const i = Math.floor(pos);
+  if (i >= ladder.length - 1) return ladder[ladder.length - 1];
+  return pos - i > stip(x, y, s) ? ladder[i + 1] : ladder[i];
+}
+const LV = (() => { const v = [-.55, -.65, .52], l = Math.hypot(...v); return v.map(a => a / l); })();
+const HV = (() => { const v = [LV[0], LV[1], LV[2] + 1], l = Math.hypot(...v); return v.map(a => a / l); })();
+function shadeFruit(b, cx, cy, r, ry, shadow) {
+  for (let y = Math.floor(cy - ry - 1); y <= cy + ry + 1; y++) for (let x = Math.floor(cx - r - 1); x <= cx + r + 1; x++) {
+    const nx = (x + .5 - cx) / r, ny = (y + .5 - cy) / ry, q = nx * nx + ny * ny; if (q > 1) continue;
+    const nz = Math.sqrt(1 - q), d = Math.max(0, nx * LV[0] + ny * LV[1] + nz * LV[2]);
+    const sp = Math.pow(Math.max(0, nx * HV[0] + ny * HV[1] + nz * HV[2]), 40);
+    let pos = .1 + d * 2.15 + sp * 1.15 + (hash(x * 3 + 7, y * 5 + 1) - .5) * .6;
+    if (q > .8 && ny > .1) pos -= (q - .8) * 3;                   // red rolls in under the fruit
+    if (shadow) pos -= shadow(x + .5, y + .5);
+    b.set(x, y, pick([3, 2, 1, 6], pos, x, y, 3));
+  }
+}
+function leafShape(bx, by, tx, ty, W, bend, fn) {
+  const L = Math.hypot(tx - bx, ty - by), ux = (tx - bx) / L, uy = (ty - by) / L;
+  const x0 = Math.floor(Math.min(bx, tx) - W - L * Math.abs(bend)), x1 = Math.ceil(Math.max(bx, tx) + W + L * Math.abs(bend));
+  const y0 = Math.floor(Math.min(by, ty) - W - L * Math.abs(bend)), y1 = Math.ceil(Math.max(by, ty) + W + L * Math.abs(bend));
+  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+    const dx = x + .5 - bx, dy = y + .5 - by, u = (dx * ux + dy * uy) / L; if (u < 0 || u > 1) continue;
+    const vv = (-dx * uy + dy * ux) - bend * L * Math.sin(Math.PI * u);
+    const w = W / 2 * Math.pow(Math.sin(Math.PI * Math.pow(u, .72)), .85);
+    if (Math.abs(vv) <= w) fn(x, y, u, vv, w, ux, uy);
+  }
+}
+function drawLeaf(b, bx, by, tx, ty, W, bend, seed) {
+  leafShape(bx, by, tx, ty, W, bend, (x, y, u, vv, w, ux, uy) => {
+    if (Math.abs(vv) < .6 && u < .88) { b.set(x, y, 6); return; }                    // midrib
+    const lit = ((-uy) * LV[0] + ux * LV[1]) * Math.sign(vv) > 0;
+    const edge = Math.abs(vv) / w;
+    const pos = lit ? 1.3 - edge * .35 + (hash(x, y + seed) - .5) * .3 : .55 - edge * .25;
+    b.set(x, y, pick([5, 4, 6], pos, x, y, seed));
+  });
+}
+function leafShadow(b, bx, by, tx, ty, W, bend, ox, oy) {
+  leafShape(bx, by, tx, ty, W, bend, (x, y) => { if (!b.get(x + ox, y + oy)) b.set(x + ox, y + oy, 5); });
+}
+function stem(b, pts) {
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [ax, ay] = pts[i], [bx, by] = pts[i + 1], n = Math.ceil(Math.max(Math.abs(bx - ax), Math.abs(by - ay)) * 2);
+    for (let k = 0; k <= n; k++) { const x = Math.round(ax + (bx - ax) * k / n), y = Math.round(ay + (by - ay) * k / n); b.set(x, y, 4); b.set(x + 1, y, 5); }
+  }
+}
+function pair(s = 1) {
+  const W = Math.round(176 * s), H = Math.round(132 * s), b = new BM(W, H), P = v => v * s;
+  const A = { x: P(70), y: P(86), r: P(36), ry: P(33.5) }, B = { x: P(117), y: P(79), r: P(32), ry: P(30) };
+  const leaves = [
+    [P(89), P(25), P(24), P(36), P(23), .09, 11],
+    [P(85), P(31), P(36), P(64), P(19), -.07, 23],
+    [P(97), P(23), P(165), P(50), P(22), -.1, 37],
+  ];
+  const sh = Math.max(1, Math.round(2 * s)), shy = Math.max(1, Math.round(3 * s));
+  leaves.forEach(l => leafShadow(b, ...l.slice(0, 6), sh, shy));
+  [leaves[1], leaves[0], leaves[2]].forEach(l => drawLeaf(b, ...l));
+  stem(b, [[A.x, A.y - A.ry + P(2)], [P(91), P(24)], [P(94), P(13)]]);
+  stem(b, [[B.x - P(2), B.y - B.ry + P(2)], [P(91), P(24)]]);
+  shadeFruit(b, B.x, B.y, B.r, B.ry, (x, y) => { const d = Math.hypot(x - A.x, (y - A.y) * A.r / A.ry) - A.r; return d < P(9) ? (1 - d / P(9)) * 1.3 : 0; });
+  shadeFruit(b, A.x, A.y, A.r, A.ry);
+  if (s >= .9) {                                                    // blossom-end star on the back fruit
+    const sx = Math.round(B.x + B.r * .62), sy = Math.round(B.y + B.ry * .2);
+    [[0, -2], [-2, -1], [-1, -1], [0, -1], [1, -1], [2, -1], [-1, 0], [0, 0], [1, 0], [-1, 1], [1, 1]].forEach(([x, y]) => b.set(sx + x, sy + y, 5));
+  }
+  return b;
+}
+function printedFruit(n) {
+  const k = n / 64, b = new BM(n, n);
+  const leafL = [k * 33, k * 9, k * 58, k * 3, k * 11, .12, 5];
+  if (n >= 48) leafShadow(b, ...leafL.slice(0, 6), 1, 2);
+  drawLeaf(b, ...leafL);
+  stem(b, [[k * 31, k * 14], [k * 33, k * 5]]);
+  shadeFruit(b, k * 32, k * 38, k * 28, k * 25.5);
+  return b;
+}
+function printedWheel(n) {
+  const g = wheelGeometry(n, 10, null, 0), b = new BM(n, n), c = n / 2;
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const i = y * n + x, dx = x + .5 - c, dy = y + .5 - c, light = (-dx * .6 - dy * .8) / c;
+    if (g.cls[i] === 1) b.d[i] = pick([3, 2, 1], 1 + light * .8 + (hash(x, y) - .5) * .4, x, y, 5);
+    else if (g.cls[i] === 2) b.d[i] = pick([3, 2, 1, 6], 2.15 - g.frac[i] * 1.1 + light * .35 + (hash(x * 7, y * 3) - .5) * .55, x, y, 9);
+    else if (Math.hypot(dx, dy) < n / 2 - .6) b.d[i] = 6;
+  }
+  return b;
+}
+function plateOf(bm, ink) { const o = new BM(bm.w, bm.h); for (let i = 0; i < bm.d.length; i++) if (bm.d[i] === ink) o.d[i] = ink; return o; }
+
+(() => {
+  const PAIR = pair(1), plates = [1, 2, 3, 4, 5].map(k => plateOf(PAIR, k));
+  // print run: each plate lands off register and settles
+  const view = new View(document.getElementById('g-pair'), { pal: GROVE, cell: 'fit', max: 5, bg: '--g-paper' });
+  const mo = new Motion(view, { dur: 2.45, fps: 12, render: t => {
+    const b = new BM(PAIR.w, PAIR.h);
+    plates.forEach((pl, i) => {
+      const t0 = .15 + i * .42; if (t < t0) return;
+      const f = t - t0, [ox, oy] = f < .09 ? [3, -2] : f < .18 ? [1, -1] : [0, 0];
+      b.blit(pl, ox, oy);
+    });
+    return b;
+  } });
+  document.getElementById('g-run').addEventListener('click', () => mo.play());
+  if (io) { const fig = document.getElementById('g-pair').closest('figure'); motionDefs.push({ fig, mo }); io.observe(fig); }
+
+  const seps = document.getElementById('g-seps');
+  plates.forEach((pl, i) => {
+    const f = document.createElement('figure');
+    f.innerHTML = `<div class="sep grove"><canvas aria-hidden="true"></canvas></div><figcaption>${i + 1} · ${INK_NAMES[i + 1]}</figcaption>`;
+    seps.appendChild(f); new View(f.querySelector('canvas'), { pal: GROVE, cell: 'fit', max: 2 }).draw(pl);
+  });
+
+  const fr = document.getElementById('g-fruit');
+  [[64, 2], [32, 2], [64, 1], [32, 1]].forEach(([n, k]) => {
+    const f = document.createElement('figure');
+    f.innerHTML = `<canvas aria-hidden="true"></canvas><figcaption>${n} px · ${k}×</figcaption>`;
+    fr.appendChild(f); new View(f.querySelector('canvas'), { pal: GROVE, cell: k }).draw(printedFruit(n));
+  });
+  new View(document.getElementById('g-wheel'), { pal: GROVE, cell: 'fit', max: 2 }).draw(printedWheel(128));
+
+  document.getElementById('g-inks').innerHTML = [
+    ['--g-paper', 'Cream stock', '#F2EBDC', 'paper'], ['--g-orange', '1 · Orange', '#F2862A', ''], ['--b-orange', '2 · Tangerine', '#E94D01', 'core'],
+    ['--g-red', '3 · Red', '#B5281A', ''], ['--g-leaf', '4 · Leaf', '#3E8A44', ''], ['--g-deep', '5 · Deep green', '#1E4A2B', ''],
+  ].map(([v, n, h, tag]) => `<div class="ink"><i style="background:var(${v})"></i><span>${n}</span><span>${h}${tag === 'core' ? ' · core' : ''}</span></div>`).join('');
+
+  // crate label
+  const L = new BM(240, 160);
+  L.rect(4, 4, 232, 2, 5).rect(4, 154, 232, 2, 5).rect(4, 4, 2, 152, 5).rect(234, 4, 2, 152, 5);
+  L.rect(9, 9, 222, 1, 5).rect(9, 150, 222, 1, 5).rect(9, 9, 1, 142, 5).rect(230, 9, 1, 142, 5);
+  L.blit(WORD, (240 - WORD.w) >> 1, 17, () => 3);
+  const sm = pair(.7); L.blit(sm, (240 - sm.w) >> 1, 32);
+  L.rect(16, 131, 208, 1, 5);
+  L.blit(text(MICRO, 'CREATIVE PRACTICE'), 16, 138, () => 5);
+  const no = text(MICRO, 'NO. 001'); L.blit(no, 224 - no.w, 138, () => 5);
+  const w16 = wheel(16); L.blit(w16, 14, 14); L.blit(w16, 211, 14);
+  new View(document.getElementById('g-label'), { pal: GROVE, cell: 'fit', max: 3, bg: '--g-paper' }).draw(L);
+})();
+
 
 document.getElementById('replay-hero').addEventListener('click', () => hero.play());
 document.getElementById('play-all').addEventListener('click', () => { hero.play(); motionDefs.forEach(d => d.mo.play()); });

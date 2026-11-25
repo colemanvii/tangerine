@@ -18,8 +18,9 @@ What does Tangerine look like drawn on the pixel grid? Is there a bitmap version
 | 4 · Symbol | Fruit, citrus wheel and signal T at 16, 32 and 64 px, on white and graphite, with the 16 px version enlarged on its grid. |
 | 5 · Motion | Plot (hero), Resolve, Reassemble, Dither, Settle, Load, Signal. |
 | 6 · The wheel | The citrus wheel as a system: anatomy at 128 px, a live loader (one progress value driving a 16 px button, a 32 px toast and a 64 px page loader), segment counts 8–12, ordered vs grown variants, a 16–128 px size ladder, and two repeat patterns. |
-| 7 · Situations | Browser tab and site header, project cover, proposal title page, equipment label, business card, dot-matrix display, circular avatars. All names and projects are placeholders. |
-| 8 · Findings | What works, what doesn't yet, next tests. |
+| 7 · Print | A stippled, spot-ink treatment prompted by a mid-century printed illustration of two oranges. *The pair* (176 × 132 px) is drawn from geometry and printed from five one-bit plates, which are shown as separations. Also: a stippled fruit at 64/32 px, a stippled wheel at 128 px, the print palette, and a crate-label situation. |
+| 8 · Situations | Browser tab and site header, project cover, proposal title page, equipment label, business card, dot-matrix display, circular avatars. All names and projects are placeholders. |
+| 9 · Findings | What works, what doesn't yet, next tests. |
 
 ## Construction
 
@@ -45,6 +46,13 @@ Every piece moves in whole pixels and whole frames (12–30 fps), plays once whe
 | Settle | Split-flap characters settle left to right, then close up from monospaced slots to proportional spacing. | 2.0 s |
 | Load | The citrus wheel as a progress indicator. Segments fill clockwise from twelve o'clock, each from the core outward, 10 % per segment, over a realistic stop-start load. | 3.0 s |
 | Signal | The stripe crosses the tile, then the T drops in three steps. | 0.95 s |
+
+## Print (Plate 7)
+
+- **Reference:** a mid-century printed illustration of two oranges on a stem with leaves, supplied by the user. It is **not stored in this public repository**. The study borrows its method (coarse stipple, a few spot inks, shadows rolling to red, an off-register leaf shadow, the blossom-end star) and not its drawing.
+- **Inks:** cream stock `#F2EBDC`, orange `#F2862A`, tangerine `#E94D01` (the core brand orange), red `#B5281A`, leaf `#3E8A44`, deep green `#1E4A2B`. This is an extension palette for illustration and packaging, kept apart from the core white / graphite / tangerine.
+- **Method:** fruit are oblate spheres lit from the upper left (diffuse plus a tight specular term). Leaves are curved lenses with a paper midrib, a lit side and a shaded side. Each pixel maps its tone onto an ink ladder (red → tangerine → orange → paper; deep → leaf → paper), and clustered noise decides between neighbouring inks, which produces the stipple. Leaf shadows are deep green, offset 2 px right and 3 px down.
+- **Print run motion:** the five plates print in order, every 0.42 s. Each one lands 3 px off register, then 1 px, then settles. 2.45 s at 12 fps.
 
 ## Checks
 
