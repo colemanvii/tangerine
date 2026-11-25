@@ -25,7 +25,7 @@ Views: **Print**, **Separations** (the composite and each plate in its ink) and 
 
 ## Studies
 
-Each study runs 72 frames at 12 fps. Scrub, play or loop. The screens are cached per seed and size, so the dot pattern stays fixed from frame to frame and the image changes without shimmering. Every frame can be saved as a finished print.
+There are five studies. Each runs 72 frames at 12 fps. Scrub, play or loop. The screens are cached per seed and size, so the dot pattern stays fixed from frame to frame and the image changes without shimmering. Every frame can be saved as a finished print.
 
 | Study | Frames |
 | --- | --- |
@@ -33,6 +33,7 @@ Each study runs 72 frames at 12 fps. Scrub, play or loop. The screens are cached
 | Peeling | A 3.2-turn spiral peel from the top of the front fruit shows segment membranes converging at the poles, a white pith edge and a twisting ribbon that hangs and then lies flat. |
 | Blossoming | Buds open into five-petal blossoms with stamens. The petals fall and drift, and green fruitlets grow from each blossom's centre. Two extra blossoms on the branch never set fruit. |
 | Decomposition | The colour browns, the silhouette wrinkles and shrinks, mould spots spread with a pale rim, leaves brown and thin, and the print finally dissolves into scattered dots. |
+| Juice | A still life of its own. A cut half squeezes three times above a small glass. A wobbling stream pours in, with splashes and ripples where it lands. The glass fills to 84% with stippled juice (pulp, rising bubbles, foam at the rim), and its shadow picks up orange light thrown through the juice. The pour thins, the last two drops fall, and the glass's highlight cuts through everything. |
 
 ## Output
 

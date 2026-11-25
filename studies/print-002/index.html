@@ -142,6 +142,7 @@ footer{border-top:1px solid var(--ink);padding-block:14px 32px;display:flex;just
         <button type="button" data-study="peel" aria-pressed="false">Peeling</button>
         <button type="button" data-study="bloom" aria-pressed="false">Blossoming</button>
         <button type="button" data-study="decay" aria-pressed="false">Decomposition</button>
+        <button type="button" data-study="juice" aria-pressed="false">Juice</button>
       </div>
       <button type="button" id="play" disabled>Play</button>
       <input type="range" id="scrub" class="grow" min="0" max="71" value="36" step="1" aria-label="Frame" disabled>
@@ -159,8 +160,8 @@ footer{border-top:1px solid var(--ink);padding-block:14px 32px;display:flex;just
     <p>Each print is computed from scratch. The seed places fruit, leaves and stems. Lighting and ripeness set how much of each ink a pixel wants. A screen then turns that wish into dots, one bit per ink. The inks overprint like real transparent ink, and each plate can slip out of register.</p>
   </section>
   <section>
-    <h2>The four studies</h2>
-    <p>Ripening, peeling, blossoming and decomposition each run 72 frames at 12 frames a second. The dot pattern stays fixed between frames, so the image changes without shimmering, and any frame can be saved as a finished print.</p>
+    <h2>The five studies</h2>
+    <p>Ripening, peeling, blossoming, decomposition and juice each run 72 frames at 12 frames a second. The dot pattern stays fixed between frames, so the image changes without shimmering, and any frame can be saved as a finished print.</p>
   </section>
   <section>
     <h2>Output</h2>
@@ -333,6 +334,7 @@ function timeline(p) {
   if (p.study === 'peel') T.peel = t;
   if (p.study === 'bloom') { T.bloom = t; T.ripeness = Math.min(p.ripeness, .06); }
   if (p.study === 'decay') { T.decay = t; T.ripeness = Math.max(p.ripeness, .9); }
+  if (p.study === 'juice') { T.juice = t; T.ripeness = Math.max(p.ripeness, .75); }
   return T;
 }
 
@@ -363,6 +365,22 @@ function compose(p, T) {
   };
   let ground = null;
 
+  if (T.juice != null) {                                     // the juice study has its own still life
+    const gy = F.ay1 - bh * .05, Rr = R * .9; ground = gy;
+    const gh = clamp(bh * .94 - Rr * 1.75 - 6, Rr * 1.3, Rr * 2.5), rt = gh * .37, rb = gh * .29, gx = cx + bw * .1;
+    const half = fruit(gx + rt * .12, 0, Rr * .82, p.squash); half.halved = 'down';
+    const u = clamp(T.juice / .88); if (T.juice < .88) half.sq *= 1 - .11 * Math.abs(Math.sin(3 * Math.PI * u));
+    half.y = Math.max(F.ay0 + half.r * half.sq + 2, gy - gh - half.r * .42 - Rr * .55);
+    const whole = fruit(gx - rt - Rr * 1.35, gy - Rr * p.squash, Rr, p.squash); fit(whole); whole.gy = gy; whole.z = 1;
+    fruits.push(whole);
+    const top = [whole.x, whole.y - whole.r * whole.sq]; stems.push([top, [top[0] + Rr * .04, top[1] - Rr * .22]]);
+    if (p.leaves > 0) leaves.push(leaf(top[0] + Rr * .03, top[1] - Rr * .18, -28 * Math.PI / 180, Rr * p.leafSize * 1.3));
+    if (p.leaves > 1) leaves.push(leaf(whole.x - whole.r * .55, gy - Rr * .1, (180 + 14) * Math.PI / 180, Rr * p.leafSize * 1.45));
+    if (p.shadow) shadows.push({ x: whole.x - lv.lx * whole.r * .55, y: gy, rx: whole.r * 1.15, ry: whole.r * .2 });
+    const fill = clamp((T.juice - .05) / .83);
+    const juice = { gx, gb: gy, gh, rt, rb, e: .24, wall: Math.max(1, rt * .07), base: Math.max(2, gh * .09), fill, t: T.juice, half, shadow: p.shadow };
+    return { W, H, F, fruits, leaves, stems, shadows, blossoms, ground, R, cx, cy, fy: gy - gh * .6, lv, juice };
+  }
   if (p.layout === 'hanging') {
     const n = p.count, O = { x: cx + (rnd() - .5) * bw * .06, y: F.ay0 + bh * .2 };
     for (let i = 0; i < n; i++) {
@@ -513,6 +531,75 @@ function render(p) {
   /* fruit */
   const front = S.fruits.length ? S.fruits[S.fruits.length - 1] : null;
   S.fruits.forEach(f => { if (!f.hidden) drawFruit(f, f === front); });
+  if (S.juice) drawJuice(S.juice);
+  function drawJuice(J) {
+    const { gx, gb, gh, rt, rb, e, wall, base, fill, t, half } = J, top = gb - gh, ib = gb - base;
+    const wAt = py => lerp(rt, rb, clamp((py - top) / gh)), ell = (dx, dy, rx, ry) => (dx / rx) ** 2 + (dy / ry) ** 2;
+    const yl = ib - (gh - base) * .84 * fill, rs = wAt(yl) - wall, frame = Math.round(t * (FRAMES - 1));
+    const streaming = t > .03 && t < .88, rip = smooth(.3, .9, T.ripeness);
+    // the glass's shadow, with orange light thrown through the juice
+    if (J.shadow) {
+      const sx = gx - lv.lx * rb * .7, rx = rb * 1.45, ry = rb * .32;
+      for (let y = Math.floor(gb - ry - 1); y <= gb + ry + 1; y++) for (let x = Math.floor(sx - rx - 1); x <= sx + rx + 1; x++) {
+        if (!inb(x, y)) continue; const q = ell(x + .5 - sx, y + .5 - gb, rx, ry); if (q > 1) continue;
+        const i = y * W + x, cq = ell(x + .5 - (sx - lv.lx * rb * .35), y + .5 - gb, rx * .55, ry * .6);
+        if (cq < 1 && fill > .05) { add(i, 0, .7 * fill * (1 - cq)); add(i, 1, .45 * fill * (1 - cq)); }
+        else add(i, 4, .4 * smooth(0, .8, 1 - q));
+      }
+    }
+    for (let y = Math.floor(top - rt * e - 2); y <= gb + rb * e + 1; y++) for (let x = Math.floor(gx - rt - 2); x <= gx + rt + 2; x++) {
+      if (!inb(x, y)) continue;
+      const dx = x + .5 - gx, py = y + .5, hw = wAt(py);
+      const inTop = ell(dx, py - top, rt, rt * e) <= 1, inBot = ell(dx, py - gb, rb, rb * e) <= 1;
+      if (!((Math.abs(dx) <= hw && py >= top && py <= gb) || inTop || inBot)) continue;
+      const i = y * W + x, iw = hw - wall;
+      let c = null;
+      const inner = Math.abs(dx) <= iw && (py <= ib || ell(dx, py - ib, wAt(ib) - wall, (wAt(ib) - wall) * e) <= 1);
+      if (fill > .01 && inner && py >= yl) {                    // juice body
+        const ed = Math.abs(dx) / iw, lit = dx < 0 ? 1 - ed : 0, n = h2(x, y, 77);
+        c = [clamp(.95 - ed * ed * .25), clamp(.68 + ed * .28 - lit * .2) * (.75 + .25 * rip), ed ** 3 * .5 + smooth(ib - 3, gb, py) * .2, .12 * (1 - rip), ed ** 6 * .14];
+        if (n < .045) c[1] *= .35;                              // pulp
+        if (py - yl < 3 && n > .93) c = [.15, 0, 0, 0, 0];      // rising bubbles
+      }
+      if (fill > .01 && ell(dx, py - yl, rs, rs * e) <= 1) {     // the surface, seen from above
+        const rr = Math.sqrt(ell(dx, py - yl, rs, rs * e)), hit = Math.hypot((dx - (half.x - gx)) / rs, (py - yl) / (rs * e));
+        c = [1, .42 + (dx > 0 ? .2 : 0), 0, 0, 0];
+        if (rr > .78 && h2(x, y, 88) < .35 + .3 * fill) c = [.1, 0, 0, 0, 0];                     // foam at the edge
+        if (streaming && Math.abs(((hit * 7 - t * 30) % 1 + 1) % 1 - .5) < .14 && hit < .6) c = [1, .78, .05, 0, 0]; // ripples
+      }
+      if (!c) {
+        if (Math.abs(dx) > iw && py >= top) c = [.04, 0, 0, .08, .3];            // wall
+        else if (py > ib - 1 && py <= gb + rb * e) c = [.05, 0, 0, .1, .26];      // thick base
+      }
+      const rimV = Math.sqrt(ell(dx, py - top, rt, rt * e)), botV = Math.sqrt(ell(dx, py - gb, rb, rb * e));
+      if (Math.abs(rimV - 1) * rt < .75) c = [0, 0, 0, .05, py > top ? .85 : .5];  // rim: front edge darker
+      if (py > gb && Math.abs(botV - 1) * rb < .8) c = [0, 0, 0, .05, .78];
+      if (Math.abs(Math.abs(dx) - hw) < .7 && py > top && py < gb) c = [0, 0, 0, .05, .8]; // outline
+      const hx = gx - hw * .62;                                                 // highlight cuts through everything
+      if (x + .5 >= hx && x + .5 < hx + Math.max(1, rt * .09) && py > top + gh * .14 && py < gb - gh * .16) c = [0, 0, 0, 0, 0];
+      if (c) set(i, ...c);
+    }
+    const R = S.R, juiceInk = [.95, .78 * (.75 + .25 * rip), .06, 0, 0], sw = Math.max(1.2, R * .07);
+    const sy0 = half.y + half.r * .4;
+    if (streaming) {                                             // the pour
+      const thin = smooth(.7, .88, t);
+      for (let py = sy0; py < yl - rs * e * .2; py += .5) {
+        const wob = Math.sin(py * .35 + frame * 1.7) * .5 * (1 + thin), w = sw * (1 - thin * .6), y = Math.floor(py);
+        for (let x = Math.floor(half.x + wob - w / 2); x <= half.x + wob + w / 2; x++) if (inb(x, y)) set(y * W + x, ...juiceInk);
+      }
+      for (let k = 0; k < 5; k++) {                              // splash
+        const ox = (h2(k, frame, 5) - .5) * rs * .9, oy = -h2(k, frame, 6) * R * .35;
+        const X = Math.floor(half.x + ox), Y = Math.floor(yl + oy); if (inb(X, Y)) set(Y * W + X, ...juiceInk);
+      }
+    } else if (t >= .88) {                                       // last drops
+      for (let k = 0; k < 2; k++) {
+        const u = ((t - .88) / .12 * 1.6 - k * .55); if (u < 0 || u > 1) continue;
+        const Y = Math.floor(lerp(sy0, yl, u * u)), X = Math.floor(half.x);
+        for (let j = 0; j < Math.max(2, sw * 1.3); j++) for (let ii = 0; ii < Math.max(1, sw); ii++) if (inb(X + ii, Y + j)) set((Y + j) * W + X + ii, ...juiceInk);
+      }
+    }
+    drawFruit(half, false);
+  }
   function skin(nx, ny, nz, q, x, y, f) {
     const dl = Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]), sp = Math.pow(Math.max(0, nx * Hh[0] + ny * Hh[1] + nz * Hh[2]), 36), sh = 1 - dl;
     const [Yb, Tb, Rb, Gb] = pigment(T.ripeness), rf = smooth(.35, .85, T.ripeness);
@@ -547,7 +634,7 @@ function render(p) {
       if (f.halved) {
         const fu = (x + .5 - f.x) / (r0 * .98), fv = (y + .5 - f.y) / (r0 * .42), rho = Math.hypot(fu, fv);
         if (rho <= 1) { set(i, ...face(fu, fv, rho, x, y, f)); continue; }
-        if (y + .5 < f.y) continue;
+        if (f.halved === 'down' ? y + .5 > f.y : y + .5 < f.y) continue;
       }
       let c = skin(nx, ny, nz, q, x, y, f);
       if (peel > 0) {                                         // spiral peel from the top
@@ -899,7 +986,7 @@ let playing = false, raf = 0, t0 = 0, f0 = 0;
 function setStudy(s) {
   stop(); P.study = s; document.querySelectorAll('[data-study]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.study === s)));
   const on = s !== 'still'; playB.disabled = !on; scrub.disabled = !on; $('#x-sheet').disabled = !on;
-  P.frame = s === 'decay' ? 46 : s === 'bloom' ? 30 : s === 'peel' ? 40 : s === 'ripen' ? 40 : P.frame;
+  P.frame = s === 'juice' ? 50 : s === 'decay' ? 46 : s === 'bloom' ? 30 : s === 'peel' ? 40 : s === 'ripen' ? 40 : P.frame;
   scrub.value = P.frame; schedule();
 }
 document.querySelectorAll('[data-study]').forEach(b => b.addEventListener('click', () => setStudy(b.dataset.study)));
