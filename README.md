@@ -14,6 +14,12 @@ This GitHub repository holds technical work, reusable materials, design studies,
 
 [Identity studies](IDENTITY.md) explore Tangerine's own graphic language. **Industrial Study 004** is the preferred typographic exploration for further development, not a finalized wordmark. The visual system favors clear typography, cyber-white space, graphite, tangerine orange, strong composition, and restraint.
 
+### Tangerine Studies
+
+[Studies — creative direction and production standards](STUDIES.md) establishes Tangerine's independent artistic practice in digital printmaking, motion and interactive objects. The first proposed collection, *Ordinary Things*, begins with an original stippled tangerine illustration. The studio website remains a restrained home for commissioned work, ventures and the future Studies archive. Preserve the approved homepage composition; distinguish experiments from finished artwork.
+
+Public website: [ex-tangerina.com](https://ex-tangerina.com). Current source: `website/index.html`.
+
 ### Historical experiments
 
 This repository originated as a set of experiments under the names Haven and Tangerine. Older files and branches remain deliberately preserved, including:
