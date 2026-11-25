@@ -109,9 +109,9 @@ textarea{font-family:var(--mono);font-size:14px;padding:8px 10px;width:min(100%,
 select{font-family:var(--mono);font-size:12px;padding:7px 8px}
 input[type=range]{accent-color:var(--accent);border:0;padding:0;width:140px}
 button{font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:var(--paper);color:var(--ink);border:1px solid var(--ink);border-radius:0;padding:8px 12px;cursor:pointer}
-button:hover{background:var(--ink);color:var(--paper)}
+@media (hover:hover){button:hover{background:var(--ink);color:var(--paper)}}
 button.primary{background:var(--accent);border-color:var(--accent);color:var(--b-graphite)}
-button.primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+@media (hover:hover){button.primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}}
 .status{font-family:var(--mono);font-size:11px;color:var(--accent-text);min-height:1.5em}
 #svgout{width:100%;min-height:90px;font-size:11px;text-transform:none}
 
@@ -130,6 +130,22 @@ button.primary:hover{background:var(--ink);border-color:var(--ink);color:var(--p
 .motion .bar strong{font-weight:400;color:var(--ink);letter-spacing:.1em;text-transform:uppercase}
 .readout{position:absolute;left:12px;top:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--b-grey)}
 .wide-stage{width:100%}
+
+/* wheel plate */
+.wheel-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center}
+.wheel-row.bottom{align-items:end}
+.wheel-row figure{justify-items:center}
+.loader-lab{border:1px solid var(--rule);display:grid}
+.loader-lab .controls{padding:14px;border-bottom:1px solid var(--rule)}
+.loader-states{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.ls-cell{display:grid;place-items:center;align-content:center;gap:18px;padding:32px 16px;min-height:260px;min-width:0}
+.ls-cell + .ls-cell{border-left:1px solid var(--rule)}
+.ls-cell .label{color:var(--b-grey)}
+.mbtn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--b-graphite);background:var(--b-white);color:var(--b-graphite);padding:9px 14px 9px 11px;font:11px var(--mono);letter-spacing:.12em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.toast{display:flex;align-items:center;gap:14px;background:var(--b-graphite);padding:14px 18px 14px 14px}
+.pattern{border:1px solid var(--rule);overflow:hidden;height:300px;padding:0}
+.pattern.on-orange{border-color:var(--b-orange)}
+@media (max-width:900px){.loader-states{grid-template-columns:minmax(0,1fr)}.ls-cell + .ls-cell{border-left:0;border-top:1px solid var(--rule)}}
 
 /* situations */
 .sit{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px}
@@ -214,7 +230,7 @@ footer{border-top:1px solid var(--ink);padding-block:18px 40px;display:flex;just
   <div class="hero-stage"><canvas id="hero" aria-label="The wide bitmap wordmark TANGERINE being plotted column by column, followed by an orange signal stripe" role="img"></canvas></div>
   <div class="hero-foot">
     <div style="display:grid;gap:14px">
-      <p>Tangerine drawn on the pixel grid. A wide wordmark cut from square pixels, the approved script translated to one bit, three pixel symbols, seven motion tests and the marks placed where they would actually live.</p>
+      <p>Tangerine drawn on the pixel grid. A wide wordmark cut from square pixels, the approved script translated to one bit, three pixel symbols, a citrus-wheel system, seven motion tests and the marks placed where they would actually live.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" id="replay-hero">Replay plot</button><button type="button" id="play-all">Play all motion</button></div>
     </div>
     <dl class="spec">
@@ -353,9 +369,82 @@ Creative practice</textarea></label>
 </section>
 
 <!-- PLATE 6 -->
+<section class="plate" id="wheel" aria-labelledby="p6w">
+  <div class="plate-head">
+    <h2 id="p6w"><span class="label"><b>Plate 6</b> · The wheel</span><canvas data-text="THE WHEEL" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">The wheel</span></h2>
+    <p>The citrus wheel, taken further. A real cross-section has rind, pith, membranes and a core, and each segment is a rounded wedge rather than a pie slice. Drawn that way, it works as a mark, a loader and a pattern. Ten segments map onto the percent scale, ten per cent each.</p>
+  </div>
+
+  <div class="cols c2 wheel-anatomy">
+    <figure>
+      <div class="panel on-white"><canvas id="w-anatomy" role="img" aria-label="A 128 pixel citrus wheel: orange rind, white pith ring, ten rounded orange segments separated by white membranes, and a white core"></canvas></div>
+      <figcaption><strong>Anatomy · 128 px</strong>Generated from the measurements on the right, then checked pixel by pixel at each size.</figcaption>
+    </figure>
+    <div style="display:grid;gap:20px;align-content:start">
+      <ul class="rules" id="w-legend"></ul>
+      <p class="note">All measurements scale with the wheel. Below 32 px the wheel switches to eight segments. The 16 px wheel is drawn by hand, with no pith ring.</p>
+    </div>
+  </div>
+
+  <figure>
+    <div class="loader-lab">
+      <div class="controls">
+        <label for="w-p">Progress <output id="w-p-out">40%</output><input type="range" id="w-p" min="0" max="100" value="40"></label>
+        <button type="button" class="primary" id="w-play">Simulate a load</button>
+      </div>
+      <div class="loader-states">
+        <div class="ls-cell on-white">
+          <div class="mbtn"><canvas id="w-btn" aria-hidden="true"></canvas><span id="w-btn-t">Uploading 40%</span></div>
+          <span class="label">Button · 16 px</span>
+        </div>
+        <div class="ls-cell on-white">
+          <div class="toast"><canvas id="w-toast" aria-hidden="true"></canvas><div style="display:grid;gap:6px"><canvas id="w-toast-t1" aria-hidden="true"></canvas><canvas id="w-toast-t2" aria-hidden="true"></canvas></div></div>
+          <span class="label">Toast · 32 px</span>
+        </div>
+        <div class="ls-cell on-white">
+          <canvas id="w-page" role="img" aria-label="Page loader"></canvas>
+          <span class="label">Page loader · 64 px at 2×</span>
+        </div>
+      </div>
+    </div>
+    <figcaption><strong>One progress value, three sizes</strong>Drag the slider or simulate a load. The rind stays lit so the wheel always reads as fruit. Unfilled segments sit at 22% orange. The 16 px wheel counts in eighths, the larger ones in tenths.</figcaption>
+  </figure>
+
+  <div class="cols c2">
+    <figure>
+      <div class="panel on-white"><div class="wheel-row" id="w-counts"></div></div>
+      <figcaption><strong>Segment count · 40 px at 2×</strong>Real fruit varies, so the count is a choice. Ten divides the percent scale evenly and gives the calmest rhythm. Odd counts never line up on the vertical axis.</figcaption>
+    </figure>
+    <figure>
+      <div class="panel on-white"><div class="wheel-row" id="w-grown"></div></div>
+      <figcaption><strong>Ordered and grown · 64 px</strong>The ordered wheel next to three grown ones. Each grown wheel has uneven segments, a slightly off-centre core and a rind that is not quite round. Grown wheels suit editorial and print use. The ordered wheel is for interface.</figcaption>
+    </figure>
+  </div>
+
+  <figure>
+    <div class="cols c2">
+      <div class="panel on-white"><div class="wheel-row bottom" id="w-sizes"></div></div>
+      <div class="panel on-graphite"><div class="wheel-row bottom" id="w-sizes-d"></div></div>
+    </div>
+    <figcaption><strong>Size ladder · actual size</strong>16, 24, 32, 48, 64, 96 and 128 px at 1×, on white and on graphite. Below 32 px the wheel drops to eight segments, because ten membranes turn to noise there. From 32 px up it is the full wheel.</figcaption>
+  </figure>
+
+  <div class="cols c2">
+    <figure>
+      <div class="pattern on-white"><canvas id="w-pat-a" aria-hidden="true"></canvas></div>
+      <figcaption><strong>Pattern A · orange on white</strong>32 px wheels on a 40 px half-drop repeat. Every other column is turned half a segment. For wrapping, envelopes and the inside of a folder.</figcaption>
+    </figure>
+    <figure>
+      <div class="pattern on-orange"><canvas id="w-pat-b" aria-hidden="true"></canvas></div>
+      <figcaption><strong>Pattern B · white on tangerine</strong>The same repeat reversed, with grown wheels so no two are alike. For stickers, tissue paper and packing tape.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PLATE 7 -->
 <section class="plate" id="situations" aria-labelledby="p6">
   <div class="plate-head">
-    <h2 id="p6"><span class="label"><b>Plate 6</b> · Situations</span><canvas data-text="IN USE" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">In use</span></h2>
+    <h2 id="p6"><span class="label"><b>Plate 7</b> · Situations</span><canvas data-text="IN USE" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">In use</span></h2>
     <p>The marks placed where Tangerine would actually use them. Every project, name and field is a placeholder. No client work is shown.</p>
   </div>
   <div class="sit">
@@ -435,10 +524,10 @@ Creative practice</textarea></label>
   </div>
 </section>
 
-<!-- PLATE 7 -->
+<!-- PLATE 8 -->
 <section class="plate" id="notes" aria-labelledby="p7">
   <div class="plate-head">
-    <h2 id="p7"><span class="label"><b>Plate 7</b> · Findings</span><canvas data-text="FINDINGS" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Findings</span></h2>
+    <h2 id="p7"><span class="label"><b>Plate 8</b> · Findings</span><canvas data-text="FINDINGS" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Findings</span></h2>
     <p>What the grid shows about Tangerine's identity, and what to test next before any of it is used.</p>
   </div>
   <div class="findings">
@@ -448,13 +537,14 @@ Creative practice</textarea></label>
         <li>The wide cut is a good fit for the grid. Industrial 004's broad, square proportion comes out of 2 px strokes naturally, so the wordmark feels drawn rather than converted.</li>
         <li>At 96 px wide the script turns into something like stitched lettering. It stays warm and still reads as Tangerine.</li>
         <li>The 16 px fruit is the most legible symbol at favicon size. Orange and a dark leaf are enough.</li>
+        <li>The citrus wheel is the most versatile piece. It works as a symbol, a progress indicator and a pattern, and its ten segments map exactly onto percent.</li>
         <li>Motion that shows how the mark is built (plotting, resolving, reassembling) suits the material and says something true about the practice.</li>
       </ul>
     </section>
     <section>
       <h3>What doesn't, yet</h3>
       <ul>
-        <li>The citrus wheel needs at least 32 px. At 16 px ten segments turn to noise, so that size is redrawn by hand with eight.</li>
+        <li>The full ten-segment wheel needs 32 px. Below that it drops to eight segments, and the 16 px version is drawn by hand.</li>
         <li>The signal T is distinctive but could belong to any industrial company. It needs Tangerine-specific evidence before going further.</li>
         <li>Below 96 px the rasterised script loses its hairlines. A hand-cleaned 64 px version should be drawn and compared before using it small.</li>
         <li>Diagonals in N, M, W and K step at 45° only, so W is the weakest glyph.</li>
@@ -466,7 +556,8 @@ Creative practice</textarea></label>
         <li>Hand-clean the script at 96 × 38 and at 64 px, keeping the approved letterforms' entry and exit strokes.</li>
         <li>Print the equipment label and the proposal page at 1:1 on white stock, then check the 1× restrained cut on paper.</li>
         <li>Compare the wide cut against the vector Industrial 004 and the fruit symbol side by side before choosing.</li>
-        <li>Choose one motion, not seven. Plot or Resolve are the strongest candidates for a site loading state.</li>
+        <li>Choose one motion, not seven. The wheel loader is now the strongest candidate for a site loading state, with Plot for the first visit.</li>
+        <li>Cut the wheel as a real sticker and print Pattern B on tissue to see whether the 32 px repeat holds up off screen.</li>
       </ul>
     </section>
   </div>
@@ -729,31 +820,68 @@ const WHEEL16 = [
   '.....ooooo......',
   '................',
 ];
-/* citrus wheel; segLit = number of lit segments (rest dim) */
-function wheel(n, segLit = Infinity, seg = 10) {
-  if (n === 16) return BM.rows(WHEEL16, { o: 2 });
-  const b = new BM(n, n), c = n / 2, R = n / 2 - .25;
-  const rind = Math.max(1, n / 18), pith = Math.max(1, n / 32), mem = Math.max(1, n / 40), core = R * 0.16;
-  const off = -Math.PI / 2;
+/* citrus wheel, drawn as a real cross-section: rind, pith ring, ten rounded-wedge segments
+   separated by membranes, and a core. Geometry is computed once per size and cached; progress
+   (o.p, 0..1) fills segments clockwise from twelve o'clock, each one from the core outward. */
+const wheelGeo = new Map();
+function wheelGeometry(n, seg, seed, rot) {
+  const key = [n, seg, seed, rot].join('|');
+  if (wheelGeo.has(key)) return wheelGeo.get(key);
+  const c = n / 2, R = n / 2 - .2, grown = seed != null;
+  const tr = Math.max(n >= 24 ? 2 : 1, Math.round(n * .055)), tp = n < 20 ? 0 : Math.max(1, Math.round(n * .03));
+  const hm = Math.max(.5, n * .013), rc = Math.max(1.2, n * .075), k = Math.max(.8, n * .05);
+  const step = 2 * Math.PI / seg, base = -Math.PI / 2 + rot;
+  const bounds = [];
+  for (let i = 0; i <= seg; i++) bounds.push(base + i * step + (grown && i > 0 && i < seg ? (hash(seed, i) - .5) * .34 * step : 0));
+  const ox = grown ? (hash(seed, 99) - .5) * n * .035 : 0, oy = grown ? (hash(seed, 98) - .5) * n * .035 : 0;
+  const ph = grown ? hash(seed, 7) * 6.28 : 0;
+  const Rof = th => grown ? R * (1 + .014 * Math.sin(3 * th + ph)) : R;
+  const corner = (a, b) => a >= k || b >= k || (k - a) ** 2 + (k - b) ** 2 <= k * k;
+  const TAU = 2 * Math.PI, SS = 4;
+  const cls = new Uint8Array(n * n), segIx = new Uint8Array(n * n), frac = new Float32Array(n * n);
   for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
-    let cov = 0, val = 0;
-    // sample the centre with a 3x3 supersample for the outer edge
-    for (let j = 0; j < 3; j++) for (let i = 0; i < 3; i++) {
-      const dx = x + (i + .5) / 3 - c, dy = y + (j + .5) / 3 - c;
-      if (dx * dx + dy * dy <= R * R) cov++;
+    let e = 0, rind = 0, gap = 0; const sc = new Array(seg).fill(0); let fs = 0, fc = 0;
+    for (let j = 0; j < SS; j++) for (let i = 0; i < SS; i++) {
+      const dx = x + (i + .5) / SS - c, dy = y + (j + .5) / SS - c, r = Math.hypot(dx, dy), RR = Rof(Math.atan2(dy, dx));
+      if (r > RR) { e++; continue; }
+      if (r > RR - tr) { rind++; continue; }
+      const ex = dx - ox, ey = dy - oy, er = Math.hypot(ex, ey);
+      const ang = base + (((Math.atan2(ey, ex) - base) % TAU) + TAU) % TAU;
+      let s = 0; while (s < seg - 1 && ang >= bounds[s + 1]) s++;
+      const a0 = bounds[s], a1 = bounds[s + 1], Rs = RR - tr - tp;
+      const d1 = (-Math.sin(a0) * ex + Math.cos(a0) * ey) - hm, d2 = (Math.sin(a1) * ex - Math.cos(a1) * ey) - hm;
+      const d3 = Rs - r, d4 = er - rc;
+      if (d1 > 0 && d2 > 0 && d3 > 0 && d4 > 0 && corner(d1, d3) && corner(d2, d3)) { sc[s]++; fs += (er - rc) / (Rs - rc); fc++; }
+      else gap++;
     }
-    if (cov < 5) continue;
-    const dx = x + .5 - c, dy = y + .5 - c, r = Math.hypot(dx, dy);
-    if (r > R - rind) val = 2;                       // rind
-    else if (r > R - rind - pith) val = 0;           // pith ring
-    else if (r < core) val = 0;                      // core
-    else {
-      let ang = Math.atan2(dy, dx) - off; ang = (ang % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
-      const k = ang / (2 * Math.PI / seg), idx = Math.floor(k), frac = k - idx;
-      const edge = Math.min(frac, 1 - frac) * (2 * Math.PI / seg) * r;
-      if (edge < mem / 2 + .35) val = 0; else val = idx < segLit ? 2 : 4;
-    }
-    b.set(x, y, val);
+    const segAll = sc.reduce((a, b) => a + b, 0), i = y * n + x, half = SS * SS / 2;
+    if (e >= half) continue;
+    if (rind >= segAll && rind >= gap) cls[i] = 1;
+    else if (segAll > gap) { cls[i] = 2; segIx[i] = sc.indexOf(Math.max(...sc)); frac[i] = fs / fc; }
+  }
+  const g = { n, seg, cls, segIx, frac, tr, tp, hm, rc, k };
+  wheelGeo.set(key, g); return g;
+}
+function wheel16(p = 1) {
+  const b = BM.rows(WHEEL16, { o: 2 });
+  if (p >= 1) return b;
+  for (let y = 0; y < 15; y++) for (let x = 0; x < 15; x++) {
+    if (!b.get(x, y)) continue;
+    const dx = x - 7, dy = y - 7, r = Math.hypot(dx, dy);
+    if (r > 6.2) continue;                                       // rind stays lit
+    const s = Math.floor((((Math.atan2(dy, dx) + Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI) / (Math.PI / 4));
+    const f = (r - 1.5) / (5.6 - 1.5), q = p * 8 - s;
+    if (!(q >= 1 || (q > 0 && f <= q))) b.set(x, y, 4);
+  }
+  return b;
+}
+function wheel(n, o = {}) {
+  const seg = o.seg ?? (n < 32 ? 8 : 10), p = o.p ?? 1, seed = o.seed ?? null, rot = o.rot ?? 0;
+  if (n === 16 && seed == null && seg === 8 && !rot) return wheel16(p);
+  const g = wheelGeometry(n, seg, seed, rot), b = new BM(n, n);
+  for (let i = 0; i < n * n; i++) {
+    if (g.cls[i] === 1) b.d[i] = 2;
+    else if (g.cls[i] === 2) { const q = p * seg - g.segIx[i]; b.d[i] = (q >= 1 || (q > 0 && g.frac[i] <= q)) ? 2 : 4; }
   }
   return b;
 }
@@ -824,7 +952,8 @@ class View {
     }
   }
 }
-function redrawAll() { views.forEach(v => v.draw()); }
+const resizers = [];
+function redrawAll() { views.forEach(v => v.draw()); resizers.forEach(f => f()); }
 
 /* ------------------------------------------------------------ motion */
 const motions = [];
@@ -993,7 +1122,7 @@ document.getElementById('t-copy').addEventListener('click', () => {
   const host = document.getElementById('symbols');
   const defs = [
     ['Fruit', 'The earlier tangerine symbol, redrawn as pixels. An oblate orange body and a graphite stem and leaf.', fruit],
-    ['Citrus wheel', 'A cross-section: ten segments, a pith ring and the rind (eight segments at 16 px). It doubles as a progress indicator (Plate 5).', wheel],
+    ['Citrus wheel', 'A cross-section: rind, pith ring, ten rounded segments and a core (eight segments below 32 px). See Plate 6. It doubles as a progress indicator (Plate 5).', wheel],
     ['Signal T', 'The wide T on a graphite tile, crossed by one orange stripe that breaks around the stem.', signal],
   ];
   defs.forEach(([name, note, fn]) => {
@@ -1026,6 +1155,91 @@ document.getElementById('t-copy').addEventListener('click', () => {
   b.blit(l1, Math.floor((64 - l1.w) / 2), 1, () => 2);
   b.blit(l2, Math.floor((64 - l2.w) / 2), 10, () => 2);
   new View(document.getElementById('led'), { pal: [null, null, '--b-orange'], cell: 'fit', max: 7, min: 3, led: '--b-led' }).draw(b);
+})();
+
+/* ------------------------------------------------------------ plate 6: the wheel */
+(() => {
+  // anatomy
+  const A = wheel(128), g = wheelGeometry(128, 10, null, 0);
+  new View(document.getElementById('w-anatomy'), { pal: PAL.sym, cell: 'fit', max: 4 }).draw(A);
+  const leg = [
+    ['Rind', `${g.tr} px orange ring, about 5.5% of the diameter`],
+    ['Pith', `${g.tp} px white ring between rind and segments`],
+    ['Membranes', `about ${Math.round(g.hm * 2)} px white, ten of them, meeting at the core`],
+    ['Segments', `10 wedges with ${Math.round(g.k)} px rounded outer corners`],
+    ['Core', `${Math.round(g.rc * 2)} px white centre where the membranes end`],
+  ];
+  document.getElementById('w-legend').innerHTML = leg.map(([a, b]) => `<li><span>${a}</span>${b}</li>`).join('');
+
+  // live loader
+  const slider = document.getElementById('w-p'), out = document.getElementById('w-p-out'), btnT = document.getElementById('w-btn-t');
+  const vBtn = new View(document.getElementById('w-btn'), { pal: PAL.sym, cell: 1 });
+  const vToast = new View(document.getElementById('w-toast'), { pal: PAL.symdark, cell: 1 });
+  const vT1 = new View(document.getElementById('w-toast-t1'), { pal: PAL.white, cell: 2 });
+  const vT2 = new View(document.getElementById('w-toast-t2'), { pal: PAL.grey, cell: 1 });
+  const vPage = new View(document.getElementById('w-page'), { pal: PAL.sym, cell: 2 });
+  vT1.draw(text(MICRO, 'EXPORTING'));
+  function setP(v) {
+    const p = v / 100, pct = String(Math.round(v)).padStart(3, '0') + '%';
+    out.textContent = Math.round(v) + '%';
+    btnT.textContent = v >= 100 ? 'Uploaded' : `Uploading ${Math.round(v)}%`;
+    vBtn.draw(wheel(16, { p }));
+    vToast.draw(wheel(32, { p }));
+    vT2.draw(text(MICRO, v >= 100 ? 'PROJECT 01 · DONE' : `PROJECT 01 · ${pct}`));
+    const b = new BM(64, 76); b.blit(wheel(64, { p }), 0, 0);
+    const s = text(MICRO, pct); b.blit(s, (64 - s.w) >> 1, 69, () => 1);
+    vPage.draw(b);
+  }
+  slider.addEventListener('input', () => setP(+slider.value));
+  setP(+slider.value);
+  let raf = 0;
+  document.getElementById('w-play').addEventListener('click', () => {
+    cancelAnimationFrame(raf);
+    if (STILL()) { slider.value = 100; setP(100); return; }
+    const start = performance.now(), dur = 3.0;
+    let last = -1;
+    const step = now => {
+      const t = Math.min(dur, (now - start) / 1000), f = Math.floor(t * 24);
+      if (f !== last) { last = f; const v = loadProg(t) * 100; slider.value = Math.round(v); setP(v); }
+      if (t < dur) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+  });
+
+  // rows of small figures
+  function row(id, items) {
+    const host = document.getElementById(id);
+    items.forEach(([bm, cap, pal, cell]) => {
+      const f = document.createElement('figure');
+      f.innerHTML = `<canvas aria-hidden="true"></canvas><figcaption>${cap}</figcaption>`;
+      host.appendChild(f); new View(f.querySelector('canvas'), { pal: pal || PAL.sym, cell: cell || 1 }).draw(bm);
+    });
+  }
+  row('w-counts', [8, 9, 10, 11, 12].map(s => [wheel(40, { seg: s }), `${s}`, PAL.sym, 2]));
+  row('w-grown', [[wheel(64), 'ordered'], [wheel(64, { seed: 3 }), 'grown 1'], [wheel(64, { seed: 11 }), 'grown 2'], [wheel(64, { seed: 27 }), 'grown 3']]);
+  const sizes = [16, 24, 32, 48, 64, 96, 128];
+  row('w-sizes', sizes.map(n => [wheel(n), `${n}`]));
+  row('w-sizes-d', sizes.map(n => [wheel(n), `${n}`, PAL.symdark]));
+
+  // patterns, rebuilt to the container width
+  function pattern(id, pal, grown) {
+    const c = document.getElementById(id), host = c.parentElement, cell = 2, pitch = 40, n = 32;
+    const view = new View(c, { pal, cell });
+    const tiles = {}; const tile = (k, rot, seed) => tiles[k] || (tiles[k] = wheel(n, { rot, seed }));
+    function build() {
+      const cols = Math.ceil(host.clientWidth / cell), rows = Math.ceil(host.clientHeight / cell);
+      const b = new BM(cols, rows);
+      for (let i = -1; i * pitch < cols + pitch; i++) for (let j = -1; j * pitch < rows + pitch; j++) {
+        const odd = i & 1, rot = odd ? Math.PI / 10 : 0;
+        const seed = grown ? ((i * 7 + j * 13) % 9 + 9) % 9 : null;
+        b.blit(tile(`${odd}|${seed}`, rot, seed), i * pitch + 4, j * pitch + (odd ? pitch / 2 : 0) + 4, v => v === 4 ? 0 : v);
+      }
+      view.draw(b);
+    }
+    build(); resizers.push(build);
+  }
+  pattern('w-pat-a', PAL.sym, false);
+  pattern('w-pat-b', [null, null, '--b-white'], true);
 })();
 
 /* ------------------------------------------------------------ motion pieces */
@@ -1132,18 +1346,18 @@ motionTile({ name: 'Settle', spec: 'Wide cut · split-flap cycle, then kern · 2
     }, onFrame: t => { ro.textContent = t < k0 ? 'monospaced slots' : 'proportional'; } });
   } });
 
-// 5 LOAD: the citrus wheel as a progress indicator, one segment per step.
-motionTile({ name: 'Load', spec: 'Citrus wheel 64 px · 10 segments = 10 % each · 2.6 s', ground: 'on-white',
+// 5 LOAD: the citrus wheel as a progress indicator. Segments fill clockwise, each from the core outward.
+const LOAD_CURVE = [[0, 0], [.3, .07], [.55, .12], [.75, .31], [1.05, .34], [1.5, .58], [1.75, .61], [2.25, .88], [2.6, 1]];
+const loadProg = t => { for (let i = 1; i < LOAD_CURVE.length; i++) if (t <= LOAD_CURVE[i][0]) { const [a, pa] = LOAD_CURVE[i - 1], [b, pb] = LOAD_CURVE[i]; return pa + (pb - pa) * (t - a) / (b - a); } return 1; };
+motionTile({ name: 'Load', spec: 'Citrus wheel 64 px · 10 segments = 10 % each · fills from the core · 3.0 s', ground: 'on-white',
   build: (c, ro) => {
-    const curve = [[0, 0], [.35, .2], [.8, .3], [1.3, .7], [1.9, .9], [2.3, 1]];
-    const prog = t => { for (let i = 1; i < curve.length; i++) if (t <= curve[i][0]) { const [a, pa] = curve[i - 1], [b, pb] = curve[i]; return pa + (pb - pa) * (t - a) / (b - a); } return 1; };
     const view = new View(c, { pal: PAL.sym, cell: 'fit', max: 4 });
-    return new Motion(view, { dur: 2.6, fps: 12, render: t => {
-      const p = prog(t), lit = Math.floor(p * 10 + 1e-6), b = new BM(64, 76);
-      b.blit(wheel(64, lit), 0, 0);
-      const s = text(MICRO, String(lit * 10).padStart(3, '0') + '%'); b.blit(s, (64 - s.w) >> 1, 69, () => 1);
+    return new Motion(view, { dur: 3.0, fps: 24, render: t => {
+      const p = loadProg(t), b = new BM(64, 76);
+      b.blit(wheel(64, { p }), 0, 0);
+      const s = text(MICRO, String(Math.round(p * 100)).padStart(3, '0') + '%'); b.blit(s, (64 - s.w) >> 1, 69, () => 1);
       return b;
-    }, onFrame: t => { ro.textContent = `${Math.floor(prog(t) * 10 + 1e-6)} / 10`; } });
+    }, onFrame: t => { ro.textContent = `${Math.min(10, Math.floor(loadProg(t) * 10 + 1e-6))} / 10 segments`; } });
   } });
 
 // 6 SIGNAL: the stripe crosses the tile, then the T drops in three steps and the stripe breaks around it.

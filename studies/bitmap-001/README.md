@@ -17,8 +17,9 @@ What does Tangerine look like drawn on the pixel grid? Is there a bitmap version
 | 3 · Typeface | Both cuts' full glyph sets (A–Z, 0–9, punctuation) and a type tester that copies SVG. |
 | 4 · Symbol | Fruit, citrus wheel and signal T at 16, 32 and 64 px, on white and graphite, with the 16 px version enlarged on its grid. |
 | 5 · Motion | Plot (hero), Resolve, Reassemble, Dither, Settle, Load, Signal. |
-| 6 · Situations | Browser tab and site header, project cover, proposal title page, equipment label, business card, dot-matrix display, circular avatars. All names and projects are placeholders. |
-| 7 · Findings | What works, what doesn't yet, next tests. |
+| 6 · The wheel | The citrus wheel as a system: anatomy at 128 px, a live loader (one progress value driving a 16 px button, a 32 px toast and a 64 px page loader), segment counts 8–12, ordered vs grown variants, a 16–128 px size ladder, and two repeat patterns. |
+| 7 · Situations | Browser tab and site header, project cover, proposal title page, equipment label, business card, dot-matrix display, circular avatars. All names and projects are placeholders. |
+| 8 · Findings | What works, what doesn't yet, next tests. |
 
 ## Construction
 
@@ -28,6 +29,7 @@ What does Tangerine look like drawn on the pixel grid? Is there a bitmap version
 - **Both typefaces were drawn by hand in this file** as pixel maps (`WIDE_DEF`, `MICRO_DEF`). No third-party font is used, so there is no font licence to check.
 - **Palette:** cyber white `#F5F6F3`, graphite `#17181A`, tangerine `#E94D01`. The orange is sampled from the approved script wordmark on the live homepage.
 - **Script raster:** the approved script PNG from `website/index.html`, cropped and box-averaged to 24, 48, 96, 160 and 320 columns, then thresholded (0.40–0.50; lower at small sizes to keep strokes). Stored as packed 1-bit data (about 9 KB). This is an automatic conversion, not hand-cleaned lettering.
+- **Citrus wheel:** drawn as a real cross-section. Rind ≈ 5.5 % of the diameter (min 2 px from 24 px), a pith ring ≈ 3 %, ten segments as rounded wedges (outer corner radius ≈ 5 %) separated by membranes ≈ 2.6 %, and a core ≈ 15 %. Each pixel is classified from a 4 × 4 supersample, and the geometry is cached per size. Below 32 px it drops to eight segments; the 16 px wheel is drawn by hand. *Grown* variants use a seed to make segments uneven, nudge the core and make the rind slightly out of round. Progress `p` lights whole segments clockwise and fills the current one radially from the core, while the rind stays lit.
 - **Symbols:** the 16 px fruit and 16 px wheel are drawn by hand. The 32 and 64 px versions are generated (an oblate disk, a lens leaf, radial membranes), with single-pixel nubs removed. The signal T is built on a 16 grid and scaled by whole numbers.
 
 ## Motion
@@ -41,7 +43,7 @@ Every piece moves in whole pixels and whole frames (12–30 fps), plays once whe
 | Reassemble | Every pixel of the wide cut travels to rebuild the script, sorted left to right. Replay reverses it. | 2.4 s |
 | Dither | The 64 px fruit arrives through a 4 × 4 Bayer threshold. | 1.25 s |
 | Settle | Split-flap characters settle left to right, then close up from monospaced slots to proportional spacing. | 2.0 s |
-| Load | The citrus wheel as a progress indicator, one segment per 10 %. | 2.6 s |
+| Load | The citrus wheel as a progress indicator. Segments fill clockwise from twelve o'clock, each from the core outward, 10 % per segment, over a realistic stop-start load. | 3.0 s |
 | Signal | The stripe crosses the tile, then the T drops in three steps. | 0.95 s |
 
 ## Checks
