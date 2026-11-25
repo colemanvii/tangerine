@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tangerine Print Study 002</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Tangerine Print Study 002: an instrument for printed citrus. Generative fruit, stipple screens, spot-ink separations and registration on the pixel grid.">
+<meta name="robots" content="noindex">
+<style>
+/* Layout: an instrument. Print stage on the left, transport beneath it, controls in a ruled column on the right. Stacks on phones. */
+:root{
+  --bg:#F5F6F3; --ink:#17181A; --ink-2:#5A5D61; --rule:#D6D8D3; --stage:#E6E7E2; --field:#FFFFFF;
+  --accent:#E94D01; --accent-text:#B83B00; --on-accent:#17181A;
+  --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111213; --ink:#ECEDEA; --ink-2:#A2A5A0; --rule:#2C2E31; --stage:#1B1C1E; --field:#18191B;
+  --accent:#FF5A12; --accent-text:#FF7A3D; --on-accent:#111213; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111213; --ink:#ECEDEA; --ink-2:#A2A5A0; --rule:#2C2E31; --stage:#1B1C1E; --field:#18191B;
+  --accent:#FF5A12; --accent-text:#FF7A3D; --on-accent:#111213; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges}
+[hidden]{display:none!important}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1440px;margin:0 auto}
+
+/* masthead */
+.mast{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:end;justify-content:space-between;padding-block:16px 14px;border-bottom:1px solid var(--ink)}
+.mast-l{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
+.mast h1{margin:0;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text)}
+.mast p{margin:0;font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+
+/* instrument */
+.inst{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:0;border-bottom:1px solid var(--ink);min-height:0}
+.stagecol{display:grid;grid-template-rows:auto 1fr auto;min-width:0;border-right:1px solid var(--rule)}
+.viewbar,.transport{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--rule)}
+.transport{border-bottom:0;border-top:1px solid var(--rule)}
+.stage{background:var(--stage);display:grid;place-items:center;padding:28px;min-height:420px;overflow:hidden;position:relative}
+.stage canvas.print{box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.seps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:100%}
+.seps figure{margin:0;display:grid;gap:6px;justify-items:center;min-width:0}
+.seps canvas{max-width:100%;height:auto!important}
+.seps figcaption{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.readout{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.seg{display:inline-flex;flex-wrap:wrap;padding:0 1px 1px 0;max-width:100%}
+.seg button{margin:0 -1px -1px 0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.grow{flex:1 1 160px;min-width:120px}
+
+/* panel */
+.panel{min-width:0;overflow:auto;max-height:calc(100vh - 70px);position:sticky;top:0}
+details{border-bottom:1px solid var(--rule)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:11px 14px;font:11px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--ink-2)}
+details[open] summary::after{content:"−"}
+.ctl{display:grid;gap:10px;padding:2px 14px 14px}
+.row{display:grid;grid-template-columns:96px minmax(0,1fr) 46px;gap:10px;align-items:center}
+.row label,.row .lab{font:10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.row output{font:11px var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.row.wide{grid-template-columns:96px minmax(0,1fr)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:18px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:1px;background:var(--ink)}
+input[type=range]::-moz-range-track{height:1px;background:var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;margin-top:-5px;background:var(--accent);border:1px solid var(--ink);border-radius:0}
+input[type=range]::-moz-range-thumb{width:10px;height:10px;background:var(--accent);border:1px solid var(--ink);border-radius:0}
+select,input[type=text],input[type=number]{font:12px var(--mono);color:var(--ink);background:var(--field);border:1px solid var(--ink);border-radius:0;padding:6px 7px;width:100%;min-width:0}
+input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;margin:0}
+input[type=color]{-webkit-appearance:none;appearance:none;width:30px;height:22px;padding:0;border:1px solid var(--ink);border-radius:0;background:none;cursor:pointer}
+input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+input[type=color]::-webkit-color-swatch{border:0;border-radius:0}
+input[type=color]::-moz-color-swatch{border:0;border-radius:0}
+button{font:10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;background:var(--bg);color:var(--ink);border:1px solid var(--ink);border-radius:0;padding:7px 10px;cursor:pointer;white-space:nowrap}
+@media (hover:hover){button:hover{background:var(--ink);color:var(--bg)}}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+button:disabled{opacity:.4;cursor:default}
+.inkrow{display:grid;grid-template-columns:18px 30px minmax(0,1fr) auto;gap:10px;align-items:center;font:11px var(--mono)}
+.inkrow span:last-child{color:var(--ink-2);font-size:10.5px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.note{font-size:12px;color:var(--ink-2);margin:0}
+.status{font:11px var(--mono);color:var(--accent-text);min-height:1.4em;padding:0 14px 12px}
+textarea{width:100%;font:11px var(--mono);border:1px solid var(--ink);background:var(--field);color:var(--ink);border-radius:0;padding:6px;resize:vertical}
+
+/* below the instrument */
+.about{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding-block:28px 48px}
+.about section{display:grid;gap:8px;align-content:start;min-width:0}
+.about h2{margin:0;font:11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text)}
+.about p{margin:0;max-width:62ch}
+footer{border-top:1px solid var(--ink);padding-block:14px 32px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+
+@media (max-width:980px){
+  .inst{grid-template-columns:minmax(0,1fr)}
+  .stagecol{border-right:0;border-bottom:1px solid var(--rule)}
+  .panel{max-height:none;position:static}
+  .about{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:560px){
+  .seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+  .seg button{padding:8px 4px;letter-spacing:.06em}
+  .stage{padding:14px;min-height:260px}
+  .seps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .row{grid-template-columns:84px minmax(0,1fr) 40px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+  <div class="mast-l">
+    <canvas id="wm" aria-hidden="true"></canvas><span class="vh">Tangerine</span>
+    <h1>Print Study 002</h1>
+  </div>
+  <p>An instrument for printed citrus · Study, not a released product</p>
+</header>
+
+<main class="inst">
+  <div class="stagecol">
+    <div class="viewbar">
+      <div class="seg" role="group" aria-label="View">
+        <button type="button" data-view="print" aria-pressed="true">Print</button>
+        <button type="button" data-view="seps" aria-pressed="false">Separations</button>
+        <button type="button" data-view="film" aria-pressed="false">Film</button>
+      </div>
+      <span class="readout" id="spec">—</span>
+    </div>
+    <div class="stage" id="stage">
+      <canvas id="print" class="print" role="img" aria-label="Generated citrus print"></canvas>
+      <div class="seps" id="seps" hidden></div>
+    </div>
+    <div class="transport">
+      <div class="seg" role="group" aria-label="Study">
+        <button type="button" data-study="still" aria-pressed="true">Still</button>
+        <button type="button" data-study="ripen" aria-pressed="false">Ripening</button>
+        <button type="button" data-study="peel" aria-pressed="false">Peeling</button>
+        <button type="button" data-study="bloom" aria-pressed="false">Blossoming</button>
+        <button type="button" data-study="decay" aria-pressed="false">Decomposition</button>
+      </div>
+      <button type="button" id="play" disabled>Play</button>
+      <input type="range" id="scrub" class="grow" min="0" max="71" value="36" step="1" aria-label="Frame" disabled>
+      <span class="readout" id="frame">Frame — / 72</span>
+      <label class="readout" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="loop" checked>Loop</label>
+    </div>
+  </div>
+
+  <aside class="panel" id="panel" aria-label="Controls"></aside>
+</main>
+
+<section class="about" aria-label="About this study">
+  <section>
+    <h2>The instrument</h2>
+    <p>Each print is computed from scratch. The seed places fruit, leaves and stems. Lighting and ripeness set how much of each ink a pixel wants. A screen then turns that wish into dots, one bit per ink. The inks overprint like real transparent ink, and each plate can slip out of register.</p>
+  </section>
+  <section>
+    <h2>The four studies</h2>
+    <p>Ripening, peeling, blossoming and decomposition each run 72 frames at 12 frames a second. The dot pattern stays fixed between frames, so the image changes without shimmering, and any frame can be saved as a finished print.</p>
+  </section>
+  <section>
+    <h2>Output</h2>
+    <p>Save the print as a PNG at up to 8×, or a ZIP of separations: one-bit film for each ink, vector SVG plates, a proof sheet and the recipe. The plates are ready for risograph or screen printing. A recipe string reproduces any print exactly.</p>
+  </section>
+</section>
+<footer><span>Tangerine · Print Study 002 · 2026</span><span>Study only. Not an approved mark or a released product.</span></footer>
+</div>
+
+<script>
+(() => {
+'use strict';
+const root = document.documentElement;
+const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+
+/* ================================================================ hand-drawn type (from Bitmap Study 001) */
+const WIDE_DEF = {
+  A:'.#########.|###########|##.......##|##.......##|###########|###########|##.......##|##.......##|##.......##|##.......##',
+  B:'##########.|###########|##.......##|##.......##|##########.|###########|##.......##|##.......##|###########|##########.',
+  C:'.##########|###########|##.........|##.........|##.........|##.........|##.........|##.........|###########|.##########',
+  D:'##########.|###########|##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|###########|##########.',
+  E:'##########|##########|##........|##........|########..|########..|##........|##........|##########|##########',
+  F:'##########|##########|##........|##........|########..|########..|##........|##........|##........|##........',
+  G:'.##########|###########|##.........|##.........|##....#####|##....#####|##.......##|##.......##|###########|.#########.',
+  H:'##.......##|##.......##|##.......##|##.......##|###########|###########|##.......##|##.......##|##.......##|##.......##',
+  I:'##|##|##|##|##|##|##|##|##|##',
+  J:'........##|........##|........##|........##|........##|........##|##......##|##......##|##########|.########.',
+  K:'##.......##|##......##.|##.....##..|##....##...|########...|########...|##....##...|##.....##..|##......##.|##.......##',
+  L:'##........|##........|##........|##........|##........|##........|##........|##........|##########|##########',
+  M:'##..........##|###........###|####......####|##.##....##.##|##..##..##..##|##...####...##|##....##....##|##..........##|##..........##|##..........##',
+  N:'##.......##|###......##|####.....##|##.##....##|##..##...##|##...##..##|##....##.##|##.....####|##......###|##.......##',
+  O:'.#########.|###########|##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|###########|.#########.',
+  P:'##########.|###########|##.......##|##.......##|###########|##########.|##.........|##.........|##.........|##.........',
+  Q:'.#########.|###########|##.......##|##.......##|##.......##|##.......##|##....##.##|##.....####|###########|.##########',
+  R:'##########.|###########|##.......##|##.......##|###########|##########.|##....##...|##.....##..|##......##.|##.......##',
+  S:'.##########|###########|##.........|##.........|##########.|.##########|.........##|.........##|###########|##########.',
+  T:'##########|##########|....##....|....##....|....##....|....##....|....##....|....##....|....##....|....##....',
+  U:'##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|###########|.#########.',
+  V:'##......##|##......##|##......##|##......##|.##....##.|.##....##.|..##..##..|..##..##..|...####...|....##....',
+  W:'##..........##|##..........##|##..........##|##....##....##|##...####...##|##..##..##..##|##.##....##.##|####......####|###........###|##..........##',
+  X:'##......##|##......##|.##....##.|..##..##..|...####...|...####...|..##..##..|.##....##.|##......##|##......##',
+  Y:'##......##|##......##|.##....##.|..##..##..|...####...|....##....|....##....|....##....|....##....|....##....',
+  Z:'##########|##########|.......##.|......##..|.....##...|....##....|...##.....|..##......|##########|##########',
+  0:'.########.|##########|##......##|##......##|##..##..##|##..##..##|##......##|##......##|##########|.########.',
+  1:'####..|####..|..##..|..##..|..##..|..##..|..##..|..##..|######|######',
+  2:'.########.|##########|........##|........##|##########|##########|##........|##........|##########|##########',
+  3:'#########.|##########|........##|........##|..########|..########|........##|........##|##########|#########.',
+  4:'##......##|##......##|##......##|##......##|##########|##########|........##|........##|........##|........##',
+  5:'##########|##########|##........|##........|#########.|##########|........##|........##|##########|#########.',
+  6:'.#########|##########|##........|##........|#########.|##########|##......##|##......##|##########|.########.',
+  7:'##########|##########|........##|.......##.|......##..|.....##...|....##....|....##....|....##....|....##....',
+  8:'.########.|##########|##......##|##......##|.########.|##########|##......##|##......##|##########|.########.',
+  9:'.########.|##########|##......##|##......##|##########|.#########|........##|........##|##########|#########.',
+  ' ':'.....|.....|.....|.....|.....|.....|.....|.....|.....|.....',
+  '.':'..|..|..|..|..|..|..|..|##|##',
+  ',':'..|..|..|..|..|..|..|##|##|#.',
+  '-':'......|......|......|......|######|######|......|......|......|......',
+  ':':'..|..|##|##|..|..|##|##|..|..',
+  '·':'..|..|..|..|##|##|..|..|..|..',
+  "'":'##|##|##|..|..|..|..|..|..|..',
+  '!':'##|##|##|##|##|##|##|..|##|##',
+  '?':'.########.|##########|........##|........##|...#######|...######.|...##.....|..........|...##.....|...##.....',
+  '/':'......##|......##|.....##.|....##..|...##...|...##...|..##....|.##.....|##......|##......',
+  '+':'......|......|..##..|..##..|######|######|..##..|..##..|......|......',
+  '→':'..........|..........|......##..|.......##.|##########|##########|.......##.|......##..|..........|..........',
+};
+const MICRO_DEF = {
+  A:'.###.|#...#|#...#|#####|#...#|#...#|#...#', B:'####.|#...#|#...#|####.|#...#|#...#|####.',
+  C:'.####|#....|#....|#....|#....|#....|.####', D:'####.|#...#|#...#|#...#|#...#|#...#|####.',
+  E:'#####|#....|#....|####.|#....|#....|#####', F:'#####|#....|#....|####.|#....|#....|#....',
+  G:'.####|#....|#....|#..##|#...#|#...#|.####', H:'#...#|#...#|#...#|#####|#...#|#...#|#...#',
+  I:'#|#|#|#|#|#|#', J:'....#|....#|....#|....#|....#|#...#|.###.',
+  K:'#...#|#..#.|#.#..|##...|#.#..|#..#.|#...#', L:'#....|#....|#....|#....|#....|#....|#####',
+  M:'#...#|##.##|#.#.#|#.#.#|#...#|#...#|#...#', N:'#...#|##..#|#.#.#|#.#.#|#..##|#...#|#...#',
+  O:'.###.|#...#|#...#|#...#|#...#|#...#|.###.', P:'####.|#...#|#...#|####.|#....|#....|#....',
+  Q:'.###.|#...#|#...#|#...#|#.#.#|#..#.|.##.#', R:'####.|#...#|#...#|####.|#.#..|#..#.|#...#',
+  S:'.####|#....|#....|.###.|....#|....#|####.', T:'#####|..#..|..#..|..#..|..#..|..#..|..#..',
+  U:'#...#|#...#|#...#|#...#|#...#|#...#|.###.', V:'#...#|#...#|#...#|#...#|.#.#.|.#.#.|..#..',
+  W:'#...#|#...#|#...#|#.#.#|#.#.#|##.##|#...#', X:'#...#|#...#|.#.#.|..#..|.#.#.|#...#|#...#',
+  Y:'#...#|#...#|.#.#.|..#..|..#..|..#..|..#..', Z:'#####|....#|...#.|..#..|.#...|#....|#####',
+  0:'.###.|#...#|#..##|#.#.#|##..#|#...#|.###.', 1:'.#.|##.|.#.|.#.|.#.|.#.|###',
+  2:'.###.|#...#|....#|...#.|..#..|.#...|#####', 3:'####.|....#|....#|.###.|....#|....#|####.',
+  4:'#...#|#...#|#...#|#####|....#|....#|....#', 5:'#####|#....|#....|####.|....#|....#|####.',
+  6:'.###.|#....|#....|####.|#...#|#...#|.###.', 7:'#####|....#|...#.|..#..|..#..|..#..|..#..',
+  8:'.###.|#...#|#...#|.###.|#...#|#...#|.###.', 9:'.###.|#...#|#...#|.####|....#|....#|.###.',
+  ' ':'...|...|...|...|...|...|...', '.':'.|.|.|.|.|.|#', ',':'..|..|..|..|..|.#|#.',
+  '-':'...|...|...|###|...|...|...', ':':'.|.|#|.|.|#|.', '·':'.|.|.|#|.|.|.', "'":'#|#|.|.|.|.|.',
+  '!':'#|#|#|#|#|.|#', '?':'.###.|#...#|....#|...#.|..#..|.....|..#..',
+  '/':'....#|...#.|...#.|..#..|.#...|.#...|#....', '+':'.....|..#..|..#..|#####|..#..|..#..|.....',
+  '&':'.##..|#..#.|#.#..|.#...|#.#.#|#..#.|.##.#', '(':'.#|#.|#.|#.|#.|#.|.#', ')':'#.|.#|.#|.#|.#|.#|#.',
+  '→':'.....|..#..|...#.|#####|...#.|..#..|.....', '×':'.....|#...#|.#.#.|..#..|.#.#.|#...#|.....',
+  '#':'.#.#.|.#.#.|#####|.#.#.|#####|.#.#.|.#.#.', '%':'##..#|##.#.|...#.|..#..|.#...|.#.##|#..##',
+  '=':'.....|.....|#####|.....|#####|.....|.....', '_':'.....|.....|.....|.....|.....|.....|#####',
+};
+const WHEEL16 = [
+  '.....ooooo......',
+  '...ooooooooo....',
+  '..ooooo.ooooo...',
+  '.oooooo.oooooo..',
+  '.ooo.oo.oo.ooo..',
+  'ooooo.o.o.ooooo.',
+  'oooooo...oooooo.',
+  'oo...........oo.',
+  'oooooo...oooooo.',
+  'ooooo.o.o.ooooo.',
+  '.ooo.oo.oo.ooo..',
+  '.oooooo.oooooo..',
+  '..ooooo.ooooo...',
+  '...ooooooooo....',
+  '.....ooooo......',
+  '................',
+];
+function glyphs(def, h) { const g = {}; for (const k in def) { const rows = def[k].split('|'); g[k] = { w: rows[0].length, h, rows }; } return g; }
+const WIDE = { g: glyphs(WIDE_DEF, 10), h: 10, track: 2, pads: { I: [1, 1], 1: [0, -1] } };
+const MICRO = { g: glyphs(MICRO_DEF, 7), h: 7, track: 1, pads: {} };
+function textBits(f, str, track = f.track) {
+  const chars = [...String(str).toUpperCase()]; let x = 0; const out = [];
+  chars.forEach((c, i) => { const gl = f.g[c] || f.g['?']; const p = f.pads[c] || [0, 0]; x += p[0]; out.push([gl, x]); x += gl.w + p[1] + (i < chars.length - 1 ? track : 0); });
+  return { w: x, h: f.h, each(fn) { out.forEach(([gl, ox]) => gl.rows.forEach((r, y) => { for (let i = 0; i < r.length; i++) if (r[i] === '#') fn(ox + i, y); })); } };
+}
+
+/* ================================================================ noise and randomness */
+function h2(x, y, s) {
+  let h = (Math.imul(x | 0, 374761393) + Math.imul(y | 0, 668265263) + Math.imul(s | 0, -2048144789)) | 0;
+  h = Math.imul(h ^ (h >>> 13), 1274126177); h ^= h >>> 16; return (h >>> 0) / 4294967296;
+}
+function vnoise(x, y, s) {
+  const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+  const a = h2(xi, yi, s), b = h2(xi + 1, yi, s), c = h2(xi, yi + 1, s), d = h2(xi + 1, yi + 1, s);
+  const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+}
+function rng(seed) { let a = (seed >>> 0) || 1; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const clamp = (v, a = 0, b = 1) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, t) => a + (b - a) * t;
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
+
+/* ================================================================ inks */
+const PLATES = ['Citrus yellow', 'Tangerine', 'Red', 'Leaf', 'Key'];
+const PRESETS = {
+  crate:  { name: 'Crate, 1924',  paper: '#F1E6CF', inks: ['#F4C02E', '#E94D01', '#A8261B', '#3D7B3F', '#1F2E4D'] },
+  core:   { name: 'Tangerine core', paper: '#F5F6F3', inks: ['#F2B33D', '#E94D01', '#9E2A17', '#3E8A44', '#17181A'] },
+  grove:  { name: 'Grove (Study 001)', paper: '#F2EBDC', inks: ['#F2862A', '#E94D01', '#B5281A', '#3E8A44', '#1E4A2B'] },
+  faded:  { name: 'Sun-faded', paper: '#EFE4CF', inks: ['#E8C77A', '#D9774A', '#A65A44', '#7C9A72', '#4A4A56'] },
+  riso:   { name: 'Risograph', paper: '#F4F1EA', inks: ['#FFE800', '#FF6C2F', '#FF48B0', '#00A95C', '#3255A4'] },
+};
+const hex2rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+
+/* ================================================================ parameters */
+const ASPECT = { label: 2 / 3, square: 1, portrait: 5 / 4 };
+const DEFAULTS = {
+  seed: 1924, res: 312, format: 'label',
+  layout: 'hanging', count: 2, size: .19, squash: .93, spread: 1, leaves: 3, leafSize: 1, halved: false, light: 315, shadow: true,
+  ripeness: .86,
+  screen: 'stipple', grain: 1, irregular: .1, density: 1, texture: .5,
+  preset: 'crate', paper: PRESETS.crate.paper, inks: PRESETS.crate.inks.slice(), on: [true, true, true, true, true], opacity: .92, stock: true,
+  misreg: 1, regSeed: 7,
+  label: true, background: 'sunburst', fieldInk: 4, caption: 'Creative practice', edition: true,
+  study: 'still', frame: 36,
+};
+let P = JSON.parse(JSON.stringify(DEFAULTS));
+try { const s = JSON.parse(localStorage.getItem('tps2') || 'null'); if (s && typeof s === 'object') P = Object.assign(P, s); } catch (e) { /* storage unavailable */ }
+const FRAMES = 72, FPS = 12;
+
+/* ================================================================ studies: one frame number → scene state */
+function timeline(p) {
+  const T = { ripeness: p.ripeness, peel: 0, bloom: 1, decay: 0, sizeK: 1 };
+  const t = p.frame / (FRAMES - 1);
+  if (p.study === 'ripen') { T.ripeness = .02 + .98 * t; T.sizeK = .8 + .2 * smooth(0, .7, t); }
+  if (p.study === 'peel') T.peel = t;
+  if (p.study === 'bloom') { T.bloom = t; T.ripeness = Math.min(p.ripeness, .06); }
+  if (p.study === 'decay') { T.decay = t; T.ripeness = Math.max(p.ripeness, .9); }
+  return T;
+}
+
+/* ================================================================ composition */
+function frameLayout(p, W, H) {
+  if (!p.label) { const m = Math.round(W * .05); return { ax0: m, ay0: m, ax1: W - m, ay1: H - m, s: 1 }; }
+  const s = W >= 300 ? 2 : 1, top = 11 + 10 * s + 6, bot = 24;
+  return { ax0: 11, ay0: top, ax1: W - 11, ay1: H - bot, s, top, bot };
+}
+function lightVec(p) {
+  const a = p.light * Math.PI / 180, lx = Math.sin(a), ly = -Math.cos(a);
+  const v = [lx * .72, ly * .72, .66], l = Math.hypot(...v); const L = v.map(c => c / l);
+  const hv = [L[0], L[1], L[2] + 1], hl = Math.hypot(...hv);
+  return { L, H: hv.map(c => c / hl), lx, ly };
+}
+function compose(p, T) {
+  const W = p.res, H = Math.round(W * ASPECT[p.format]);
+  const F = frameLayout(p, W, H), rnd = rng(p.seed * 9301 + 49297);
+  const bw = F.ax1 - F.ax0, bh = F.ay1 - F.ay0, cx = (F.ax0 + F.ax1) / 2, cy = (F.ay0 + F.ay1) / 2;
+  const unit = Math.min(bw, bh * 1.5);
+  let R = p.size * unit * T.sizeK;
+  const fruits = [], leaves = [], stems = [], shadows = [], blossoms = [], lv = lightVec(p);
+  const fit = f => { f.x = clamp(f.x, F.ax0 + f.r, F.ax1 - f.r); f.y = Math.min(f.y, F.ay1 - f.r * f.sq - 1); };
+  const fruit = (x, y, r, sq) => ({ x, y, r, sq, seed: (rnd() * 1e6) | 0, z: 0 });
+  const leaf = (bx, by, ang, len) => {
+    const tx = bx + Math.cos(ang) * len, ty = by + Math.sin(ang) * len;
+    return { bx, by, tx: clamp(tx, F.ax0 + 2, F.ax1 - 2), ty: clamp(ty, F.ay0 + 1, F.ay1), w: len * (.34 + rnd() * .08), bend: (rnd() - .5) * .2, seed: (rnd() * 1e6) | 0 };
+  };
+  let ground = null;
+
+  if (p.layout === 'hanging') {
+    const n = p.count, O = { x: cx + (rnd() - .5) * bw * .06, y: F.ay0 + bh * .2 };
+    for (let i = 0; i < n; i++) {
+      const o = i - (n - 1) / 2, r = R * (.86 + rnd() * .24), sq = p.squash * (.97 + rnd() * .06);
+      const f = fruit(cx + o * R * 1.7 * p.spread + (rnd() - .5) * R * .35, F.ay0 + bh * .64 - Math.abs(o) * R * .45 + (rnd() - .5) * R * .3, r, sq);
+      f.y = Math.max(f.y, O.y + r * sq + R * .55); fit(f); f.z = f.y + f.r * .5 + rnd() * R * .3; fruits.push(f);
+    }
+    fruits.forEach(f => {
+      const top = [f.x, f.y - f.r * f.sq], c = [(O.x + top[0]) / 2 + (rnd() - .5) * R * .5, (O.y + top[1]) / 2 - R * .12];
+      const pts = []; for (let k = 0; k <= 24; k++) { const t = k / 24; pts.push([(1 - t) * (1 - t) * O.x + 2 * (1 - t) * t * c[0] + t * t * top[0], (1 - t) * (1 - t) * O.y + 2 * (1 - t) * t * c[1] + t * t * top[1]]); }
+      stems.push(pts);
+    });
+    stems.push([[O.x, O.y], [O.x + R * .05, O.y - R * .28]]);
+    const nl = p.leaves, a0 = nl >= 4 ? -195 : -165, a1 = nl >= 4 ? 15 : -15;
+    for (let j = 0; j < nl; j++) {
+      const a = (lerp(a0, a1, (j + .5) / nl) + (rnd() - .5) * 22) * Math.PI / 180;
+      leaves.push(leaf(O.x + (rnd() - .5) * R * .25, O.y + rnd() * R * .15, a, R * p.leafSize * (1.5 + rnd() * .55)));
+    }
+    for (let k = 0; k < 2; k++) blossoms.push({ x: O.x + (k ? 1 : -1) * R * (.8 + rnd() * .4), y: O.y + R * (.45 + rnd() * .35), r: R * .55, rot: rnd() * 6.28, extra: true, stemFrom: [O.x, O.y] });
+  } else if (p.layout === 'resting') {
+    const n = p.count, gy = F.ay1 - bh * .06; ground = gy;
+    for (let i = 0; i < n; i++) {
+      const o = i - (n - 1) / 2, back = n >= 3 && (i % 2 === 1);
+      const r = R * (back ? .88 : 1) * (.9 + rnd() * .2), sq = p.squash * (.97 + rnd() * .06);
+      const f = fruit(cx + o * R * 1.8 * p.spread + (rnd() - .5) * R * .3, gy - r * sq - (back ? R * .42 : 0), r, sq);
+      fit(f); f.z = f.y + (back ? 0 : R) + rnd(); f.gy = back ? gy - R * .42 : gy; fruits.push(f);
+    }
+    fruits.sort((a, b) => a.z - b.z);
+    if (p.halved && fruits.length) fruits[fruits.length - 1].halved = true;
+    const host = fruits.find(f => !f.halved) || fruits[0];
+    if (host && !host.halved) {
+      const top = [host.x, host.y - host.r * host.sq];
+      stems.push([top, [top[0] + R * .04, top[1] - R * .22]]);
+      for (let j = 0; j < Math.min(2, p.leaves); j++) leaves.push(leaf(top[0] + R * .03, top[1] - R * .18, (j ? -30 : -150) * Math.PI / 180 + (rnd() - .5) * .4, R * p.leafSize * (1.3 + rnd() * .4)));
+    }
+    for (let j = 2; j < p.leaves; j++) {
+      const f = fruits[Math.floor(rnd() * fruits.length)], side = rnd() < .5 ? -1 : 1;
+      leaves.push(leaf(f.x + side * f.r * .6, (f.gy || gy) - R * .12, (side < 0 ? 180 + 12 + rnd() * 18 : -12 - rnd() * 18) * Math.PI / 180, R * p.leafSize * (1.4 + rnd() * .5)));
+    }
+    fruits.forEach(f => shadows.push({ x: f.x - lv.lx * f.r * .55, y: f.gy, rx: f.r * 1.15, ry: f.r * .2 }));
+  } else {
+    R *= 1.5;
+    const f = fruit(cx, cy + bh * .1, R, p.squash); fit(f); f.halved = p.halved; fruits.push(f);
+    const top = [f.x, f.y - f.r * f.sq], st = [top[0] + R * .05, top[1] - R * .3];
+    if (!f.halved) {
+      stems.push([top, st]);
+      for (let j = 0; j < p.leaves; j++) {
+        const a = (lerp(-160, -20, (j + .5) / Math.max(1, p.leaves)) + (rnd() - .5) * 18) * Math.PI / 180;
+        leaves.push(leaf(st[0], st[1], a, R * p.leafSize * (.9 + rnd() * .35)));
+      }
+    }
+    if (p.shadow) { ground = f.y + f.r * f.sq; shadows.push({ x: f.x - lv.lx * f.r * .5, y: ground, rx: f.r * 1.15, ry: f.r * .2 }); }
+  }
+  if (!p.shadow) shadows.length = 0;
+  fruits.sort((a, b) => a.z - b.z);
+
+  // blossoming: the fruit grows out of each blossom's centre
+  if (T.bloom < 1) {
+    const fs = smooth(.55, 1, T.bloom);
+    fruits.forEach(f => {
+      const topY = f.y - f.r * f.sq;
+      blossoms.push({ x: f.x, y: topY + f.r * .2, r: f.r * .72, rot: f.seed % 628 / 100 });
+      f.r *= fs; f.y = topY + f.r * f.sq; f.hidden = fs < .06;
+    });
+  } else blossoms.length = 0;
+  const fy = fruits.length ? fruits.reduce((a, f) => a + f.y, 0) / fruits.length : cy;
+  return { W, H, F, fruits, leaves, stems, shadows, blossoms, ground, R, cx, cy, fy, lv };
+}
+
+/* ================================================================ scene → ink coverage (0..1 per plate per pixel) */
+const RIPE_KEYS = [[0, [.5, 0, 0, .78]], [.45, [.78, .32, 0, .24]], [.8, [.42, .82, .04, 0]], [1, [.3, .86, .3, 0]]];
+function pigment(r) {
+  for (let i = 1; i < RIPE_KEYS.length; i++) if (r <= RIPE_KEYS[i][0]) {
+    const [a, A] = RIPE_KEYS[i - 1], [b, B] = RIPE_KEYS[i], t = (r - a) / (b - a); return A.map((v, k) => lerp(v, B[k], t));
+  }
+  return RIPE_KEYS[RIPE_KEYS.length - 1][1].slice();
+}
+function render(p) {
+  const T = timeline(p), S = compose(p, T), { W, H, F, lv } = S, N = W * H;
+  const C = [0, 1, 2, 3, 4].map(() => new Float32Array(N));
+  const set = (i, y, t, r, g, k) => { C[0][i] = y; C[1][i] = t; C[2][i] = r; C[3][i] = g; C[4][i] = k; };
+  const add = (i, k, a) => { C[k][i] = 1 - (1 - C[k][i]) * (1 - a); };
+  const inb = (x, y) => x >= 0 && y >= 0 && x < W && y < H;
+  const L = lv.L, Hh = lv.H;
+
+  /* background */
+  if (p.label && p.background !== 'plain') {
+    const x0 = 8, y0 = 8, x1 = W - 8, y1 = H - 8;
+    for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) {
+      const i = y * W + x;
+      if (p.background === 'field') C[p.fieldInk][i] = 1;
+      else {
+        const a = Math.atan2(y + .5 - S.fy, x + .5 - S.cx), ray = (Math.floor((a + Math.PI) / (Math.PI * 2) * 36) & 1);
+        const d = Math.hypot(x - S.cx, y - S.fy) / Math.max(W, H);
+        if (ray) C[0][i] = .34 * smooth(.04, .3, d) * (1 - d * .75);
+      }
+    }
+  }
+  /* ground shadows */
+  S.shadows.forEach(s => {
+    for (let y = Math.floor(s.y - s.ry - 1); y <= s.y + s.ry + 1; y++) for (let x = Math.floor(s.x - s.rx - 1); x <= s.x + s.rx + 1; x++) {
+      if (!inb(x, y)) continue; const q = ((x + .5 - s.x) / s.rx) ** 2 + ((y + .5 - s.y) / s.ry) ** 2; if (q > 1) continue;
+      const i = y * W + x; add(i, 4, .55 * smooth(0, .8, 1 - q)); add(i, 2, .12 * (1 - q));
+    }
+  });
+  /* leaves: cast shadow first, then the leaves */
+  const leafPix = (lf, fn) => {
+    const Ln = Math.hypot(lf.tx - lf.bx, lf.ty - lf.by) || 1, ux = (lf.tx - lf.bx) / Ln, uy = (lf.ty - lf.by) / Ln, pad = lf.w + Ln * Math.abs(lf.bend) + 2;
+    const w0 = lf.w * (1 - .3 * T.decay);
+    for (let y = Math.floor(Math.min(lf.by, lf.ty) - pad); y <= Math.max(lf.by, lf.ty) + pad; y++) for (let x = Math.floor(Math.min(lf.bx, lf.tx) - pad); x <= Math.max(lf.bx, lf.tx) + pad; x++) {
+      const dx = x + .5 - lf.bx, dy = y + .5 - lf.by, u = (dx * ux + dy * uy) / Ln; if (u < 0 || u > 1) continue;
+      const vv = (-dx * uy + dy * ux) - lf.bend * Ln * Math.sin(Math.PI * u);
+      const w = w0 / 2 * Math.pow(Math.sin(Math.PI * Math.pow(u, .7)), .85);
+      if (Math.abs(vv) <= w) fn(x, y, u, vv, w, ux, uy);
+    }
+  };
+  const sd = Math.max(1, Math.round(S.R * .07)), sdx = Math.round(-lv.lx * sd), sdy = Math.round(-lv.ly * sd);
+  S.leaves.forEach(lf => leafPix(lf, (x, y) => { const X = x + sdx, Y = y + sdy; if (inb(X, Y)) add(Y * W + X, 4, .32); }));
+  S.leaves.forEach(lf => leafPix(lf, (x, y, u, vv, w, ux, uy) => {
+    if (!inb(x, y)) return; const i = y * W + x, d = T.decay;
+    const e = Math.abs(vv) / w, lit = ((-uy) * L[0] + ux * L[1]) * Math.sign(vv) > 0;
+    let Y, G, K, Rr = 0;
+    if (Math.abs(vv) < .55 && u < .9) { Y = .18; G = .28; K = 0; }
+    else {
+      const vein = ((u * 7 - e * .9) % 1 + 1) % 1 < .09 && e < .85;
+      const n = (h2(x, y, lf.seed) - .5) * .08;
+      if (lit) { Y = .5 + .3 * (1 - e); G = .72; K = 0; } else { Y = .1; G = 1; K = .34; }
+      K += Math.pow(e, 4) * .18; G += n; if (vein) { G *= .55; K *= .4; }
+    }
+    G *= 1 - .6 * d; Rr = .4 * d; Y += .25 * d; K += .15 * d;
+    set(i, Y, 0, Rr, G, K);
+  }));
+  /* stems */
+  const stemW = Math.max(1.2, S.R * .065);
+  S.stems.concat(S.blossoms.filter(b => b.extra && T.bloom < .9).map(b => [b.stemFrom, [b.x, b.y]])).forEach(pts => {
+    for (let s = 0; s < pts.length - 1; s++) {
+      const [ax, ay] = pts[s], [bx, by] = pts[s + 1], len = Math.hypot(bx - ax, by - ay) || 1, nx = -(by - ay) / len, ny = (bx - ax) / len;
+      for (let y = Math.floor(Math.min(ay, by) - stemW); y <= Math.max(ay, by) + stemW; y++) for (let x = Math.floor(Math.min(ax, bx) - stemW); x <= Math.max(ax, bx) + stemW; x++) {
+        if (!inb(x, y)) continue;
+        const px = x + .5 - ax, py = y + .5 - ay, t = clamp((px * (bx - ax) + py * (by - ay)) / (len * len));
+        const ex = px - t * (bx - ax), ey = py - t * (by - ay), dist = Math.hypot(ex, ey);
+        if (dist > stemW / 2 + .15) continue;
+        const shade = (ex * nx + ey * ny) * (nx * L[0] + ny * L[1]) < 0;
+        set(y * W + x, .2, 0, .25 * T.decay, .72 * (1 - .5 * T.decay), shade ? .5 : .08);
+      }
+    }
+  });
+  /* fruit */
+  const front = S.fruits.length ? S.fruits[S.fruits.length - 1] : null;
+  S.fruits.forEach(f => { if (!f.hidden) drawFruit(f, f === front); });
+  function skin(nx, ny, nz, q, x, y, f) {
+    const dl = Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]), sp = Math.pow(Math.max(0, nx * Hh[0] + ny * Hh[1] + nz * Hh[2]), 36), sh = 1 - dl;
+    const [Yb, Tb, Rb, Gb] = pigment(T.ripeness), rf = smooth(.35, .85, T.ripeness);
+    const pn = (h2(x, y, f.seed) - .5) * p.texture * .3 + (vnoise(x / 2.4, y / 2.4, f.seed) - .5) * p.texture * .4;
+    let Y = clamp(Yb * .35 + smooth(.2, .85, dl) * .8 + pn * .5) * (1 - smooth(.55, 1, sp) * .75);
+    let Tt = Tb * clamp(1 - .5 * smooth(.45, 1, dl) - .45 * sp + pn);
+    let Rr = clamp(Rb + smooth(.42, .97, sh) * .78 * rf + pn * rf);
+    let G = clamp(Gb * (.72 + .4 * sh) + pn * (1 - rf));
+    let K = smooth(.8, 1, sh) * .18 * (1 - rf * .4) + (q > .92 && ny > .25 ? (q - .92) * 1.2 : 0);
+    Y = Math.max(Y, (1 - Math.max(Tt, G)) * (1 - smooth(.5, 1, sp) * .85));   // skin is fully inked except the highlight
+    const d = T.decay;
+    if (d > 0) {
+      Y *= 1 - .55 * d; Tt *= 1 - .35 * d; Rr += .45 * d * (.6 + .4 * sh); K += .3 * d * (.4 + .6 * sh); G += .12 * d;
+      const mr = rng(f.seed);                                 // mould spots
+      for (let m = 0; m < 6; m++) {
+        const mx = (mr() - .5) * 1.3, my = (mr() - .5) * 1.3, t0 = .12 + mr() * .5, rad = (.15 + mr() * .3) * smooth(t0, 1, d);
+        const dd = Math.hypot(nx - mx, ny - my);
+        if (dd < rad) { const core = dd < rad * .72; Y = core ? .3 : .02; Tt = 0; Rr = core ? .12 : 0; G = core ? .5 : .05; K = core ? .38 : .04; }
+      }
+    }
+    return [Y, Tt, Rr, G, K];
+  }
+  function drawFruit(f, isFront) {
+    const d = T.decay, r0 = f.r * (1 - .16 * d), ry0 = r0 * f.sq, peel = isFront && !f.halved ? T.peel : 0;
+    const P3 = 3.2, cut = peel * (P3 + 1), ph = f.seed % 997;
+    for (let y = Math.floor(f.y - ry0 - 1); y <= f.y + ry0 + 1; y++) for (let x = Math.floor(f.x - r0 - 1); x <= f.x + r0 + 1; x++) {
+      if (!inb(x, y)) continue;
+      let nx = (x + .5 - f.x) / r0, ny = (y + .5 - f.y) / ry0;
+      const th = Math.atan2(ny, nx), wr = 1 - d * .1 * (.5 + .5 * Math.sin(th * 7 + ph)) - d * .05 * vnoise(th * 3, ph, 3);
+      nx /= wr; ny /= wr; const q = nx * nx + ny * ny; if (q > 1) continue;
+      const i = y * W + x, nz = Math.sqrt(1 - q);
+      if (f.halved) {
+        const fu = (x + .5 - f.x) / (r0 * .98), fv = (y + .5 - f.y) / (r0 * .42), rho = Math.hypot(fu, fv);
+        if (rho <= 1) { set(i, ...face(fu, fv, rho, x, y, f)); continue; }
+        if (y + .5 < f.y) continue;
+      }
+      let c = skin(nx, ny, nz, q, x, y, f);
+      if (peel > 0) {                                         // spiral peel from the top
+        const phi = Math.acos(clamp(-ny, -1, 1)), lon = Math.atan2(nx, nz), s = phi / Math.PI * P3 + (lon + Math.PI) / (2 * Math.PI);
+        if (s < cut) {
+          if (q > .94) continue;                               // flesh sits inside the rind
+          if (s > cut - .06) c = [.06, 0, 0, 0, .02];          // white pith at the cut
+          else {
+            const seg = 10, a = lon * 2 + ph, k = a / (2 * Math.PI / seg), fr = k - Math.floor(k), dist = Math.min(fr, 1 - fr) * (2 * Math.PI / seg) * Math.sin(phi) * r0 * .5;
+            const dl = Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]), ves = (h2(Math.floor(lon * 40), Math.floor(phi * 22), f.seed) - .5) * .3;
+            const rp = smooth(.15, .8, T.ripeness) * .8 + .25;
+            c = dist < Math.max(.55, r0 * .025) ? [.12, .04, 0, 0, .02] : [clamp(.75 + .3 * dl), clamp((.58 + ves) * (.7 + .45 * (1 - dl)) * rp), .06 + .38 * (1 - dl) ** 2 * rp, .12 * (1 - T.ripeness), .04 * (1 - dl)];
+          }
+        }
+      }
+      if (d > .72) { const fade = (d - .72) / .28; if (h2(x, y, f.seed + 3) < fade * .93) continue; }
+      set(i, ...c);
+    }
+    if (peel > .04) ribbon(f, r0, ry0, peel);
+  }
+  function face(fu, fv, rho, x, y, f) {
+    const pig = pigment(T.ripeness);
+    if (rho > .93) return [pig[0] * .8, pig[1], pig[2] + .2, pig[3], .05];
+    if (rho > .855) return [.05, 0, 0, 0, 0];
+    if (rho < .12) return [.06, 0, 0, 0, 0];
+    const seg = 10, a = Math.atan2(fv, fu) - (f.seed % 628) / 100, k = a / (2 * Math.PI / seg), fr = k - Math.floor(k);
+    const dist = Math.min(fr, 1 - fr) * (2 * Math.PI / seg) * rho * f.r, mw = Math.max(.6, f.r * .03);
+    if (dist < mw || (rho > .78 && dist < mw + (rho - .78) * f.r * .25)) return [.06, 0, 0, 0, 0];
+    const n = (h2(Math.floor(a * 40), Math.floor(rho * 12), f.seed) - .5) * .22, rp = smooth(.15, .8, T.ripeness) * .85 + .2;
+    return [.95, clamp((.38 + n + .3 * rho) * rp), .04 + .14 * rho * rho * rp, .3 * (1 - T.ripeness), 0];
+  }
+  function ribbon(f, r0, ry0, peel) {
+    const sx = f.x + r0 * .6, sy = f.y + ry0 * .72, len = peel * r0 * 3.4, gy = S.ground != null ? (f.gy ?? S.ground) : F.ay1;
+    for (let s = 0; s < len; s += .5) {
+      let px = sx + Math.sin(s / (r0 * .35) + 1) * r0 * .2 + s * .12, py = sy + s;
+      const flat = py > gy - 1; if (flat) { px += (py - (gy - 1)) * .8; py = gy - 1; }
+      if (px > F.ax1 - 2) break;
+      const tw = Math.cos(s / (r0 * .34)), w = r0 * .26 * (.2 + .8 * Math.abs(tw)), pig = pigment(T.ripeness);
+      const col = tw > 0 ? [pig[0] * .7, pig[1], pig[2] + .15, pig[3], .04] : [.14, 0, 0, 0, .05];
+      if (flat) { for (let y = Math.floor(py - w * .45); y <= py; y++) { const x = Math.floor(px); if (inb(x, y)) set(y * W + x, ...col); } continue; }
+      const y = Math.floor(py);
+      for (let x = Math.floor(px - w / 2); x <= px + w / 2; x++) if (inb(x, y)) set(y * W + x, ...col);
+    }
+  }
+  /* blossoms */
+  if (S.blossoms.length) {
+    const open = smooth(.04, .42, T.bloom), fall = smooth(.5, .86, T.bloom);
+    S.blossoms.forEach((b, bi) => {
+      if (fall >= 1) return;
+      const Lp = b.r * (.38 + .62 * open), off = Lp * .5 * (.35 + .65 * open);
+      for (let k = 0; k < 5; k++) {
+        const a = b.rot + k * Math.PI * 2 / 5, drop = fall * b.r * (1.6 + k * .35), sway = Math.sin(fall * 5 + k) * fall * b.r * .6;
+        const ca = Math.cos(a + fall * (k - 2) * .6), sa = Math.sin(a + fall * (k - 2) * .6);
+        const pcx = b.x + ca * off + sway, pcy = b.y + sa * off + drop, hl = Lp / 2, hw = Lp * .3, ext = hl + 2;
+        for (let y = Math.floor(pcy - ext); y <= pcy + ext; y++) for (let x = Math.floor(pcx - ext); x <= pcx + ext; x++) {
+          if (!inb(x, y)) continue;
+          const dx = x + .5 - pcx, dy = y + .5 - pcy, s = dx * ca + dy * sa, w = -dx * sa + dy * ca, e = (s / hl) ** 2 + (w / hw) ** 2;
+          if (e > 1) continue;
+          if (fall > 0 && h2(x, y, bi * 9 + k) < fall * .7) continue;
+          set(y * W + x, s < -hl * .3 ? .1 : .03, 0, 0, open < .3 ? .3 * (1 - open / .3) : 0, e > .62 ? .62 * (1 - fall) : .02);
+        }
+      }
+      if (open > .35 && fall < .6) {                         // stamens
+        for (let k = 0; k < 9; k++) {
+          const a = k * Math.PI * 2 / 9 + b.rot * .5, l = b.r * .32 * open;
+          for (let s = 0; s <= l; s += .5) { const x = Math.floor(b.x + Math.cos(a) * s), y = Math.floor(b.y + Math.sin(a) * s); if (inb(x, y)) set(y * W + x, .85, s > l - 1 ? .7 : .1, 0, 0, 0); }
+        }
+      }
+    });
+  }
+  /* label: frame, wordmark, caption, wheels */
+  if (p.label) {
+    const field = p.background === 'field';
+    const line = (x0, y0, x1, y1) => { for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) if (inb(x, y)) set(y * W + x, 0, 0, 0, 0, 1); };
+    line(3, 3, W - 3, 5); line(3, H - 5, W - 3, H - 3); line(3, 3, 5, H - 3); line(W - 5, 3, W - 3, H - 3);
+    line(7, 7, W - 7, 8); line(7, H - 8, W - 7, H - 7); line(7, 7, 8, H - 7); line(W - 8, 7, W - 7, H - 7);
+    const s = F.s, wm = textBits(WIDE, 'TANGERINE'), wx = Math.round((W - wm.w * s) / 2), wy = 12;
+    wm.each((gx, gy) => { for (let j = 0; j < s; j++) for (let i2 = 0; i2 < s; i2++) { const X = wx + gx * s + i2, Y = wy + gy * s + j; if (inb(X, Y)) field ? set(Y * W + X, 0, 0, 0, 0, 0) : set(Y * W + X, 0, 0, 1, 0, 0); } });
+    const cap = textBits(MICRO, p.caption || ''), cy0 = H - 17;
+    cap.each((gx, gy) => { const X = 13 + gx, Y = cy0 + gy; if (inb(X, Y)) set(Y * W + X, 0, 0, 0, 0, field ? 0 : 1); });
+    if (p.edition) { const ed = textBits(MICRO, 'NO. ' + String(p.seed).padStart(4, '0')); ed.each((gx, gy) => { const X = W - 13 - ed.w + gx, Y = cy0 + gy; if (inb(X, Y)) set(Y * W + X, 0, 0, 0, 0, field ? 0 : 1); }); }
+    const rule = H - 21; for (let x = 13; x < W - 13; x++) set(rule * W + x, 0, 0, 0, 0, field ? 0 : 1);
+    if (W >= 200) WHEEL16.forEach((r, y) => { for (let x = 0; x < 16; x++) if (r[x] === 'o') { set((11 + y) * W + 12 + x, 0, 1, 0, 0, 0); set((11 + y) * W + W - 28 + x, 0, 1, 0, 0, 0); } });
+  }
+  return { W, H, C, S, T };
+}
+
+/* ================================================================ screens: one threshold map per plate, cached */
+const BAYER8 = (() => { const m = [[0, 2], [3, 1]]; let b = m; for (let n = 2; n < 8; n *= 2) { const o = []; for (let y = 0; y < n * 2; y++) { o.push([]); for (let x = 0; x < n * 2; x++) o[y].push(4 * b[y % n][x % n] + m[(y / n) | 0][(x / n) | 0]); } b = o; } return b; })();
+const ANGLES = [0, 15, 75, 30, 45];
+let screenCache = { key: '', maps: null };
+function screens(p, W, H) {
+  const key = [p.screen, W, H, p.grain, p.irregular, p.seed].join('|');
+  if (screenCache.key === key) return screenCache.maps;
+  const N = W * H, g = p.grain, maps = [];
+  for (let k = 0; k < 5; k++) {
+    const v = new Float32Array(N), s = p.seed * 7 + k * 101 + 13, a = ANGLES[k] * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      let val;
+      switch (p.screen) {
+        case 'grain': val = h2(x, y, s); break;
+        case 'halftone': { const per = 2 + g * 1.3, u = (x * ca + y * sa) / per, w = (-x * sa + y * ca) / per; val = .5 - .25 * (Math.cos(2 * Math.PI * u) + Math.cos(2 * Math.PI * w)); break; }
+        case 'ordered': val = BAYER8[((y / g) | 0) & 7][((x / g) | 0) & 7] / 64; break;
+        case 'engraving': { const per = 2 + g * 1.2, u = (x * ca + y * sa) / per + .4 * vnoise(x / 9, y / 9, s), f = u - Math.floor(u); val = Math.abs(f - .5) * 2; break; }
+        default: val = 0;
+      }
+      if (p.screen !== 'grain' && p.screen !== 'stipple') val = val * (1 - p.irregular) + h2(x, y, s + 5) * p.irregular;
+      v[y * W + x] = val;
+    }
+    if (p.screen === 'stipple') stippleField(v, W, H, s, g, p.irregular);
+    // equalise, so a coverage of c always prints about c of the pixels
+    const B = 4096, hist = new Uint32Array(B + 1);
+    for (let i = 0; i < N; i++) hist[Math.min(B, (v[i] * B) | 0)]++;
+    const cdf = new Float32Array(B + 1); let acc = 0; for (let b = 0; b <= B; b++) { cdf[b] = (acc + hist[b] / 2) / N; acc += hist[b]; }
+    for (let i = 0; i < N; i++) v[i] = cdf[Math.min(B, (v[i] * B) | 0)];
+    maps.push(v);
+  }
+  screenCache = { key, maps };
+  return maps;
+}
+/* stipple: approximate blue noise (white noise minus its blur), then clustered by the dot size */
+function boxBlur(src, W, H, r) {
+  if (r < 1) return src.slice();
+  const tmp = new Float32Array(W * H), out = new Float32Array(W * H), n = 2 * r + 1;
+  for (let y = 0; y < H; y++) { let acc = 0; for (let x = -r; x <= r; x++) acc += src[y * W + clamp(x, 0, W - 1)]; for (let x = 0; x < W; x++) { tmp[y * W + x] = acc / n; acc += src[y * W + Math.min(W - 1, x + r + 1)] - src[y * W + Math.max(0, x - r)]; } }
+  for (let x = 0; x < W; x++) { let acc = 0; for (let y = -r; y <= r; y++) acc += tmp[clamp(y, 0, H - 1) * W + x]; for (let y = 0; y < H; y++) { out[y * W + x] = acc / n; acc += tmp[Math.min(H - 1, y + r + 1) * W + x] - tmp[Math.max(0, y - r) * W + x]; } }
+  return out;
+}
+function stippleField(v, W, H, s, g, irr) {
+  const w = new Float32Array(W * H); for (let i = 0; i < w.length; i++) w[i] = h2(i % W, (i / W) | 0, s);
+  const b1 = boxBlur(w, W, H, 1), b2 = boxBlur(w, W, H, 2);
+  for (let i = 0; i < w.length; i++) w[i] = w[i] - .6 * b1[i] - .4 * b2[i];
+  const c = g > 1.6 ? boxBlur(boxBlur(w, W, H, Math.round((g - 1) * .7)), W, H, Math.max(1, Math.round((g - 1) * .5))) : w;
+  let lo = Infinity, hi = -Infinity; for (let i = 0; i < c.length; i++) { if (c[i] < lo) lo = c[i]; if (c[i] > hi) hi = c[i]; }
+  for (let i = 0; i < c.length; i++) v[i] = ((c[i] - lo) / (hi - lo)) * (1 - irr) + h2(i % W, (i / W) | 0, s + 5) * irr;
+}
+function platesOf(p, R) {
+  const { W, H, C } = R, N = W * H, maps = screens(p, W, H), g = 1 / p.density;
+  return C.map((c, k) => { const b = new Uint8Array(N), m = maps[k]; for (let i = 0; i < N; i++) { const v = c[i]; if (v > 0 && (v >= 1 ? 1 : Math.pow(v, g)) > m[i]) b[i] = 1; } return b; });
+}
+function offsets(p) { return [0, 1, 2, 3, 4].map(k => k === 4 ? [0, 0] : [Math.round((h2(k, 1, p.regSeed) - .5) * 2 * p.misreg), Math.round((h2(k, 2, p.regSeed) - .5) * 2 * p.misreg)]); }
+
+/* ================================================================ compositing */
+function compositeData(p, R, bits) {
+  const { W, H } = R, img = new ImageData(W, H), d = img.data, paper = hex2rgb(p.paper).map(v => v / 255);
+  const inks = p.inks.map(h => hex2rgb(h).map(v => v / 255)), off = offsets(p), op = p.opacity;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    let r = paper[0], g = paper[1], b = paper[2];
+    if (p.stock) { const f = (vnoise(x / 5, y / 1.4, 41) > .8 ? .022 : 0) + (h2(x, y, 43) > .992 ? .04 : 0); r *= 1 - f; g *= 1 - f; b *= 1 - f * 1.2; }
+    for (let k = 0; k < 5; k++) {
+      if (!p.on[k]) continue;
+      const X = x - off[k][0], Y = y - off[k][1]; if (X < 0 || Y < 0 || X >= W || Y >= H || !bits[k][Y * W + X]) continue;
+      const c = inks[k]; r *= 1 - op * (1 - c[0]); g *= 1 - op * (1 - c[1]); b *= 1 - op * (1 - c[2]);
+    }
+    const i = (y * W + x) * 4; d[i] = r * 255; d[i + 1] = g * 255; d[i + 2] = b * 255; d[i + 3] = 255;
+  }
+  return img;
+}
+function plateData(p, R, bits, k, mode) {
+  const { W, H } = R, img = new ImageData(W, H), d = img.data;
+  const fg = mode === 'film' ? [0, 0, 0] : hex2rgb(p.inks[k]), bg = mode === 'film' ? [255, 255, 255] : hex2rgb(p.paper);
+  for (let i = 0; i < W * H; i++) { const c = bits[k][i] ? fg : bg; d[i * 4] = c[0]; d[i * 4 + 1] = c[1]; d[i * 4 + 2] = c[2]; d[i * 4 + 3] = 255; }
+  return img;
+}
+function toCanvas(img, scale = 1) {
+  const c = document.createElement('canvas'); c.width = img.width; c.height = img.height; c.getContext('2d').putImageData(img, 0, 0);
+  if (scale === 1) return c;
+  const o = document.createElement('canvas'); o.width = img.width * scale; o.height = img.height * scale;
+  const x = o.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(c, 0, 0, o.width, o.height); return o;
+}
+
+/* ================================================================ stage */
+const $ = s => document.querySelector(s);
+const stage = $('#stage'), printC = $('#print'), sepsEl = $('#seps');
+let view = 'print', last = null;
+function fitCanvas(c, W, H, boxW, boxH) {
+  let k = Math.min(boxW / W, boxH / H); k = k >= 1 ? Math.floor(k) : k;
+  c.style.width = W * k + 'px'; c.style.height = H * k + 'px';
+}
+function draw() {
+  saveState();
+  const R = render(P), bits = platesOf(P, R); last = { R, bits };
+  const { W, H } = R;
+  const cs = getComputedStyle(stage), bw = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  const bh = Math.max(260, Math.min(innerHeight * .72, 820));
+  if (view === 'print') {
+    printC.hidden = false; sepsEl.hidden = true;
+    printC.width = W; printC.height = H; printC.getContext('2d').putImageData(compositeData(P, R, bits), 0, 0);
+    fitCanvas(printC, W, H, bw, bh);
+  } else {
+    printC.hidden = true; sepsEl.hidden = false; sepsEl.innerHTML = '';
+    const tiles = [];
+    for (let k = 0; k < 5; k++) tiles.push([PLATES[k] + (P.on[k] ? '' : ' · off'), plateData(P, R, bits, k, view === 'film' ? 'film' : 'ink')]);
+    if (view === 'seps') tiles.unshift(['Composite', compositeData(P, R, bits)]);
+    tiles.forEach(([name, img]) => {
+      const f = document.createElement('figure'), c = document.createElement('canvas');
+      c.width = W; c.height = H; c.getContext('2d').putImageData(img, 0, 0); c.setAttribute('aria-hidden', 'true');
+      const cap = document.createElement('figcaption'); cap.textContent = name;
+      f.append(c, cap); sepsEl.append(f);
+    });
+    const cols = getComputedStyle(sepsEl).gridTemplateColumns.split(' ').length, colW = (bw - 18 * (cols - 1)) / cols;
+    sepsEl.querySelectorAll('canvas').forEach(c => fitCanvas(c, W, H, colW, bh / 2));
+  }
+  const T = R.T;
+  $('#spec').textContent = `${W} × ${H} px · ${SCREEN_NAMES[P.screen]} · ${ripeName(T.ripeness)} · seed ${P.seed}`;
+  printC.setAttribute('aria-label', `Generated citrus print: ${R.S.fruits.length} fruit, ${ripeName(T.ripeness).toLowerCase()}, ${SCREEN_NAMES[P.screen].toLowerCase()} screen, seed ${P.seed}`);
+  $('#frame').textContent = P.study === 'still' ? 'Still' : `Frame ${String(P.frame + 1).padStart(2, '0')} / ${FRAMES}`;
+}
+let pending = 0;
+function schedule() { cancelAnimationFrame(pending); pending = requestAnimationFrame(draw); }
+function saveState() { try { localStorage.setItem('tps2', JSON.stringify(Object.assign({}, P, { study: 'still' }))); } catch (e) { /* ignore */ } }
+const SCREEN_NAMES = { stipple: 'Stipple', grain: 'Grain', halftone: 'Halftone', ordered: 'Ordered', engraving: 'Engraving' };
+const ripeName = r => r < .15 ? 'Green' : r < .4 ? 'Breaking' : r < .65 ? 'Turning' : r < .92 ? 'Ripe' : 'Overripe';
+
+/* ================================================================ controls */
+const panel = $('#panel');
+const groups = [
+  ['Composition', true, [
+    ['layout', 'select', 'Layout', { hanging: 'Hanging branch', resting: 'Still life', single: 'Specimen' }],
+    ['count', 'range', 'Fruit', 1, 5, 1],
+    ['size', 'range', 'Size', .1, .3, .005, v => Math.round(v * 100)],
+    ['squash', 'range', 'Oblateness', .8, 1.05, .01, v => v.toFixed(2)],
+    ['spread', 'range', 'Spread', .6, 1.6, .02, v => v.toFixed(2)],
+    ['leaves', 'range', 'Leaves', 0, 6, 1],
+    ['leafSize', 'range', 'Leaf size', .5, 1.6, .02, v => v.toFixed(2)],
+    ['light', 'range', 'Light from', 0, 359, 1, v => v + '°'],
+    ['halved', 'check', 'Cut one open'],
+    ['shadow', 'check', 'Ground shadow'],
+  ]],
+  ['Ripeness', true, [['ripeness', 'range', 'Ripeness', 0, 1, .01, v => ripeName(v)]]],
+  ['Stipple', true, [
+    ['screen', 'select', 'Screen', SCREEN_NAMES],
+    ['grain', 'range', 'Dot size', 1, 6, .1, v => v.toFixed(1)],
+    ['irregular', 'range', 'Irregularity', 0, 1, .01, v => Math.round(v * 100) + '%'],
+    ['density', 'range', 'Ink density', .5, 1.8, .01, v => v.toFixed(2)],
+    ['texture', 'range', 'Peel texture', 0, 1, .01, v => Math.round(v * 100) + '%'],
+  ]],
+  ['Inks', true, 'inks'],
+  ['Registration', false, [
+    ['misreg', 'range', 'Slip', 0, 5, 1, v => v + ' px'],
+    ['__rereg', 'button', 'Re-register'],
+  ]],
+  ['Paper & format', false, [
+    ['res', 'range', 'Pixels across', 96, 360, 8],
+    ['format', 'select', 'Format', { label: 'Label 3:2', square: 'Square', portrait: 'Portrait 4:5' }],
+    ['opacity', 'range', 'Ink opacity', .6, 1, .01, v => Math.round(v * 100) + '%'],
+    ['stock', 'check', 'Paper fibre'],
+  ]],
+  ['Label', false, [
+    ['label', 'check', 'Crate label'],
+    ['background', 'select', 'Background', { plain: 'Plain stock', sunburst: 'Sunburst', field: 'Solid field' }],
+    ['fieldInk', 'select', 'Field ink', { 4: 'Key', 3: 'Leaf', 1: 'Tangerine', 2: 'Red' }],
+    ['caption', 'text', 'Caption'],
+    ['edition', 'check', 'Edition no.'],
+  ]],
+  ['Seed', true, 'seed'],
+  ['Export', true, 'export'],
+];
+const inputs = {};
+function rowFor([id, type, label, a, b, c, fmt]) {
+  const row = document.createElement('div'); row.className = 'row' + (type === 'range' ? '' : ' wide');
+  const uid = 'c-' + id;
+  if (type === 'button') { row.innerHTML = `<span class="lab"></span><div class="btns"><button type="button" id="${uid}">${label}</button></div>`; return row; }
+  row.innerHTML = `<label for="${uid}">${label}</label>`;
+  let el;
+  if (type === 'range') { el = document.createElement('input'); el.type = 'range'; el.min = a; el.max = b; el.step = c; }
+  else if (type === 'select') { el = document.createElement('select'); for (const k in a) { const o = document.createElement('option'); o.value = k; o.textContent = a[k]; el.append(o); } }
+  else if (type === 'check') { el = document.createElement('input'); el.type = 'checkbox'; }
+  else { el = document.createElement('input'); el.type = 'text'; el.maxLength = 28; el.spellcheck = false; }
+  el.id = uid; row.append(el);
+  if (type === 'range') { const o = document.createElement('output'); o.htmlFor = uid; row.append(o); }
+  inputs[id] = { el, type, fmt: type === 'range' ? (fmt || (v => v)) : null, row };
+  el.addEventListener(type === 'text' ? 'input' : type === 'range' ? 'input' : 'change', () => {
+    let v = type === 'check' ? el.checked : type === 'range' ? +el.value : el.value;
+    if (id === 'fieldInk') v = +v;
+    P[id] = v; syncOutputs(); schedule();
+  });
+  return row;
+}
+function syncOutputs() {
+  for (const id in inputs) {
+    const { el, type, fmt, row } = inputs[id];
+    if (type === 'check') el.checked = !!P[id]; else if (document.activeElement !== el || type !== 'text') el.value = P[id];
+    if (fmt) row.querySelector('output').textContent = fmt(P[id]);
+  }
+  inputs.halved.el.disabled = P.layout === 'hanging';
+  inputs.fieldInk.el.disabled = P.background !== 'field' || !P.label;
+  inputs.background.el.disabled = !P.label;
+  inkRows.forEach((r, k) => { r.color.value = P.inks[k]; r.on.checked = P.on[k]; r.hex.textContent = P.inks[k].toUpperCase(); });
+  if (paperIn) { paperIn.value = P.paper; paperHex.textContent = P.paper.toUpperCase(); }
+  if (presetSel) presetSel.value = PRESETS[P.preset] && sameInks() ? P.preset : 'custom';
+  if (seedIn && document.activeElement !== seedIn) seedIn.value = P.seed;
+}
+const sameInks = () => PRESETS[P.preset].paper === P.paper && PRESETS[P.preset].inks.every((c, i) => c.toLowerCase() === P.inks[i].toLowerCase());
+let inkRows = [], paperIn, paperHex, presetSel, seedIn;
+groups.forEach(([name, open, body]) => {
+  const d = document.createElement('details'); d.open = open && !(matchMedia('(max-width:980px)').matches && name !== 'Composition' && name !== 'Export');
+  d.innerHTML = `<summary>${name}</summary>`; const ctl = document.createElement('div'); ctl.className = 'ctl'; d.append(ctl); panel.append(d);
+  if (Array.isArray(body)) body.forEach(def => ctl.append(rowFor(def)));
+  else if (body === 'inks') {
+    const r = document.createElement('div'); r.className = 'row wide';
+    r.innerHTML = `<label for="c-preset">Set</label><select id="c-preset">${Object.entries(PRESETS).map(([k, v]) => `<option value="${k}">${v.name}</option>`).join('')}<option value="custom" disabled>Custom</option></select>`;
+    ctl.append(r); presetSel = r.querySelector('select');
+    presetSel.addEventListener('change', () => { const pr = PRESETS[presetSel.value]; P.preset = presetSel.value; P.paper = pr.paper; P.inks = pr.inks.slice(); syncOutputs(); schedule(); });
+    PLATES.forEach((nm, k) => {
+      const row = document.createElement('div'); row.className = 'inkrow';
+      row.innerHTML = `<input type="checkbox" id="c-on${k}" aria-label="Print ${nm}"><input type="color" id="c-ink${k}" aria-label="${nm} ink colour"><label for="c-ink${k}">${k + 1} · ${nm}</label><span></span>`;
+      ctl.append(row);
+      const ir = { on: row.querySelector('[type=checkbox]'), color: row.querySelector('[type=color]'), hex: row.querySelector('span') };
+      ir.on.addEventListener('change', () => { P.on[k] = ir.on.checked; schedule(); });
+      ir.color.addEventListener('input', () => { P.inks[k] = ir.color.value; ir.hex.textContent = ir.color.value.toUpperCase(); presetSel.value = 'custom'; schedule(); });
+      inkRows.push(ir);
+    });
+    const pr = document.createElement('div'); pr.className = 'inkrow';
+    pr.innerHTML = `<span></span><input type="color" id="c-paper" aria-label="Paper colour"><label for="c-paper">Paper stock</label><span></span>`;
+    ctl.append(pr); paperIn = pr.querySelector('[type=color]'); paperHex = pr.querySelector('span:last-child');
+    paperIn.addEventListener('input', () => { P.paper = paperIn.value; paperHex.textContent = P.paper.toUpperCase(); presetSel.value = 'custom'; schedule(); });
+  } else if (body === 'seed') {
+    const r = document.createElement('div'); r.className = 'row wide';
+    r.innerHTML = `<label for="c-seed">Seed</label><div style="display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:6px"><input type="number" id="c-seed" min="0" max="9999" step="1"><button type="button" id="s-prev" aria-label="Previous seed">←</button><button type="button" id="s-next" aria-label="Next seed">→</button><button type="button" class="primary" id="s-roll">Roll</button></div>`;
+    ctl.append(r); seedIn = r.querySelector('#c-seed');
+    const setSeed = v => { P.seed = ((v % 10000) + 10000) % 10000; syncOutputs(); schedule(); };
+    seedIn.addEventListener('change', () => setSeed(Math.round(+seedIn.value || 0)));
+    r.querySelector('#s-prev').addEventListener('click', () => setSeed(P.seed - 1));
+    r.querySelector('#s-next').addEventListener('click', () => setSeed(P.seed + 1));
+    r.querySelector('#s-roll').addEventListener('click', () => setSeed(Math.floor(Math.random() * 10000)));
+    const n = document.createElement('p'); n.className = 'note'; n.textContent = 'The seed places every fruit, leaf, stem and dot. The same seed and settings always print the same image. The seed is printed on the label as the edition number.';
+    ctl.append(n);
+  } else if (body === 'export') {
+    ctl.innerHTML = `
+      <div class="row wide"><label for="x-scale">Scale</label><select id="x-scale"><option value="2">2×</option><option value="4" selected>4×</option><option value="8">8×</option><option value="1">1× (pixel size)</option></select></div>
+      <div class="btns"><button type="button" class="primary" id="x-print">Save print · PNG</button><button type="button" id="x-zip">Separations · ZIP</button></div>
+      <div class="btns"><button type="button" id="x-proof">Proof sheet · PNG</button><button type="button" id="x-sheet">Contact sheet · PNG</button></div>
+      <div class="btns"><button type="button" id="x-copy">Copy recipe</button><button type="button" id="x-load">Load recipe</button></div>
+      <textarea id="x-recipe" rows="3" hidden aria-label="Recipe"></textarea>
+      <p class="note">The ZIP holds one-bit film and a vector SVG for each ink, the print, a proof sheet and the recipe. The contact sheet saves eight frames of the current study.</p>`;
+  }
+});
+const status = document.createElement('div'); status.className = 'status'; status.setAttribute('role', 'status'); panel.append(status);
+const say = m => { status.textContent = m; };
+document.getElementById('c-__rereg').addEventListener('click', () => { P.regSeed = (P.regSeed * 31 + 17) % 9973; if (!P.misreg) P.misreg = 1; syncOutputs(); schedule(); });
+
+/* view + study transport */
+document.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => {
+  view = b.dataset.view; document.querySelectorAll('[data-view]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); schedule();
+}));
+const playB = $('#play'), scrub = $('#scrub'), loopC = $('#loop');
+let playing = false, raf = 0, t0 = 0, f0 = 0;
+function setStudy(s) {
+  stop(); P.study = s; document.querySelectorAll('[data-study]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.study === s)));
+  const on = s !== 'still'; playB.disabled = !on; scrub.disabled = !on; $('#x-sheet').disabled = !on;
+  P.frame = s === 'decay' ? 46 : s === 'bloom' ? 30 : s === 'peel' ? 40 : s === 'ripen' ? 40 : P.frame;
+  scrub.value = P.frame; schedule();
+}
+document.querySelectorAll('[data-study]').forEach(b => b.addEventListener('click', () => setStudy(b.dataset.study)));
+scrub.addEventListener('input', () => { stop(); P.frame = +scrub.value; schedule(); });
+function stop() { playing = false; cancelAnimationFrame(raf); playB.textContent = 'Play'; }
+playB.addEventListener('click', () => {
+  if (playing) { stop(); return; }
+  playing = true; playB.textContent = 'Pause';
+  if (P.frame >= FRAMES - 1) P.frame = 0;
+  t0 = performance.now(); f0 = P.frame;
+  const tick = now => {
+    if (!playing) return;
+    let f = f0 + Math.floor((now - t0) / 1000 * FPS);
+    if (f >= FRAMES) { if (loopC.checked) { f %= FRAMES; } else { P.frame = FRAMES - 1; scrub.value = P.frame; draw(); stop(); return; } }
+    if (f !== P.frame) { P.frame = f; scrub.value = f; draw(); }
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+});
+
+/* ================================================================ export */
+let dlP = null;
+const downloadsCap = () => dlP || (dlP = (window.claude && typeof window.claude.use === 'function') ? Promise.resolve(window.claude.use('downloads')).catch(() => null) : Promise.resolve(null));
+downloadsCap();
+async function saveFile(name, blob) {
+  const dl = await downloadsCap();
+  if (dl) {
+    try { await dl.save({ filename: name, data: blob }); say(`Saved ${name}`); }
+    catch (e) { const c = e && e.code; say(c === 'declined' ? 'Save cancelled.' : c === 'rate_limited' ? 'Another save is still open. Try again in a moment.' : c === 'host_unavailable' ? 'This app cannot save files. Open the page in a browser to save.' : `Could not save ${name} here.`); }
+    return;
+  }
+  const a = document.createElement('a'), url = URL.createObjectURL(blob);
+  a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 5000);
+  say(`Saved ${name}`);
+}
+const blobOf = c => new Promise(res => c.toBlob(res, 'image/png'));
+const baseName = () => `tangerine-print-${String(P.seed).padStart(4, '0')}${P.study !== 'still' ? '-' + P.study + '-' + String(P.frame + 1).padStart(2, '0') : ''}`;
+const scaleSel = () => +document.getElementById('x-scale').value;
+function plateSVG(R, bits, k) {
+  const { W, H } = R; let rects = '';
+  for (let y = 0; y < H; y++) { let x = 0; while (x < W) { if (bits[k][y * W + x]) { const s = x; while (x < W && bits[k][y * W + x]) x++; rects += `<rect x="${s}" y="${y}" width="${x - s}" height="1"/>`; } else x++; } }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W * 4}" height="${H * 4}" shape-rendering="crispEdges"><title>Tangerine Print Study 002 · plate ${k + 1} · ${PLATES[k]} · ${P.inks[k]}</title><g fill="${P.inks[k]}">${rects}</g></svg>`;
+}
+function drawMicro(ctx, str, x, y, s, color) { ctx.fillStyle = color; textBits(MICRO, str).each((gx, gy) => ctx.fillRect(x + gx * s, y + gy * s, s, s)); }
+function proofCanvas(R, bits) {
+  const { W, H } = R, k = Math.max(2, Math.floor(1400 / W)), kp = Math.max(1, Math.floor(k / 2)), m = 64, gap = 24;
+  const pw = W * kp, rowW = 5 * pw + 4 * gap, cw = Math.max(W * k, rowW) + m * 2, ch = m + H * k + 56 + H * kp + 40 + 120;
+  const c = document.createElement('canvas'); c.width = cw; c.height = ch; const x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+  x.fillStyle = '#FFFFFF'; x.fillRect(0, 0, cw, ch);
+  const ox = (cw - W * k) / 2; x.drawImage(toCanvas(compositeData(P, R, bits)), ox, m, W * k, H * k);
+  x.strokeStyle = '#17181A'; x.lineWidth = 1.5;
+  [[ox - 26, m + H * k / 2], [ox + W * k + 26, m + H * k / 2], [cw / 2, m - 26], [cw / 2, m + H * k + 26]].forEach(([a, b]) => { x.beginPath(); x.arc(a, b, 9, 0, 7); x.moveTo(a - 15, b); x.lineTo(a + 15, b); x.moveTo(a, b - 15); x.lineTo(a, b + 15); x.stroke(); });
+  const py = m + H * k + 56, px0 = (cw - rowW) / 2;
+  for (let i = 0; i < 5; i++) {
+    x.drawImage(toCanvas(plateData(P, R, bits, i, 'ink')), px0 + i * (pw + gap), py, pw, H * kp);
+    drawMicro(x, `${i + 1} ${PLATES[i]} ${P.inks[i]}`, px0 + i * (pw + gap), py + H * kp + 10, 2, '#17181A');
+  }
+  const fy = py + H * kp + 50;
+  for (let i = 0; i < 5; i++) { x.fillStyle = P.inks[i]; x.fillRect(m + i * 34, fy, 30, 30); }
+  x.fillStyle = P.paper; x.fillRect(m + 5 * 34, fy, 30, 30); x.strokeStyle = '#D6D8D3'; x.strokeRect(m + 5 * 34 + .5, fy + .5, 29, 29);
+  drawMicro(x, `TANGERINE PRINT STUDY 002 · SEED ${P.seed} · ${W}X${H} · ${SCREEN_NAMES[P.screen]} · ${ripeName(R.T.ripeness)} · SLIP ${P.misreg} PX`, m + 6 * 34 + 10, fy + 2, 2, '#17181A');
+  drawMicro(x, P.study !== 'still' ? `${P.study} FRAME ${P.frame + 1}/${FRAMES}` : 'STILL', m + 6 * 34 + 10, fy + 22, 2, '#8A8D91');
+  return c;
+}
+document.getElementById('x-print').addEventListener('click', async () => {
+  const R = last.R; say('Preparing the print…');
+  await saveFile(baseName() + '.png', await blobOf(toCanvas(compositeData(P, R, last.bits), scaleSel())));
+});
+document.getElementById('x-proof').addEventListener('click', async () => { say('Preparing the proof sheet…'); await saveFile(baseName() + '-proof.png', await blobOf(proofCanvas(last.R, last.bits))); });
+document.getElementById('x-sheet').addEventListener('click', async () => {
+  if (P.study === 'still') return; say('Printing eight frames…');
+  const keep = P.frame, W = last.R.W, H = last.R.H, k = Math.max(1, Math.floor(640 / W)), m = 40, gap = 24, cols = 4;
+  const c = document.createElement('canvas'); c.width = m * 2 + cols * W * k + (cols - 1) * gap; c.height = m * 2 + 2 * (H * k + 34) + gap + 30;
+  const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.fillStyle = '#FFFFFF'; x.fillRect(0, 0, c.width, c.height);
+  drawMicro(x, `TANGERINE PRINT STUDY 002 · ${P.study} · SEED ${P.seed}`, m, 14, 2, '#17181A');
+  for (let i = 0; i < 8; i++) {
+    P.frame = Math.round(i * (FRAMES - 1) / 7); const R = render(P), b = platesOf(P, R);
+    const cx = m + (i % cols) * (W * k + gap), cy = m + 10 + Math.floor(i / cols) * (H * k + 34 + gap);
+    x.drawImage(toCanvas(compositeData(P, R, b)), cx, cy, W * k, H * k);
+    drawMicro(x, `${String(i + 1).padStart(2, '0')} · FRAME ${P.frame + 1}`, cx, cy + H * k + 10, 2, '#5A5D61');
+  }
+  P.frame = keep; await saveFile(`tangerine-print-${String(P.seed).padStart(4, '0')}-${P.study}-contact.png`, await blobOf(c)); draw();
+});
+/* zip (stored, no compression; PNG is already compressed) */
+const CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+const crc32 = u => { let c = 0xFFFFFFFF; for (let i = 0; i < u.length; i++) c = CRC[(c ^ u[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+function zip(files) {
+  const enc = new TextEncoder(), parts = [], central = []; let off = 0;
+  files.forEach(f => {
+    const name = enc.encode(f.name), data = f.data, crc = crc32(data), h = new DataView(new ArrayBuffer(30)), c = new DataView(new ArrayBuffer(46));
+    h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(12, 33, true); h.setUint32(14, crc, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true); h.setUint16(26, name.length, true);
+    c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(14, 33, true); c.setUint32(16, crc, true); c.setUint32(20, data.length, true); c.setUint32(24, data.length, true); c.setUint16(28, name.length, true); c.setUint32(42, off, true);
+    parts.push(h, name, data); central.push(c, name); off += 30 + name.length + data.length;
+  });
+  const cs = central.reduce((a, b) => a + b.byteLength, 0), e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true); e.setUint32(12, cs, true); e.setUint32(16, off, true);
+  return new Blob([...parts, ...central, e], { type: 'application/zip' });
+}
+const bytes = async b => new Uint8Array(await b.arrayBuffer());
+document.getElementById('x-zip').addEventListener('click', async () => {
+  say('Preparing separations…');
+  const { R, bits } = last, k = scaleSel(), enc = new TextEncoder(), files = [], base = baseName();
+  files.push({ name: `${base}/print.png`, data: await bytes(await blobOf(toCanvas(compositeData(P, R, bits), k))) });
+  files.push({ name: `${base}/proof.png`, data: await bytes(await blobOf(proofCanvas(R, bits))) });
+  for (let i = 0; i < 5; i++) {
+    const slug = `${i + 1}-${PLATES[i].toLowerCase().replace(/\s+/g, '-')}`;
+    files.push({ name: `${base}/film/${slug}.png`, data: await bytes(await blobOf(toCanvas(plateData(P, R, bits, i, 'film'), k))) });
+    files.push({ name: `${base}/vector/${slug}.svg`, data: enc.encode(plateSVG(R, bits, i)) });
+  }
+  files.push({ name: `${base}/recipe.json`, data: enc.encode(JSON.stringify(recipeObj(), null, 2)) });
+  files.push({ name: `${base}/README.txt`, data: enc.encode(`Tangerine Print Study 002\nSeed ${P.seed} · ${R.W} x ${R.H} px · ${SCREEN_NAMES[P.screen]} screen\n\nfilm/   one-bit plates, black = ink, at ${k}x\nvector/ the same plates as SVG, one rectangle run per row, in the ink colour\nPrint in order 1 to 5. Plate 5 (key) is the registration reference.\nInks: ${P.inks.map((c, i) => `${i + 1} ${PLATES[i]} ${c}`).join(', ')}; paper ${P.paper}.\n`) });
+  await saveFile(base + '-separations.zip', zip(files));
+});
+/* recipes */
+const RECIPE_KEYS = Object.keys(DEFAULTS).filter(k => k !== 'study' && k !== 'frame');
+const recipeObj = () => { const o = { v: 2 }; RECIPE_KEYS.forEach(k => { o[k] = P[k]; }); return o; };
+const recipeStr = () => 'TPS2.' + btoa(unescape(encodeURIComponent(JSON.stringify(recipeObj()))));
+const recipeBox = document.getElementById('x-recipe');
+document.getElementById('x-copy').addEventListener('click', () => {
+  const s = recipeStr(); recipeBox.hidden = false; recipeBox.value = s;
+  try { navigator.clipboard.writeText(s).then(() => say('Recipe copied. Paste it back with Load recipe.'), () => { recipeBox.select(); say('Recipe selected below. Copy it with your keyboard.'); }); }
+  catch (e) { recipeBox.select(); say('Recipe selected below. Copy it with your keyboard.'); }
+});
+document.getElementById('x-load').addEventListener('click', () => {
+  if (recipeBox.hidden || !recipeBox.value.trim()) { recipeBox.hidden = false; recipeBox.value = ''; recipeBox.focus(); say('Paste a recipe into the box, then press Load recipe again.'); return; }
+  try {
+    const o = JSON.parse(decodeURIComponent(escape(atob(recipeBox.value.trim().replace(/^TPS2\./, '')))));
+    RECIPE_KEYS.forEach(k => { if (k in o && typeof o[k] === typeof DEFAULTS[k]) P[k] = o[k]; });
+    syncOutputs(); schedule(); say(`Loaded recipe · seed ${P.seed}`);
+  } catch (e) { say('That recipe could not be read. Check that the whole string was pasted.'); }
+});
+
+/* ================================================================ masthead wordmark */
+(() => {
+  const c = $('#wm'), t = textBits(WIDE, 'TANGERINE'), s = 2; c.width = t.w * s; c.height = t.h * s;
+  const x = c.getContext('2d'); const paint = () => { x.clearRect(0, 0, c.width, c.height); x.fillStyle = getComputedStyle(root).getPropertyValue('--ink').trim(); t.each((gx, gy) => x.fillRect(gx * s, gy * s, s, s)); };
+  paint(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paint); new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+
+syncOutputs();
+setStudy('still');
+addEventListener('resize', schedule);
+window.__tps2 = { P, render, platesOf, setStudy, draw };
+})();
+</script>
+</body>
+</html>
