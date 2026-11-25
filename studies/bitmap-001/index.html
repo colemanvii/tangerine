@@ -1,0 +1,1180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tangerine Bitmap Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Bitmap Study 001: Tangerine drawn on the pixel grid. Wordmarks, symbols, motion and situations. A design study, not an approved mark.">
+<meta name="robots" content="noindex">
+<link rel="icon" id="favicon" href="data:,">
+<style>
+/* Layout: a study sheet on a 12-column grid. Hairline rules, square corners, plates stacked in order. */
+:root{
+  --paper:#F5F6F3; --ink:#17181A; --ink-2:#55585D; --rule:#D5D7D2; --grid:rgba(23,24,26,.13);
+  --accent:#E94D01; --accent-text:#B83B00; --accent-dim:rgba(233,77,1,.22);
+  /* fixed brand colors for objects and mockups; they do not change with theme */
+  --b-white:#F5F6F3; --b-graphite:#17181A; --b-orange:#E94D01; --b-led:#2A2B2E; --b-grey:#8A8D91; --b-orange-dim:rgba(233,77,1,.22);
+  --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  --w:1200px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111213; --ink:#ECEDEA; --ink-2:#A2A5A0; --rule:#2B2D30; --grid:rgba(236,237,234,.12);
+  --accent:#FF5A12; --accent-text:#FF7A3D; --accent-dim:rgba(255,90,18,.28); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111213; --ink:#ECEDEA; --ink-2:#A2A5A0; --rule:#2B2D30; --grid:rgba(236,237,234,.12);
+  --accent:#FF5A12; --accent-text:#FF7A3D; --accent-dim:rgba(255,90,18,.28); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 var(--sans);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;max-width:none}
+.wrap{max-width:var(--w);margin:0 auto}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono,.label,.spec,figcaption,button,select,.meta{font-family:var(--mono)}
+.label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.label b{color:var(--accent-text);font-weight:400}
+p{margin:0;max-width:64ch}
+a{color:var(--accent-text)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* masthead */
+.mast{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center;
+  padding-block:14px;border-bottom:1px solid var(--ink)}
+.mast .meta{font-size:11px;letter-spacing:.12em;text-transform:uppercase;display:flex;flex-wrap:wrap;gap:4px 18px;color:var(--ink-2)}
+.mast .meta span:first-child{color:var(--accent-text)}
+
+/* hero */
+.hero{padding-block:48px 28px;display:grid;gap:28px}
+.hero-stage{overflow:hidden;min-width:0}
+.hero-foot{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px 48px;align-items:start;border-top:1px solid var(--rule);padding-top:20px}
+.hero-foot p{font-size:17px;line-height:1.5}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;font-size:12px;margin:0}
+.spec dt{color:var(--ink-2);text-transform:uppercase;letter-spacing:.1em}
+.spec dd{margin:0;font-variant-numeric:tabular-nums}
+
+/* plates */
+.plate{border-top:1px solid var(--ink);padding-block:28px 56px;display:grid;gap:28px}
+.plate-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:16px 48px;align-items:end}
+.plate-head h2{margin:0;display:grid;gap:10px}
+.plate-head h2 canvas{max-width:100%}
+.plate-head p{color:var(--ink-2)}
+.cols{display:grid;gap:24px}
+.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+figure{margin:0;display:grid;gap:10px;min-width:0;align-content:start}
+figcaption{font-size:11.5px;line-height:1.5;color:var(--ink-2);display:grid;gap:2px}
+figcaption strong{font-weight:400;color:var(--ink);letter-spacing:.08em;text-transform:uppercase}
+.panel{border:1px solid var(--rule);padding:24px;display:grid;place-items:center;overflow:auto;min-width:0}
+.panel.tall{min-height:220px}
+.on-white{background:var(--b-white);border-color:var(--rule)}
+.on-graphite{background:var(--b-graphite);border-color:var(--b-graphite)}
+.on-orange{background:var(--b-orange);border-color:var(--b-orange)}
+.theme{background:var(--paper)}
+.scroll{overflow-x:auto;min-width:0}
+.note{font-size:13px;color:var(--ink-2);max-width:64ch}
+
+/* palette */
+.swatches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--ink)}
+.sw{padding:16px;min-height:150px;display:grid;align-content:space-between;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em}
+.sw + .sw{border-left:1px solid var(--ink)}
+.sw b{font-weight:400;text-transform:uppercase;letter-spacing:.12em}
+.sw-w{background:var(--b-white);color:var(--b-graphite)}
+.sw-g{background:var(--b-graphite);color:var(--b-white)}
+.sw-o{background:var(--b-orange);color:var(--b-graphite)}
+.rules{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--rule)}
+.rules li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:9px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.rules li span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding-top:2px}
+
+/* ladder */
+.ladder{display:grid;gap:0;border-top:1px solid var(--rule)}
+.rung{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--rule)}
+.rung .label{line-height:1.4}
+
+/* glyphs */
+.glyphs{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));border-left:1px solid var(--rule);border-top:1px solid var(--rule)}
+.glyphs.micro{grid-template-columns:repeat(auto-fill,minmax(48px,1fr))}
+.glyph{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:10px 6px 6px;display:grid;justify-items:center;gap:6px}
+.glyph span{font-family:var(--mono);font-size:10px;color:var(--ink-2)}
+
+/* tester */
+.tester{display:grid;gap:14px}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:end}
+.controls label{display:grid;gap:4px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+textarea,select,input[type=range]{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:0}
+textarea{font-family:var(--mono);font-size:14px;padding:8px 10px;width:min(100%,420px);resize:vertical;text-transform:uppercase}
+select{font-family:var(--mono);font-size:12px;padding:7px 8px}
+input[type=range]{accent-color:var(--accent);border:0;padding:0;width:140px}
+button{font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:var(--paper);color:var(--ink);border:1px solid var(--ink);border-radius:0;padding:8px 12px;cursor:pointer}
+button:hover{background:var(--ink);color:var(--paper)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--b-graphite)}
+button.primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.status{font-family:var(--mono);font-size:11px;color:var(--accent-text);min-height:1.5em}
+#svgout{width:100%;min-height:90px;font-size:11px;text-transform:none}
+
+/* symbols */
+.sym-row{display:grid;grid-template-columns:170px minmax(0,1fr);gap:16px 24px;padding:20px 0;border-bottom:1px solid var(--rule);align-items:center}
+.sym-row:first-child{border-top:1px solid var(--rule)}
+.sym-sizes{display:flex;flex-wrap:wrap;gap:20px;align-items:end}
+.sym-sizes figure{justify-items:start}
+.sym-cell{border:1px solid var(--rule);padding:12px;display:grid;place-items:center}
+
+/* motion */
+.motion{border:1px solid var(--rule);display:grid;grid-template-rows:auto 1fr;min-width:0}
+.motion .stage{padding:28px 20px;display:grid;place-items:center;min-height:240px;overflow:hidden;position:relative}
+.motion .bar{display:flex;gap:12px;justify-content:space-between;align-items:start;padding:12px 14px;border-top:1px solid var(--rule)}
+.motion .bar div{display:grid;gap:2px;font-family:var(--mono);font-size:11px;color:var(--ink-2);min-width:0}
+.motion .bar strong{font-weight:400;color:var(--ink);letter-spacing:.1em;text-transform:uppercase}
+.readout{position:absolute;left:12px;top:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--b-grey)}
+.wide-stage{width:100%}
+
+/* situations */
+.sit{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px}
+.sit > figure{grid-column:span 3}
+.sit > figure.span2{grid-column:span 2}
+.sit > figure.span4{grid-column:span 4}
+.sit > figure.span6{grid-column:span 6}
+.mock{background:var(--b-white);color:var(--b-graphite);border:1px solid var(--rule);overflow:hidden;min-width:0}
+/* browser */
+.browser{border:1px solid var(--b-graphite);background:var(--b-white)}
+.b-tabs{display:flex;align-items:end;gap:0;background:#DDDFDA;background:color-mix(in srgb,var(--b-white) 86%,var(--b-graphite));padding:8px 8px 0}
+.b-tab{display:flex;gap:8px;align-items:center;background:var(--b-white);padding:7px 12px;font:12px var(--sans);color:var(--b-graphite);border:1px solid var(--b-graphite);border-bottom:0}
+.b-tab.off{background:transparent;border-color:transparent;color:var(--b-grey)}
+.b-url{display:flex;gap:10px;align-items:center;padding:8px 12px;border-top:1px solid var(--b-graphite);border-bottom:1px solid var(--b-graphite);font:12px var(--mono);color:var(--b-graphite)}
+.b-url span{color:var(--b-grey)}
+.b-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 20px;border-bottom:1px solid var(--b-graphite);flex-wrap:wrap}
+.b-head .lock{display:flex;gap:10px;align-items:center}
+.b-body{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:20px}
+.b-body .ph{display:grid;gap:6px}
+.b-body .ph canvas[data-hatch]{width:100%!important;height:auto!important}
+/* pages */
+.page{aspect-ratio:3/4;max-width:100%;display:grid;grid-template-rows:auto 1fr auto;padding:7%;gap:12px}
+.page.dark{background:var(--b-graphite);color:var(--b-white);border-color:var(--b-graphite)}
+.page .mid{display:grid;place-items:center;align-content:center;gap:14px;min-height:0}
+.page .row{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
+.page-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+/* label */
+.labelmock{background:var(--b-white);border:2px solid var(--b-graphite);color:var(--b-graphite);display:grid;max-width:440px;width:100%}
+.labelmock > div{padding:12px 14px;border-bottom:2px solid var(--b-graphite)}
+.labelmock > div:last-child{border-bottom:0}
+.labelmock .grid2{display:grid;grid-template-columns:1fr 1fr;padding:0}
+.labelmock .grid2 > div{padding:10px 14px;display:grid;gap:6px}
+.labelmock .grid2 > div + div{border-left:2px solid var(--b-graphite)}
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{aspect-ratio:3.5/2;max-width:100%;padding:8%;display:grid;align-content:space-between;border:1px solid var(--rule)}
+.card.dark{background:var(--b-graphite);border-color:var(--b-graphite);place-items:center;align-content:center}
+.card.light{background:var(--b-white)}
+.avatars{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.avatar{width:132px;height:132px;border-radius:50%;overflow:hidden;display:grid;place-items:center}
+.avatar.light{background:var(--b-white);border:1px solid var(--rule)}
+.avatar.dark{background:var(--b-graphite)}
+.avatar.orange{background:var(--b-orange)}
+.led{background:var(--b-graphite);padding:18px;border:1px solid var(--b-graphite);display:grid;place-items:center;overflow:auto}
+
+/* notes */
+.findings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.findings section{display:grid;gap:10px;align-content:start;min-width:0}
+.findings h3{margin:0;font:11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text)}
+.findings ul{margin:0;padding:0 0 0 1.1em;display:grid;gap:8px;font-size:14px}
+footer{border-top:1px solid var(--ink);padding-block:18px 40px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .c4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .c3,.findings{grid-template-columns:minmax(0,1fr)}
+  .hero-foot,.plate-head{grid-template-columns:minmax(0,1fr)}
+  .sit > figure, .sit > figure.span2, .sit > figure.span4{grid-column:span 6}
+}
+@media (max-width:640px){
+  .c2,.c4,.page-pair,.cards{grid-template-columns:minmax(0,1fr)}
+  .swatches{grid-template-columns:minmax(0,1fr)}
+  .sw + .sw{border-left:0;border-top:1px solid var(--ink)}
+  .sw{min-height:96px}
+  .sym-row,.rung,.rules li{grid-template-columns:minmax(0,1fr)}
+  .b-body{grid-template-columns:minmax(0,1fr)}
+  .panel{padding:16px}
+  .hero{padding-block:28px 20px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <canvas data-text="TANGERINE" data-font="micro" data-cell="2" aria-hidden="true"></canvas>
+  <span class="vh">Tangerine</span>
+  <div class="meta"><span>Bitmap Study 001</span><span>25 Nov 2026</span><span>Design study · not an approved mark</span></div>
+</header>
+
+<section class="hero" aria-labelledby="hero-t">
+  <h1 id="hero-t" class="vh">Tangerine, drawn on the pixel grid</h1>
+  <div class="hero-stage"><canvas id="hero" aria-label="The wide bitmap wordmark TANGERINE being plotted column by column, followed by an orange signal stripe" role="img"></canvas></div>
+  <div class="hero-foot">
+    <div style="display:grid;gap:14px">
+      <p>Tangerine drawn on the pixel grid. A wide wordmark cut from square pixels, the approved script translated to one bit, three pixel symbols, seven motion tests and the marks placed where they would actually live.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" id="replay-hero">Replay plot</button><button type="button" id="play-all">Play all motion</button></div>
+    </div>
+    <dl class="spec">
+      <dt>Grid</dt><dd>1 square pixel, integer scaling only</dd>
+      <dt>Wordmark</dt><dd>105 × 10 px, wide cut</dd>
+      <dt>Stem / bar</dt><dd>2 px / 2 px</dd>
+      <dt>Corners</dt><dd>1 px chamfer on round letters</dd>
+      <dt>Colour</dt><dd>White, graphite, tangerine</dd>
+      <dt>Anti-aliasing</dt><dd>None</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- PLATE 1 -->
+<section class="plate" id="grid" aria-labelledby="p1">
+  <div class="plate-head">
+    <h2 id="p1"><span class="label"><b>Plate 1</b> · Construction</span><canvas data-text="THE GRID" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">The grid</span></h2>
+    <p>Everything is built from one unit: a square pixel that is either on or off. The same rules govern the wordmark, the symbols and the motion, so any piece can be redrawn by counting.</p>
+  </div>
+  <div class="cols c2">
+    <figure>
+      <div class="panel theme scroll" style="place-items:start"><canvas id="construct" role="img" aria-label="The letters G, A and N enlarged on a grid. Orange ticks mark the 2 pixel stems and bars; tinted cells mark the 1 pixel chamfers."></canvas></div>
+      <figcaption><strong>G · A · N, enlarged</strong>Orange ticks: bars on rows 0–1, 4–5, 8–9 and stems 2 px wide. Tinted cells: the single missing pixel that softens a round corner.</figcaption>
+    </figure>
+    <div style="display:grid;gap:24px;align-content:start">
+      <div class="swatches">
+        <div class="sw sw-w"><b>Cyber white</b><span>#F5F6F3<br>Ground. Paper, screen, label stock.</span></div>
+        <div class="sw sw-g"><b>Graphite</b><span>#17181A<br>Type and structure.</span></div>
+        <div class="sw sw-o"><b>Tangerine</b><span>#E94D01<br>Sampled from the approved script wordmark.</span></div>
+      </div>
+      <ul class="rules">
+        <li><span>Cap height</span>10 px. Counters are 2 px slots, which gives the wide, low proportion of 1970s equipment lettering.</li>
+        <li><span>Weight</span>Stems and bars are both 2 px. Diagonals step one pixel per row.</li>
+        <li><span>Spacing</span>2 px between letters, 5 px word space. The I gets 1 px extra on each side.</li>
+        <li><span>Scaling</span>Whole numbers only: 1×, 2×, 3×. Never smoothed or resampled.</li>
+        <li><span>Colour</span>Two colours per surface. Orange is used once, as the mark or as the signal.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PLATE 2 -->
+<section class="plate" id="wordmark" aria-labelledby="p2">
+  <div class="plate-head">
+    <h2 id="p2"><span class="label"><b>Plate 2</b> · Wordmark</span><canvas data-text="WORDMARK" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Wordmark</span></h2>
+    <p>Three cuts. The wide cut follows Industrial Study 004 onto the grid. The restrained cut is the companion text face. The script is the approved homepage wordmark, translated to one bit at falling resolutions.</p>
+  </div>
+
+  <figure>
+    <div class="cols c3">
+      <div class="panel on-white tall"><canvas data-mark="wide" data-pal="graphite" data-fit="1" data-max="5" aria-hidden="true"></canvas></div>
+      <div class="panel on-graphite tall"><canvas data-mark="wide" data-pal="white" data-fit="1" data-max="5" aria-hidden="true"></canvas></div>
+      <div class="panel on-orange tall"><canvas data-mark="wide" data-pal="graphite" data-fit="1" data-max="5" aria-hidden="true"></canvas></div>
+    </div>
+    <figcaption><strong>A · Wide cut</strong>105 × 10 px. Square stems, chamfered rounds, a diagonal N. Reads at 1× on screen and holds up on all three grounds.</figcaption>
+  </figure>
+
+  <div class="cols c2">
+    <figure>
+      <div class="panel on-white tall"><canvas data-mark="micro" data-pal="graphite" data-fit="1" data-max="8" aria-hidden="true"></canvas></div>
+      <figcaption><strong>B · Restrained cut</strong>65 × 7 px, single-pixel strokes, 3 px tracking. For labels, captions, interfaces and the small print around the mark.</figcaption>
+    </figure>
+    <figure>
+      <div class="panel on-white tall"><canvas data-mark="lockup" data-fit="1" data-max="5" aria-hidden="true"></canvas></div>
+      <figcaption><strong>A + symbol · Lockup</strong>The 16 px fruit set at the cap height of the wide cut, 6 px apart. The fruit's body is exactly 12 px, so the leaf sits above the line.</figcaption>
+    </figure>
+  </div>
+
+  <figure>
+    <div class="cols c3">
+      <div class="panel on-white tall"><canvas data-script="48" data-fit="1" data-max="5" aria-hidden="true"></canvas></div>
+      <div class="panel on-white tall"><canvas data-script="96" data-fit="1" data-max="4" aria-hidden="true"></canvas></div>
+      <div class="panel on-white tall"><canvas data-script="160" data-fit="1" data-max="3" aria-hidden="true"></canvas></div>
+    </div>
+    <figcaption><strong>C · Script, rasterised</strong>48 × 19, 96 × 38 and 160 × 64 px. At 48 the hairlines drop out and only the rhythm survives. At 96 the script reads as itself, with stepped, embroidered edges. That size is the one worth hand-cleaning.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="ladder" id="ladder"></div>
+    <figcaption><strong>Actual size</strong>Each row is drawn at the stated integer scale in CSS pixels, so this is what a screen shows. Retina displays double it.</figcaption>
+  </figure>
+</section>
+
+<!-- PLATE 3 -->
+<section class="plate" id="type" aria-labelledby="p3">
+  <div class="plate-head">
+    <h2 id="p3"><span class="label"><b>Plate 3</b> · Typeface</span><canvas data-text="ALPHABET" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Alphabet</span></h2>
+    <p>Both cuts are drawn here by hand, pixel by pixel, so there is no font licence to check. Capitals, figures and the punctuation a label needs. The wide zero carries a centre dot so it never reads as O.</p>
+  </div>
+  <figure>
+    <div class="glyphs" id="glyphs-wide"></div>
+    <figcaption><strong>Wide · 10 px</strong>A–Z, 0–9, punctuation. Widths 2–14 px.</figcaption>
+  </figure>
+  <figure>
+    <div class="glyphs micro" id="glyphs-micro"></div>
+    <figcaption><strong>Restrained · 7 px</strong>A–Z, 0–9, punctuation. Widths 1–5 px.</figcaption>
+  </figure>
+
+  <div class="tester">
+    <div class="controls">
+      <label for="t-text">Text<textarea id="t-text" rows="2" spellcheck="false">Tangerine
+Creative practice</textarea></label>
+      <label for="t-font">Cut<select id="t-font"><option value="wide">Wide · 10 px</option><option value="micro">Restrained · 7 px</option></select></label>
+      <label for="t-size">Scale <output id="t-size-out">4×</output><input type="range" id="t-size" min="1" max="12" value="4"></label>
+      <label for="t-pal">Colour<select id="t-pal">
+        <option value="gw">Graphite on white</option>
+        <option value="ow">Tangerine on white</option>
+        <option value="wg">White on graphite</option>
+        <option value="og">Tangerine on graphite</option>
+        <option value="go">Graphite on tangerine</option>
+      </select></label>
+      <button type="button" class="primary" id="t-copy">Copy SVG</button>
+    </div>
+    <div class="scroll" id="t-stage" style="border:1px solid var(--rule)"><canvas id="t-canvas" role="img" aria-label="Your text set in the bitmap typeface"></canvas></div>
+    <div class="status" id="t-status" role="status"></div>
+    <textarea id="svgout" hidden readonly aria-label="SVG source"></textarea>
+  </div>
+</section>
+
+<!-- PLATE 4 -->
+<section class="plate" id="symbol" aria-labelledby="p4">
+  <div class="plate-head">
+    <h2 id="p4"><span class="label"><b>Plate 4</b> · Symbol</span><canvas data-text="SYMBOLS" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Symbols</span></h2>
+    <p>The identity brief asks for a symbol tested at 16, 32 and 64 px. Three candidates, each shown at actual size, then enlarged with its grid. The 16 px fruit is drawn by hand; the larger sizes are generated and then checked.</p>
+  </div>
+  <div id="symbols"></div>
+</section>
+
+<!-- PLATE 5 -->
+<section class="plate" id="motion" aria-labelledby="p5">
+  <div class="plate-head">
+    <h2 id="p5"><span class="label"><b>Plate 5</b> · Motion</span><canvas data-text="MOTION" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Motion</span></h2>
+    <p>Bitmap motion moves in whole pixels and whole frames, so every piece here is stepped at 12–30 fps with no easing between cells. Each one shows how the mark is made, plays once when it scrolls into view and then rests. With reduced motion on, you see the final frame.</p>
+  </div>
+  <div class="cols c2" id="motions"></div>
+</section>
+
+<!-- PLATE 6 -->
+<section class="plate" id="situations" aria-labelledby="p6">
+  <div class="plate-head">
+    <h2 id="p6"><span class="label"><b>Plate 6</b> · Situations</span><canvas data-text="IN USE" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">In use</span></h2>
+    <p>The marks placed where Tangerine would actually use them. Every project, name and field is a placeholder. No client work is shown.</p>
+  </div>
+  <div class="sit">
+
+    <figure class="span6">
+      <div class="browser">
+        <div class="b-tabs"><div class="b-tab"><canvas data-sym="fruit" data-n="16" data-cell="1" aria-hidden="true"></canvas>Tangerine</div><div class="b-tab off">New tab</div></div>
+        <div class="b-url"><span>https://</span>ex-tangerina.com</div>
+        <div class="b-head">
+          <div class="lock"><canvas data-mark="lockup" data-cell="2" aria-hidden="true"></canvas><span class="vh">Tangerine</span></div>
+          <canvas data-text="WORK   STUDIO   CONTACT" data-font="micro" data-cell="2" data-pal="graphite" aria-hidden="true"></canvas>
+        </div>
+        <div class="b-body">
+          <div class="ph"><canvas data-hatch="1" aria-hidden="true"></canvas><canvas data-text="PROJECT 01" data-font="micro" data-cell="1" data-pal="graphite"  aria-hidden="true"></canvas></div>
+          <div class="ph"><canvas data-hatch="1" aria-hidden="true"></canvas><canvas data-text="PROJECT 02" data-font="micro" data-cell="1" data-pal="graphite"  aria-hidden="true"></canvas></div>
+          <div class="ph"><canvas data-hatch="1" aria-hidden="true"></canvas><canvas data-text="PROJECT 03" data-font="micro" data-cell="1" data-pal="graphite"  aria-hidden="true"></canvas></div>
+        </div>
+      </div>
+      <figcaption><strong>Site header and favicon</strong>The 16 px fruit in the tab at 1×. The lockup and navigation at 2×. Hatched areas stand in for project images.</figcaption>
+    </figure>
+
+    <figure class="span4">
+      <div class="page-pair">
+        <div class="page dark mock">
+          <div class="row"><canvas data-text="TANGERINE" data-font="micro" data-cell="1" data-pal="white" aria-hidden="true"></canvas><canvas data-text="000" data-font="micro" data-cell="1" data-pal="orange" aria-hidden="true"></canvas></div>
+          <div class="mid"><canvas data-script="96" data-fit="1" data-max="3" data-pal="orange" aria-hidden="true"></canvas></div>
+          <div class="row"><canvas data-text="CLIENT · PROJECT TITLE" data-font="micro" data-cell="1" data-pal="white" aria-hidden="true"></canvas><canvas data-text="2026" data-font="micro" data-cell="1" data-pal="white" aria-hidden="true"></canvas></div>
+        </div>
+        <div class="page mock">
+          <div class="row"><canvas data-mark="lockup" data-cell="1" aria-hidden="true"></canvas><canvas data-text="REF T-000" data-font="micro" data-cell="1" data-pal="graphite" aria-hidden="true"></canvas></div>
+          <div class="mid" style="justify-items:start;place-items:center start"><canvas data-text="PROPOSAL" data-font="wide" data-fit="1" data-max="3" data-pal="graphite" aria-hidden="true"></canvas><canvas data-stripe="1" aria-hidden="true"></canvas></div>
+          <div style="display:grid;gap:6px"><canvas data-text="PREPARED FOR  ············" data-font="micro" data-cell="1" data-pal="graphite" aria-hidden="true"></canvas><canvas data-text="DATE  25.11.2026" data-font="micro" data-cell="1" data-pal="graphite" aria-hidden="true"></canvas></div>
+        </div>
+      </div>
+      <figcaption><strong>Project cover and proposal</strong>The script carries the warm cover; the wide cut carries the working document. Both share the restrained cut for small print.</figcaption>
+    </figure>
+
+    <figure class="span2">
+      <div class="panel on-white" style="padding:20px">
+        <div class="labelmock">
+          <div><canvas data-mark="wide" data-pal="graphite" data-cell="2" aria-hidden="true"></canvas></div>
+          <div class="grid2">
+            <div><canvas data-text="STUDY NO." data-font="micro" data-cell="1" data-pal="grey" aria-hidden="true"></canvas><canvas data-text="BITMAP 001" data-font="micro" data-cell="1" data-pal="graphite" aria-hidden="true"></canvas></div>
+            <div><canvas data-text="GRID" data-font="micro" data-cell="1" data-pal="grey" aria-hidden="true"></canvas><canvas data-text="1 PX SQUARE" data-font="micro" data-cell="1" data-pal="graphite" aria-hidden="true"></canvas></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><canvas data-text="CREATIVE PRACTICE" data-font="micro" data-cell="1" data-pal="graphite" aria-hidden="true"></canvas><canvas data-sym="signal" data-n="16" data-cell="1" aria-hidden="true"></canvas></div>
+        </div>
+      </div>
+      <figcaption><strong>Equipment label</strong>Printed study sheet. The industrial-manual reference, at 1× and 2×.</figcaption>
+    </figure>
+
+    <figure class="span3">
+      <div class="cards">
+        <div class="card dark"><canvas data-sym="fruit" data-n="32" data-cell="3" data-pal="symdark" aria-hidden="true"></canvas></div>
+        <div class="card light">
+          <canvas data-mark="wide" data-pal="graphite" data-cell="1" aria-hidden="true"></canvas>
+          <div style="display:grid;gap:5px"><canvas data-text="NAME SURNAME" data-font="micro" data-cell="1" data-pal="graphite" aria-hidden="true"></canvas><canvas data-text="ROLE · EMAIL" data-font="micro" data-cell="1" data-pal="grey" aria-hidden="true"></canvas></div>
+        </div>
+      </div>
+      <figcaption><strong>Card, front and back</strong>Fruit at 3× on graphite, with the leaf reversed to white. On the back, the wide cut at 1× sits above the restrained cut.</figcaption>
+    </figure>
+
+    <figure class="span3">
+      <div class="led"><canvas id="led" role="img" aria-label="An orange dot-matrix display reading TANGERINE, STUDY 001"></canvas></div>
+      <figcaption><strong>Dot-matrix display</strong>The restrained cut on a 64 × 18 LED field. Unlit cells stay visible, as they would on real hardware.</figcaption>
+    </figure>
+
+    <figure class="span6">
+      <div class="avatars">
+        <div class="avatar light"><canvas data-sym="fruit" data-n="32" data-cell="2" aria-hidden="true"></canvas></div>
+        <div class="avatar dark"><canvas data-sym="signal" data-n="32" data-cell="2" data-pal="symdark" aria-hidden="true"></canvas></div>
+        <div class="avatar orange"><canvas data-sym="wheel" data-n="32" data-cell="3" data-pal="onorange" aria-hidden="true"></canvas></div>
+        <div class="avatar dark"><canvas data-script="48" data-cell="2" data-pal="orange" aria-hidden="true"></canvas></div>
+      </div>
+      <figcaption><strong>Social avatar, circular crop</strong>All four survive the circle. The square signal tile reads as a badge inside the crop. The 48 px script is too thin to carry a profile image on its own.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PLATE 7 -->
+<section class="plate" id="notes" aria-labelledby="p7">
+  <div class="plate-head">
+    <h2 id="p7"><span class="label"><b>Plate 7</b> · Findings</span><canvas data-text="FINDINGS" data-font="wide" data-cell="3" aria-hidden="true"></canvas><span class="vh">Findings</span></h2>
+    <p>What the grid shows about Tangerine's identity, and what to test next before any of it is used.</p>
+  </div>
+  <div class="findings">
+    <section>
+      <h3>What works</h3>
+      <ul>
+        <li>The wide cut is a good fit for the grid. Industrial 004's broad, square proportion comes out of 2 px strokes naturally, so the wordmark feels drawn rather than converted.</li>
+        <li>At 96 px wide the script turns into something like stitched lettering. It stays warm and still reads as Tangerine.</li>
+        <li>The 16 px fruit is the most legible symbol at favicon size. Orange and a dark leaf are enough.</li>
+        <li>Motion that shows how the mark is built (plotting, resolving, reassembling) suits the material and says something true about the practice.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>What doesn't, yet</h3>
+      <ul>
+        <li>The citrus wheel needs at least 32 px. At 16 px ten segments turn to noise, so that size is redrawn by hand with eight.</li>
+        <li>The signal T is distinctive but could belong to any industrial company. It needs Tangerine-specific evidence before going further.</li>
+        <li>Below 96 px the rasterised script loses its hairlines. A hand-cleaned 64 px version should be drawn and compared before using it small.</li>
+        <li>Diagonals in N, M, W and K step at 45° only, so W is the weakest glyph.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>Next tests</h3>
+      <ul>
+        <li>Hand-clean the script at 96 × 38 and at 64 px, keeping the approved letterforms' entry and exit strokes.</li>
+        <li>Print the equipment label and the proposal page at 1:1 on white stock, then check the 1× restrained cut on paper.</li>
+        <li>Compare the wide cut against the vector Industrial 004 and the fruit symbol side by side before choosing.</li>
+        <li>Choose one motion, not seven. Plot or Resolve are the strongest candidates for a site loading state.</li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<footer class="label"><span>Tangerine · Bitmap Study 001 · 25 Nov 2026</span><span>Study only. Not an approved mark. Not deployed.</span></footer>
+</div>
+
+<script>
+(() => {
+'use strict';
+const root = document.documentElement;
+const qs = new URLSearchParams(location.search);
+const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+const STILL = () => qs.has('still') || reduceMQ.matches;
+
+/* ------------------------------------------------------------ colour */
+const probe = document.createElement('canvas'); probe.width = probe.height = 1;
+const pctx = probe.getContext('2d', { willReadFrequently: true });
+const ccache = new Map();
+function rgba(c) {
+  if (!c) return [0, 0, 0, 0];
+  let s = c.startsWith('--') ? getComputedStyle(root).getPropertyValue(c).trim() : c;
+  if (ccache.has(s)) return ccache.get(s);
+  pctx.clearRect(0, 0, 1, 1); pctx.fillStyle = '#000'; pctx.fillStyle = s; pctx.fillRect(0, 0, 1, 1);
+  const d = pctx.getImageData(0, 0, 1, 1).data, v = [d[0], d[1], d[2], d[3]];
+  ccache.set(s, v); return v;
+}
+/* palettes: index 0 = transparent */
+const PAL = {
+  ink:      [null, '--ink', '--accent', '--paper', '--accent-dim', '--grid'],
+  graphite: [null, '--b-graphite', '--b-orange', '--b-white', '--b-orange-dim'],
+  white:    [null, '--b-white', '--b-orange', '--b-graphite', '--b-orange-dim'],
+  orange:   [null, '--b-orange', '--b-orange', '--b-white', '--b-orange-dim'],
+  grey:     [null, '--b-grey', '--b-orange', '--b-white'],
+  sym:      [null, '--b-graphite', '--b-orange', '--b-white', '--b-orange-dim'],
+  symdark:  [null, '--b-white', '--b-orange', '--b-graphite', '--b-orange-dim'],
+  onorange: [null, '--b-graphite', '--b-white', '--b-orange', '--b-orange-dim'],
+};
+
+/* ------------------------------------------------------------ bitmap */
+class BM {
+  constructor(w, h) { this.w = w; this.h = h; this.d = new Uint8Array(w * h); }
+  set(x, y, v) { if (x >= 0 && y >= 0 && x < this.w && y < this.h) this.d[y * this.w + x] = v; }
+  get(x, y) { return (x >= 0 && y >= 0 && x < this.w && y < this.h) ? this.d[y * this.w + x] : 0; }
+  rect(x, y, w, h, v) { for (let j = y; j < y + h; j++) for (let i = x; i < x + w; i++) this.set(i, j, v); return this; }
+  blit(s, ox, oy, map) {
+    for (let y = 0; y < s.h; y++) for (let x = 0; x < s.w; x++) {
+      const v = s.d[y * s.w + x]; if (v) this.set(ox + x, oy + y, map ? map(v, x, y) : v);
+    } return this;
+  }
+  scale(k) {
+    const o = new BM(this.w * k, this.h * k);
+    for (let y = 0; y < o.h; y++) for (let x = 0; x < o.w; x++) o.d[y * o.w + x] = this.d[((y / k) | 0) * this.w + ((x / k) | 0)];
+    return o;
+  }
+  recolor(v) { const o = new BM(this.w, this.h); for (let i = 0; i < this.d.length; i++) o.d[i] = this.d[i] ? v : 0; return o; }
+  pad(l, t = l, r = l, b = t) { return new BM(this.w + l + r, this.h + t + b).blit(this, l, t); }
+  pts() { const p = []; for (let y = 0; y < this.h; y++) for (let x = 0; x < this.w; x++) { const v = this.d[y * this.w + x]; if (v) p.push([x, y, v]); } return p; }
+  static rows(rows, map) {
+    const h = rows.length, w = rows[0].length, b = new BM(w, h);
+    rows.forEach((r, y) => { for (let x = 0; x < w; x++) { const v = map[r[x]]; if (v) b.d[y * w + x] = v; } });
+    return b;
+  }
+}
+
+/* ------------------------------------------------------------ typefaces (drawn by hand) */
+const WIDE_DEF = {
+  A:'.#########.|###########|##.......##|##.......##|###########|###########|##.......##|##.......##|##.......##|##.......##',
+  B:'##########.|###########|##.......##|##.......##|##########.|###########|##.......##|##.......##|###########|##########.',
+  C:'.##########|###########|##.........|##.........|##.........|##.........|##.........|##.........|###########|.##########',
+  D:'##########.|###########|##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|###########|##########.',
+  E:'##########|##########|##........|##........|########..|########..|##........|##........|##########|##########',
+  F:'##########|##########|##........|##........|########..|########..|##........|##........|##........|##........',
+  G:'.##########|###########|##.........|##.........|##....#####|##....#####|##.......##|##.......##|###########|.#########.',
+  H:'##.......##|##.......##|##.......##|##.......##|###########|###########|##.......##|##.......##|##.......##|##.......##',
+  I:'##|##|##|##|##|##|##|##|##|##',
+  J:'........##|........##|........##|........##|........##|........##|##......##|##......##|##########|.########.',
+  K:'##.......##|##......##.|##.....##..|##....##...|########...|########...|##....##...|##.....##..|##......##.|##.......##',
+  L:'##........|##........|##........|##........|##........|##........|##........|##........|##########|##########',
+  M:'##..........##|###........###|####......####|##.##....##.##|##..##..##..##|##...####...##|##....##....##|##..........##|##..........##|##..........##',
+  N:'##.......##|###......##|####.....##|##.##....##|##..##...##|##...##..##|##....##.##|##.....####|##......###|##.......##',
+  O:'.#########.|###########|##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|###########|.#########.',
+  P:'##########.|###########|##.......##|##.......##|###########|##########.|##.........|##.........|##.........|##.........',
+  Q:'.#########.|###########|##.......##|##.......##|##.......##|##.......##|##....##.##|##.....####|###########|.##########',
+  R:'##########.|###########|##.......##|##.......##|###########|##########.|##....##...|##.....##..|##......##.|##.......##',
+  S:'.##########|###########|##.........|##.........|##########.|.##########|.........##|.........##|###########|##########.',
+  T:'##########|##########|....##....|....##....|....##....|....##....|....##....|....##....|....##....|....##....',
+  U:'##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|##.......##|###########|.#########.',
+  V:'##......##|##......##|##......##|##......##|.##....##.|.##....##.|..##..##..|..##..##..|...####...|....##....',
+  W:'##..........##|##..........##|##..........##|##....##....##|##...####...##|##..##..##..##|##.##....##.##|####......####|###........###|##..........##',
+  X:'##......##|##......##|.##....##.|..##..##..|...####...|...####...|..##..##..|.##....##.|##......##|##......##',
+  Y:'##......##|##......##|.##....##.|..##..##..|...####...|....##....|....##....|....##....|....##....|....##....',
+  Z:'##########|##########|.......##.|......##..|.....##...|....##....|...##.....|..##......|##########|##########',
+  0:'.########.|##########|##......##|##......##|##..##..##|##..##..##|##......##|##......##|##########|.########.',
+  1:'####..|####..|..##..|..##..|..##..|..##..|..##..|..##..|######|######',
+  2:'.########.|##########|........##|........##|##########|##########|##........|##........|##########|##########',
+  3:'#########.|##########|........##|........##|..########|..########|........##|........##|##########|#########.',
+  4:'##......##|##......##|##......##|##......##|##########|##########|........##|........##|........##|........##',
+  5:'##########|##########|##........|##........|#########.|##########|........##|........##|##########|#########.',
+  6:'.#########|##########|##........|##........|#########.|##########|##......##|##......##|##########|.########.',
+  7:'##########|##########|........##|.......##.|......##..|.....##...|....##....|....##....|....##....|....##....',
+  8:'.########.|##########|##......##|##......##|.########.|##########|##......##|##......##|##########|.########.',
+  9:'.########.|##########|##......##|##......##|##########|.#########|........##|........##|##########|#########.',
+  ' ':'.....|.....|.....|.....|.....|.....|.....|.....|.....|.....',
+  '.':'..|..|..|..|..|..|..|..|##|##',
+  ',':'..|..|..|..|..|..|..|##|##|#.',
+  '-':'......|......|......|......|######|######|......|......|......|......',
+  ':':'..|..|##|##|..|..|##|##|..|..',
+  '·':'..|..|..|..|##|##|..|..|..|..',
+  "'":'##|##|##|..|..|..|..|..|..|..',
+  '!':'##|##|##|##|##|##|##|..|##|##',
+  '?':'.########.|##########|........##|........##|...#######|...######.|...##.....|..........|...##.....|...##.....',
+  '/':'......##|......##|.....##.|....##..|...##...|...##...|..##....|.##.....|##......|##......',
+  '+':'......|......|..##..|..##..|######|######|..##..|..##..|......|......',
+  '→':'..........|..........|......##..|.......##.|##########|##########|.......##.|......##..|..........|..........',
+};
+const MICRO_DEF = {
+  A:'.###.|#...#|#...#|#####|#...#|#...#|#...#', B:'####.|#...#|#...#|####.|#...#|#...#|####.',
+  C:'.####|#....|#....|#....|#....|#....|.####', D:'####.|#...#|#...#|#...#|#...#|#...#|####.',
+  E:'#####|#....|#....|####.|#....|#....|#####', F:'#####|#....|#....|####.|#....|#....|#....',
+  G:'.####|#....|#....|#..##|#...#|#...#|.####', H:'#...#|#...#|#...#|#####|#...#|#...#|#...#',
+  I:'#|#|#|#|#|#|#', J:'....#|....#|....#|....#|....#|#...#|.###.',
+  K:'#...#|#..#.|#.#..|##...|#.#..|#..#.|#...#', L:'#....|#....|#....|#....|#....|#....|#####',
+  M:'#...#|##.##|#.#.#|#.#.#|#...#|#...#|#...#', N:'#...#|##..#|#.#.#|#.#.#|#..##|#...#|#...#',
+  O:'.###.|#...#|#...#|#...#|#...#|#...#|.###.', P:'####.|#...#|#...#|####.|#....|#....|#....',
+  Q:'.###.|#...#|#...#|#...#|#.#.#|#..#.|.##.#', R:'####.|#...#|#...#|####.|#.#..|#..#.|#...#',
+  S:'.####|#....|#....|.###.|....#|....#|####.', T:'#####|..#..|..#..|..#..|..#..|..#..|..#..',
+  U:'#...#|#...#|#...#|#...#|#...#|#...#|.###.', V:'#...#|#...#|#...#|#...#|.#.#.|.#.#.|..#..',
+  W:'#...#|#...#|#...#|#.#.#|#.#.#|##.##|#...#', X:'#...#|#...#|.#.#.|..#..|.#.#.|#...#|#...#',
+  Y:'#...#|#...#|.#.#.|..#..|..#..|..#..|..#..', Z:'#####|....#|...#.|..#..|.#...|#....|#####',
+  0:'.###.|#...#|#..##|#.#.#|##..#|#...#|.###.', 1:'.#.|##.|.#.|.#.|.#.|.#.|###',
+  2:'.###.|#...#|....#|...#.|..#..|.#...|#####', 3:'####.|....#|....#|.###.|....#|....#|####.',
+  4:'#...#|#...#|#...#|#####|....#|....#|....#', 5:'#####|#....|#....|####.|....#|....#|####.',
+  6:'.###.|#....|#....|####.|#...#|#...#|.###.', 7:'#####|....#|...#.|..#..|..#..|..#..|..#..',
+  8:'.###.|#...#|#...#|.###.|#...#|#...#|.###.', 9:'.###.|#...#|#...#|.####|....#|....#|.###.',
+  ' ':'...|...|...|...|...|...|...', '.':'.|.|.|.|.|.|#', ',':'..|..|..|..|..|.#|#.',
+  '-':'...|...|...|###|...|...|...', ':':'.|.|#|.|.|#|.', '·':'.|.|.|#|.|.|.', "'":'#|#|.|.|.|.|.',
+  '!':'#|#|#|#|#|.|#', '?':'.###.|#...#|....#|...#.|..#..|.....|..#..',
+  '/':'....#|...#.|...#.|..#..|.#...|.#...|#....', '+':'.....|..#..|..#..|#####|..#..|..#..|.....',
+  '&':'.##..|#..#.|#.#..|.#...|#.#.#|#..#.|.##.#', '(':'.#|#.|#.|#.|#.|#.|.#', ')':'#.|.#|.#|.#|.#|.#|#.',
+  '→':'.....|..#..|...#.|#####|...#.|..#..|.....', '×':'.....|#...#|.#.#.|..#..|.#.#.|#...#|.....',
+  '#':'.#.#.|.#.#.|#####|.#.#.|#####|.#.#.|.#.#.', '%':'##..#|##.#.|...#.|..#..|.#...|.#.##|#..##',
+  '=':'.....|.....|#####|.....|#####|.....|.....', '_':'.....|.....|.....|.....|.....|.....|#####',
+};
+function mkFont(def, h, track, lead, pads) {
+  const g = {};
+  for (const k in def) {
+    const rows = def[k].split('|');
+    if (rows.length !== h || rows.some(r => r.length !== rows[0].length)) console.error('Malformed glyph', JSON.stringify(k));
+    g[k] = BM.rows(rows, { '#': 1 });
+  }
+  return { g, h, track, lead, pads: pads || {} };
+}
+const WIDE = mkFont(WIDE_DEF, 10, 2, 6, { I: [1, 1], 1: [0, -1] });
+const MICRO = mkFont(MICRO_DEF, 7, 1, 4, {});
+const FONTS = { wide: WIDE, micro: MICRO };
+
+function layoutLine(f, line, track) {
+  const out = []; let x = 0;
+  const chars = [...line];
+  chars.forEach((c, i) => {
+    const gl = f.g[c] || f.g[c.toUpperCase()] || f.g['?'];
+    const p = f.pads[c] || [0, 0];
+    x += p[0]; out.push({ c, gl, x }); x += gl.w + p[1];
+    if (i < chars.length - 1) x += track;
+  });
+  return { glyphs: out, w: x };
+}
+function text(f, str, o = {}) {
+  const track = o.track ?? f.track, lead = o.lead ?? f.lead, val = o.val ?? 1;
+  const lines = String(str).toUpperCase().split('\n').map(l => layoutLine(f, l, track));
+  const w = Math.max(1, ...lines.map(l => l.w)), h = lines.length * f.h + (lines.length - 1) * lead;
+  const b = new BM(w, h);
+  lines.forEach((l, i) => {
+    const ox = o.align === 'center' ? Math.floor((w - l.w) / 2) : 0;
+    l.glyphs.forEach(g => b.blit(g.gl, ox + g.x, i * (f.h + lead), () => val));
+  });
+  return b;
+}
+
+/* ------------------------------------------------------------ the approved script, rasterised to 1 bit */
+const SCRIPT_BITS = {"24":{"w":24,"h":10,"b":"AAAAEAAAMAV+L//sd9v+Vv0AfCAAQAAAAEAAAwAA"},"48":{"w":48,"h":19,"b":"AAAAAAgAAYAAABgAAwAAABAAAwAAAQLOBoAAGzfaDgFnq67cLHvp7WywiJdb912yGTbTytn8Ey731/mYM2z+4kAAN/yEAAAAOyAcAAAAOABIAAAAAAGYAAAAAAIwAAAAAAYgAAAAAATAAAAAAAcAAAAA"},"96":{"w":96,"h":38,"b":"AAAAAAAAAAAAgAAAAABAAAAAAAABwAAAAAHAAAAAAAADwAAAAAOAAAAAAAADwAAAAAeAAAAAAAADgAAAAAcAAAAAAAAAAAA8AA4AAAAAAAMAAHB8AA4AAAAAAAcBHPjMABwAAAAAAAcHPfnMAD/AAAAA48eGf3OYAD4AABg/zm3OfnOwAfgAB3xz3MnMvPdgDvAdz/zjuNucuOfAOOB/n73DuZeZee8EYODnnzmHcyc5cc8MgcHHLjuHfi56488YA8OHPnOO8E5y45/wA4cOXHcO8N714/fgB4cOfOcc8Z39w+fAB44euO/9/x97w8AABw4cuf/+/h5yAAAADx49cfe8fAwAAAAADx5/ceM4AAAAAAAADj/e4cDwAAAAAAAAHn+cwAPwAAAAAAAAH88AAA5gAAAAAAAAH8QAADjgAAAAAAAAD4AAAGHAAAAAAAAABgAAAcGAAAAAAAAAAAAAAwOAAAAAAAAAAAAADgcAAAAAAAAAAAAAHA4AAAAAAAAAAAAAGAwAAAAAAAAAAAAAOBgAAAAAAAAAAAAAMHAAAAAAAAAAAAAAOOAAAAAAAAAAAAAAP4AAAAAAAAAAAAAAHgAAAAAAAAAA"},"160":{"w":160,"h":64,"b":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgAAAAAAAAAAYAAAAAAAAAAAAAA+AAAAAAAAAAfAAAAAAAAAAAAAAH4AAAAAAAAAD8AAAAAAAAAAAAAAfgAAAAAAAAAPgAAAAAAAAAAAAAD+AAAAAAAAAB8AAAAAAAAAAAAAAPwAAAAAAAAAHwAAAAAAAAAAAAAA+AAAAAAAAAA+AAAAAAAAAAAAAABwAAAAAAAAAHwAAAAAAAAAAAAAAAAAAAAfAAAAfAAAAAAAAAAAAAgAAAAGAH+AAAD4AAAAAAAAAAAAPgAACB+B84AAAfAAAAAAAAAAAAA+AAg8f4PjgAAB8AAAAAAAAAAAAH4B8Hz/g8OAAAPgYAAAAAAAAABwfgHw/f+HhwAAB+fgAAAAAAAHg/h8A+H9n4+HAAAH/8AAAAAAB88H+H+D4/8fnw4AAA/8AAAAAcAf/x8cb8fG/h8fHAAAP8AAAAcH4Hx+PjjHx8b8Pz44AAH/gAABD4/g+H58OM+Pjfg+PvAAD/8AAB8fn+HwfHh5j4+N+H5/wIA+PwAfvj+/4+B8+HGfDxvwfH8AgPA+AH/8f+fjwPnw4x8fG/D8fAGBwH4B8fx/x8fA+fHDPh4T4Pj8AQOAfAPg+N+Hz4Hz44Z+Pjfg+PwDBgD8B8H434+PAfPvDHw8J8Hw/AYEAPgPgfG/D58B5/wM/HxvwfH+DgAB+B8B8b4fHwPn8Bj4/E+D8/88AAHwHwPzfh8+B+/AGfj434P3f/gAA/A+A+N8Pj4Hz8Ax8fmfA/5/8AAD4HwD5vw+Pg/PwGHz+78D/j/gAAfgfAfG+Hx+H5/A4/f/PgP8H8AAD8D8D8z4fP4/n+PD/v5+A/AGAAAPwPgPjfB8//8//4P8/HwBwAAAAA/A+B+Z8P3//2//A/j4QAAAAAAAH4H4H5vg/3/fx/4B8AAAAAAAAAAfgfg/M+D/P7+D+ADAAAAAAAAAAD+D+H/3wP4ePwDgAAAAAAAAAAAAPwP9/+fA/AA8AAAAAAAAAAAAAAA/B//fz4DwAPwAAAAAAAAAAAAAAD8P/5/PgAAD+AAAAAAAAAAAAAAAPw3/H4gAAA74AAAAAAAAAAAAAAA/OP4OAAAAPPAAAAAAAAAAAAAAAD/4/AAAAADx8AAAAAAAAAAAAAAAP/AwAAAAA8HgAAAAAAAAAAAAAAA/4AAAAAAPA8AAAAAAAAAAAAAAAB/AAAAAADwDwAAAAAAAAAAAAAAAH4AAAAAAeAeAAAAAAAAAAAAAAAAAAAAAAAHgDwAAAAAAAAAAAAAAAAAAAAAAA8APAAAAAAAAAAAAAAAAAAAAAAAHgB4AAAAAAAAAAAAAAAAAAAAAAB4APAAAAAAAAAAAAAAAAAAAAAAAPAB4AAAAAAAAAAAAAAAAAAAAAAB4AHAAAAAAAAAAAAAAAAAAAAAAAHgA8AAAAAAAAAAAAAAAAAAAAAAA8AHgAAAAAAAAAAAAAAAAAAAAAAHwA8AAAAAAAAAAAAAAAAAAAAAAAeAHAAAAAAAAAAAAAAAAAAAAAAAB4B4AAAAAAAAAAAAAAAAAAAAAAAHwPAAAAAAAAAAAAAAAAAAAAAAAAfn4AAAAAAAAAAAAAAAAAAAAAAAB/+AAAAAAAAAAAAAAAAAAAAAAAAD/gAAAAAAAAAAAAAAAAAAAAAAAADgAAAAAAAAAAAAAAAAAA="},"320":{"w":320,"h":127,"b":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/wAAAAAAAAAAAAAAAAAAAAA+AAAAAAAAAAAAAAAAAAAAAAAAAAAAA/+AAAAAAAAAAAAAAAAAAAAH/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/gAAAAAAAAAAAAAAAAAAAD/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/4AAAAAAAAAAAAAAAAAAAB/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAD/8AAAAAAAAAAAAAAAAAAAA/+AAAAAAAAAAAAAAAAAAAAAAAAAAAAB//AAAAAAAAAAAAAAAAAAAAP/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/wAAAAAAAAAAAAAAAAAAAH/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/4AAAAAAAAAAAAAAAAAAAB/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAB/+AAAAAAAAAAAAAAAAAAAA/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/AAAAAAAAAAAAAAAAAAAAf+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/gAAAAAAAAAAAAAAAAAAAH/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/wAAAAAAAAAAAAAAAAAAAD/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP4AAAAAAAAAAAAAAAAAAAB/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAHwAAAAAAAAf+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/AAAAAAAAP/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/4AAAAAAAD/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/+AAAAAAAB/4AAAAAAAAAAAAAAAAAAAAAAAAAHwAAAAAAAAAH8AAH+PgAAAAAAA/8AAAAAAAAAAAAAAAAAAAAAAAAAH+AAAAAAAAAP/gAD/B8AAAAAAAP/AAAAAAAAAAAAAAAAAAAAAAAAAD/wAAAAAAfAH/8AD/gfAAAAAAAH/gAAAAAAAAAAAAAAAAAAAAAAAAB/8AAAAAA/4H//AB/wPgAAAAAAD/wAAAAAAAAAAAAAAAAAAAAAAAAAf/AAAH8Af+D//4A/4D4AAAAAAA/8AAAAAAAAAAAAAAAAAAAAAAAAAP/wAAf+AP/h//+Af8A+AAAAAAAf+AAAAAAAAAAAAAAAAAAAAAAAAAD/8AAH/AH/4///gP+AfgAAAAAAP/gAcAAAAAAAAAAAAAAAAAAAAGAA/+AAD/wD/+f//wD/gHwAAAAAAD/wB/AAAAAAAAAAAAAAAAAAAAf+AP/gAA/4B//P7/8B/wD8AAAAAAB/8H/gAAAAAAAAAAAAAAAAHwAf/wD/wAAf+A//z4f/A/8B+AAAAAAAf+f/4AAAAAAAAAAAAAAAA/4Af/8Af/gAH/Af/94H/gf+AfgAAAAAAP///8AAAAAAAAAAAAAAf4f+AP//gP//AD/wP/+8B/4H/APwAAAAAAH///8AAAAAAAAAAAAAAf/H/AP+H4D//4A/4D3/+A/+D/wH4AAAAAAB///gAAAAAAAAAAeAAAf/7/wH/B+B5/+Af+B7//AP/A/8D8AAAAAAA//+AAAAAAAAAAA/4AAf///4D/gfgeD/gH/Ac//wD/wf+B+AAAAAAB//4AAAAAAAADgAf/AAf+H/8B/wH4PA/4D/wPP/4B/4H/g/AAAAAAH//wAAAAAAAAD+Af/wAP+A//A/4B+DwP+A/4Dn/8Af+D/wfgAAAAAP//8AAAAAAAAD/gP/8AH/AP/gf8A/B4H/gf+B5/+AP/A/8fwAAAAAf//+AAAAAAH8B/8H//AD/gD/4P+APweD/wH/A8//AD/wf/P4AYAAAf///AAAAAAP+A//H//wB/wA/8H/gH4PA/8D/wOP/wB/4H//4AGAAA/+H/wAAAP8H/Af/x//8A/4AP/B/wD+Dwf+A/4Dn/4Af+D//4ADAAA/8D/4AAAf/z/wP/4///Af8AH/g/8A/B4P/gf+B5/+AP/A//4AAwAA/4A/+AAAf/8/4D/+fH/wP+AB/4f+AfgeD/wH/Acf/AD/wP/wAAcAAf4Af/AAAP///+B//vh/4H/gAf8H/APwPB/8D/wPP/gB/4H/4AAGAAP4AH/wAAP/D//A9//gf+B/wAP/D/wH4Dwf+A/4Dj/4Af+B/+AADgAP4AD/4AAH/Af/wOf/wH/A/4AD/h/8D+B4P/Af+B5/8AP/gf/AAAwAH4AA/+AAD/gH/4Hv/8D/wf+AB/4f+B+AeD/wH/Acf/AD/wH/wAAcAD4AAf/AAB/wB/+Bz/+A/4H/AAf8P/h/APB/4D/wPP/gB/8D/8AAPAB8AAH/wAB/4Af/A8//Af+D/gAH/D/w/gDg/+A/4Dj/4Af+A//AAHgA8AAD/4AA/8AH/wOf/gH/A/4AD/x/8/wB4P/Af+B5/8AP/gP/wAD4AOAAA/+AAf+AB/4Hn/wD/wf8AA/4f//wA8H/wH/Acf/AD/wH/+AB8AHAAAf/AAH/AAf+Bz/8A/4P/AAf+P//wAPB/4D/wPP/gB/8D//gA+ABgAAH/wAD/gAP/A8/+Af+D/wAH/D//wAHg/8A/8Dj/4Af/A//8A/gAQAAD/4AB/4AD/wOP/AH/A/4AD/w//wAB4P/Af+B4/8AH/gf//g/wAAAAA/+AA/8AB/4Hn/wD/wf+AB/4f/gAA8H/gP/gcf/AD/4P////4AAAAAf/AAf+AAf+Bx/4A/4H/AAf+H/wAAeB/4D/4PH/gA//Hz///8AAAAAH/wAH/AAP/g8/8Af+D/wAP/B/8AAPg/+B/8Hj/4AP//4///+AAAAAD/4AD/wAD/wOP/AH/A/8AH/w//AAHwP/A//B4/8AH//+H///AAAAAA/+AA/4AA/8Hn/gD/wP/AB/8P/wAB4D/wf/w8f/AB///B///gAAAAAf/AAf+AAf+Bx/4A/4H/wA/+D/8AA+B/8P/8eH/gAf//gP//wAAAAAH/wAP/AAH/g8f8Af+B/8Af/h//AAfAf+H///j/4AH//wB//4AAAAAD/8AD/wAD/wOP/AH/g//AP/wf/wAPgH/z7//w/8AA//4AP/8AAAAAA/+AB/8AB/8Hj/wD/wP/wH/8P/+APwD//+//4f/AAP/8AB/8AAAAAAf/gAf+AAf/Bx/4A/8H/8D//H//gP8A///P/8H/wAD/+AAD4AAAAAAH/wAH/gAP/g8f+AP/D//3//j///f+AP//j/+B/4AAf+AAAAAAAAAAD/8AD/4AD/4PP/AH/g/////4/////AD//w//A/+AAB+AAAAAAAAAAA//AA/8AB/8Dj/wB/4f///f8e////gA//4P/gP/AAAAAAAAAAAAAAAf/gAf/AAf/B4/4A/+Pf//n/fH///wAP/8D/wHAAAAAAAAAAAAAAAAH/4AH/wAP/wcf+AP//n//z//h///4AB/+AfwAAAAAAAAAAAAAAAAAD/8AB/8AH/4PH/AD//5//4//wP//8AAf/AAgAAAAAAAAAAAAAAAAAA//AA//AB/+Hj/wB//8f/8f/4D//8AAD/AAAAAAAAAAAAAAAAAAAAAP/wAP/wA//jw/4Af/+D/+H/8AP/8AAAHAAAAAAAAAAAAAAAAAAAAAH/8AH/8Af/58f+AH//A/+B/8AB/8AAAAAAAAAAAAAAAAAAAAAAAAAB/+AB//AP//+H/gB//gH/A/+AAD4AAAAAAAAAAAAAAAAAAAAAAAAAAf/gA//4H///j/wAf/wAfAP/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/4Af//H7//w/8AH/4AAAH/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/+AH///8//8f+AA/8AAAH/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//AD////P/+H/gAH+AAAH/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/wB////j//B/wAA8AAAH/+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/8Ae///w//g/8AAAAAAH//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//APP//4P/wP4AAAAAAH//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/wHx//+B/4CAAAAAAAH+f4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/8D4f//Af8AAAAAAAAH+P+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//h+H//gD8AAAAAAAAH+D/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf///A//wAAAAAAAAAAH+B/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH///gH/wAAAAAAAAAAH+A/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB///4A/wAAAAAAAAAAH+AP+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//8AAAAAAAAAAAAAH+AH/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//+AAAAAAAAAAAAAH+AB/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///AAAAAAAAAAAAAD/AA/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//gAAAAAAAAAAAAD/AAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//wAAAAAAAAAAAAD/AAH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/4AAAAAAAAAAAAB/gAD/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/8AAAAAAAAAAAAB/gAA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH8AAAAAAAAAAAAB/gAAf4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAAP+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf4AAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf4AAB/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH+AAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AAAH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/AAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/gAAB/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAAA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf4AAAP4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAAH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/gAAB/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/4AAA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAAf4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/AAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/gAAH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/4AAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+AAB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/gAB/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/4AA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf+AA/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/gAf4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/8A/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf//+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="}};
+const scriptCache = {};
+function script(cols) {
+  if (scriptCache[cols]) return scriptCache[cols];
+  const s = SCRIPT_BITS[cols], bin = atob(s.b), b = new BM(s.w, s.h);
+  for (let i = 0; i < s.w * s.h; i++) if (bin.charCodeAt(i >> 3) & (128 >> (i & 7))) b.d[i] = 1;
+  return (scriptCache[cols] = b);
+}
+
+/* ------------------------------------------------------------ symbols */
+const FRUIT16 = [
+  '...........gg...',
+  '.........gggg...',
+  '.......ggggg....',
+  '.......g........',
+  '.....oooooo.....',
+  '...oooooooooo...',
+  '..oooooooooooo..',
+  '.oooooooooooooo.',
+  '.oooooooooooooo.',
+  '.oooooooooooooo.',
+  '.oooooooooooooo.',
+  '.oooooooooooooo.',
+  '.oooooooooooooo.',
+  '..oooooooooooo..',
+  '...oooooooooo...',
+  '.....oooooo.....',
+];
+function cover(n, inside, ss = 4) {
+  const b = new Float32Array(n * n);
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    let c = 0;
+    for (let j = 0; j < ss; j++) for (let i = 0; i < ss; i++) if (inside(x + (i + .5) / ss, y + (j + .5) / ss)) c++;
+    b[y * n + x] = c / (ss * ss);
+  }
+  return b;
+}
+function fruit(n) {
+  if (n === 16) return BM.rows(FRUIT16, { o: 2, g: 1 });
+  const b = new BM(n, n);
+  // body: an oblate disk, wider than tall, as tangerines are
+  const cx = n / 2, ry = n * 0.375, cy = n - ry - n * 0.03, rx = n * 0.46;
+  const body = cover(n, (x, y) => ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1);
+  for (let i = 0; i < n * n; i++) if (body[i] >= .5) b.d[i] = 2;
+  // remove single-pixel nubs at the widest rows, as a pixel artist would
+  const nub = []; for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (b.get(x, y) === 2) {
+    const k = !!b.get(x - 1, y) + !!b.get(x + 1, y) + !!b.get(x, y - 1) + !!b.get(x, y + 1); if (k <= 1) nub.push([x, y]); }
+  nub.forEach(([x, y]) => b.set(x, y, 0));
+  // stem
+  const sw = Math.max(2, Math.round(n / 16)), top = Math.round(cy - ry);
+  const sx = Math.round(cx - sw / 2), sh = Math.round(n * 0.12);
+  b.rect(sx, top - sh + 1, sw, sh, 1);
+  // leaf: a lens along an axis rising to the right
+  const a = -0.62, L = n * 0.3, W = n * 0.17, px = sx + sw - 0.25, py = top - sh + 1.5;
+  const ux = Math.cos(a), uy = Math.sin(a);
+  const leaf = cover(n, (x, y) => {
+    const dx = x - px, dy = y - py, u = dx * ux + dy * uy, v = -dx * uy + dy * ux;
+    return u >= 0 && u <= L && Math.abs(v) <= (W / 2) * Math.sin(Math.PI * u / L);
+  });
+  for (let i = 0; i < n * n; i++) if (leaf[i] >= .5) b.d[i] = 1;
+  return b;
+}
+const WHEEL16 = [
+  '.....ooooo......',
+  '...ooooooooo....',
+  '..ooooo.ooooo...',
+  '.oooooo.oooooo..',
+  '.ooo.oo.oo.ooo..',
+  'ooooo.o.o.ooooo.',
+  'oooooo...oooooo.',
+  'oo...........oo.',
+  'oooooo...oooooo.',
+  'ooooo.o.o.ooooo.',
+  '.ooo.oo.oo.ooo..',
+  '.oooooo.oooooo..',
+  '..ooooo.ooooo...',
+  '...ooooooooo....',
+  '.....ooooo......',
+  '................',
+];
+/* citrus wheel; segLit = number of lit segments (rest dim) */
+function wheel(n, segLit = Infinity, seg = 10) {
+  if (n === 16) return BM.rows(WHEEL16, { o: 2 });
+  const b = new BM(n, n), c = n / 2, R = n / 2 - .25;
+  const rind = Math.max(1, n / 18), pith = Math.max(1, n / 32), mem = Math.max(1, n / 40), core = R * 0.16;
+  const off = -Math.PI / 2;
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    let cov = 0, val = 0;
+    // sample the centre with a 3x3 supersample for the outer edge
+    for (let j = 0; j < 3; j++) for (let i = 0; i < 3; i++) {
+      const dx = x + (i + .5) / 3 - c, dy = y + (j + .5) / 3 - c;
+      if (dx * dx + dy * dy <= R * R) cov++;
+    }
+    if (cov < 5) continue;
+    const dx = x + .5 - c, dy = y + .5 - c, r = Math.hypot(dx, dy);
+    if (r > R - rind) val = 2;                       // rind
+    else if (r > R - rind - pith) val = 0;           // pith ring
+    else if (r < core) val = 0;                      // core
+    else {
+      let ang = Math.atan2(dy, dx) - off; ang = (ang % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+      const k = ang / (2 * Math.PI / seg), idx = Math.floor(k), frac = k - idx;
+      const edge = Math.min(frac, 1 - frac) * (2 * Math.PI / seg) * r;
+      if (edge < mem / 2 + .35) val = 0; else val = idx < segLit ? 2 : 4;
+    }
+    b.set(x, y, val);
+  }
+  return b;
+}
+/* signal tile: graphite square, white wide T, orange stripe cut around the stem. Built on a 16 grid. */
+function signal(n, stripeTo = 16, tDrop = 0) {
+  const b16 = new BM(16, 16).rect(0, 0, 16, 16, 1);
+  const T = WIDE.g.T;
+  if (tDrop < 10) b16.blit(T, 3, 3 - tDrop, () => 3);
+  for (let x = 0; x < Math.min(16, stripeTo); x++) if (!(tDrop < 10 && x >= 6 && x <= 9)) { b16.set(x, 9, 2); b16.set(x, 10, 2); }
+  return b16.scale(n / 16);
+}
+
+/* ------------------------------------------------------------ renderer */
+const views = [];
+class View {
+  constructor(canvas, o = {}) {
+    this.c = canvas; this.ctx = canvas.getContext('2d');
+    this.o = Object.assign({ cell: 'fit', min: 1, max: 24, pal: PAL.ink, grid: null, bg: null, stretch: false, led: false }, o);
+    this.off = document.createElement('canvas'); this.octx = this.off.getContext('2d');
+    this.bm = null; views.push(this);
+  }
+  cellFor(w) {
+    const o = this.o;
+    if (typeof o.cell === 'number') return o.cell;
+    const host = this.c.parentElement, cs = getComputedStyle(host);
+    const pw = host.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    return Math.max(o.min, Math.min(o.max, Math.floor(pw / w))) || 1;
+  }
+  draw(bm) {
+    if (bm) this.bm = bm; bm = this.bm; if (!bm) return;
+    const o = this.o, dpr = Math.max(1, Math.round((window.devicePixelRatio || 1) * 2) / 2);
+    let cssW, cssH, cell;
+    if (o.stretch) {
+      const host = this.c.parentElement, cs = getComputedStyle(host);
+      cssW = Math.floor(host.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight));
+      cssH = Math.round(cssW * o.stretch[1] / o.stretch[0]); cell = cssW / bm.w;
+    } else { cell = this.cellFor(bm.w); cssW = bm.w * cell; cssH = bm.h * cell; }
+    const W = Math.round(cssW * dpr), H = Math.round(cssH * dpr);
+    if (this.c.width !== W || this.c.height !== H) { this.c.width = W; this.c.height = H; }
+    this.c.style.width = cssW + 'px'; this.c.style.height = cssH + 'px';
+    const ctx = this.ctx, pal = o.pal.map(rgba);
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, W, H);
+    if (o.bg) { const c = rgba(o.bg); ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},${c[3] / 255})`; ctx.fillRect(0, 0, W, H); }
+    if (o.led) {                                     // discrete LEDs with gaps
+      const s = W / bm.w, g = Math.max(1, Math.round(s * 0.18));
+      for (let y = 0; y < bm.h; y++) for (let x = 0; x < bm.w; x++) {
+        const c = pal[bm.d[y * bm.w + x]] || rgba(o.led);
+        ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},${c[3] / 255})`;
+        ctx.fillRect(Math.round(x * s), Math.round(y * s), Math.round((x + 1) * s) - Math.round(x * s) - g, Math.round((y + 1) * s) - Math.round(y * s) - g);
+      }
+      return;
+    }
+    if (this.off.width !== bm.w || this.off.height !== bm.h) { this.off.width = bm.w; this.off.height = bm.h; }
+    const img = this.octx.createImageData(bm.w, bm.h), px = img.data;
+    for (let i = 0; i < bm.d.length; i++) { const c = pal[bm.d[i]]; if (c) { px[i * 4] = c[0]; px[i * 4 + 1] = c[1]; px[i * 4 + 2] = c[2]; px[i * 4 + 3] = c[3]; } }
+    this.octx.putImageData(img, 0, 0);
+    ctx.imageSmoothingEnabled = false; ctx.drawImage(this.off, 0, 0, W, H);
+    if (o.grid && W / bm.w >= 5) {
+      const c = rgba(o.grid), s = W / bm.w;
+      ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},${c[3] / 255})`;
+      if (o.gridStyle === 'dots') {
+        const d = Math.max(1, Math.round(dpr));
+        for (let y = 0; y <= bm.h; y++) for (let x = 0; x <= bm.w; x++) ctx.fillRect(Math.round(x * s) - (d >> 1), Math.round(y * s) - (d >> 1), d, d);
+      } else {
+        for (let x = 0; x <= bm.w; x++) ctx.fillRect(Math.min(W - 1, Math.round(x * s)), 0, 1, H);
+        for (let y = 0; y <= bm.h; y++) ctx.fillRect(0, Math.min(H - 1, Math.round(y * s)), W, 1);
+      }
+    }
+  }
+}
+function redrawAll() { views.forEach(v => v.draw()); }
+
+/* ------------------------------------------------------------ motion */
+const motions = [];
+class Motion {
+  constructor(view, { dur, fps = 24, render, onFrame }) {
+    Object.assign(this, { view, dur, fps, render, onFrame }); this.t = -1; this.raf = 0; motions.push(this);
+    this.show(dur, true);
+  }
+  play() {
+    cancelAnimationFrame(this.raf);
+    if (STILL()) { this.show(this.dur, true); return; }
+    const start = performance.now();
+    const step = now => {
+      const t = Math.min(this.dur, (now - start) / 1000);
+      this.show(t); if (t < this.dur) this.raf = requestAnimationFrame(step);
+    };
+    this.t = -1; this.raf = requestAnimationFrame(step);
+  }
+  show(t, force) {
+    const q = t >= this.dur ? this.dur : Math.floor(t * this.fps) / this.fps;
+    if (q === this.t && !force) return; this.t = q;
+    this.view.draw(this.render(q)); if (this.onFrame) this.onFrame(q);
+  }
+}
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+function hash(a, b) { let h = (a * 374761393 + b * 668265263) | 0; h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
+
+/* ------------------------------------------------------------ marks */
+const WORD = text(WIDE, 'TANGERINE');
+const WORD_MICRO = text(MICRO, 'TANGERINE', { track: 3 });
+function lockup() {
+  const f = fruit(16), gap = 6, w = f.w + gap + WORD.w, h = 16;
+  // fruit body (rows 4..15) aligns with the cap height (10 px) of the wordmark, centred
+  const b = new BM(w, h); b.blit(f, 0, 0); b.blit(WORD, f.w + gap, 5, () => 1); return b;
+}
+
+/* ------------------------------------------------------------ build: static canvases */
+function palOf(el, dflt) { return PAL[el.dataset.pal] || dflt; }
+function viewOpts(el, extra = {}) {
+  const o = Object.assign({}, extra);
+  if (el.dataset.cell) o.cell = +el.dataset.cell;
+  if (el.dataset.max) o.max = +el.dataset.max;
+  if (el.dataset.min) o.min = +el.dataset.min;
+  return o;
+}
+document.querySelectorAll('canvas[data-text]').forEach(el => {
+  const f = FONTS[el.dataset.font] || MICRO;
+  new View(el, viewOpts(el, { pal: palOf(el, PAL.ink), cell: el.dataset.fit ? 'fit' : 2 })).draw(text(f, el.dataset.text));
+});
+document.querySelectorAll('canvas[data-mark]').forEach(el => {
+  const m = el.dataset.mark, pal = palOf(el, PAL.sym);
+  const bm = m === 'wide' ? WORD : m === 'micro' ? WORD_MICRO : lockup();
+  new View(el, viewOpts(el, { pal, cell: el.dataset.fit ? 'fit' : 2 })).draw(bm);
+});
+document.querySelectorAll('canvas[data-script]').forEach(el => {
+  new View(el, viewOpts(el, { pal: palOf(el, PAL.orange), cell: el.dataset.fit ? 'fit' : 1 })).draw(script(+el.dataset.script));
+});
+document.querySelectorAll('canvas[data-sym]').forEach(el => {
+  const n = +el.dataset.n, s = el.dataset.sym;
+  const bm = s === 'fruit' ? fruit(n) : s === 'wheel' ? wheel(n) : signal(n);
+  new View(el, viewOpts(el, { pal: palOf(el, PAL.sym), cell: 1 })).draw(bm);
+});
+document.querySelectorAll('canvas[data-hatch]').forEach(el => {
+  const b = new BM(60, 40);
+  for (let y = 0; y < 40; y++) for (let x = 0; x < 60; x++) if ((x + y) % 6 === 0) b.set(x, y, 1);
+  b.rect(0, 0, 60, 1, 1).rect(0, 39, 60, 1, 1).rect(0, 0, 1, 40, 1).rect(59, 0, 1, 40, 1);
+  new View(el, { pal: [null, '--b-grey'], cell: 2 }).draw(b);
+});
+document.querySelectorAll('canvas[data-stripe]').forEach(el => {
+  new View(el, { pal: PAL.sym, cell: 2 }).draw(new BM(40, 2).rect(0, 0, 40, 2, 2));
+});
+
+/* construction plate */
+(() => {
+  const word = 'GAN', L = layoutLine(WIDE, word, WIDE.track), ox = 3, oy = 1;
+  const b = new BM(L.w + ox + 1, WIDE.h + oy + 3);
+  L.glyphs.forEach(g => {
+    b.blit(g.gl, ox + g.x, oy, () => 1);
+    // chamfer marks: an empty corner whose two neighbours are inked
+    const G = g.gl, cs = [[0, 0, 1, 1], [G.w - 1, 0, -1, 1], [0, G.h - 1, 1, -1], [G.w - 1, G.h - 1, -1, -1]];
+    cs.forEach(([x, y, dx, dy]) => { if (!G.get(x, y) && G.get(x + dx, y) && G.get(x, y + dy)) b.set(ox + g.x + x, oy + y, 4); });
+  });
+  [0, 1, 4, 5, 8, 9].forEach(r => b.set(0, oy + r, 2));                     // bar ticks
+  [0, 1].forEach(c => b.set(ox + c, oy + WIDE.h + 1, 2));                     // stem ticks under G
+  const A = L.glyphs[1]; [A.gl.w - 2, A.gl.w - 1].forEach(c => b.set(ox + A.x + c, oy + WIDE.h + 1, 2));
+  new View(document.getElementById('construct'), { pal: PAL.ink, cell: 'fit', max: 14, grid: '--grid' }).draw(b);
+})();
+
+/* actual-size ladder */
+(() => {
+  const host = document.getElementById('ladder');
+  const rows = [
+    ['Wide', 1, WORD, PAL.ink], ['Wide', 2, WORD, PAL.ink], ['Wide', 3, WORD, PAL.ink], ['Wide', 4, WORD, PAL.ink],
+    ['Restrained', 1, WORD_MICRO, PAL.ink], ['Restrained', 2, WORD_MICRO, PAL.ink],
+    ['Script 96', 1, script(96), [null, '--accent']], ['Script 96', 2, script(96), [null, '--accent']],
+  ];
+  rows.forEach(([name, k, bm, pal]) => {
+    const r = document.createElement('div'); r.className = 'rung';
+    r.innerHTML = `<div class="label">${name}<br><b>${k}× · ${bm.w * k} × ${bm.h * k}</b></div><div class="scroll"><canvas aria-hidden="true"></canvas></div>`;
+    host.appendChild(r); new View(r.querySelector('canvas'), { pal, cell: k }).draw(bm);
+  });
+})();
+
+/* glyph tables: letters, then figures, then punctuation */
+const rank = k => /[A-Z]/.test(k) ? 0 : /[0-9]/.test(k) ? 1 : 2;
+function glyphTable(id, f, cell) {
+  const host = document.getElementById(id);
+  const order = Object.keys(f.g).sort((a, b) => rank(a) - rank(b) || (a < b ? -1 : 1));
+  order.forEach(k => {
+    const d = document.createElement('div'); d.className = 'glyph';
+    const label = k === ' ' ? 'space' : k;
+    d.innerHTML = `<canvas aria-hidden="true"></canvas><span>${label} · ${f.g[k].w}</span>`;
+    host.appendChild(d);
+    const bm = new BM(f.g[k].w, f.h).blit(f.g[k], 0, 0);
+    new View(d.querySelector('canvas'), { pal: PAL.ink, cell, grid: '--grid' }).draw(bm);
+  });
+}
+glyphTable('glyphs-wide', WIDE, 4);
+glyphTable('glyphs-micro', MICRO, 5);
+
+/* tester */
+const T = {
+  text: document.getElementById('t-text'), font: document.getElementById('t-font'), size: document.getElementById('t-size'),
+  out: document.getElementById('t-size-out'), pal: document.getElementById('t-pal'), stage: document.getElementById('t-stage'),
+  status: document.getElementById('t-status'), svg: document.getElementById('svgout'),
+};
+const TPAL = {
+  gw: ['--b-white', '--b-graphite'], ow: ['--b-white', '--b-orange'], wg: ['--b-graphite', '--b-white'],
+  og: ['--b-graphite', '--b-orange'], go: ['--b-orange', '--b-graphite'],
+};
+const tView = new View(document.getElementById('t-canvas'), { pal: [null, '--b-graphite'], cell: 4, bg: '--b-white' });
+let tBM = null;
+function renderTester() {
+  const f = FONTS[T.font.value], k = +T.size.value, p = TPAL[T.pal.value];
+  T.out.textContent = k + '×';
+  tBM = text(f, T.text.value || ' ').pad(f === WIDE ? 4 : 3);
+  tView.o.cell = k; tView.o.bg = p[0]; tView.o.pal = [null, p[1]];
+  tView.draw(tBM);
+}
+['input', 'change'].forEach(e => [T.text, T.font, T.size, T.pal].forEach(el => el.addEventListener(e, renderTester)));
+renderTester();
+function toSVG(bm, k, bgVar, fgVar) {
+  const hex = v => { const c = rgba(v); return '#' + c.slice(0, 3).map(n => n.toString(16).padStart(2, '0')).join(''); };
+  let rects = '';
+  for (let y = 0; y < bm.h; y++) {
+    let x = 0;
+    while (x < bm.w) {
+      if (bm.d[y * bm.w + x]) { const s = x; while (x < bm.w && bm.d[y * bm.w + x]) x++; rects += `<rect x="${s}" y="${y}" width="${x - s}" height="1"/>`; }
+      else x++;
+    }
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${bm.w} ${bm.h}" width="${bm.w * k}" height="${bm.h * k}" shape-rendering="crispEdges">` +
+    `<rect width="${bm.w}" height="${bm.h}" fill="${hex(bgVar)}"/><g fill="${hex(fgVar)}">${rects}</g></svg>`;
+}
+document.getElementById('t-copy').addEventListener('click', () => {
+  const p = TPAL[T.pal.value], svg = toSVG(tBM, +T.size.value, p[0], p[1]);
+  const fallback = () => { T.svg.hidden = false; T.svg.value = svg; T.svg.focus(); T.svg.select(); T.status.textContent = 'Clipboard unavailable. The SVG is selected below; copy it with your keyboard.'; };
+  try {
+    navigator.clipboard.writeText(svg).then(() => { T.svg.hidden = true; T.status.textContent = `SVG copied · ${tBM.w} × ${tBM.h} px grid at ${T.size.value}×`; }, fallback);
+  } catch (e) { fallback(); }
+});
+
+/* symbols plate */
+(() => {
+  const host = document.getElementById('symbols');
+  const defs = [
+    ['Fruit', 'The earlier tangerine symbol, redrawn as pixels. An oblate orange body and a graphite stem and leaf.', fruit],
+    ['Citrus wheel', 'A cross-section: ten segments, a pith ring and the rind (eight segments at 16 px). It doubles as a progress indicator (Plate 5).', wheel],
+    ['Signal T', 'The wide T on a graphite tile, crossed by one orange stripe that breaks around the stem.', signal],
+  ];
+  defs.forEach(([name, note, fn]) => {
+    const r = document.createElement('div'); r.className = 'sym-row';
+    r.innerHTML = `<div style="display:grid;gap:6px"><span class="label"><b>${name}</b></span><p class="note">${note}</p></div>
+      <div class="sym-sizes">
+        ${[16, 32, 64].map(n => `<figure><div class="sym-cell on-white"><canvas data-n="${n}" aria-hidden="true"></canvas></div><figcaption>${n} px · 1×</figcaption></figure>`).join('')}
+        <figure><div class="sym-cell on-graphite"><canvas data-n="32" data-dark="1" aria-hidden="true"></canvas></div><figcaption>32 px · on graphite</figcaption></figure>
+        <figure><div class="sym-cell theme"><canvas data-big="1" aria-hidden="true"></canvas></div><figcaption>16 px · 8× with grid</figcaption></figure>
+      </div>`;
+    host.appendChild(r);
+    r.querySelectorAll('canvas[data-n]').forEach(c => {
+      const n = parseInt(c.dataset.n, 10);
+      new View(c, { pal: c.dataset.dark ? PAL.symdark : PAL.sym, cell: 1 }).draw(fn(n));
+    });
+    new View(r.querySelector('canvas[data-big]'), { pal: PAL.sym, cell: 8, grid: '--grid' }).draw(fn(16));
+  });
+  // live favicon: the 32 px fruit
+  try {
+    const c = document.createElement('canvas'); c.width = c.height = 32; const v = new View(c, { pal: PAL.sym, cell: 1 });
+    v.draw(fruit(32));
+    document.getElementById('favicon').href = c.toDataURL('image/png');
+  } catch (e) { /* favicon is optional */ }
+})();
+
+/* LED display */
+(() => {
+  const b = new BM(64, 18);
+  const l1 = text(MICRO, 'TANGERINE', { track: 1 }), l2 = text(MICRO, 'STUDY 001', { track: 1 });
+  b.blit(l1, Math.floor((64 - l1.w) / 2), 1, () => 2);
+  b.blit(l2, Math.floor((64 - l2.w) / 2), 10, () => 2);
+  new View(document.getElementById('led'), { pal: [null, null, '--b-orange'], cell: 'fit', max: 7, min: 3, led: '--b-led' }).draw(b);
+})();
+
+/* ------------------------------------------------------------ motion pieces */
+// Hero: PLOT. A two-pixel orange head sweeps the grid and leaves the wordmark behind it, then the signal stripe.
+const hero = (() => {
+  const m = 4, cap = 10, w = WORD.w + m * 2, h = m + cap + 3 + 2 + m;
+  const view = new View(document.getElementById('hero'), { pal: PAL.ink, cell: 'fit', max: 12, grid: '--grid', gridStyle: 'dots' });
+  const dur = 2.2, t0 = .25, t1 = 1.65;
+  return new Motion(view, { dur, fps: 30, render: t => {
+    const b = new BM(w, h), p = clamp((t - t0) / (t1 - t0)), hx = Math.floor(p * (WORD.w + 3)) - 1;
+    for (let y = 0; y < cap; y++) for (let x = 0; x < Math.min(WORD.w, hx); x++) if (WORD.get(x, y)) b.set(m + x, m + y, 1);
+    const sy = m + cap + 3;
+    if (t >= t1) {
+      const q = clamp((t - t1) / (dur - t1 - .15)), sw = Math.round(ease(q) * WORD.w);
+      b.rect(m, sy, sw, 2, 2);
+    } else if (t >= t0) {
+      b.rect(m + hx, m - 1, 2, cap + 2, 2);                // the head
+      b.rect(m + hx, sy, 2, 2, 2);
+    }
+    return b;
+  }});
+})();
+
+const motionDefs = [];
+function motionTile({ name, spec, ground, build, wide }) {
+  const host = document.getElementById('motions');
+  const fig = document.createElement('figure'); fig.className = 'motion';
+  fig.innerHTML = `<div class="stage ${ground}"><span class="readout"></span><div class="${wide ? 'wide-stage' : ''}" style="display:grid;place-items:center"><canvas role="img" aria-label="${name} motion study"></canvas></div></div>
+    <div class="bar"><div><strong>${name}</strong><span>${spec}</span></div><button type="button">Replay</button></div>`;
+  host.appendChild(fig);
+  const mo = build(fig.querySelector('canvas'), fig.querySelector('.readout'));
+  fig.querySelector('button').addEventListener('click', () => mo.play());
+  motionDefs.push({ fig, mo });
+  return mo;
+}
+
+// 1 RESOLVE: the script at 24, 48, 96, 160, 320 columns, hard cuts.
+motionTile({ name: 'Resolve', spec: 'Script, 24 → 320 columns · 5 hard cuts · 2.4 s', ground: 'on-white', wide: true,
+  build: (c, ro) => {
+    const st = [24, 48, 96, 160, 320], hold = .42, full = script(320);
+    const view = new View(c, { pal: PAL.orange, stretch: [full.w, full.h] });
+    return new Motion(view, { dur: st.length * hold + .3, fps: 24,
+      render: t => script(st[Math.min(st.length - 1, Math.floor(t / hold))]),
+      onFrame: t => { const s = script(st[Math.min(st.length - 1, Math.floor(t / hold))]); ro.textContent = `${s.w} × ${s.h}`; } });
+  } });
+
+// 2 REASSEMBLE: the wide cut's pixels travel and rebuild as the script, sorted left to right.
+motionTile({ name: 'Reassemble', spec: 'Wide cut ↔ script · every pixel travels · 2.2 s · replay reverses', ground: 'on-white', wide: true,
+  build: (c, ro) => {
+    const A = WORD.scale(2), B = script(160), W = 220, H = 70;
+    const pa = A.pts().map(([x, y]) => [x + ((W - A.w) >> 1), y + ((H - A.h) >> 1)]);
+    const pb = B.pts().map(([x, y]) => [x + ((W - B.w) >> 1), y + ((H - B.h) >> 1)]);
+    const key = p => p[0] * 1000 + p[1]; pa.sort((a, b) => key(a) - key(b)); pb.sort((a, b) => key(a) - key(b));
+    const N = Math.max(pa.length, pb.length);
+    const P = []; for (let k = 0; k < N; k++) P.push([pa[Math.floor(k * pa.length / N)], pb[Math.floor(k * pb.length / N)], k / N]);
+    let dir = 1; const dur = 2.4;
+    const view = new View(c, { pal: PAL.sym, cell: 'fit', max: 4 });
+    const mo = new Motion(view, { dur, fps: 30, render: t => {
+      const b = new BM(W, H), p = t / dur;
+      for (const [s, d, o] of P) {
+        const [from, to, cf, ct] = dir > 0 ? [s, d, 1, 2] : [d, s, 2, 1];
+        const u = clamp((p - o * 0.5) / 0.42);
+        const e = ease(u), x = Math.round(from[0] + (to[0] - from[0]) * e), y = Math.round(from[1] + (to[1] - from[1]) * e);
+        b.set(x, y, u <= 0 ? cf : u >= 1 ? ct : 2);
+      }
+      return b;
+    }, onFrame: () => { ro.textContent = dir > 0 ? `${pa.length} px → ${pb.length} px` : `${pb.length} px → ${pa.length} px`; } });
+    const play = mo.play.bind(mo); let first = true;
+    mo.play = () => { if (!first) dir = -dir; first = false; play(); };
+    return mo;
+  } });
+
+// 3 DITHER: the 64 px fruit arrives through a 4×4 ordered-dither threshold.
+motionTile({ name: 'Dither', spec: 'Fruit 64 px · 4 × 4 Bayer threshold · 17 levels · 1.1 s', ground: 'on-white',
+  build: (c, ro) => {
+    const F = fruit(64), BY = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
+    const view = new View(c, { pal: PAL.sym, cell: 'fit', max: 4 });
+    const dur = 1.25;
+    return new Motion(view, { dur, fps: 16, render: t => {
+      const lv = Math.min(16, Math.floor(t / 1.05 * 16) + (t >= dur ? 16 : 0)), b = new BM(64, 64);
+      for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) { const v = F.get(x, y); if (v && BY[y & 3][x & 3] < lv) b.set(x, y, v); }
+      return b;
+    }, onFrame: t => { ro.textContent = `level ${String(Math.min(16, Math.floor(t / 1.05 * 16))).padStart(2, '0')} / 16`; } });
+  } });
+
+// 4 SETTLE: split-flap characters cycle, settle left to right, then close up into proportional spacing.
+motionTile({ name: 'Settle', spec: 'Wide cut · split-flap cycle, then kern · 20 fps · 2.0 s', ground: 'on-graphite', wide: true,
+  build: (c, ro) => {
+    const word = 'TANGERINE', slot = 12, gap = 2, L = layoutLine(WIDE, word, WIDE.track);
+    const keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+    const W = word.length * (slot + gap) - gap + 4, H = 14, prop0 = Math.floor((W - L.w) / 2);
+    const view = new View(c, { pal: PAL.white, cell: 'fit', max: 6 });
+    const dur = 2.0, k0 = 1.45, k1 = 1.8;
+    return new Motion(view, { dur, fps: 20, render: t => {
+      const b = new BM(W, H), f = Math.floor(t * 20), kp = ease(clamp((t - k0) / (k1 - k0)));
+      [...word].forEach((ch, i) => {
+        const settled = t >= .25 + i * .12;
+        const gl = settled ? WIDE.g[ch] : WIDE.g[keys[Math.floor(hash(i, f >> 1) * keys.length)]];
+        const mono = 2 + i * (slot + gap) + Math.floor((slot - gl.w) / 2);
+        const x = settled ? Math.round(mono + (prop0 + L.glyphs[i].x - mono) * kp) : mono;
+        b.blit(gl, x, 2, () => settled ? 1 : 2);
+      });
+      return b;
+    }, onFrame: t => { ro.textContent = t < k0 ? 'monospaced slots' : 'proportional'; } });
+  } });
+
+// 5 LOAD: the citrus wheel as a progress indicator, one segment per step.
+motionTile({ name: 'Load', spec: 'Citrus wheel 64 px · 10 segments = 10 % each · 2.6 s', ground: 'on-white',
+  build: (c, ro) => {
+    const curve = [[0, 0], [.35, .2], [.8, .3], [1.3, .7], [1.9, .9], [2.3, 1]];
+    const prog = t => { for (let i = 1; i < curve.length; i++) if (t <= curve[i][0]) { const [a, pa] = curve[i - 1], [b, pb] = curve[i]; return pa + (pb - pa) * (t - a) / (b - a); } return 1; };
+    const view = new View(c, { pal: PAL.sym, cell: 'fit', max: 4 });
+    return new Motion(view, { dur: 2.6, fps: 12, render: t => {
+      const p = prog(t), lit = Math.floor(p * 10 + 1e-6), b = new BM(64, 76);
+      b.blit(wheel(64, lit), 0, 0);
+      const s = text(MICRO, String(lit * 10).padStart(3, '0') + '%'); b.blit(s, (64 - s.w) >> 1, 69, () => 1);
+      return b;
+    }, onFrame: t => { ro.textContent = `${Math.floor(prog(t) * 10 + 1e-6)} / 10`; } });
+  } });
+
+// 6 SIGNAL: the stripe crosses the tile, then the T drops in three steps and the stripe breaks around it.
+motionTile({ name: 'Signal', spec: 'Signal T 16 px at 4× · stripe, then stamp · 0.9 s', ground: 'on-white',
+  build: (c, ro) => {
+    const view = new View(c, { pal: PAL.sym, cell: 'fit', max: 4 });
+    return new Motion(view, { dur: 0.95, fps: 24, render: t => {
+      const stripe = Math.round(clamp((t - .05) / .35) * 16);
+      const drop = t < .5 ? 10 : t < .58 ? 6 : t < .66 ? 3 : 0;
+      return signal(16, stripe, drop).scale(4);
+    }, onFrame: t => { ro.textContent = t < .45 ? 'stripe' : 'stamp'; } });
+  } });
+
+/* play once on first sight */
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { const d = motionDefs.find(m => m.fig === e.target); if (d) d.mo.play(); io.unobserve(e.target); }
+}), { threshold: .55 }) : null;
+if (io) motionDefs.forEach(d => io.observe(d.fig));
+
+document.getElementById('replay-hero').addEventListener('click', () => hero.play());
+document.getElementById('play-all').addEventListener('click', () => { hero.play(); motionDefs.forEach(d => d.mo.play()); });
+hero.play();
+
+/* keep everything crisp on resize and theme change */
+let rz = 0;
+addEventListener('resize', () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(redrawAll); });
+const rethemed = () => { ccache.clear(); redrawAll(); };
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', rethemed);
+new MutationObserver(rethemed).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+reduceMQ.addEventListener('change', () => motions.forEach(m => m.show(m.dur, true)));
+})();
+</script>
+</body>
+</html>
